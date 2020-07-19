@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".creditos"
+    android:background="#24acc2">
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="650dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="8dp"
+        android:text="HETICA: Una HErramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger\n\nEste proyecto ha sido desarrollado bajo el V Plan Propio Galileo de Innovación y Transferencia de la Universidad de Córdoba, Modalidad IV, proyectos UCO-SOCIAL-INNOVA.\n\nCoordinador principal:\nJuan Carlos Fernández Caballero, jfcaballero@uco.es. Universidad de Córdoba.\n\nEquipo de investigación:
+
+\nCésar Hervás Martínez, chervas@uco.es. Universidad de Córdoba.
+\nPedro Antonio Gutiérrez Peña, pagutierrez@uco.es. Universidad de Córdoba.
+\n\nEquipo de trabajo:
+
+\nMiguel Ángel Borreguero Aparicio, i52boapm@uco.es. Universidad de Córdoba. Desarrollador principal.
+
+\nMaría Muñoz Reyes, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).
+
+\nCarmen Moscoso Galisteo, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).
+
+\nJulio Camacho Cañamón, julio.camacho@uco.es. Universidad de Córdoba.
+\nAntonio Manuel Gómez Orellana, am.gomez@uco.es. Universidad de Córdoba.
+
+\nDavid Guijo Rubio, dguijo@uco.es. Universidad de Córdoba."
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
+        android:text="CRÉDITOS DE LA APLICACIÓN"
+        android:textColor="#ffffff"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="113dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="36dp"
+        android:src="@mipmap/caixa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView23" />
+
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="74dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="24dp"
+        android:src="@mipmap/plangalileo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

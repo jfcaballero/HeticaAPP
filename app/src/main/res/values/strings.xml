@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">HETICA</string>
+    <string name="String_Estudio1">Organizar el estudio</string>
+    <string name="String_Estudio2">Organizar las tareas</string>
+    <string name="String_Mochila">Organizar la mochila</string>
+    <string name="String_opciones">Opciones</string>
+    <string name="String_estadisticas">Estadisticas</string>
+    <string name="String_store">Store</string>
+
+    <string name="String_despejaMesa">DESPEJA LA MESA DE ESTUDIO Y PON LA LUZ ADECUADA</string>
+    <string name="String_tareasAgenda">REVISA LAS TAREAS EN LA AGENDA</string>
+    <string name="String_enunciadoSubraya">LEE EL ENUNCIADO Y DIFERENCIA \nLO QUE TE PIDEN ¡SUBRAYA!</string>
+    <string name="String_apartadoResponde">TEN EN CUENTA CUÁNTOS \nAPARTADOS TIENE LA PREGUNTA. \n¡RESPONDE TODOS!</string>
+    <string name="String_dudasDiccionario">PREGUNTA LO QUE TENGAS DUDAS Y BUSCA EN EL DICCIONARIO. ¡TIENES QUE COMPRENDER LO QUE ESTÁS LEYENDO!</string>
+    <string name="String_revisaPregunta">REVISA CADA EJERCICIO. ¡LO QUE HAS ESCRITO TIENE QUE RESPONDER A LA PREGUNTA!</string>
+    <string name="String_organizaTarde">ORGANIZAR LA TARDE DE ESTUDIO</string>
+    <string name="String_organizaTareas">CONSEJOS DE ESTUDIO</string>
+
+    <string name="String_organizaMochila">ORGANIZAR LA MOCHILA</string>
+    <string name="String_tocanManana">COMPRUEBA QUE ASIGNATURAS \nTOCAN MAÑANA</string>
+    <string name="String_diaSiguiente">COMPRUEBA QUE GUARDAS SÓLO LOS LIBROS Y CUADERNOS DEL DÍA SIGUIENTE</string>
+    <string name="String_librosEscritorio">LOS LIBROS Y CUADERNOS QUE NO TOQUEN MAÑANA, DÉJALOS EN EL ESCRITORIO</string>
+    <string name="String_estucheAgenda">COMPRUEBA QUE GUARDAS \nEL ESTUCHE Y LA AGENDA</string>
+
+    <string name="String_temporizadorSimple">Mostrar temporizador al inicio</string>
+
+    <string name="String_tiempoEstudio">¿Cuánto tiempo vas a trabajar?</string>
+
+    <string name="String_facilDificilGustar">Empezar por una asignatura que te resulte facil, continuar por lo más complejo y dejar para el final lo que más te guste. </string>
+
+    <string name="String_volver">Volver</string>
+    <string name="String_hecho">Siguiente</string>
+    <string name="String_numero">Numero</string>
+    <string name="title_activity_timer">TimerActivity</string>
+    <string name="title_activity_settings">Opciones</string>
+    <string name="String_guardar">GUARDAR</string>
+    <string name="String_tiempo_trabajo">Tiempo de trabajo fijo</string>
+    <string name="String_asignatura">Gestionar las asignaturas</string>
+    <string name="String_alarmas">Gestionar las alarmas</string>
+    <string name="String_asignatura_elegir">Asignaturas</string>
+    <string name="String_agregar">Agregar</string>
+    <string name="String_escribir_asignatura">Escribe asignatura</string>
+    <string name="String_guardar_asignatura">Cuando termine de escribir todas las \nasignaturas deele a "Guardar</string>
+    <string name="String_asignatura_facil">¿Cuál es la asignatura más fácil?</string>
+    <string name="String_asignatura_dificil">¿Cuál es la asignatura más dificil?</string>
+    <string name="String_asignatura_gustar">¿Cuál es la asignatura que más te gusta?</string>
+    <string name="String_asignatura_unica">¿Cuál es la asignatura que tienes hoy?</string>
+    <string name="String_asignatura_siguiente">¿Cuál es la siguiente asignatura?</string>
+    <string name="String_30_minutos">30 minutos</string>
+    <string name="String_click_asignatura">Clica una asignatura</string>
+    <string name="String_cuantas_asignaturas">¿Cuántas asignaturas vas a estudiar hoy?</string>
+    <string name="String_hacer_esquemas">Recuerda hacer esquemas que ayuden a comprender y memorizar la lección. </string>
+    <string name="String_comenzar">Comenzar</string>
+    <string name="String_limita_examen">Limita lo que entra en el examen. ¡Apunta los diferentes apartados!</string>
+    <string name="String_temporizador">Temporizador</string>
+    <string name="String_fin">Finalizar</string>
+
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+</resources>
