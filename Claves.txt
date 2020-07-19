@@ -1,0 +1,5 @@
+Contraseñas y alias de la clave de cargas y almacen 
+---------------------------------------------------
+Contraseña del almacen de claves: 6pokemon
+Alias de la clave: hetica
+Contraseña de la clave: 6pokemon
