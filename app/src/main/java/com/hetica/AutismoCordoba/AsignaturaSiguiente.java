@@ -133,6 +133,32 @@ public class AsignaturaSiguiente extends AppCompatActivity {
             }
         }, 2000);
     }
+
+
+   /* override fun onBackPressed() {
+        onBackPressedDispatcher.onBackPressed();
+        // Do Your Work Here
+        if (doubleBackToExitPressedOnce) {
+            siguiente = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(siguiente);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }*/
+
+
+
+
     /**
      * Función que mide el valor del seekbar
      */

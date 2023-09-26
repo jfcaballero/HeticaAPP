@@ -46,8 +46,9 @@
         android:colorControlActivated="#FFFFFF"
         android:progressTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"
+        app:layout_constraintEnd_toStartOf="@+id/listViewDificil"
         app:layout_constraintStart_toStartOf="parent" />
+        <!--    app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"-->
 
     <TextView
         android:id="@+id/textView45"
@@ -59,8 +60,9 @@
         android:text="@string/String_30_minutos"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"
+        app:layout_constraintEnd_toStartOf="@+id/listViewDificil"
         app:layout_constraintStart_toStartOf="parent" />
+        <!--        app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"-->
 
     <TextView
         android:id="@+id/textView47"
@@ -86,6 +88,7 @@
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewSiguiente" />
+        app:layout_constraintTop_toBottomOf="@+id/listViewDificil" />
+        <!--        app:layout_constraintTop_toBottomOf="@+id/listViewSiguiente"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

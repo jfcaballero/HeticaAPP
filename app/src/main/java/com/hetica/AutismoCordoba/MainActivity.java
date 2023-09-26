@@ -7,11 +7,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
+import android.graphics.Insets;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowMetrics;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,11 +79,21 @@ public class MainActivity extends AppCompatActivity {
 
         leerTemp();
 
+        // Nuevo código para obtener height and widht
+        WindowMetrics windowMetrics = getWindowManager().getCurrentWindowMetrics();
+        Insets insets = windowMetrics.getWindowInsets()
+                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars());
+        int height = windowMetrics.getBounds().height() - insets.bottom - insets.top;
+        int weight = windowMetrics.getBounds().width() - insets.right - insets.left;
+
+        /*
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int height = size.y;
         int weight = size.x;
+        */
+
 
         if (height<721)
         {
