@@ -1,0 +1,178 @@
+package com.hetica.AutismoCordoba
+
+import android.app.DatePickerDialog
+import android.content.res.Configuration
+import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import java.util.Calendar
+
+/**
+ * The type Estadisticas dias.
+ */
+class estadisticasDias : AppCompatActivity() {
+    /**
+     * The Db.
+     */
+    var db: AdminSQLiteOpenHelperStats? = null
+
+    /**
+     * The Array list.
+     */
+    var arrayList: ArrayList<String>? = null
+
+    /**
+     * The Adapter.
+     */
+    var adapter: ArrayAdapter<String>? = null
+
+    /**
+     * The Lv.
+     */
+    var lv: ListView? = null
+
+    /**
+     * The Year final.
+     */
+    var yearFinal: String? = null
+
+    /**
+     * The Month final.
+     */
+    var monthFinal: String? = null
+
+    /**
+     * The Day final.
+     */
+    var dayFinal: String? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_estadisticas_dias)
+        val editText = findViewById<View>(R.id.editText2) as EditText
+        db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+        lv = findViewById<View>(R.id.listViewDias) as ListView
+        arrayList = ArrayList()
+        if (resources.configuration.screenLayout and
+                Configuration.SCREENLAYOUT_SIZE_MASK ==
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            object : ArrayAdapter<String>(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    /// Get the Item from ListView
+                    val view = super.getView(position, convertView, parent)
+                    val tv = view.findViewById<View>(android.R.id.text1) as TextView
+
+                    // Set the text size 25 dip for ListView each item
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
+
+                    // Return the view
+                    return view
+                }
+            }
+        } else {
+            adapter = ArrayAdapter(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!)
+        }
+        lv!!.adapter = adapter
+        val mcurrentDate = Calendar.getInstance()
+        val yearAux = mcurrentDate[Calendar.YEAR]
+        var monthAux = mcurrentDate[Calendar.MONTH]
+        val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
+        monthAux = monthAux + 1
+        //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);
+        yearFinal = if (monthAux < 10) {
+            "0" + Integer.toString(monthAux)
+        } else {
+            Integer.toString(monthAux)
+        }
+        if (dayAux < 10) {
+            yearFinal = yearFinal + "0"
+        }
+        yearFinal = yearFinal + Integer.toString(dayAux) + Integer.toString(yearAux)
+        editText.setText("$dayAux/$monthAux/$yearAux")
+        viewData()
+        editText.setOnClickListener { // TODO Auto-generated method stub
+            //To show current date in the datepicker
+            val mcurrentDate = Calendar.getInstance()
+            val year = mcurrentDate[Calendar.YEAR]
+            val month = mcurrentDate[Calendar.MONTH]
+            val day = mcurrentDate[Calendar.DAY_OF_MONTH]
+            //month=month +1;
+            //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
+            yearFinal = if (month < 10) {
+                "0" + Integer.toString(month)
+            } else {
+                Integer.toString(month)
+            }
+            if (day < 10) {
+                yearFinal = yearFinal + "0"
+            }
+            yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
+            val mDatePicker = DatePickerDialog(this@estadisticasDias, { datepicker, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
+                /*      Your code   to get date and time    */
+                var selectedMonth = selectedMonth
+                Log.e("Date Selected", "Month: $selectedMonth Day: $selectedDay Year: $selectedYear")
+                selectedMonth = selectedMonth + 1
+                editText.setText("$selectedDay/$selectedMonth/$selectedYear")
+                yearFinal = if (selectedMonth < 10) {
+                    "0" + Integer.toString(selectedMonth)
+                } else {
+                    Integer.toString(selectedMonth)
+                }
+                if (selectedDay < 10) {
+                    yearFinal = yearFinal + "0"
+                }
+                yearFinal = yearFinal + Integer.toString(selectedDay) + Integer.toString(selectedYear)
+                viewData()
+            }, year, month, day)
+            mDatePicker.setTitle("Select date")
+            mDatePicker.show()
+        }
+    }
+
+    /**
+     * Función que devuelve las estadísticas de una fecha en concreto
+     *
+     */
+    private fun viewData() {
+        Log.e("Date Selected", yearFinal!!)
+        val cursor = db!!.viewDataDias(yearFinal)
+        if (cursor!!.count == 0) {
+            Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
+            adapter!!.clear()
+            adapter!!.notifyDataSetChanged()
+        } else {
+            adapter!!.clear()
+            adapter!!.notifyDataSetChanged()
+            while (cursor.moveToNext()) {
+                arrayList!!.add(cursor.getString(1) + "          " + cursor.getString(3) + " minutos")
+            }
+            if (resources.configuration.screenLayout and
+                    Configuration.SCREENLAYOUT_SIZE_MASK ==
+                    Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+                object : ArrayAdapter<String>(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!) {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                        /// Get the Item from ListView
+                        val view = super.getView(position, convertView, parent)
+                        val tv = view.findViewById<View>(android.R.id.text1) as TextView
+
+                        // Set the text size 25 dip for ListView each item
+                        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
+
+                        // Return the view
+                        return view
+                    }
+                }
+            } else {
+                adapter = ArrayAdapter(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!)
+            }
+            lv!!.adapter = adapter
+        }
+    }
+}
