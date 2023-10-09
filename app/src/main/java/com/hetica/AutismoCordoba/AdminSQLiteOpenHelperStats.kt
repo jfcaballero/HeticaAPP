@@ -79,6 +79,28 @@ class AdminSQLiteOpenHelperStats
         val cantidad = db.update(DB_TABLE, contentValues, "NAME= '$name';", null)
         return cantidad != -1
     }
+    /**
+     * Modificar nombre de asignatura.
+     *
+     * @param name NombreAntiguo de la asignatura a modificar en las estadísticas
+     * @param name NombreNuevo de la asignatura a modificar en las estadísticas
+     * @return boolean
+     */
+    fun ModificarNombreAsignatura(nombreAntiguo: String?, nombreNuevo: String): Boolean {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(NAME, nombreNuevo)
+
+        // Utiliza la cláusula WHERE para identificar la asignatura que deseas actualizar
+        val whereClause = "$NAME = ?"
+        val whereArgs = arrayOf(nombreAntiguo)
+
+        val cantidad = db.update(DB_TABLE, contentValues, whereClause, whereArgs)
+        db.close()
+
+        return cantidad != -1
+    }
+
 
     /**
      * View data dias cursor.

@@ -20,6 +20,7 @@ class AdminSQLiteOpenHelperAsig
  * @param version the version
  */
 (context: Context?, name: String?, factory: CursorFactory?, version: Int) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
+
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE)
     }
@@ -56,7 +57,7 @@ class AdminSQLiteOpenHelperAsig
     }
 
     /**
-     * Función para agregar una asignatura a la base de datos
+     * Función para eliminar una asignatura a la base de datos
      *
      * @param name Nombre de la asignatura a eliminar
      * @return boolean
@@ -80,6 +81,7 @@ class AdminSQLiteOpenHelperAsig
         val registro = ContentValues()
         registro.put(NAME, name)
         val cantidad = db.update(DB_TABLE, registro, "NAME= '$nameID';", null)
+
         return cantidad != -1
     }
 
