@@ -26,10 +26,12 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="6dp"
+        android:background="#DFECEA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAdd" />
+
 
     <EditText
         android:id="@+id/editTextAsig"
@@ -41,6 +43,8 @@
         android:ems="10"
         android:hint="@string/String_escribir_asignatura"
         android:inputType="textPersonName"
+        android:textColor="#070707"
+        android:textColorHint="#6A6464"
         android:textSize="18dp"
         app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
         app:layout_constraintHorizontal_bias="0.0"
