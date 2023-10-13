@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -113,6 +114,39 @@ class AdminSQLiteOpenHelperStats
         val query = "Select * from " + DB_TABLE + " where DATE='" + date + "'"
         return db.rawQuery(query, null)
     }
+
+    /**
+     * Función para calcular el promedio de tiempo para una asignatura específica
+     *
+     * @param name Nombre de la asignatura para la que deseas calcular el promedio de tiempo
+     * @return Double
+     */
+    @SuppressLint("Range")
+    fun calcularPromedioAsignatura(name: String): Double {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $DB_TABLE WHERE $NAME = '$name'"
+        val cursor = db.rawQuery(query, null)
+        var totalTiempo = 0
+        var contador = 0
+
+        if (cursor.moveToFirst()) {
+            do {
+                val tiempo = cursor.getInt(cursor.getColumnIndex(TIME))
+                totalTiempo += tiempo
+                contador++
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+
+        return if (contador > 0) {
+            (totalTiempo.toDouble() / contador)
+        } else {
+            0.0
+        }
+    }
+
 
     companion object {
         private const val DB_NAME = "Stats.db"

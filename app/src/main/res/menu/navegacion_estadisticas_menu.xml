@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_estadisticas"
+        android:icon="@drawable/baseline_query_stats_24"
+        android:title="Estadísticas" />
+    <item
+        android:id="@+id/action_tiempo_dedicado"
+        android:title="Tiempo total"
+        android:icon="@drawable/tiempototal" />
+
+    <item
+        android:id="@+id/action_calificaciones"
+        android:title="Calificaciones"
+        android:icon="@drawable/baseline_school_24" />
+
+    <item
+        android:id="@+id/action_notas"
+        android:title="Notas"
+        android:icon="@drawable/notas" />
+
+    <item
+        android:id="@+id/action_actividad"
+        android:title="Actividad"
+        android:icon="@drawable/mayormenoractividad" />
+
+
+</menu>

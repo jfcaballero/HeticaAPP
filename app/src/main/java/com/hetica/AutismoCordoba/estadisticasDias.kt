@@ -1,18 +1,25 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.android.material.navigation.NavigationBarView
+import com.hetica.AutismoCordoba.databinding.ActivityMainBinding
 import java.util.Calendar
 
 /**
@@ -53,12 +60,49 @@ class estadisticasDias : AppCompatActivity() {
      * The Day final.
      */
     var dayFinal: String? = null
+    /**
+     * Promedio de minutos
+     */
+    var  promedioMinutos: TextView?=null
+
+
+    // Método para configurar la instancia de AdminSQLiteOpenHelperStats
+    fun setAdminSQLiteOpenHelperStats(db: AdminSQLiteOpenHelperStats) {
+        this.db = db
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_estadisticas_dias)
         val editText = findViewById<View>(R.id.editText2) as EditText
         db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
         lv = findViewById<View>(R.id.listViewDias) as ListView
+        promedioMinutos = findViewById(R.id.promedioMinutos)
+
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
+        bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_estadisticas -> {
+                    // Abre la actividad que deseas al hacer clic en el primer elemento
+                    val intent = Intent(this, estadisticasDias::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.action_tiempo_dedicado -> {
+                    // Abre otra actividad cuando se hace clic en otro elemento
+                    val intent = Intent(this, tiempo_dedicado::class.java)
+                    startActivity(intent)
+                    true
+                }
+                // Agrega otros casos para los elementos adicionales del menú si es necesario
+                else -> false
+            }
+        }
+
         arrayList = ArrayList()
         if (resources.configuration.screenLayout and
                 Configuration.SCREENLAYOUT_SIZE_MASK ==
@@ -85,6 +129,15 @@ class estadisticasDias : AppCompatActivity() {
         var monthAux = mcurrentDate[Calendar.MONTH]
         val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
         monthAux = monthAux + 1
+
+        //para establecer el promedio de actividad de una asignatura
+        lv!!.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val item = lv!!.getItemAtPosition(position) as String
+            val asignatura = item.split("\\s+".toRegex())[0] // Obtener el nombre de la asignatura desde el item de la lista
+            val promedio = db?.calcularPromedioAsignatura(asignatura) // Calcular el promedio para la asignatura utilizando la instancia de AdminSQLiteOpenHelperStats
+            promedioMinutos!!.text = "$promedio minutos" // Actualizar el TextView con el resultado del promedio
+        }
+
         //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);
         yearFinal = if (monthAux < 10) {
             "0" + Integer.toString(monthAux)
