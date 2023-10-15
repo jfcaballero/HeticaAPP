@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".estadisticasDias">
+    android:layout_height="match_parent">
+
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="78dp"
         android:background="#009688"
@@ -16,65 +16,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/String_estadisticas" />
+        app:title="@string/String_tiempodedicado" />
+
+
+    <com.db.williamchart.view.HorizontalBarChartView
+        android:id="@+id/barChartHorizontal"
+        android:layout_width="371dp"
+        android:layout_height="304dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#D5D1E4E3"
+
+        app:chart_axis="xy"
+        app:chart_barsColor="#32605B"
+        app:chart_barsRadius="4dp"
+        app:chart_labelsColor="#000000"
+        app:chart_labelsSize="15sp"
+        app:chart_spacing="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47" />
+
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/fechatiempodedicado"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="55dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
-
-    <TextView
-        android:id="@+id/textView63"
-        android:layout_width="106dp"
-        android:layout_height="37dp"
-        android:text="Promedio:"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86" />
-
-    <TextView
-        android:id="@+id/promedioMinutos"
-        android:layout_width="208dp"
-        android:layout_height="36dp"
-        android:text="Minutos"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.635"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.858" />
-
-    <ListView
-        android:id="@+id/listViewDias"
-        android:layout_width="414dp"
-        android:layout_height="385dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.201" />
 
     <FrameLayout
         android:layout_width="0dp"
@@ -82,7 +63,8 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
     </FrameLayout>
 
@@ -96,6 +78,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navegacion_estadisticas_menu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

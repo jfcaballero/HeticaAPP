@@ -87,9 +87,7 @@ class estadisticasDias : AppCompatActivity() {
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
-                    // Abre la actividad que deseas al hacer clic en el primer elemento
-                    val intent = Intent(this, estadisticasDias::class.java)
-                    startActivity(intent)
+                    // No hagas nada si el ítem seleccionado ya está activo
                     true
                 }
                 R.id.action_tiempo_dedicado -> {

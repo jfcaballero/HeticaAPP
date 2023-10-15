@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-android-extensions' //Eliminado para nueva version de API
 
 android {
+    viewBinding {
+        enabled = true
+    }
     compileSdk 34
     kotlinOptions {
         jvmTarget = "1.8" // Esto puede variar en tu caso
@@ -46,6 +49,11 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.6.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0-alpha01'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.diogobernardino:williamchart:3.10.1'
+
+
+
+
     //Para onBackPressed() Deprecated
     //implementation "androidx.activity:activity:1.6.0-alpha05"
 
