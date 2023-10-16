@@ -140,12 +140,17 @@ class AdminSQLiteOpenHelperStats
         cursor.close()
         db.close()
 
-        return if (contador > 0) {
-            (totalTiempo.toDouble() / contador)
+        val promedio = if (contador > 0) {
+            totalTiempo.toDouble() / contador
         } else {
             0.0
         }
+
+        // Redondear a dos decimales
+        val promedioRedondeado = String.format("%.2f", promedio).toDouble()
+        return promedioRedondeado
     }
+
 
 
     companion object {

@@ -160,6 +160,7 @@ class tiempo_dedicado: AppCompatActivity()  {
         val cursor = db!!.viewDataDias(yearFinal)
         if (cursor!!.count == 0) {
             Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
+            binding.barChartHorizontal.visibility = View.INVISIBLE  // Ocultar la gráfica cuando no hay datos
 
         } else {
             obtenerTiempoTotalAsignaturas(yearFinal)
@@ -176,11 +177,22 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
+
         for ((asignatura, tiempoTotal) in data) {
             mappedData.add(asignatura to tiempoTotal)
+            val toastMessage = "Asignatura (MappedData): $asignatura - Tiempo Total: $tiempoTotal minutos"
+            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
+            if (data.size == 1) {  // Verificar si solo hay un elemento en la lista
+                mappedData.add(data[0])
+                break
+            }
+
         }
+
         return mappedData
     }
+
+
 
 
     @SuppressLint("Range")
@@ -190,6 +202,8 @@ class tiempo_dedicado: AppCompatActivity()  {
 
         if (cursor.count == 0) {
             Log.e("Obtener Tiempo Total", "No hay datos para la fecha especificada")
+            binding.barChartHorizontal.visibility = View.INVISIBLE  // Ocultar la gráfica cuando no hay datos
+
         } else {
             while (cursor.moveToNext()) {
                 val nombreAsignatura = cursor.getString(cursor.getColumnIndex("NAME"))
@@ -204,6 +218,7 @@ class tiempo_dedicado: AppCompatActivity()  {
             }
             showAsignaturasInToast(mapAsignaturas) // Llamada a la función para mostrar las asignaturas en un Toast
 
+            binding.barChartHorizontal.visibility = View.VISIBLE  // Mostrar la gráfica cuando hay datos disponibles
 
             binding.barChartHorizontal.animation.duration = animationDuration
             val dataList = convertMapToList(mapAsignaturas)
@@ -214,12 +229,12 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
     }
 
+
     private fun showAsignaturasInToast(mapAsignaturas: HashMap<String, Int>) {
-        val asignaturasList = StringBuilder()
-        for ((asignatura, tiempoTotal) in mapAsignaturas) {
-            asignaturasList.append("Asignatura: $asignatura - Tiempo Total: $tiempoTotal minutos\n")
-        }
-        Toast.makeText(this, asignaturasList.toString(), Toast.LENGTH_LONG).show()
+        // for ((asignatura, tiempoTotal) in mapAsignaturas) {
+            //     val toastMessage = "Asignatura: $asignatura - Tiempo Total: $tiempoTotal minutos"
+            //     Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
+            // }
     }
 
 
