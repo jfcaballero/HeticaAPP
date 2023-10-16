@@ -177,20 +177,26 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
+        val toastMessage = "Asignatura: ${data[0].first} - Tiempo Total: ${data[0].second} minutos"
+        //Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
 
-        for ((asignatura, tiempoTotal) in data) {
-            mappedData.add(asignatura to tiempoTotal)
-            val toastMessage = "Asignatura (MappedData): $asignatura - Tiempo Total: $tiempoTotal minutos"
-            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
-            if (data.size == 1) {  // Verificar si solo hay un elemento en la lista
-                mappedData.add(data[0])
-                break
-            }
+        for (i in 0 until data.size) {
+            mappedData.add(data[i])
+        }
+
+        if (data.size == 1) {
+            mappedData.add(data[0])
+
+        }else{
+            val rectangle = findViewById<View>(R.id.rectangle)
+            rectangle.visibility = View.INVISIBLE
 
         }
 
         return mappedData
     }
+
+
 
 
 

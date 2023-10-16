@@ -131,11 +131,10 @@ class estadisticasDias : AppCompatActivity() {
         //para establecer el promedio de actividad de una asignatura
         lv!!.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val item = lv!!.getItemAtPosition(position) as String
-            val asignatura = item.substringBeforeLast("         ") // Obtener el nombre de la asignatura desde el item de la lista
-            val promedio = db?.calcularPromedioAsignatura(asignatura.trim()) // Calcular el promedio para la asignatura utilizando la instancia de AdminSQLiteOpenHelperStats
+            val asignatura = item.split("\\s+".toRegex())[0] // Obtener el nombre de la asignatura desde el item de la lista
+            val promedio = db?.calcularPromedioAsignatura(asignatura) // Calcular el promedio para la asignatura utilizando la instancia de AdminSQLiteOpenHelperStats
             promedioMinutos!!.text = "$promedio minutos" // Actualizar el TextView con el resultado del promedio
         }
-
 
         //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);
         yearFinal = if (monthAux < 10) {
