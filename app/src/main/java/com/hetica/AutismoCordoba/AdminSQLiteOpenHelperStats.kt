@@ -145,10 +145,8 @@ class AdminSQLiteOpenHelperStats
         } else {
             0.0
         }
-
-        // Redondear a dos decimales
-        val promedioRedondeado = String.format("%.2f", promedio).toDouble()
-        return promedioRedondeado
+        
+        return promedio
     }
 
 

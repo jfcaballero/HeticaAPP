@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMainBinding
 import java.util.Calendar
+import kotlin.math.roundToInt
 
 /**
  * The type Estadisticas dias.
@@ -133,7 +134,9 @@ class estadisticasDias : AppCompatActivity() {
             val item = lv!!.getItemAtPosition(position) as String
             val asignatura = item.split("\\s+".toRegex())[0] // Obtener el nombre de la asignatura desde el item de la lista
             val promedio = db?.calcularPromedioAsignatura(asignatura) // Calcular el promedio para la asignatura utilizando la instancia de AdminSQLiteOpenHelperStats
-            promedioMinutos!!.text = "$promedio minutos" // Actualizar el TextView con el resultado del promedio
+            val promedioRedondeado = (promedio?.toFloat()?.times(100))?.roundToInt()?.div(100.0)// Redondear a dos decimales
+
+            promedioMinutos!!.text = "$promedioRedondeado minutos" // Actualizar el TextView con el resultado del promedio
         }
 
         //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);
