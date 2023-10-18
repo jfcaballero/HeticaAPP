@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <supports-screens
         android:largeScreens="true"
@@ -8,16 +8,22 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        tools:ignore="ExtraText,GoogleAppIndexingWarning" >
+        tools:ignore="ExtraText,GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".mayormenoractividad"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".tiempo_dedicado"
             android:exported="false"
             android:label="@string/title_activity_tiempo_dedicado"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <!-- android:enableOnBackInvokedCallBack="true" -->
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- android:enableOnBackInvokedCallBack="true" -->
         <activity
             android:name=".creditos"
             android:screenOrientation="landscape"
@@ -107,7 +113,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" > <!-- Añadido nuevo build -->
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"> <!-- Añadido nuevo build -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -167,5 +173,5 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

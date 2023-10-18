@@ -97,6 +97,12 @@ class estadisticasDias : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.action_actividad -> {
+                    // Abre la actividad que deseas al hacer clic en el primer elemento
+                    val intent2 = Intent(this, mayormenoractividad::class.java)
+                    startActivity(intent2)
+                    true
+                }
                 // Agrega otros casos para los elementos adicionales del menú si es necesario
                 else -> false
             }

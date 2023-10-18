@@ -81,6 +81,12 @@ class tiempo_dedicado: AppCompatActivity()  {
                     startActivity(intent)
                     true
                 }
+                R.id.action_actividad -> {
+                    // Abre la actividad que deseas al hacer clic en el primer elemento
+                    val intent = Intent(this, mayormenoractividad::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.action_tiempo_dedicado -> {
                     // No hagas nada si el ítem seleccionado ya está activo
                     true
@@ -222,7 +228,6 @@ class tiempo_dedicado: AppCompatActivity()  {
                     mapAsignaturas[nombreAsignatura] = tiempo
                 }
             }
-            showAsignaturasInToast(mapAsignaturas) // Llamada a la función para mostrar las asignaturas en un Toast
 
             binding.barChartHorizontal.visibility = View.VISIBLE  // Mostrar la gráfica cuando hay datos disponibles
 
@@ -235,16 +240,6 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
     }
 
-
-    private fun showAsignaturasInToast(mapAsignaturas: HashMap<String, Int>) {
-        // for ((asignatura, tiempoTotal) in mapAsignaturas) {
-            //     val toastMessage = "Asignatura: $asignatura - Tiempo Total: $tiempoTotal minutos"
-            //     Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
-            // }
-    }
-
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -253,8 +248,6 @@ class tiempo_dedicado: AppCompatActivity()  {
     companion object {
 
         private val horizontalBarSet = listOf("Default" to 0F)
-
-
 
         private const val animationDuration = 1000L
     }

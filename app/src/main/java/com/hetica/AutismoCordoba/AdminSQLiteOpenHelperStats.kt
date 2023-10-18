@@ -112,8 +112,43 @@ class AdminSQLiteOpenHelperStats
     fun viewDataDias(date: String?): Cursor {
         val db = this.readableDatabase
         val query = "Select * from " + DB_TABLE + " where DATE='" + date + "'"
+
         return db.rawQuery(query, null)
     }
+
+    @SuppressLint("Range")
+    fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String): List<Pair<String, Int>> {
+        val db = this.readableDatabase
+        val query =
+            "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mes%' GROUP BY DATE ORDER BY TotalMinutes DESC"
+        Log.d("SQL_QUERY", "Query: $query")
+
+        val cursor = db.rawQuery(query, null)
+        val listaDias = mutableListOf<Pair<String, Int>>()
+
+        if (cursor.moveToFirst()) {
+            do {
+                val fecha = cursor.getString(cursor.getColumnIndex(DATE))
+                val totalMinutos = cursor.getInt(cursor.getColumnIndex("TotalMinutes"))
+                // Extraer solo los primeros dos caracteres que representan el día de la fecha
+                val dia = fecha.substring(2, 4)
+                listaDias.add(dia to totalMinutos) // Añadir solo el día al par
+            } while (cursor.moveToNext())
+        }
+
+        Log.d("CURSOR_COUNT", "Count: ${cursor.count}")
+
+        cursor.close()
+        db.close()
+
+        return listaDias
+    }
+
+
+
+
+
+
 
     /**
      * Función para calcular el promedio de tiempo para una asignatura específica
@@ -145,7 +180,7 @@ class AdminSQLiteOpenHelperStats
         } else {
             0.0
         }
-        
+
         return promedio
     }
 
