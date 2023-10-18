@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteDatabase.CursorFactory
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import java.util.Calendar
 
 /**
  * The type Admin sq lite open helper stats.
@@ -117,10 +118,11 @@ class AdminSQLiteOpenHelperStats
     }
 
     @SuppressLint("Range")
-    fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String): List<Pair<String, Int>> {
+    fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
+
         val db = this.readableDatabase
         val query =
-            "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mes%' GROUP BY DATE ORDER BY TotalMinutes DESC"
+            "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mes%$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
         Log.d("SQL_QUERY", "Query: $query")
 
         val cursor = db.rawQuery(query, null)
@@ -143,6 +145,7 @@ class AdminSQLiteOpenHelperStats
 
         return listaDias
     }
+
 
 
 

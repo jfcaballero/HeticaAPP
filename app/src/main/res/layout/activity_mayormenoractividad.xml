@@ -71,30 +71,29 @@
 
     <Spinner
         android:id="@+id/selectormes"
-        android:layout_width="137dp"
-        android:layout_height="48dp"
+        android:layout_width="111dp"
+        android:layout_height="47dp"
         android:background="#ADA5CFD5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <TextView
         android:id="@+id/textView62"
         android:layout_width="47dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="27dp"
-        android:text="Mes"
+        android:text="Mes:"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/selectormes"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.159" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <TextView
         android:id="@+id/textView64"
@@ -122,5 +121,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.735" />
+
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="47dp"
+        android:layout_height="37dp"
+        android:text="Año:"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.151" />
+
+    <EditText
+        android:id="@+id/editTextYear"
+        android:layout_width="123dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Año"
+        android:inputType="number"
+        android:textColor="#090909"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.146" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
