@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -97,6 +98,26 @@ class AdminSQLiteOpenHelperAsig
         val cursor = db.rawQuery(query, null)
         val aux = cursor.count
         return aux == 0
+    }
+    /**
+     * Funcuón para devolver una lista con todas las asignaturas
+     *
+     * @return List<String>
+     */
+    @SuppressLint("Range")
+    fun getAsignaturasList(): List<String> {
+        val asignaturasList = mutableListOf<String>()
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $DB_TABLE"
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            do {
+                val name = cursor.getString(cursor.getColumnIndex(NAME))
+                asignaturasList.add(name)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return asignaturasList
     }
 
     companion object {

@@ -87,6 +87,11 @@ class tiempo_dedicado: AppCompatActivity()  {
                     startActivity(intent)
                     true
                 }
+                R.id.action_comentarios -> {
+                    val intent = Intent(this, MostrarComentarios::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.action_tiempo_dedicado -> {
                     // No hagas nada si el ítem seleccionado ya está activo
                     true

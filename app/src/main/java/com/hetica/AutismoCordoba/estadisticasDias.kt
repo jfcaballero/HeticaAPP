@@ -17,9 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationBarView
-import com.hetica.AutismoCordoba.databinding.ActivityMainBinding
 import java.util.Calendar
 import kotlin.math.roundToInt
 
@@ -72,7 +70,7 @@ class estadisticasDias : AppCompatActivity() {
         this.db = db
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -80,7 +78,7 @@ class estadisticasDias : AppCompatActivity() {
         setContentView(R.layout.activity_estadisticas_dias)
         val editText = findViewById<View>(R.id.editText2) as EditText
         db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
-        lv = findViewById<View>(R.id.listViewDias) as ListView
+        lv = findViewById<View>(R.id.listViewAsignaturas) as ListView
         promedioMinutos = findViewById(R.id.promedioMinutos)
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
@@ -101,6 +99,11 @@ class estadisticasDias : AppCompatActivity() {
                     // Abre la actividad que deseas al hacer clic en el primer elemento
                     val intent2 = Intent(this, mayormenoractividad::class.java)
                     startActivity(intent2)
+                    true
+                }
+                R.id.action_comentarios -> {
+                    val intent = Intent(this, MostrarComentarios::class.java)
+                    startActivity(intent)
                     true
                 }
                 // Agrega otros casos para los elementos adicionales del menú si es necesario

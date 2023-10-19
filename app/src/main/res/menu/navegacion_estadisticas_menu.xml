@@ -15,9 +15,9 @@
         android:icon="@drawable/baseline_school_24" />
 
     <item
-        android:id="@+id/action_notas"
-        android:title="Notas"
-        android:icon="@drawable/notas" />
+        android:id="@+id/action_comentarios"
+        android:icon="@drawable/notas"
+        android:title="Comentarios" />
 
     <item
         android:id="@+id/action_actividad"

@@ -128,6 +128,11 @@ class mayormenoractividad : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.action_comentarios -> {
+                    val intent = Intent(this, MostrarComentarios::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.action_actividad -> {
                     // Nada, estamos ya
                     true

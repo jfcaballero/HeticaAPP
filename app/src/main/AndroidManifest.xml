@@ -14,7 +14,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         tools:ignore="ExtraText,GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".MostrarComentarios"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".mayormenoractividad"
             android:screenOrientation="portrait"
