@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.Ringtone
 import android.media.RingtoneManager
@@ -31,6 +32,7 @@ class temporizadorUnico : AppCompatActivity() {
     private var mTextViewCountDown: TextView? = null
     private var textAsig: TextView? = null
     private var Pausa: Button? = null
+    private var Comentarios: Button? = null
 
     /**
      * The Db.
@@ -65,6 +67,8 @@ class temporizadorUnico : AppCompatActivity() {
     var siguiente: Intent? = null
     private var then: Long = 0
     private val longClickDuration = 3000
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_temporizador_unico)
@@ -74,6 +78,8 @@ class temporizadorUnico : AppCompatActivity() {
         textAsig = findViewById<View>(R.id.textView56) as TextView
         botonFin = findViewById<View>(R.id.button48) as Button
         botonFin!!.visibility = View.INVISIBLE
+        Comentarios = findViewById<View>(R.id.comentariosBoton2) as Button
+
         finFlag = 1
         timeString = bundle!!.getString("time")
         asig = bundle!!.getString("asig")
@@ -91,6 +97,12 @@ class temporizadorUnico : AppCompatActivity() {
             } else {
                 startTimer()
             }
+        }
+        Comentarios!!.setOnLongClickListener {
+            val dialog = EnviarComentarios()
+            dialog.show(supportFragmentManager, "enviarComentarios")
+
+            true
         }
         Main!!.setOnTouchListener(OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -114,7 +126,9 @@ class temporizadorUnico : AppCompatActivity() {
         startTimer()
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 
     /**
      * Función que maneja el temporizador

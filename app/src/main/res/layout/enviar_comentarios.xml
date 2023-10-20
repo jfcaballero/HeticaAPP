@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="350dp"
+    android:layout_height="450dp"
+    android:padding="16dp">
+
+    <Spinner
+        android:id="@+id/spinnerAsignaturaComentarios"
+        android:layout_width="259dp"
+        android:layout_height="54dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerAsignaturaComentarios"
+        android:layout_marginTop="81dp">
+
+        <EditText
+            android:id="@+id/comentariosTexto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/registrarComentarios"
+        android:layout_width="117dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/spinnerAsignaturaComentarios"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="REGISTRAR" />
+
+</RelativeLayout>

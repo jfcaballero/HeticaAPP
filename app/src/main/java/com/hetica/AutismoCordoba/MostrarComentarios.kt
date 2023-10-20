@@ -4,19 +4,15 @@ import AdminSQLiteOpenHelperComentarios
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -218,7 +214,7 @@ class MostrarComentarios : AppCompatActivity() {
     @SuppressLint("Range")
     private fun viewData(asignaturaSeleccionada: String?, fechaSeleccionada: String?) {
         dbComentarios = AdminSQLiteOpenHelperComentarios(this, "Comentarios.db", null, 1)
-        dbComentarios!!.borrarTabla()
+        //dbComentarios!!.borrarTabla()
         //val comentarioAgregado = dbComentarios?.insertData("10172023", "mates", "esto es un comentario de mates MUY ANTIGUO")
 
         /*if (comentarioAgregado == true) {
