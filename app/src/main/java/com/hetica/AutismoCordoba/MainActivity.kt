@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         botonOpc = findViewById<View>(R.id.button4) as Button
         botonStat = findViewById<View>(R.id.button5) as Button
         botonCred = findViewById<View>(R.id.button6) as Button
+        botonCalendario = findViewById<View>(R.id.button16) as Button
         botonTemp!!.visibility = View.INVISIBLE
         boton = findViewById<View>(R.id.button) as Button
         boton1 = findViewById<View>(R.id.button2) as Button
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             text1!!.textSize = 11f
             text2!!.textSize = 11f
         }
+
         botonOpc!!.setOnTouchListener(OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
@@ -215,7 +217,20 @@ class MainActivity : AppCompatActivity() {
         //            }
         //        }).create().show();
     }
+    /**
+     * Pasar a la pantalla de "Asignatura de hoy"
+     *
+     * @param view the view
+     */
+    fun pasarAsignaturaDeHoy(view: View) {
+        if (countData() == 0) {
+            Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
+        } else {
+            val intent = Intent(this, AsignaturaDeHoy::class.java)
+            startActivity(intent)
+        }
 
+    }
     /**
      * Pasar a la pantalla de "Organizar el Estudio"
      *
@@ -349,5 +364,6 @@ class MainActivity : AppCompatActivity() {
         var boton: Button? = null
         var boton1: Button? = null
         var boton2: Button? = null
+        var botonCalendario:Button? = null
     }
 }
