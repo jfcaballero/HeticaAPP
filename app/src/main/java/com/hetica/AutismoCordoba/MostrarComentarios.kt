@@ -105,6 +105,11 @@ class MostrarComentarios : AppCompatActivity() {
                     startActivity(intent2)
                     true
                 }
+                R.id.action_calificaciones -> {
+                    val intent = Intent(this, VisualizarCalificaciones::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.action_comentarios -> {
                     // No hagas nada si el ítem seleccionado ya está activo
                     true

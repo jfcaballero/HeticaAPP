@@ -8,6 +8,7 @@
     <string name="String_tiempodedicado">Tiempo dedicado</string>
     <string name="String_mayormenoractividad">Gráficas de actividad</string>
     <string name="String_comentarios">Comentarios</string>
+    <string name="String_visualizar_calificaciones">Calificaciones</string>
     <string name="String_store">Store</string>
 
     <string name="String_despejaMesa">DESPEJA LA MESA DE ESTUDIO Y PON LA LUZ ADECUADA</string>
@@ -74,4 +75,8 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_tiempo_dedicado">tiempo_dedicado</string>
+    <string name="entendido">ENTENDIDO</string>
+    <string name="bienvenid_a_hetica">Bienvenid@ a Hetica</string>
+    <string name="para_acceder_a_las_opciones_en_negro_mantenga_pulsado_el_bot_n_durante_3s">Para acceder a las opciones en negro, mantenga pulsado el botón durante 3s.</string>
+    <string name="para_poder_acceder_a_las_funcionalidades_de_la_aplicaci_n_a_ada_al_menos_una_asignatura_en_el_men_de_opciones">Para poder acceder a las funcionalidades de la aplicación, añada al menos una asignatura en el menú de opciones.</string>
 </resources>

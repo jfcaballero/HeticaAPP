@@ -148,11 +148,6 @@ class AdminSQLiteOpenHelperStats
 
 
 
-
-
-
-
-
     /**
      * Función para calcular el promedio de tiempo para una asignatura específica
      *

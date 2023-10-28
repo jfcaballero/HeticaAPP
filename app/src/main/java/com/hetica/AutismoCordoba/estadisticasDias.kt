@@ -106,6 +106,11 @@ class estadisticasDias : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.action_calificaciones -> {
+                    val intent = Intent(this, VisualizarCalificaciones::class.java)
+                    startActivity(intent)
+                    true
+                }
                 // Agrega otros casos para los elementos adicionales del menú si es necesario
                 else -> false
             }

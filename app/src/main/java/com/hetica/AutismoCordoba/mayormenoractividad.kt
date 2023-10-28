@@ -133,6 +133,11 @@ class mayormenoractividad : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.action_calificaciones -> {
+                    val intent = Intent(this, VisualizarCalificaciones::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.action_actividad -> {
                     // Nada, estamos ya
                     true
@@ -173,8 +178,6 @@ class mayormenoractividad : AppCompatActivity() {
         binding.diasmenoractividad.animate(dataAsc)
         binding.diasmenoractividad.invalidate()
     }
-
-
 
 
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
