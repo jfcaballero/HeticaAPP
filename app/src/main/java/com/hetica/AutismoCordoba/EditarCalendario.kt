@@ -42,7 +42,6 @@ var asignaturasCalendarioBD: MutableList<String>? = null
  */
 var adapterEditarCalendario: ArrayAdapter<String>? = null
 
-private var guardarCambios: Button?=null
 
 class EditarCalendario : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -55,7 +54,7 @@ class EditarCalendario : AppCompatActivity() {
         listViewAsignaturasDeUnDia = findViewById(R.id.listViewCalendarioAsignaturas)
         val spinner: Spinner = findViewById(R.id.asignaturasCalendario)
         addAsignaturaCalendario=findViewById(R.id.addAsignaturaCalendario)
-        guardarCambios=findViewById(R.id.guardarCambiosCalendario)
+
 
         addAsignaturaCalendario?.setOnClickListener {
             val asignaturaSeleccionada = spinner.selectedItem as String

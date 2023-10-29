@@ -103,15 +103,4 @@
         app:layout_constraintVertical_bias="0.407"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
-    <Button
-        android:id="@+id/guardarCambiosCalendario"
-        android:layout_width="177dp"
-        android:layout_height="61dp"
-        android:text="GUARDAR CAMBIOS"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewCalendarioAsignaturas"
-        tools:visibility="invisible" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
