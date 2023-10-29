@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.Ringtone
@@ -171,7 +172,7 @@ class temporizadorUnico : AppCompatActivity() {
         finFlag = 1
         val sdf = SimpleDateFormat("MMddyyyy")
         db!!.insertData(asig, sdf.format(Date()), Integer.valueOf(timeString))
-        val siguiente1 = Intent(this, MainActivity::class.java)
+        val siguiente1 = Intent(this, Recompensa::class.java)
         startActivity(siguiente1)
     }
 
@@ -192,7 +193,7 @@ class temporizadorUnico : AppCompatActivity() {
      * @param view the view
      */
     fun pasarInit(view: View?) {
-        val siguiente = Intent(this, MainActivity::class.java)
+        val siguiente = Intent(this, Recompensa::class.java)
         r!!.stop()
         startActivity(siguiente)
     }

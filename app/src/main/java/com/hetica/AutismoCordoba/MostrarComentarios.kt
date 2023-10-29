@@ -135,7 +135,7 @@ class MostrarComentarios : AppCompatActivity() {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
                     val fechaSeleccionada = editText.text.toString() // Obtener la fecha del EditText
                     // Realizar acciones en función de la asignatura y la fecha seleccionada
-                    Toast.makeText(applicationContext, "Asignatura seleccionada: $asignaturaSeleccionada, Fecha seleccionada: $fechaSeleccionada", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(applicationContext, "Asignatura seleccionada: $asignaturaSeleccionada, Fecha seleccionada: $fechaSeleccionada", Toast.LENGTH_SHORT).show()
                     viewData(asignaturaSeleccionada, yearFinal)
                 //viewData(asignaturaSeleccionada!!, fechaSeleccionada) // Llamar a viewData con asignatura y fecha
                 }

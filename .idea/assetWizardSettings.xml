@@ -185,8 +185,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="estadisticas" />
-                            <entry key="sourceFile" value="C:\Users\Miguel" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="opacityPercent" value="97" />
+                            <entry key="outputName" value="tortuga_freepik" />
+                            <entry key="sourceFile" value="C:\Users\Alvaro\Downloads\tortuga_freepik.svg" />
                           </map>
                         </option>
                       </PersistentState>

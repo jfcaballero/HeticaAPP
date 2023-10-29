@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+
 import android.content.Intent
 import android.media.Ringtone
 import android.media.RingtoneManager
@@ -209,7 +210,7 @@ class TimerSimple : AppCompatActivity() {
 
     fun finEstudio(view: View?) {
         r!!.stop()
-        val siguiente1 = Intent(this, MainActivity::class.java)
+        val siguiente1 = Intent(this, Recompensa::class.java)
         startActivity(siguiente1)
     }
 
@@ -234,7 +235,7 @@ class TimerSimple : AppCompatActivity() {
         val timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
         mTextViewCountDown!!.text = timeLeftFormatted
         if (cuantas.equals(actual, ignoreCase = true) && seconds == 1 && minutes == 0) {
-            val siguiente1 = Intent(this, MainActivity::class.java)
+            val siguiente1 = Intent(this, Recompensa::class.java)
             startActivity(siguiente1)
         }
     }
