@@ -4,6 +4,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.hetica.AutismoCordoba.asignaturasCalendarioBD
+import com.hetica.AutismoCordoba.dbCalendario
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,6 +56,40 @@ class AdminSQLiteOpenHelperCalendario(context: Context, s: String, nothing: Noth
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
+    /*
+    fun deleteAsignatura(asignatura: String, dateString: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "$ASIGNATURAS = ? AND $DATE = ?"
+        val whereArgs = arrayOf(asignatura, dateString)
+        val result = db.delete(DB_TABLE, whereClause, whereArgs)
+        return result != -1
+    }*/
+
+
+    @SuppressLint("Range")
+    fun deleteAsignaturaByPosition(position: Int, dateString: String): Boolean {
+        val db = this.writableDatabase
+        val query = "SELECT $ID FROM $DB_TABLE WHERE $DATE = ? LIMIT 1 OFFSET ?"
+        val cursor = db.rawQuery(query, arrayOf(dateString, position.toString()))
+
+        if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndex(ID))
+            val whereClause = "$ID = ?"
+            val whereArgs = arrayOf(id.toString())
+            val result = db.delete(DB_TABLE, whereClause, whereArgs)
+            cursor.close()
+            return result != -1
+        }
+        cursor.close()
+        return false
+    }
+
+
+
+
+
+
+
 
 
     companion object {

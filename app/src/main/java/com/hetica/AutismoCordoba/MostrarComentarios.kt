@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Toast
@@ -67,6 +68,8 @@ private var listViewComentarios: ListView? = null
  * La asignatura seleccionada.
  */
 private var asignaturaSeleccionada: String? = null
+
+
 
 class MostrarComentarios : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,9 +2,13 @@ package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalendario
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Toast
 import java.text.SimpleDateFormat
@@ -29,6 +33,13 @@ var asignaturasList: MutableList<String>? = null
  * The Adapter.
  */
 var adapterCalendario: ArrayAdapter<String>? = null
+/**
+ * The Adapter.
+ */
+@SuppressLint("StaticFieldLeak")
+var editarCalendario: ImageView? = null
+
+private var isLongPressFired = false
 
 
 class AsignaturaDeHoy : AppCompatActivity() {
@@ -40,18 +51,45 @@ class AsignaturaDeHoy : AppCompatActivity() {
         dbCalendario = AdminSQLiteOpenHelperCalendario(this, "Calendario.db", null, 1)
         calendarioListView = findViewById(R.id.asignaturasdehoy)
 
+
         viewData()
+        pasarEditarCalendario()
 
 
     }
+    /**
+     * Función para pasar a la actividad EditarCalendario
+     *
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    private fun pasarEditarCalendario() {
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                if (isLongPressFired) {
+                    return
+                }
+                isLongPressFired = true
+
+                val intent = Intent(this@AsignaturaDeHoy, EditarCalendario::class.java)
+                startActivity(intent)
+            }
+        })
+        editarCalendario=findViewById(R.id.editarCalendarioBoton)
+        editarCalendario?.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                isLongPressFired = false
+            }
+            true
+        }
+    }
+
+
 
     /**
      * Función que devuelve las asignaturas de hoy
      *
      */
-
-
-// ...
 
     private fun viewData() {
         val calendar = Calendar.getInstance()
@@ -64,7 +102,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
 
         asignaturasList = dbCalendario?.getAsignaturasForDay(dateString) as MutableList<String>?
         if (!asignaturasList.isNullOrEmpty()) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, asignaturasList!!)
+            val adapter = ArrayAdapter(this, R.layout.list_item_layout, asignaturasList!!)
             calendarioListView?.adapter = adapter
             adapterCalendario = adapter
             adapter.notifyDataSetChanged()
