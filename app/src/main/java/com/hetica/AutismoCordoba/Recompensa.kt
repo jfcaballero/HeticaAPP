@@ -42,7 +42,7 @@ class Recompensa : AppCompatActivity() {
         consejo?.text = arrayConsejos[randomIndex]
 
         // Lista de nombres de imágenes en el directorio drawable
-        val arrayImagenes = arrayOf("estrella_freepik", "loro_mihimi", "tortuga_freepik")
+        val arrayImagenes = arrayOf("estrella_freepik", "loro_mihimi", "tortuga_freepik","gato_flaticon","abeja_flaticon")
 
         // Seleccionar un nombre de imagen aleatorio de la lista
         val randomImageName = arrayImagenes.random()

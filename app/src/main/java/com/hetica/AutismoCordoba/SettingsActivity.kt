@@ -1,14 +1,20 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.provider.Settings
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -22,6 +28,7 @@ import java.util.Calendar
  * The type Settings activity.
  */
 class SettingsActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -31,8 +38,10 @@ class SettingsActivity : AppCompatActivity() {
         SwitchTemp = findViewById<View>(R.id.switch1) as Switch
         SwitchPausa = findViewById<View>(R.id.switch2) as Switch
         SwitchFin = findViewById<View>(R.id.switchFin) as Switch
+        SwitchConcentracion = findViewById<View>(R.id.switchConcentracion) as Switch
         seebbarr()
         read()
+
         if (Switch!!.isChecked) {
             seekBar!!.isEnabled = true
             textView!!.setTextColor(Color.parseColor("#2f2f2f"))
@@ -130,9 +139,68 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
         }
+        SwitchConcentracion!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                var fos: FileOutputStream? = null
+                try {
+                    fos = openFileOutput("concentracion.txt", MODE_PRIVATE)
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
+                try {
+                    fos!!.write(Integer.toString(1).toByteArray())
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            } else {
+                var fos: FileOutputStream? = null
+                try {
+                    fos = openFileOutput("concentracion.txt", MODE_PRIVATE)
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
+                try {
+                    fos!!.write(Integer.toString(0).toByteArray())
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        setupSwitchConcentracionListener()
+
+    }
+    /**
+     * Función para manejar el switch del modo de Concentración
+     */
+    private fun setupSwitchConcentracionListener() {
+        SwitchConcentracion!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                if (!notificationPolicyAccessGranted()) {
+                    val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                    startActivity(intent)
+                    Toast.makeText(this, "Habilite el permiso de acceso a la política de notificaciones.", Toast.LENGTH_LONG).show()
+                }
+            }
+            if (isChecked && notificationPolicyAccessGranted()) {
+                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+            } else {
+                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
+            }
+        }
+    }
+    /**
+     * Función para saber si se ha habilitado la excepción de No molestar para la app
+     */
+    private fun notificationPolicyAccessGranted(): Boolean {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        return notificationManager.isNotificationPolicyAccessGranted
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         val siguiente = Intent(this, MainActivity::class.java)
         startActivity(siguiente)
     }
@@ -346,6 +414,42 @@ class SettingsActivity : AppCompatActivity() {
             if (fis != null) {
             }
         }
+        try {
+            fis = openFileInput("concentracion.txt")
+            val isr = InputStreamReader(fis)
+            val br = BufferedReader(isr)
+            val sb = StringBuilder()
+            val text: String
+            text = br.readLine()
+            if (text.equals("1", ignoreCase = true)) {
+                SwitchConcentracion!!.isChecked = true
+                //if (notificationPolicyAccessGranted()) {
+                //    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                //    notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+                //}
+            } else {
+                SwitchConcentracion!!.isChecked = false
+              //  val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+              //  notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
+            }
+            try {
+                fis.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     /**
@@ -377,5 +481,6 @@ class SettingsActivity : AppCompatActivity() {
         var SwitchTemp: Switch? = null
         var SwitchPausa: Switch? = null
         var SwitchFin: Switch? = null
+        var SwitchConcentracion: Switch? = null
     }
 }

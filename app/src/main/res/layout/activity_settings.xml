@@ -232,12 +232,27 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Habilitar finalizar"
-        android:textSize="18dp"
         android:textColor="#070707"
+        android:textSize="18dp"
         android:trackTint="#CCCCCC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch2" />
+
+    <Switch
+        android:id="@+id/switchConcentracion"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Modo concentración"
+        android:textColor="#070707"
+        android:textSize="18dp"
+        android:trackTint="#CCCCCC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchFin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
