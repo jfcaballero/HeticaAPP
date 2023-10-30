@@ -40,7 +40,13 @@ class SettingsActivity : AppCompatActivity() {
         SwitchFin = findViewById<View>(R.id.switchFin) as Switch
         SwitchConcentracion = findViewById<View>(R.id.switchConcentracion) as Switch
         seebbarr()
+        if (getCurrentInterruptionFilter() == NotificationManager.INTERRUPTION_FILTER_NONE) {
+            SwitchConcentracion!!.isChecked = true
+        } else {
+            SwitchConcentracion!!.isChecked = false
+        }
         read()
+
 
         if (Switch!!.isChecked) {
             seekBar!!.isEnabled = true
@@ -170,6 +176,15 @@ class SettingsActivity : AppCompatActivity() {
         setupSwitchConcentracionListener()
 
     }
+
+    /**
+     * Función para obtener el filtro de interrupción actual.
+     */
+    private fun getCurrentInterruptionFilter(): Int {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        return notificationManager.currentInterruptionFilter
+    }
+
     /**
      * Función para manejar el switch del modo de Concentración
      */
