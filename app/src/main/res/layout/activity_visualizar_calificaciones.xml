@@ -7,10 +7,10 @@
     tools:context=".VisualizarCalificaciones">
 
 
-    <com.db.williamchart.view.BarChartView
+    <com.db.williamchart.view.HorizontalBarChartView
         android:id="@+id/barChartCalificaciones"
-        android:layout_width="378dp"
-        android:layout_height="369dp"
+        android:layout_width="383dp"
+        android:layout_height="410dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="#D5D1E4E3"
@@ -23,12 +23,12 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604">
+        app:layout_constraintVertical_bias="0.566">
 
-    </com.db.williamchart.view.BarChartView>
+    </com.db.williamchart.view.HorizontalBarChartView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewestadisticas"
@@ -43,8 +43,8 @@
 
     <View
         android:id="@+id/rectangleVisualizarCalificaciones"
-        android:layout_width="150dp"
-        android:layout_height="650dp"
+        android:layout_width="421dp"
+        android:layout_height="346dp"
         android:background="#F9F9F9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
