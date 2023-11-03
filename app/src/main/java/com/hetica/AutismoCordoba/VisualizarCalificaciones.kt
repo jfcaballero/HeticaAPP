@@ -8,12 +8,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
-
 
 /**
  * La asignatura seleccionada.
@@ -23,8 +23,14 @@ private var asignaturaSeleccionada: String? = null
  * El tipo de examen seleccionado.
  */
 private var tipoSeleccionado: String? = null
+/**
+ * La base de datos de las calificaciones
+ */
+var dbCalificaciones: AdminSQLiteOpenHelperCalificaciones? =null
 
-
+private lateinit var spinnerAsignaturas: Spinner
+private lateinit var spinnerTipos: Spinner
+private var rectangle: View? = null
 
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityVisualizarCalificacionesBinding? = null
@@ -33,22 +39,36 @@ class VisualizarCalificaciones : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 2)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
-        val spinnerAsignaturas: Spinner = binding.spinnerCalificacionAsig
-        val spinnerTipos: Spinner = binding.spinnerParcialFinal
+        setContentView(binding.root)
 
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
 
-        setContentView(binding.root)
+        asignaturaSeleccionada = asignaturasList?.get(0)
+        tipoSeleccionado = tipoExamenList[0]
+
+        val buttonActividadCalificacion: Button = binding.buttonActividadCalificacion
+        buttonActividadCalificacion.setOnClickListener {
+            val intent = Intent(this, AddCalificaciones::class.java)
+            startActivity(intent)
+        }
+
+
         binding.apply {
 
             barChartCalificaciones.animation.duration = animationDuration
             barChartCalificaciones.animate(horizontalBarSet)
 
         }
+        //dbCalificaciones!!.clearData()
+        //dbCalificaciones!!.insertData("lengua", 8.0F,"Parcial")
 
-
+        spinnerAsignaturas = binding.spinnerCalificacionAsig
+        spinnerTipos = binding.spinnerParcialFinal
+        rectangle = binding.rectangleVisualizarCalificaciones
+        rectangle!!.visibility = View.INVISIBLE
 
         //Spinner de asignaturas
         if (asignaturasList != null) {
@@ -59,18 +79,13 @@ class VisualizarCalificaciones : AppCompatActivity() {
             // Establecer el listener para el evento de clic del Spinner
             spinnerAsignaturas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                    val asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString() // Asignar valor a la variable global
-                    val tipoSeleccionado = spinnerTipos.selectedItem.toString()
-                    //Toast.makeText(applicationContext, "Asignatura seleccionada: $asignaturaSeleccionada", Toast.LENGTH_SHORT).show()
-                    obtenerCalificaciones(asignaturaSeleccionada, tipoSeleccionado)
+                    updateSelectedValues()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // No se realiza ninguna acción si no se selecciona nada
                 }
             }
-
-
         }
         //Spinner de tipo de examen
         val adapterTipos = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipoExamenList)
@@ -80,16 +95,14 @@ class VisualizarCalificaciones : AppCompatActivity() {
         // Establecer el listener para el evento de clic del Spinner
         spinnerTipos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val tipoSeleccionado = spinnerTipos.selectedItem.toString() // Asignar valor a la variable global
-                val asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
-                //Toast.makeText(applicationContext, "Tipo seleccionado: $tipoSeleccionado", Toast.LENGTH_SHORT).show()
-                obtenerCalificaciones(asignaturaSeleccionada, tipoSeleccionado)
+                updateSelectedValues()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
                 // No se realiza ninguna acción si no se selecciona nada
             }
         }
+        setInitialValues()
 
 
 
@@ -132,23 +145,24 @@ class VisualizarCalificaciones : AppCompatActivity() {
     }
 
     private fun obtenerCalificaciones(asignatura: String, tipo: String) {
-        val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 2)
-        //dbCalificaciones.clearData()
-        dbCalificaciones.insertData("lengua", 5.0F,"Parcial")
 
-        val listaCalificaciones= dbCalificaciones.getSubjectGradesList(asignatura,tipo)
-        printSubjectGradesList(listaCalificaciones)
-        if (listaCalificaciones.isEmpty()) {
+        //dbCalificaciones.clearData()
+        //dbCalificaciones.insertData("lengua", 5.0F,"Parcial")
+
+        val listaCalificaciones= dbCalificaciones?.getSubjectGradesList(asignatura,tipo)
+        if (listaCalificaciones.isNullOrEmpty()) {
             Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
             binding.barChartCalificaciones.animate(emptyList())
-            return
+        }else{
+            printSubjectGradesList(listaCalificaciones)
+            binding.barChartCalificaciones.animation.duration = animationDuration
+            val data = generateHorizontalBarData(listaCalificaciones)
+
+            if (data.isNotEmpty()) {
+                binding.barChartCalificaciones.animate(data)
+                binding.barChartCalificaciones.invalidate()
+            }
         }
-
-
-        binding.barChartCalificaciones.animation.duration = animationDuration
-        val data = generateHorizontalBarData(listaCalificaciones)
-        binding.barChartCalificaciones.animate(data)
-        binding.barChartCalificaciones.invalidate()
 
     }
     private fun printSubjectGradesList(subjectGradesList: List<Pair<String, Float>>) {
@@ -162,16 +176,36 @@ class VisualizarCalificaciones : AppCompatActivity() {
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
 
-        //for (i in 0 until data.size) {
-        //    mappedData.add(Pair(data[i].first, data[i].second))
-       // }
+        rectangle = binding.rectangleVisualizarCalificaciones
         for (i in 0 until data.size) {
             mappedData.add(data[i])
 
         }
+        if (data.size == 1) {
+            mappedData.add(data[0])
+
+            rectangle!!.visibility = View.VISIBLE
+
+        }else{
+
+            rectangle!!.visibility = View.INVISIBLE
+
+        }
+
         return mappedData
     }
-
+    private fun setInitialValues() {
+        val asignaturasList = dbAsig?.getAsignaturasList()
+        val tipoExamenList = listOf("Parcial", "Final")
+        asignaturaSeleccionada = asignaturasList?.get(0)
+        tipoSeleccionado = tipoExamenList[0]
+        obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
+    }
+    private fun updateSelectedValues() {
+        asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
+        tipoSeleccionado = spinnerTipos.selectedItem.toString()
+        obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
+    }
 
 
 

@@ -81,7 +81,6 @@ class MostrarComentarios : AppCompatActivity() {
 
         // Llamar a viewData con los valores iniciales del Spinner y la fecha
         val fechaActual = obtenerFechaActual()
-        //val fechaInicial = editText.text.toString()
         if (asignaturaSeleccionada != null) {
             viewData(asignaturaSeleccionada!!, fechaActual)
         }
@@ -133,11 +132,8 @@ class MostrarComentarios : AppCompatActivity() {
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
-                    val fechaSeleccionada = editText.text.toString() // Obtener la fecha del EditText
-                    // Realizar acciones en función de la asignatura y la fecha seleccionada
                     //Toast.makeText(applicationContext, "Asignatura seleccionada: $asignaturaSeleccionada, Fecha seleccionada: $fechaSeleccionada", Toast.LENGTH_SHORT).show()
                     viewData(asignaturaSeleccionada, yearFinal)
-                //viewData(asignaturaSeleccionada!!, fechaSeleccionada) // Llamar a viewData con asignatura y fecha
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -146,10 +142,8 @@ class MostrarComentarios : AppCompatActivity() {
             }
 
             // Llamar a viewData con los valores iniciales del Spinner y la fecha
-            val fechaInicial = editText.text.toString()
             if (asignaturaSeleccionada != null) {
                 viewData(asignaturaSeleccionada, yearFinal)
-                //viewData(asignaturaSeleccionada!!, fechaInicial)
             }
 
         }

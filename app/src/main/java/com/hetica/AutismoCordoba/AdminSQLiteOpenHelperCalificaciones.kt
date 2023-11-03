@@ -49,9 +49,8 @@ class AdminSQLiteOpenHelperCalificaciones(
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
-       // val query = "SELECT $SUBJECT, $GRADE FROM $DB_TABLE WHERE $SUBJECT = '$asignatura' AND $TYPE = '$tipo'"
-        val query = "SELECT $SUBJECT, $GRADE FROM $DB_TABLE"
-        val cursor = db.rawQuery(query, null)
+        val query = "SELECT $SUBJECT, $GRADE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ?"
+        val cursor = db.rawQuery(query, arrayOf(asignatura, tipo))
         val subjectGradesList = mutableListOf<Pair<String, Float>>()
 
         if (cursor.moveToFirst()) {
@@ -64,6 +63,7 @@ class AdminSQLiteOpenHelperCalificaciones(
         cursor.close()
         return subjectGradesList
     }
+
 
 
 

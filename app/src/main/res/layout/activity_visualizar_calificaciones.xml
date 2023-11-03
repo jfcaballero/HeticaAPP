@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".VisualizarCalificaciones">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar4"
-        android:layout_width="0dp"
-        android:layout_height="78dp"
-        android:background="#009688"
-        android:minHeight="@dimen/fab_bigger_margin"
-        android:theme="@style/AppTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/String_visualizar_calificaciones" />
-
 
     <com.db.williamchart.view.BarChartView
         android:id="@+id/barChartCalificaciones"
@@ -30,8 +18,8 @@
         app:chart_barsColor="#32605B"
         app:chart_barsRadius="4dp"
         app:chart_labelsColor="#000000"
-        app:chart_labelsSize="15sp"
-        app:chart_spacing="15dp"
+        app:chart_labelsSize="10sp"
+        app:chart_spacing="30dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +40,30 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navegacion_estadisticas_menu" />
+
+    <View
+        android:id="@+id/rectangleVisualizarCalificaciones"
+        android:layout_width="150dp"
+        android:layout_height="650dp"
+        android:background="#F9F9F9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.086" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:background="#009688"
+        android:minHeight="@dimen/fab_bigger_margin"
+        android:theme="@style/AppTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/String_visualizar_calificaciones" />
 
     <Spinner
         android:id="@+id/spinnerCalificacionAsig"
@@ -74,4 +86,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.172" />
+
+    <Button
+        android:id="@+id/buttonActividadCalificacion"
+        android:layout_width="159dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="21dp"
+        android:text="Añadir calificación"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barChartCalificaciones"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

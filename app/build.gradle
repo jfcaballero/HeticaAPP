@@ -27,6 +27,7 @@ android {
             //minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
 
     //Añadido para nueva version de API
