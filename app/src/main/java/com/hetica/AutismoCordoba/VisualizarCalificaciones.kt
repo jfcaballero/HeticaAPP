@@ -39,7 +39,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
-        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 2)
+        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -154,7 +154,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
             Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
             binding.barChartCalificaciones.animate(emptyList())
         }else{
-            printSubjectGradesList(listaCalificaciones)
+            //printSubjectGradesList(listaCalificaciones)
             binding.barChartCalificaciones.animation.duration = animationDuration
             val data = generateHorizontalBarData(listaCalificaciones)
 

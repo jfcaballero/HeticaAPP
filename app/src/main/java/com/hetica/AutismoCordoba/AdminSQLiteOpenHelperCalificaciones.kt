@@ -4,7 +4,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.hetica.AutismoCordoba.AdminSQLiteOpenHelperStats
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdminSQLiteOpenHelperCalificaciones(
     context: Context?,
@@ -21,7 +22,6 @@ class AdminSQLiteOpenHelperCalificaciones(
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
-
 
     fun viewData(): Cursor {
         val db = this.readableDatabase
@@ -41,33 +41,37 @@ class AdminSQLiteOpenHelperCalificaciones(
         contentValues.put(SUBJECT, subject)
         contentValues.put(GRADE, grade)
         contentValues.put(TYPE, type)
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+        contentValues.put(DATE, currentDate)
         val result = db.insert(DB_TABLE, null, contentValues)
         return result != -1L
     }
 
-
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
-        val query = "SELECT $SUBJECT, $GRADE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ?"
+        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ?"
         val cursor = db.rawQuery(query, arrayOf(asignatura, tipo))
         val subjectGradesList = mutableListOf<Pair<String, Float>>()
 
         if (cursor.moveToFirst()) {
             do {
-                val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
-                subjectGradesList.add(Pair(subject, grade))
+                val date = cursor.getString(cursor.getColumnIndex(DATE))
+                val formattedDate = formatDate(date)
+                subjectGradesList.add(Pair(formattedDate, grade))
             } while (cursor.moveToNext())
         }
         cursor.close()
-        return subjectGradesList
+        return subjectGradesList.reversed()
     }
-
-
-
-
-
+    private fun formatDate(date: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateObj = inputFormat.parse(date)
+        val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+        return outputFormat.format(dateObj)
+    }
 
     companion object {
         private const val DB_NAME = "Calificaciones.db"
@@ -76,7 +80,8 @@ class AdminSQLiteOpenHelperCalificaciones(
         private const val SUBJECT = "SUBJECT"
         private const val GRADE = "GRADE"
         private const val TYPE = "TYPE"
-        private const val DB_VERSION = 2
-        private const val CREATE_TABLE = "CREATE TABLE $DB_TABLE ($ID INTEGER PRIMARY KEY AUTOINCREMENT, $SUBJECT TEXT, $GRADE FLOAT, $TYPE TEXT)"
+        private const val DATE = "DATE" // New field for date
+        private const val DB_VERSION = 3
+        private const val CREATE_TABLE = "CREATE TABLE $DB_TABLE ($ID INTEGER PRIMARY KEY AUTOINCREMENT, $SUBJECT TEXT, $GRADE FLOAT, $TYPE TEXT, $DATE TEXT)"
     }
 }

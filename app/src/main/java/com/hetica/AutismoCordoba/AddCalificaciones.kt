@@ -38,7 +38,7 @@ class AddCalificaciones : AppCompatActivity() {
         setContentView(binding.root)
 
         dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
-        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 2)
+        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
 
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
