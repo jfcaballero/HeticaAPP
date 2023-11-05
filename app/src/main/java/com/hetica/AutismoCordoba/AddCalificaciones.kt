@@ -2,8 +2,10 @@ package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalificaciones
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,6 +15,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
+import java.util.Calendar
 
 /**
  * La asignatura seleccionada.
@@ -46,6 +49,61 @@ class AddCalificaciones : AppCompatActivity() {
         val spinnerTipos: Spinner = binding.spinnerAddTipo
         val Nota: EditText = binding.AddNota
         val Guardar: Button = binding.buttonAddCalif
+        val FechaEditText: EditText = binding.addCalificacionFecha
+
+        //gestionar el EditText de la fecha:
+        val mcurrentDate = Calendar.getInstance()
+        val yearAux = mcurrentDate[Calendar.YEAR]
+        var monthAux = mcurrentDate[Calendar.MONTH]
+        val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
+        monthAux = monthAux + 1
+        yearFinal = if (monthAux < 10) {
+            "0" + Integer.toString(monthAux)
+        } else {
+            Integer.toString(monthAux)
+        }
+        if (dayAux < 10) {
+            yearFinal = yearFinal + "0"
+        }
+        yearFinal = yearFinal + Integer.toString(dayAux) + Integer.toString(yearAux)
+        FechaEditText.setText("$dayAux/$monthAux/$yearAux")
+
+        FechaEditText.setOnClickListener { // TODO Auto-generated method stub
+            //To show current date in the datepicker
+            val mcurrentDate = Calendar.getInstance()
+            val year = mcurrentDate[Calendar.YEAR]
+            val month = mcurrentDate[Calendar.MONTH]
+            val day = mcurrentDate[Calendar.DAY_OF_MONTH]
+            //month=month +1;
+            //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
+            yearFinal = if (month < 10) {
+                "0" + Integer.toString(month)
+            } else {
+                Integer.toString(month)
+            }
+            if (day < 10) {
+                yearFinal = yearFinal + "0"
+            }
+            yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
+            val mDatePicker = DatePickerDialog(this@AddCalificaciones, { datepicker, selectedYear, selectedMonth, selectedDay ->
+                var selectedMonth = selectedMonth
+                Log.e("Date Selected", "Month: $selectedMonth Day: $selectedDay Year: $selectedYear")
+                selectedMonth = selectedMonth + 1
+                FechaEditText.setText("$selectedDay/$selectedMonth/$selectedYear")
+                yearFinal = if (selectedMonth < 10) {
+                    "0" + Integer.toString(selectedMonth)
+                } else {
+                    Integer.toString(selectedMonth)
+                }
+                if (selectedDay < 10) {
+                    yearFinal = yearFinal + "0"
+                }
+                yearFinal = yearFinal + Integer.toString(selectedDay) + Integer.toString(selectedYear)
+
+            }, year, month, day)
+            mDatePicker.setTitle("Select date")
+            mDatePicker.show()
+        }
 
         //Spinner de asignaturas
         if (asignaturasList != null) {
@@ -85,7 +143,7 @@ class AddCalificaciones : AppCompatActivity() {
             if (notaString.isNotEmpty()) {
                 NotaFloat = notaString.toFloat()
                 if (asignaturaSeleccionada != null && tipoSeleccionado != null && NotaFloat != null) {
-                    val isInserted = dbCalificaciones?.insertData(asignaturaSeleccionada, NotaFloat!!, tipoSeleccionado)
+                    val isInserted = dbCalificaciones?.insertData(asignaturaSeleccionada, NotaFloat!!, tipoSeleccionado, yearFinal!!)
                     if (isInserted == true) {
                         val toastMessage = "Calificación insertada: $asignaturaSeleccionada, Nota: $NotaFloat, Tipo: $tipoSeleccionado"
                         Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()

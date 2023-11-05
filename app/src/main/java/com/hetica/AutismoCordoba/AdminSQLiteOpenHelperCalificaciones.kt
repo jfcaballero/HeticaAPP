@@ -37,18 +37,17 @@ class AdminSQLiteOpenHelperCalificaciones(
     /**
      * Función para insertar una calificación nueva
      **/
-    fun insertData(subject: String?, grade: Float, type: String?): Boolean {
+    fun insertData(subject: String?, grade: Float, type: String?, date: String): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(SUBJECT, subject)
         contentValues.put(GRADE, grade)
         contentValues.put(TYPE, type)
-        val sdf = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato a MMddyyyy
-        val currentDate = sdf.format(Date())
-        contentValues.put(DATE, currentDate)
+        contentValues.put(DATE, date) // Usar la fecha proporcionada
         val result = db.insert(DB_TABLE, null, contentValues)
         return result != -1L
     }
+
 
     /**
      * Función para obtener la nota de una asignatura dados su nombre y tipo
