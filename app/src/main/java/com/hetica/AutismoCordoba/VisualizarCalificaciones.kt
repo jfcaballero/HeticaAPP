@@ -38,6 +38,7 @@ private val binding get() = _binding!!
 class VisualizarCalificaciones : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //setInitialValues()
         dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
@@ -52,6 +53,12 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val buttonActividadCalificacion: Button = binding.buttonActividadCalificacion
         buttonActividadCalificacion.setOnClickListener {
             val intent = Intent(this, AddCalificaciones::class.java)
+            startActivity(intent)
+        }
+
+        val buttonActividadEliminarCalificaciones: Button = binding.buttonActividadEliminarCalificacion
+        buttonActividadEliminarCalificaciones.setOnClickListener {
+            val intent = Intent(this, EliminarCalificaciones::class.java)
             startActivity(intent)
         }
 
@@ -208,7 +215,10 @@ class VisualizarCalificaciones : AppCompatActivity() {
     }
 
 
-
+    override fun onResume() {
+        super.onResume()
+        setInitialValues()
+    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

@@ -34,20 +34,25 @@ class AdminSQLiteOpenHelperCalificaciones(
         val result = db.delete(DB_TABLE, null, null)
         return result > 0
     }
-
+    /**
+     * Función para insertar una calificación nueva
+     **/
     fun insertData(subject: String?, grade: Float, type: String?): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(SUBJECT, subject)
         contentValues.put(GRADE, grade)
         contentValues.put(TYPE, type)
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato a MMddyyyy
         val currentDate = sdf.format(Date())
         contentValues.put(DATE, currentDate)
         val result = db.insert(DB_TABLE, null, contentValues)
         return result != -1L
     }
 
+    /**
+     * Función para obtener la nota de una asignatura dados su nombre y tipo
+     **/
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
@@ -66,12 +71,52 @@ class AdminSQLiteOpenHelperCalificaciones(
         cursor.close()
         return subjectGradesList.reversed()
     }
+    /**
+     * Función para obtener todos los datos de una calificación dada la fecha
+     **/
+    @SuppressLint("Range")
+    fun getSubjectGradesForDate(date: String): MutableList<String> {
+        val db = this.readableDatabase
+        val query = "SELECT $SUBJECT, $TYPE, $GRADE FROM $DB_TABLE WHERE $DATE = ?"
+        val cursor = db.rawQuery(query, arrayOf(date))
+        val subjectGradesList = mutableListOf<String>()
+
+        if (cursor.moveToFirst()) {
+            do {
+                val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
+                val type = cursor.getString(cursor.getColumnIndex(TYPE))
+                val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
+                val entry = "$subject | $type | $grade"
+                subjectGradesList.add(entry)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return subjectGradesList
+    }
+    /**
+     * Función para eliminar una asignatura dados sus atributos
+     **/
+    fun deleteDataByDetails(date: String, subject: String, type: String, grade: Float): Boolean {
+        val db = this.writableDatabase
+        val result = db.delete(
+            DB_TABLE,
+            "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ?",
+            arrayOf(date, subject, type, grade.toString())
+        )
+        return result != -1
+    }
+
+
+    /**
+    * Esta función es para mostrar la fecha en formato dd/MM para la gráfica
+    **/
     private fun formatDate(date: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy
         val dateObj = inputFormat.parse(date)
         val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
         return outputFormat.format(dateObj)
     }
+
 
     companion object {
         private const val DB_NAME = "Calificaciones.db"

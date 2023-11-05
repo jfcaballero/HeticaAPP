@@ -93,7 +93,22 @@
         android:text="Añadir calificación"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barChartCalificaciones"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonActividadEliminarCalificacion"
+        android:layout_width="155dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="16dp"
+        android:text="Eliminar calificación"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barChartCalificaciones"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

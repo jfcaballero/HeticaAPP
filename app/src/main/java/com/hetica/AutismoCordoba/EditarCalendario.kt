@@ -24,10 +24,7 @@ import java.util.Locale
  */
 @SuppressLint("StaticFieldLeak")
 private var listViewAsignaturasDeUnDia: ListView? = null
-/**
- * La asignatura seleccionada.
- */
-private var asignaturaSeleccionada: String? = null
+
 /**
  * Botón para añadir asignatura
  */
