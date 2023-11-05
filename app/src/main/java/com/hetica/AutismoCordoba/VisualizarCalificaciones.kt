@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,6 +28,10 @@ private var tipoSeleccionado: String? = null
  * La base de datos de las calificaciones
  */
 var dbCalificaciones: AdminSQLiteOpenHelperCalificaciones? =null
+/**
+ * Imagen para irnos al Main
+ */
+var imageMain: ImageView?=null
 
 private lateinit var spinnerAsignaturas: Spinner
 private lateinit var spinnerTipos: Spinner
@@ -43,6 +48,9 @@ class VisualizarCalificaciones : AppCompatActivity() {
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        imageMain=findViewById(R.id.botonMain3)
+        GoToMain()
 
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
@@ -148,6 +156,17 @@ class VisualizarCalificaciones : AppCompatActivity() {
             }
         }
 
+
+    }
+    /**
+     * Función para irnos al Main
+     *
+     */
+    fun GoToMain(){
+        imageMain?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

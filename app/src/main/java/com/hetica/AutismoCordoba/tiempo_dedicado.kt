@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +44,10 @@ class tiempo_dedicado: AppCompatActivity()  {
      * The Year final.
      */
     var yearFinal: String? = null
+    /**
+     * Imagen para irnos al Main
+     */
+    var imageMain: ImageView?=null
 
 
 
@@ -68,6 +73,8 @@ class tiempo_dedicado: AppCompatActivity()  {
             barChartHorizontal.animate(horizontalBarSet)
 
         }
+        imageMain=findViewById(R.id.botonMain4)
+        GoToMain()
 
         val editText = findViewById<View>(R.id.fechatiempodedicado) as EditText
 
@@ -165,7 +172,17 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
 
     }
+    /**
+     * Función para irnos al Main
+     *
+     */
+    fun GoToMain(){
+        imageMain?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
+    }
     /**
      * Función que devuelve las estadísticas de una fecha en concreto
      *

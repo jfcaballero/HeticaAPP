@@ -69,6 +69,11 @@ private var listViewComentarios: ListView? = null
  */
 private var asignaturaSeleccionada: String? = null
 
+/**
+ * Imagen para irnos al Main
+ */
+var imageMain2: ImageView?=null
+
 
 
 class MostrarComentarios : AppCompatActivity() {
@@ -78,6 +83,8 @@ class MostrarComentarios : AppCompatActivity() {
         val editText = findViewById<View>(R.id.fechacomentarios) as EditText
         dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
         listViewComentarios = findViewById(R.id.listViewComentarios)
+        imageMain2=findViewById(R.id.botonMain2)
+        GoToMain()
 
         // Llamar a viewData con los valores iniciales del Spinner y la fecha
         val fechaActual = obtenerFechaActual()
@@ -207,6 +214,17 @@ class MostrarComentarios : AppCompatActivity() {
             mDatePicker.show()
         }
 
+
+    }
+    /**
+     * Función para irnos al Main
+     *
+     */
+    fun GoToMain(){
+        imageMain2?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
     /**

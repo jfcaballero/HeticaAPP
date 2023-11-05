@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.Configuration
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -63,6 +65,10 @@ class estadisticasDias : AppCompatActivity() {
      * Promedio de minutos
      */
     var  promedioMinutos: TextView?=null
+    /**
+     * Imagen para irnos al Main
+     */
+    var imageMain: ImageView?=null
 
 
     // Método para configurar la instancia de AdminSQLiteOpenHelperStats
@@ -80,6 +86,8 @@ class estadisticasDias : AppCompatActivity() {
         db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
         lv = findViewById<View>(R.id.listViewAsignaturas) as ListView
         promedioMinutos = findViewById(R.id.promedioMinutos)
+        imageMain=findViewById(R.id.botonMain5)
+        GoToMain()
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
@@ -202,6 +210,17 @@ class estadisticasDias : AppCompatActivity() {
             mDatePicker.setTitle("Select date")
             mDatePicker.show()
         }
+    }
+    /**
+     * Función para irnos al Main
+     *
+     */
+    fun GoToMain(){
+        imageMain?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     /**

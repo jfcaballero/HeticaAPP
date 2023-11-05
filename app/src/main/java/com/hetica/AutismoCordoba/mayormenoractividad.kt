@@ -39,7 +39,8 @@ class mayormenoractividad : AppCompatActivity() {
             diasmenoractividad.animate(horizontalBarSet)
         }
 
-
+        imageMain=findViewById(R.id.botonMain)
+        GoToMain()
 
         val editTextYear = findViewById<EditText>(R.id.editTextYear)
 
@@ -179,7 +180,17 @@ class mayormenoractividad : AppCompatActivity() {
         binding.diasmenoractividad.invalidate()
     }
 
+    /**
+     * Función para irnos al Main
+     *
+     */
+    fun GoToMain(){
+        imageMain?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
+    }
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
         val rectangle2 = findViewById<View>(R.id.rectangle2)
