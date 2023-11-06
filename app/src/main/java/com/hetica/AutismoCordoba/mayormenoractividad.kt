@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -19,6 +20,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
 import com.hetica.AutismoCordoba.databinding.TiempoDedicadoBinding
 import java.util.Calendar
+import kotlin.math.roundToInt
 
 
 class mayormenoractividad : AppCompatActivity() {
@@ -34,9 +36,15 @@ class mayormenoractividad : AppCompatActivity() {
         binding.apply {
             diasmayoractividad.animation.duration = animationDuration
             diasmayoractividad.animate(horizontalBarSet)
+            //diasmayoractividad.labelsFormatter = { "%.2f".format(it) }
+            diasmayoractividad.labelsFormatter = { "${it.roundToInt()}" }
+
+
 
             diasmenoractividad.animation.duration = animationDuration
             diasmenoractividad.animate(horizontalBarSet)
+            //diasmenoractividad.labelsFormatter = { "%.2f".format(it) }
+            diasmenoractividad.labelsFormatter = { "%.0f".format(it) }
         }
 
         imageMain=findViewById(R.id.botonMain)
@@ -69,13 +77,11 @@ class mayormenoractividad : AppCompatActivity() {
                 val selectedItem: String = parent.getItemAtPosition(pos).toString()
                 val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad, "Stats.db", null, 1)
 
-                val editTextYear = findViewById<EditText>(R.id.editTextYear) // Agregar esta línea para obtener el EditText
+                val editTextYear = findViewById<EditText>(R.id.editTextYear)
 
                 val anyo = editTextYear.text.toString()
                 if (anyo.isNotEmpty()) { // Asegurarse de que el EditText no esté vacío antes de obtener el valor del año
                     obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
-                } else {
-                    // Realizar alguna acción apropiada si el EditText está vacío
                 }
             }
 
@@ -83,7 +89,7 @@ class mayormenoractividad : AppCompatActivity() {
             }
         }
 
-// Agregar el TextWatcher al EditText
+        // Agregar el TextWatcher al EditText
         editTextYear.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No se realiza ninguna acción antes de que cambie el texto
@@ -108,8 +114,6 @@ class mayormenoractividad : AppCompatActivity() {
 
                 } else {
                     Toast.makeText(this@mayormenoractividad, "Debe especificar el año de consulta", Toast.LENGTH_SHORT).show()
-
-                    // Realizar alguna acción apropiada si el EditText está vacío
                 }
             }
         })
@@ -146,6 +150,7 @@ class mayormenoractividad : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
 
     private fun obtenerDiasConMinutosEnUnMes(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
@@ -156,7 +161,6 @@ class mayormenoractividad : AppCompatActivity() {
             Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
             binding.diasmayoractividad.animate(emptyList())
             binding.diasmenoractividad.animate(emptyList())
-
             return
         }
 
@@ -169,6 +173,7 @@ class mayormenoractividad : AppCompatActivity() {
         val listaDiasFloat = listaDiasTop4.map { it.first to it.second.toFloat() }
         val listaDiasFloatAsc = listaDiasTop4Asc.map { it.first to it.second.toFloat() }
 
+
         binding.diasmayoractividad.animation.duration = mayormenoractividad.animationDuration
         val data = generateHorizontalBarData(listaDiasFloat)
         binding.diasmayoractividad.animate(data)
@@ -178,6 +183,7 @@ class mayormenoractividad : AppCompatActivity() {
         val dataAsc = generateHorizontalBarData(listaDiasFloatAsc)
         binding.diasmenoractividad.animate(dataAsc)
         binding.diasmenoractividad.invalidate()
+
     }
 
     /**

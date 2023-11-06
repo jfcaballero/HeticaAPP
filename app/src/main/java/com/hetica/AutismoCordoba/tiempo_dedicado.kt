@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.TiempoDedicadoBinding
 import java.util.Calendar
-
+import kotlin.math.roundToInt
 
 
 class tiempo_dedicado: AppCompatActivity()  {
@@ -71,6 +71,9 @@ class tiempo_dedicado: AppCompatActivity()  {
 
             barChartHorizontal.animation.duration = animationDuration
             barChartHorizontal.animate(horizontalBarSet)
+            //barChartHorizontal.labelsFormatter = { "${it.roundToInt()}" }
+            barChartHorizontal.labelsFormatter = { "%.2f".format(it) }
+
 
         }
         imageMain=findViewById(R.id.botonMain4)

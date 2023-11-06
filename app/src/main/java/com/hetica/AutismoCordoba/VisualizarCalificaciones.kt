@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
+import kotlin.math.roundToInt
 
 /**
  * La asignatura seleccionada.
@@ -75,6 +76,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
             barChartCalificaciones.animation.duration = animationDuration
             barChartCalificaciones.animate(horizontalBarSet)
+            barChartCalificaciones.labelsFormatter = { "%.2f".format(it) }
+
 
         }
         //dbCalificaciones!!.clearData()
