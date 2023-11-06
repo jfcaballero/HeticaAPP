@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -121,26 +122,47 @@ class mayormenoractividad : AppCompatActivity() {
 
         val bottomNavigation = binding.bottomNavigationViewestadisticas
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+        bottomNavigation.selectedItemId = R.id.action_actividad
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
                     val intent = Intent(this, estadisticasDias::class.java)
-                    startActivity(intent)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_tiempo_dedicado -> {
                     val intent = Intent(this, tiempo_dedicado::class.java)
-                    startActivity(intent)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_comentarios -> {
                     val intent = Intent(this, MostrarComentarios::class.java)
-                    startActivity(intent)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_calificaciones -> {
                     val intent = Intent(this, VisualizarCalificaciones::class.java)
-                    startActivity(intent)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_actividad -> {

@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.Configuration
@@ -91,35 +92,53 @@ class estadisticasDias : AppCompatActivity() {
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+        bottomNavigation.selectedItemId = R.id.action_estadisticas
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
-                    // No hagas nada si el ítem seleccionado ya está activo
                     true
                 }
                 R.id.action_tiempo_dedicado -> {
-                    // Abre otra actividad cuando se hace clic en otro elemento
                     val intent = Intent(this, tiempo_dedicado::class.java)
-                    startActivity(intent)
+                    //Esto es para la animación de slide entre actividades
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_actividad -> {
-                    // Abre la actividad que deseas al hacer clic en el primer elemento
-                    val intent2 = Intent(this, mayormenoractividad::class.java)
-                    startActivity(intent2)
+                    val intent = Intent(this, mayormenoractividad::class.java)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_comentarios -> {
                     val intent = Intent(this, MostrarComentarios::class.java)
-                    startActivity(intent)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
                 R.id.action_calificaciones -> {
                     val intent = Intent(this, VisualizarCalificaciones::class.java)
-                    startActivity(intent)
+                    val animationBundle = ActivityOptions.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in,  // Enter animation
+                        R.anim.slide_out  // Exit animation
+                    ).toBundle()
+                    startActivity(intent, animationBundle)
                     true
                 }
-                // Agrega otros casos para los elementos adicionales del menú si es necesario
                 else -> false
             }
         }
