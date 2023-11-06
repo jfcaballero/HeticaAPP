@@ -249,7 +249,6 @@ class temporizadorUnico : AppCompatActivity() {
             }
         }
     }
-
     fun showNotification() {
         try {
             val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)

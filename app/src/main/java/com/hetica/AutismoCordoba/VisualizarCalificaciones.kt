@@ -17,6 +17,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
 import kotlin.math.roundToInt
+/**
+ * The type VisualizarCalificaciones
+ *
+ * @author Álvaro Berjillos Roldán
+ *
+ */
+
 
 /**
  * La asignatura seleccionada.
@@ -195,11 +202,12 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
     }
-
+    /**
+     * Función para mostrar las calificaciones en la gráfica
+     * @param asignatura
+     * @param tipo
+     */
     private fun obtenerCalificaciones(asignatura: String, tipo: String) {
-
-        //dbCalificaciones.clearData()
-        //dbCalificaciones.insertData("lengua", 5.0F,"Parcial")
 
         val listaCalificaciones= dbCalificaciones?.getSubjectGradesList(asignatura,tipo)
         if (listaCalificaciones.isNullOrEmpty()) {
@@ -217,6 +225,11 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
     }
+    /**
+     * Función para imprimir todas las calificaciones
+     * @param subjectGradesList Lista de pares de asignatura y nota
+     *
+     */
     private fun printSubjectGradesList(subjectGradesList: List<Pair<String, Float>>) {
         val context = applicationContext
         for ((subject, grade) in subjectGradesList) {
@@ -224,7 +237,12 @@ class VisualizarCalificaciones : AppCompatActivity() {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
-
+    /**
+     * Función para generar datos que se puedan leer por las gráficas
+     * @param data
+     * @return mappedData
+     *
+     */
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
 
@@ -246,6 +264,11 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         return mappedData
     }
+    /**
+     * Función para mostrar los valores en la gráfica en base a los predeterminados al inicio por los
+     * spinners
+     *
+     */
     private fun setInitialValues() {
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
@@ -253,6 +276,10 @@ class VisualizarCalificaciones : AppCompatActivity() {
         tipoSeleccionado = tipoExamenList[0]
         obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }
+    /**
+     * Función para actualizar las gráficas al cambiar valores de spinner
+     *
+     */
     private fun updateSelectedValues() {
         asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
         tipoSeleccionado = spinnerTipos.selectedItem.toString()

@@ -90,6 +90,10 @@ class EliminarCalificaciones : AppCompatActivity() {
         viewData(yearFinal!!)
 
     }
+    /**
+     * Función para mostrar dada la fecha las calificaciones en la lista
+     *
+     */
     private fun viewData(dateString: String) {
         val calificacionesBDList = dbCalificaciones?.getSubjectGradesForDate(dateString)
 
@@ -100,7 +104,7 @@ class EliminarCalificaciones : AppCompatActivity() {
 
             listViewCalificaciones?.setOnItemClickListener { parent, view, position, id ->
                 val selectedItem = parent.getItemAtPosition(position) as String
-                // Dividimos el elemento en las partes como las mostramos en el ListView
+                // Para dividir el elemento en las partes como las mostramos en el ListView
                 val parts = selectedItem.split(" | ")
 
                 val subject = parts[0]
@@ -115,6 +119,10 @@ class EliminarCalificaciones : AppCompatActivity() {
             Toast.makeText(this, "No hay calificaciones para el día seleccionado $dateString", Toast.LENGTH_LONG).show()
         }
     }
+    /**
+     * Función para eliminar una calificación dadas fecha, asignatura, tipo y nota
+     *
+     */
     private fun deleteData(date: String, subject: String, type: String, grade: Float) {
         val deleted = dbCalificaciones?.deleteDataByDetails(date, subject, type, grade)
         if (deleted == true) {
@@ -124,7 +132,10 @@ class EliminarCalificaciones : AppCompatActivity() {
             Toast.makeText(this, "Error al eliminar la calificación.", Toast.LENGTH_SHORT).show()
         }
     }
-
+    /**
+     * Función para imprimir una lista de notas
+     *
+     */
     private fun printGradesList(gradesList: MutableList<String>) {
         for (grade in gradesList) {
             Toast.makeText(this, "$grade", Toast.LENGTH_LONG).show()

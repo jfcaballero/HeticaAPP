@@ -1,6 +1,10 @@
 import android.content.Context
 import android.content.SharedPreferences
-
+/**
+ * La clase PrefManager para gestionar el mensaje de Bienvenida
+ *
+ * @author Álvaro Berjillos Roldán
+ */
 class PrefManager(context: Context) {
     private val pref: SharedPreferences
     private val editor: SharedPreferences.Editor

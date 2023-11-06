@@ -224,8 +224,6 @@ class SettingsActivity : AppCompatActivity() {
      * Función que mide el valor del seekbar
      */
     fun seebbarr() {
-
-
         //textView.setText("Covered : " + seekBar.getProgress() + " / " +seekBar.getMax());
         seekBar!!.max = 30
         seekBar!!.setOnSeekBarChangeListener(
@@ -438,14 +436,10 @@ class SettingsActivity : AppCompatActivity() {
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
                 SwitchConcentracion!!.isChecked = true
-                //if (notificationPolicyAccessGranted()) {
-                //    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                //    notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
-                //}
+
             } else {
                 SwitchConcentracion!!.isChecked = false
-              //  val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-              //  notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
+
             }
             try {
                 fis.close()

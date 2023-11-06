@@ -107,7 +107,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
             adapterCalendario = adapter
             adapter.notifyDataSetChanged()
         } else {
-            Toast.makeText(this, "No hay asignaturas para hoy", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "No hay asignaturas para hoy", Toast.LENGTH_LONG).show()
         }
 
         /*

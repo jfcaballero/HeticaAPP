@@ -288,7 +288,10 @@ class MainActivity : AppCompatActivity() {
         val siguiente = Intent(this, estadisticasDias::class.java)
         startActivity(siguiente)
     }
-
+    /**
+     * Pasar a la pantalla de "Creditos"
+     *
+     */
     fun pasarCreditos(view: View?) {
         val siguiente = Intent(this, creditos::class.java)
         startActivity(siguiente)

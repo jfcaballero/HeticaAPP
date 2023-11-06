@@ -18,7 +18,11 @@ import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.TiempoDedicadoBinding
 import java.util.Calendar
 import kotlin.math.roundToInt
-
+/**
+ * The type tiempo_dedicado.
+ *
+ * @author Álvaro Berjillos Roldán
+ */
 
 class tiempo_dedicado: AppCompatActivity()  {
     /**
@@ -220,7 +224,11 @@ class tiempo_dedicado: AppCompatActivity()  {
             obtenerTiempoTotalAsignaturas(yearFinal)
         }
     }
-
+    /**
+     * Función para convertir map a Lista de asignaturas y minutos
+     * @param mapAsignaturas La lista mutable de asignaturas y minutos
+     * @return list
+     */
     private fun convertMapToList(mapAsignaturas: HashMap<String, Int>): List<Pair<String, Float>> {
         val list = mutableListOf<Pair<String, Float>>()
         for ((asignatura, tiempoTotal) in mapAsignaturas) {
@@ -228,7 +236,11 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
         return list
     }
-
+    /**
+     * Función para generar una lista de pares mapeados de asignatura y minutos dada una lista
+     * @param data La lista de asignatura y minutos
+     * @return mappedData
+     */
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
         val toastMessage = "Asignatura: ${data[0].first} - Tiempo Total: ${data[0].second} minutos"
@@ -254,7 +266,10 @@ class tiempo_dedicado: AppCompatActivity()  {
 
 
 
-
+    /**
+     * Función para mostrar en la grafica el tiempo dedicado a cada asignatura dada una fecha
+     * @param Fecha
+     */
     @SuppressLint("Range")
     private fun obtenerTiempoTotalAsignaturas(date: String?) {
         val cursor = db!!.viewDataDias(date)

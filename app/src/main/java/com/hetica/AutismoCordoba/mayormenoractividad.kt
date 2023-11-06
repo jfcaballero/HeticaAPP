@@ -219,6 +219,10 @@ class mayormenoractividad : AppCompatActivity() {
         }
 
     }
+    /**
+     * Función para generar datos para la gráfica dada la lista de días y minutos
+     *
+     */
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
         val rectangle2 = findViewById<View>(R.id.rectangle2)
@@ -239,11 +243,19 @@ class mayormenoractividad : AppCompatActivity() {
 
         return mappedData
     }
+    /**
+     * Función para obtener el mes actual en formato string
+     *
+     */
     fun obtenerMesActualEnFormatoString(): String {
         val calendar = Calendar.getInstance()
         val mesActual = calendar.get(Calendar.MONTH) + 1 // Se suma 1 porque en Calendar, los meses comienzan en 0
         return String.format("%02d", mesActual)
     }
+    /**
+     * Función para obtener el año actual en formato entero
+     *
+     */
     fun obtenerAnioActual(): Int {
         val calendar = Calendar.getInstance()
         return calendar.get(Calendar.YEAR)

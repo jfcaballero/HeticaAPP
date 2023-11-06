@@ -49,6 +49,10 @@ class EnviarComentarios : DialogFragment() {
 
         return view
     }
+    /**
+     * Función para insertar comentarios en la base de datos
+     *
+     */
     private fun enviarDatos() {
         val asignaturaSeleccionada = spinner.selectedItem.toString()
         val mensaje = editText.text.toString()

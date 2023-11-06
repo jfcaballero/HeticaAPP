@@ -24,6 +24,10 @@ class Bienvenida : AppCompatActivity() {
             launchHomeScreen()
         }
     }
+    /**
+     * Función para pasar al Main si no es la primera vez que se entra a la app
+     *
+     */
     private fun launchHomeScreen() {
         val intent: Intent = if (prefManager.isFirstTimeLaunch()) {
             Intent(this, Bienvenida::class.java)

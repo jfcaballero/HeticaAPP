@@ -136,11 +136,14 @@ class EditarCalendario : AppCompatActivity() {
 
 
     }
+    /**
+     * Función para añadir una asignatura dado el nombre y la fecha
+     *
+     */
     private fun addAsignatura(asignaturaSeleccionada: String, dateString: String) {
-        // Agregar la asignatura en la base de datos para la fecha dada
         val success = dbCalendario?.insertData(dateString, listOf(asignaturaSeleccionada))
         if (success == true) {
-            Toast.makeText(this, "Se ha añadido la asignatura correctamente", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Se ha añadido la asignatura correctamente", Toast.LENGTH_SHORT).show()
             // Actualizar la lista de asignaturas mostrada
             viewData(dateString)
         } else {
@@ -148,7 +151,10 @@ class EditarCalendario : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Función para mostrar dada una fecha las asignaturas para ese día
+     *
+     */
     private fun viewData(dateString: String) {
         asignaturasCalendarioBD = dbCalendario?.getAsignaturasForDay(dateString) as MutableList<String>?
 
@@ -157,16 +163,19 @@ class EditarCalendario : AppCompatActivity() {
             listViewAsignaturasDeUnDia?.adapter = adapter
             adapterEditarCalendario = adapter
             adapter.notifyDataSetChanged()
-            //Toast.makeText(this, "Hay asignaturas para $dateString", Toast.LENGTH_LONG).show()
         } else {
             listViewAsignaturasDeUnDia?.adapter = ArrayAdapter(this, R.layout.list_item_layout, emptyList<String>())
-            Toast.makeText(this, "No hay asignaturas para el día seleccionado", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "No hay asignaturas para el día seleccionado", Toast.LENGTH_LONG).show()
         }
     }
+    /**
+     * Función para gestionar el borrar una asignatura dada la posición en la lista y la fecha
+     *
+     */
     private fun deleteAsignatura(position: Int, dateString: String) {
         val success = dbCalendario?.deleteAsignaturaByPosition(position, dateString)
         if (success == true) {
-            Toast.makeText(this, "Se ha eliminado la asignatura correctamente", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Se ha eliminado la asignatura correctamente", Toast.LENGTH_SHORT).show()
             // Actualizar la lista de asignaturas mostrada
             viewData(dateString)
 

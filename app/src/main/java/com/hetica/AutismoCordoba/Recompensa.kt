@@ -9,7 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlin.random.Random
 
-
+/**
+ * The type Recompensa.
+ *
+ * @author Álvaro Berjillos Roldán
+ */
 class Recompensa : AppCompatActivity() {
     /**
      * Boton de salir.
