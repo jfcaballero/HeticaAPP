@@ -15,13 +15,15 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="8dp"
-        android:text="HETICA: Una HErramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger\n\nEste proyecto ha sido desarrollado bajo el V Plan Propio Galileo de Innovación y Transferencia de la Universidad de Córdoba, Modalidad IV, proyectos UCO-SOCIAL-INNOVA.\n\nCoordinador principal:\nJuan Carlos Fernández Caballero, jfcaballero@uco.es. Universidad de Córdoba.\n\nEquipo de investigación:
+        android:text="HETICA: Una Herramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger\n\nEste proyecto ha sido desarrollado bajo el V Plan Propio Galileo de Innovación y Transferencia de la Universidad de Córdoba, Modalidad IV, proyectos UCO-SOCIAL-INNOVA.\n\nCoordinador principal:\nJuan Carlos Fernández Caballero, jfcaballero@uco.es. Universidad de Córdoba.\n\nEquipo de investigación:
 
 \nCésar Hervás Martínez, chervas@uco.es. Universidad de Córdoba.
 \nPedro Antonio Gutiérrez Peña, pagutierrez@uco.es. Universidad de Córdoba.
 \n\nEquipo de trabajo:
 
 \nMiguel Ángel Borreguero Aparicio, i52boapm@uco.es. Universidad de Córdoba. Desarrollador principal.
+
+\nÁlvaro Berjillos Roldán, i92beroa@uco.es. Universidad de Córdoba. Desarrollador principal de la versión 2.0.
 
 \nMaría Muñoz Reyes, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).
 
