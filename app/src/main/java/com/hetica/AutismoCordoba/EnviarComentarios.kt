@@ -54,7 +54,7 @@ var dbComents: AdminSQLiteOpenHelperComentarios? = null
     private fun enviarDatos() {
         val asignaturaSeleccionada = spinner.selectedItem.toString()
         val mensaje = editText.text.toString()
-        dbComents= AdminSQLiteOpenHelperComentarios(requireContext(), "Comentarios.db", null, 1)
+        dbComents= AdminSQLiteOpenHelperComentarios(requireContext())
 
         val sdf = SimpleDateFormat("Mddyyyy")
         val fechadehoy = sdf.format(Date())

@@ -251,7 +251,7 @@ class MostrarComentarios : AppCompatActivity() {
      */
     @SuppressLint("Range")
     private fun viewData(asignaturaSeleccionada: String?, fechaSeleccionada: String?) {
-        dbComentarios = AdminSQLiteOpenHelperComentarios(this, "Comentarios.db", null, 1)
+        dbComentarios = AdminSQLiteOpenHelperComentarios(this)
         //dbComentarios!!.borrarTabla()
         //val comentarioAgregado = dbComentarios?.insertData("10172023", "mates", "esto es un comentario de mates MUY ANTIGUO")
 

@@ -178,7 +178,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                 if (db!!.buscar(asignatura)) {
                     if (asignatura != "" && db!!.Modificar(asignatura, modificarAux)) {
                         //modifico tambien la base de datos de estadisticas
-                        val dbStats = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+                        val dbStats = AdminSQLiteOpenHelperStats(this)
                         val actualizadoEnStats = dbStats.ModificarNombreAsignatura(modificarAux, asignatura)
                         if(actualizadoEnStats){
                             Toast.makeText(this, "Se ha modificado correctamente", Toast.LENGTH_LONG).show()

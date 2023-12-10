@@ -12,7 +12,6 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -87,7 +86,7 @@ class TimerSimple : AppCompatActivity() {
         setContentView(R.layout.activity_timer_simple)
         bundle = intent.extras
         textView = findViewById<View>(R.id.textView49) as TextView
-        db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+        db = AdminSQLiteOpenHelperStats(this)
         finFlag = 0
         timeString = bundle!!.getString("time")
         asig = bundle!!.getString("asig")

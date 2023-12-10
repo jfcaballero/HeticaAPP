@@ -74,7 +74,7 @@ class temporizadorUnico : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_temporizador_unico)
         bundle = intent.extras
-        db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+        db = AdminSQLiteOpenHelperStats(this)
         mTextViewCountDown = findViewById<View>(R.id.textViewCountDown2) as TextView
         textAsig = findViewById<View>(R.id.textView56) as TextView
         botonFin = findViewById<View>(R.id.button48) as Button

@@ -96,7 +96,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH) + 1 // Suma 1 ya que enero es 0
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val dateString = String.format("%02d%02d%d", month, day, year)
-        val dateFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault())
+        //val dateFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault())
         //dbCalendario?.borrarTabla()
 
         asignaturasList = dbCalendario?.getAsignaturasForDay(dateString) as MutableList<String>?

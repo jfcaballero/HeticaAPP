@@ -2,10 +2,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteDatabase.CursorFactory
 import android.database.sqlite.SQLiteOpenHelper
 
-class AdminSQLiteOpenHelperComentarios(context: Context?, name: String?, factory: CursorFactory?, version: Int) :
+class AdminSQLiteOpenHelperComentarios(context: Context?) :
     SQLiteOpenHelper(context, DB_NAME, null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {

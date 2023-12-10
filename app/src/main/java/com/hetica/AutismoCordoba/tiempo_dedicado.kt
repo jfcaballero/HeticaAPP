@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.TiempoDedicadoBinding
 import java.util.Calendar
-import kotlin.math.roundToInt
+
 /**
  * The type tiempo_dedicado.
  *
@@ -140,7 +140,7 @@ class tiempo_dedicado: AppCompatActivity()  {
 
 
 
-        db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+        db = AdminSQLiteOpenHelperStats(this)
 
         val mcurrentDate = Calendar.getInstance()
         val yearAux = mcurrentDate[Calendar.YEAR]

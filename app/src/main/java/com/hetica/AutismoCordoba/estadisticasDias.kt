@@ -5,7 +5,6 @@ import android.app.ActivityOptions
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.Configuration
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -84,7 +83,7 @@ class estadisticasDias : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_estadisticas_dias)
         val editText = findViewById<View>(R.id.editText2) as EditText
-        db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+        db = AdminSQLiteOpenHelperStats(this)
         lv = findViewById<View>(R.id.listViewAsignaturas) as ListView
         promedioMinutos = findViewById(R.id.promedioMinutos)
         imageMain=findViewById(R.id.botonMain5)

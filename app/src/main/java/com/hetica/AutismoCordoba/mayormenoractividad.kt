@@ -1,25 +1,19 @@
 package com.hetica.AutismoCordoba
 
-import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
-import com.db.williamchart.view.HorizontalBarChartView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
-import com.hetica.AutismoCordoba.databinding.TiempoDedicadoBinding
 import java.util.Calendar
 import kotlin.math.roundToInt
 
@@ -76,7 +70,7 @@ class mayormenoractividad : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(pos).toString()
-                val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad, "Stats.db", null, 1)
+                val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
 
                 val editTextYear = findViewById<EditText>(R.id.editTextYear)
 
@@ -109,7 +103,7 @@ class mayormenoractividad : AppCompatActivity() {
                         return
                     }else{
                         val selectedItem = spinner.selectedItem.toString()
-                        val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad, "Stats.db", null, 1)
+                        val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
                         obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
                     }
 

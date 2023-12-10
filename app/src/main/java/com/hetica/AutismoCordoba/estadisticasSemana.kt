@@ -21,7 +21,7 @@ class estadisticasSemana : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_estadisticas_semana)
-        db = AdminSQLiteOpenHelperStats(this, "Stats.db", null, 1)
+        db = AdminSQLiteOpenHelperStats(this)
         lv = findViewById<View>(R.id.listViewSemana) as ListView
         arrayList = ArrayList()
         adapter = ArrayAdapter(this@estadisticasSemana, android.R.layout.simple_list_item_1, arrayList!!)
