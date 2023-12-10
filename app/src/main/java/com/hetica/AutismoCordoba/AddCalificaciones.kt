@@ -14,7 +14,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
-import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
 import java.util.Calendar
 
 
@@ -41,8 +40,8 @@ class AddCalificaciones : AppCompatActivity() {
         _binding = ActivityAddCalificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
-        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
+        dbAsig = AdminSQLiteOpenHelperAsig(this)
+        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
 
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")

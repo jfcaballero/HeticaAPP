@@ -9,7 +9,6 @@ import java.util.*
 
 class AdminSQLiteOpenHelperCalificaciones(
     context: Context?,
-    name: String?,
     factory: SQLiteDatabase.CursorFactory?,
     version: Int
 ) : SQLiteOpenHelper(context, DB_NAME, factory, version) {
@@ -113,7 +112,7 @@ class AdminSQLiteOpenHelperCalificaciones(
         val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy
         val dateObj = inputFormat.parse(date)
         val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
-        return outputFormat.format(dateObj)
+        return outputFormat.format(dateObj as Date)
     }
 
 

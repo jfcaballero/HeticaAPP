@@ -5,7 +5,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteDatabase.CursorFactory
 import android.database.sqlite.SQLiteOpenHelper
 
 /**
@@ -19,8 +18,7 @@ class AdminSQLiteOpenHelperAsig
  * @param name    the name
  * @param factory the factory
  * @param version the version
- */
-(context: Context?, name: String?, factory: CursorFactory?, version: Int) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
+ */(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE)

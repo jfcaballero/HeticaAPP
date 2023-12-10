@@ -78,7 +78,7 @@ class AsignaturaDificil : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignatura_dificil)
-        db = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        db = AdminSQLiteOpenHelperAsig(this)
         if (tiempoConstante === "1") {
             seekBar!!.visibility = View.INVISIBLE
         }

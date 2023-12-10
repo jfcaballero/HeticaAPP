@@ -9,15 +9,12 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Toast
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 
 /**
  * ListView de asignaturas asignadas.
@@ -46,8 +43,8 @@ class EditarCalendario : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editar_calendario)
         val FechaCalendario = findViewById<View>(R.id.FechaCalendario) as EditText
-        dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
-        dbCalendario = AdminSQLiteOpenHelperCalendario(this, "Calendario.db", null, 1)
+        dbAsig = AdminSQLiteOpenHelperAsig(this)
+        dbCalendario = AdminSQLiteOpenHelperCalendario(this)
         listViewAsignaturasDeUnDia = findViewById(R.id.listViewCalendarioAsignaturas)
         val spinner: Spinner = findViewById(R.id.asignaturasCalendario)
         addAsignaturaCalendario=findViewById(R.id.addAsignaturaCalendario)

@@ -16,7 +16,7 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
-import kotlin.math.roundToInt
+
 /**
  * The type VisualizarCalificaciones
  *
@@ -57,8 +57,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setInitialValues()
-        dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
-        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
+        dbAsig = AdminSQLiteOpenHelperAsig(this)
+        dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

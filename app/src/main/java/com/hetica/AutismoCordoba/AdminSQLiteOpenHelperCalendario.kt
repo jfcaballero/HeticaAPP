@@ -4,12 +4,9 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.hetica.AutismoCordoba.asignaturasCalendarioBD
-import com.hetica.AutismoCordoba.dbCalendario
-import java.text.SimpleDateFormat
 import java.util.*
 
-class AdminSQLiteOpenHelperCalendario(context: Context, s: String, nothing: Nothing?, i: Int) :
+class AdminSQLiteOpenHelperCalendario(context: Context) :
     SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {

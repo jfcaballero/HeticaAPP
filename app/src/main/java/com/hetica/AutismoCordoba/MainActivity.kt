@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        db = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        db = AdminSQLiteOpenHelperAsig(this)
         botonTemp = findViewById<View>(R.id.button45) as Button
         botonOpc = findViewById<View>(R.id.button4) as Button
         botonStat = findViewById<View>(R.id.button5) as Button

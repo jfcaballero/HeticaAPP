@@ -1,6 +1,5 @@
 package com.hetica.AutismoCordoba
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,6 @@ import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import AdminSQLiteOpenHelperComentarios
 import android.annotation.SuppressLint
-import android.util.Log
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import java.text.SimpleDateFormat
@@ -31,7 +28,7 @@ var dbComents: AdminSQLiteOpenHelperComentarios? = null
 
         spinner = view.findViewById(R.id.spinnerAsignaturaComentarios)
         editText = view.findViewById(R.id.comentariosTexto)
-        dbAsignaturas = AdminSQLiteOpenHelperAsig(requireContext(), "Asig.db", null, 1)
+        dbAsignaturas = AdminSQLiteOpenHelperAsig(requireContext())
         // Obtener la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsignaturas?.getAsignaturasList() // Obtén la lista de asignaturas desde la base de datos
         if (!asignaturasList.isNullOrEmpty()) {

@@ -83,7 +83,7 @@ class AsignaturaUnica : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignatura_unica)
-        db = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        db = AdminSQLiteOpenHelperAsig(this)
         bundle = intent.extras
         cuantas = bundle!!.getString("numAsig")
         actual = bundle!!.getString("actAsig")

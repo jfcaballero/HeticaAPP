@@ -74,7 +74,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         et = findViewById<View>(R.id.editTextAsig) as EditText
         bt = findViewById<View>(R.id.buttonAdd) as Button
         lv = findViewById<View>(R.id.listViewAsig) as ListView
-        db = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        db = AdminSQLiteOpenHelperAsig(this)
         arrayList = ArrayList()
         if (resources.configuration.screenLayout and
                 Configuration.SCREENLAYOUT_SIZE_MASK ==

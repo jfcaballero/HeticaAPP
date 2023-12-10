@@ -57,7 +57,7 @@ class tiempoEstudio : AppCompatActivity() {
         setContentView(R.layout.activity_tiempo_estudio)
         lv = findViewById<View>(R.id.listView1) as ListView
         arrayList = ArrayList()
-        db = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        db = AdminSQLiteOpenHelperAsig(this)
         textView3 = findViewById<View>(R.id.textView55) as TextView
         editText = findViewById<View>(R.id.editText4) as EditText
         viewData()

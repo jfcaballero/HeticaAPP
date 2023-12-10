@@ -72,7 +72,7 @@ class AsignaturaSiguiente : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignatura_siguiente)
-        db = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        db = AdminSQLiteOpenHelperAsig(this)
         textView2 = findViewById<View>(R.id.textView47) as TextView
         if (tiempoConstante === "1") {
             seekBar!!.visibility = View.INVISIBLE

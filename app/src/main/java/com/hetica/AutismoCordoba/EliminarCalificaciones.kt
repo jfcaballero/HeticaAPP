@@ -26,7 +26,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_calificaciones)
         val FechaEliminar = findViewById<View>(R.id.fechaEliminar) as EditText
-        dbCalificaciones =AdminSQLiteOpenHelperCalificaciones(this, "Calificaciones.db", null, 3)
+        dbCalificaciones =AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         listViewCalificaciones=findViewById(R.id.listaCalificaciones)
 
         //gestionar el EditText de la fecha:

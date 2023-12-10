@@ -15,7 +15,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import java.util.Calendar
@@ -82,7 +81,7 @@ class MostrarComentarios : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mostrar_comentarios)
         val editText = findViewById<View>(R.id.fechacomentarios) as EditText
-        dbAsig = AdminSQLiteOpenHelperAsig(this, "Asig.db", null, 1)
+        dbAsig = AdminSQLiteOpenHelperAsig(this)
         listViewComentarios = findViewById(R.id.listViewComentarios)
         imageMain2=findViewById(R.id.botonMain2)
         GoToMain()
