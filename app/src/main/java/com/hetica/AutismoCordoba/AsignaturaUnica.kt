@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -99,7 +98,7 @@ class AsignaturaUnica : AppCompatActivity() {
 
 
         //read();
-        lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ -> textView2!!.text = arrayList!![position] }
+        lv!!.onItemClickListener = OnItemClickListener { parent, view, position, id -> textView2!!.text = arrayList!![position] }
     }
 
     var doubleBackToExitPressedOnce = false
@@ -112,9 +111,7 @@ class AsignaturaUnica : AppCompatActivity() {
         }
         doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show()
-        Handler(Looper.getMainLooper()).postDelayed({
-            doubleBackToExitPressedOnce = false
-        }, 2000)
+        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
     /**
@@ -151,7 +148,7 @@ class AsignaturaUnica : AppCompatActivity() {
             fis = openFileInput("asignaturas_listado.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            StringBuilder()
+            val sb = StringBuilder()
             var text: String
             while (br.readLine().also { text = it } != null) {
                 arrayList!!.add(text)
@@ -177,7 +174,7 @@ class AsignaturaUnica : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasar() {
+    fun pasar(view: View?) {
         val siguiente = Intent(this, TimerSimple::class.java)
         bundle!!.putString("actAsig", "1")
         bundle!!.putString("numAsig", cuantas)
@@ -206,7 +203,8 @@ class AsignaturaUnica : AppCompatActivity() {
             fis = openFileInput("tiempo_trabajar.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            StringBuilder()
+            val sb = StringBuilder()
+            var text: String
             tiempo = br.readLine()
             tiempoConstante = br.readLine()
             if (tiempoConstante.equals("1", ignoreCase = true)) {
@@ -234,7 +232,7 @@ class AsignaturaUnica : AppCompatActivity() {
      */
     private fun viewData() {
         val cursor = db!!.viewData()
-        if (cursor.count == 0) {
+        if (cursor!!.count == 0) {
             Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             while (cursor.moveToNext()) {
