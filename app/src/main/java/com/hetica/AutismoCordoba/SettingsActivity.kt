@@ -55,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
             seekBar!!.isEnabled = false
             textView!!.setTextColor(Color.parseColor("#b6b6b6"))
         }
-        Switch!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        Switch!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 seekBar!!.isEnabled = true
                 textView!!.setTextColor(Color.parseColor("#2f2f2f"))
@@ -64,7 +64,7 @@ class SettingsActivity : AppCompatActivity() {
                 textView!!.setTextColor(Color.parseColor("#b6b6b6"))
             }
         }
-        SwitchTemp!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        SwitchTemp!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 var fos: FileOutputStream? = null
                 try {
@@ -91,7 +91,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
         }
-        SwitchPausa!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        SwitchPausa!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 var fos: FileOutputStream? = null
                 try {
@@ -118,7 +118,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
         }
-        SwitchFin!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        SwitchFin!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 var fos: FileOutputStream? = null
                 try {
@@ -145,7 +145,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
         }
-        SwitchConcentracion!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        SwitchConcentracion!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 var fos: FileOutputStream? = null
                 try {
@@ -189,7 +189,7 @@ class SettingsActivity : AppCompatActivity() {
      * Función para manejar el switch del modo de Concentración
      */
     private fun setupSwitchConcentracionListener() {
-        SwitchConcentracion!!.setOnCheckedChangeListener { buttonView, isChecked ->
+        SwitchConcentracion!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 if (!notificationPolicyAccessGranted()) {
                     val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)

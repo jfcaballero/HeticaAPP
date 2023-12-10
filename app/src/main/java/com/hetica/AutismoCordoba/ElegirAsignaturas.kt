@@ -98,7 +98,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         viewData()
 
         //onBtnClick();
-        lv!!.onItemClickListener = OnItemClickListener { parent, view, position, id ->
+        lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ ->
             et!!.setText(arrayList!![position])
             position1 = position
             bt!!.text = "Modificar"
@@ -150,7 +150,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun Registrar(view: View?) {
+    fun Registrar() {
         if (agregar == 1) {
             val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
@@ -205,7 +205,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun Eliminar(view: View?) {
+    fun Eliminar() {
         val asignatura = et!!.text.toString()
         if (!db!!.buscar(asignatura) || asignatura == "") {
             if (asignatura != "" && db!!.Eliminar(asignatura)) {
@@ -230,7 +230,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      */
     private fun viewData() {
         val cursor = db!!.viewData()
-        if (cursor!!.count == 0) {
+        if (cursor.count == 0) {
             Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             while (cursor.moveToNext()) {

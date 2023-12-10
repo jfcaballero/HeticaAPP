@@ -2,7 +2,6 @@ package com.hetica.AutismoCordoba
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -24,7 +23,7 @@ class OrganizarEstudio1 : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasar2(view: View?) {
+    fun pasar2() {
         val siguente = Intent(this, activity_organizar_estudio2::class.java)
         startActivity(siguente)
     }
@@ -34,7 +33,7 @@ class OrganizarEstudio1 : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasaratras(view: View?) {
+    fun pasaratras() {
         val siguiente = Intent(this, MainActivity::class.java)
         startActivity(siguiente)
     }
