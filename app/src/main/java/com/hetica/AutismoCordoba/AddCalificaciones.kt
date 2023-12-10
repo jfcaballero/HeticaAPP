@@ -17,6 +17,7 @@ import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
 import java.util.Calendar
 
+
 /**
  * La asignatura seleccionada.
  */
@@ -70,10 +71,10 @@ class AddCalificaciones : AppCompatActivity() {
 
         FechaEditText.setOnClickListener { // TODO Auto-generated method stub
             //To show current date in the datepicker
-            val mcurrentDate = Calendar.getInstance()
-            val year = mcurrentDate[Calendar.YEAR]
-            val month = mcurrentDate[Calendar.MONTH]
-            val day = mcurrentDate[Calendar.DAY_OF_MONTH]
+            val mcurrentDate2 = Calendar.getInstance()
+            val year = mcurrentDate2[Calendar.YEAR]
+            val month = mcurrentDate2[Calendar.MONTH]
+            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
             //month=month +1;
             //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
             yearFinal = if (month < 10) {
@@ -85,15 +86,15 @@ class AddCalificaciones : AppCompatActivity() {
                 yearFinal = yearFinal + "0"
             }
             yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@AddCalificaciones, { datepicker, selectedYear, selectedMonth, selectedDay ->
-                var selectedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $selectedMonth Day: $selectedDay Year: $selectedYear")
-                selectedMonth = selectedMonth + 1
-                FechaEditText.setText("$selectedDay/$selectedMonth/$selectedYear")
-                yearFinal = if (selectedMonth < 10) {
-                    "0" + Integer.toString(selectedMonth)
+            val mDatePicker = DatePickerDialog(this@AddCalificaciones, { _, selectedYear, selectedMonth, selectedDay ->
+                var adjustedMonth  = selectedMonth
+                Log.e("Date Selected", "Month: $adjustedMonth  Day: $selectedDay Year: $selectedYear")
+                adjustedMonth  = adjustedMonth  + 1
+                FechaEditText.setText("$selectedDay/$adjustedMonth /$selectedYear")
+                yearFinal = if (adjustedMonth  < 10) {
+                    "0" + Integer.toString(adjustedMonth )
                 } else {
-                    Integer.toString(selectedMonth)
+                    Integer.toString(adjustedMonth )
                 }
                 if (selectedDay < 10) {
                     yearFinal = yearFinal + "0"
