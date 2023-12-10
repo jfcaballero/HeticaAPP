@@ -44,8 +44,8 @@ class mayormenoractividad : AppCompatActivity() {
 
             diasmenoractividad.animation.duration = animationDuration
             diasmenoractividad.animate(horizontalBarSet)
-            //diasmenoractividad.labelsFormatter = { "%.2f".format(it) }
-            diasmenoractividad.labelsFormatter = { "%.0f".format(it) }
+            diasmenoractividad.labelsFormatter = { "${it.roundToInt()}" }
+            //diasmenoractividad.labelsFormatter = { "%.0f".format(it) }
         }
 
         imageMain=findViewById(R.id.botonMain)

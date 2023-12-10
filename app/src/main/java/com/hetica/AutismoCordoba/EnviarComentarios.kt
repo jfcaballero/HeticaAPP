@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import AdminSQLiteOpenHelperComentarios
+import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -19,10 +20,10 @@ import java.util.Date
 
 var dbAsignaturas: AdminSQLiteOpenHelperAsig? = null
 var dbComents: AdminSQLiteOpenHelperComentarios? = null
-class EnviarComentarios : DialogFragment() {
+@SuppressLint("Instantiatable")
+ class EnviarComentarios  : DialogFragment()  {
     private lateinit var spinner: Spinner
     private lateinit var editText: EditText
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
