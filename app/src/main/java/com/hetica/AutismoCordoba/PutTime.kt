@@ -27,7 +27,7 @@ class PutTime : AppCompatActivity() {
         val siguiente = Intent(this, TimerSimple::class.java)
         val input = mTextViewTime!!.text.toString()
         if (input.length == 0) {
-            displayToast()
+            displayToast(view)
         }
         val bundle = Bundle()
         bundle.putString("time", input)
@@ -40,7 +40,7 @@ class PutTime : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun displayToast() {
+    fun displayToast(view: View?) {
         Toast.makeText(this@PutTime, "No ha introducido ningún tiempo", Toast.LENGTH_LONG).show()
     }
 }

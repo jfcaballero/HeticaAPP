@@ -49,10 +49,10 @@ class EliminarCalificaciones : AppCompatActivity() {
         viewData(yearFinal!!)
         FechaEliminar.setOnClickListener { // TODO Auto-generated method stub
             //To show current date in the datepicker
-            val mcurrentDate2 = Calendar.getInstance()
-            val year = mcurrentDate2[Calendar.YEAR]
-            val month = mcurrentDate2[Calendar.MONTH]
-            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
+            val mcurrentDate = Calendar.getInstance()
+            val year = mcurrentDate[Calendar.YEAR]
+            val month = mcurrentDate[Calendar.MONTH]
+            val day = mcurrentDate[Calendar.DAY_OF_MONTH]
             //month=month +1;
             //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
             yearFinal = if (month < 10) {
@@ -64,15 +64,15 @@ class EliminarCalificaciones : AppCompatActivity() {
                 yearFinal = yearFinal + "0"
             }
             yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@EliminarCalificaciones, { _, selectedYear, selectedMonth, selectedDay ->
-                var adjustedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
-                adjustedMonth = adjustedMonth + 1
-                FechaEliminar.setText("$selectedDay/$adjustedMonth/$selectedYear")
-                yearFinal = if (adjustedMonth < 10) {
-                    "0" + Integer.toString(adjustedMonth)
+            val mDatePicker = DatePickerDialog(this@EliminarCalificaciones, { datepicker, selectedYear, selectedMonth, selectedDay ->
+                var selectedMonth = selectedMonth
+                Log.e("Date Selected", "Month: $selectedMonth Day: $selectedDay Year: $selectedYear")
+                selectedMonth = selectedMonth + 1
+                FechaEliminar.setText("$selectedDay/$selectedMonth/$selectedYear")
+                yearFinal = if (selectedMonth < 10) {
+                    "0" + Integer.toString(selectedMonth)
                 } else {
-                    Integer.toString(adjustedMonth)
+                    Integer.toString(selectedMonth)
                 }
                 if (selectedDay < 10) {
                     yearFinal = yearFinal + "0"
@@ -102,7 +102,7 @@ class EliminarCalificaciones : AppCompatActivity() {
             listViewCalificaciones?.adapter = adapter
             adapter.notifyDataSetChanged()
 
-            listViewCalificaciones?.setOnItemClickListener { parent, _, position, _ ->
+            listViewCalificaciones?.setOnItemClickListener { parent, view, position, id ->
                 val selectedItem = parent.getItemAtPosition(position) as String
                 // Para dividir el elemento en las partes como las mostramos en el ListView
                 val parts = selectedItem.split(" | ")

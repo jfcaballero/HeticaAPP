@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             text2!!.textSize = 11f
         }
 
-        botonOpc!!.setOnTouchListener(OnTouchListener { _, event ->
+        botonOpc!!.setOnTouchListener(OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         })
-        botonStat!!.setOnTouchListener(OnTouchListener { _, event ->
+        botonStat!!.setOnTouchListener(OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         })
-        botonCred!!.setOnTouchListener(OnTouchListener { _, event ->
+        botonCred!!.setOnTouchListener(OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -222,7 +222,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarAsignaturaDeHoy() {
+    fun pasarAsignaturaDeHoy(view: View) {
         if (countData() == 0) {
             Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarOrgEst() {
+    fun pasarOrgEst(view: View?) {
         if (countData() == 0) {
             Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
@@ -250,7 +250,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarOrgTar() {
+    fun pasarOrgTar(view: View?) {
         if (countData() == 0) {
             Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarOrgMoch() {
+    fun pasarOrgMoch(view: View?) {
         val siguiente = Intent(this, OrganizarMochila1::class.java)
         startActivity(siguiente)
     }
@@ -274,7 +274,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarOpciones() {
+    fun pasarOpciones(view: View?) {
         val siguiente = Intent(this, SettingsActivity::class.java)
         startActivity(siguiente)
     }
@@ -284,7 +284,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarEstadisticas() {
+    fun pasarEstadisticas(view: View?) {
         val siguiente = Intent(this, estadisticasDias::class.java)
         startActivity(siguiente)
     }
@@ -292,7 +292,7 @@ class MainActivity : AppCompatActivity() {
      * Pasar a la pantalla de "Creditos"
      *
      */
-    fun pasarCreditos() {
+    fun pasarCreditos(view: View?) {
         val siguiente = Intent(this, creditos::class.java)
         startActivity(siguiente)
     }
@@ -302,7 +302,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun pasarTemporizador() {
+    fun pasarTemporizador(view: View?) {
         if (countData() == 0) {
             Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
@@ -320,7 +320,7 @@ class MainActivity : AppCompatActivity() {
             fis = openFileInput("temporizador.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            StringBuilder()
+            val sb = StringBuilder()
             val text: String
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
@@ -350,7 +350,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun countData(): Int {
         val cursor = db!!.viewData()
-        return cursor.count
+        return cursor!!.count
     }
 
     companion object {
