@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_AUTO
 import com.google.android.material.navigation.NavigationBarView
 import java.util.Calendar
 
@@ -96,7 +97,8 @@ class MostrarComentarios : AppCompatActivity() {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_comentarios
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
                     val intent = Intent(this, estadisticasDias::class.java)
@@ -139,11 +141,13 @@ class MostrarComentarios : AppCompatActivity() {
                     true
                 }
                 R.id.action_comentarios -> {
+                    // Aquí maneja la selección de comentarios
                     true
                 }
                 else -> false
             }
         }
+
         val spinner: Spinner = findViewById(R.id.selectorasignaturas)
 
         // Obtener la lista de asignaturas desde la base de datos
