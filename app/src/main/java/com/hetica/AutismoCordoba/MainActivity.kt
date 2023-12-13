@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             text2!!.textSize = 11f
         }
 
-        botonOpc!!.setOnTouchListener(OnTouchListener { v, event ->
+        botonOpc!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         })
-        botonStat!!.setOnTouchListener(OnTouchListener { v, event ->
+        botonStat!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         })
-        botonCred!!.setOnTouchListener(OnTouchListener { v, event ->
+        botonCred!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -224,7 +224,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarAsignaturaDeHoy(view: View) {
         if (countData() == 0) {
-            Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             val intent = Intent(this, AsignaturaDeHoy::class.java)
             startActivity(intent)
@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarOrgEst(view: View?) {
         if (countData() == 0) {
-            Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view!!.context, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             val siguiente = Intent(this, organizar_tareas1::class.java)
             startActivity(siguiente)
@@ -252,7 +252,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarOrgTar(view: View?) {
         if (countData() == 0) {
-            Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view!!.context, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             val siguiente = Intent(this, OrganizarEstudio1::class.java)
             startActivity(siguiente)
@@ -265,7 +265,7 @@ class MainActivity : AppCompatActivity() {
      * @param view the view
      */
     fun pasarOrgMoch(view: View?) {
-        val siguiente = Intent(this, OrganizarMochila1::class.java)
+        val siguiente = Intent(view!!.context, OrganizarMochila1::class.java)
         startActivity(siguiente)
     }
 
@@ -275,7 +275,7 @@ class MainActivity : AppCompatActivity() {
      * @param view the view
      */
     fun pasarOpciones(view: View?) {
-        val siguiente = Intent(this, SettingsActivity::class.java)
+        val siguiente = Intent(view!!.context, SettingsActivity::class.java)
         startActivity(siguiente)
     }
 
@@ -285,7 +285,7 @@ class MainActivity : AppCompatActivity() {
      * @param view the view
      */
     fun pasarEstadisticas(view: View?) {
-        val siguiente = Intent(this, estadisticasDias::class.java)
+        val siguiente = Intent(view!!.context, estadisticasDias::class.java)
         startActivity(siguiente)
     }
     /**
@@ -293,7 +293,7 @@ class MainActivity : AppCompatActivity() {
      *
      */
     fun pasarCreditos(view: View?) {
-        val siguiente = Intent(this, creditos::class.java)
+        val siguiente = Intent(view!!.context, creditos::class.java)
         startActivity(siguiente)
     }
 
@@ -304,7 +304,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarTemporizador(view: View?) {
         if (countData() == 0) {
-            Toast.makeText(this, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
+            Toast.makeText(view!!.context, "Introduce alguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             val siguiente = Intent(this, tiempoEstudio::class.java)
             startActivity(siguiente)
@@ -320,7 +320,7 @@ class MainActivity : AppCompatActivity() {
             fis = openFileInput("temporizador.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
+            StringBuilder()
             val text: String
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
@@ -350,7 +350,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun countData(): Int {
         val cursor = db!!.viewData()
-        return cursor!!.count
+        return cursor.count
     }
 
     companion object {

@@ -41,6 +41,8 @@ class PutTime : AppCompatActivity() {
      * @param view the view
      */
     fun displayToast(view: View?) {
+        view?.let { }
         Toast.makeText(this@PutTime, "No ha introducido ningún tiempo", Toast.LENGTH_LONG).show()
     }
+
 }

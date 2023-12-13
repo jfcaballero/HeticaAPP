@@ -58,7 +58,7 @@ var dbComents: AdminSQLiteOpenHelperComentarios? = null
 
         val sdf = SimpleDateFormat("Mddyyyy")
         val fechadehoy = sdf.format(Date())
-        val comentarioAgregado = dbComents?.insertData(fechadehoy, asignaturaSeleccionada, mensaje)
+        dbComents?.insertData(fechadehoy, asignaturaSeleccionada, mensaje)
         dismiss()
     }
 
