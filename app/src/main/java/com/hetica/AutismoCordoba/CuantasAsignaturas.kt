@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -46,7 +47,9 @@ class CuantasAsignaturas : AppCompatActivity() {
         }
         doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show()
-        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
     }
 
     /**
@@ -62,7 +65,7 @@ class CuantasAsignaturas : AppCompatActivity() {
             "1" -> {
                 bundle.putString("actAsig", "1")
                 bundle.putString("numAsig", "1")
-                siguiente = Intent(this, AsignaturaUnica::class.java)
+                siguiente = Intent(view!!.context, AsignaturaUnica::class.java)
                 siguiente.putExtras(bundle)
                 startActivity(siguiente)
             }

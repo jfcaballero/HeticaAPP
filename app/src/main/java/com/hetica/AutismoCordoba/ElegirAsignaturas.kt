@@ -98,7 +98,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         viewData()
 
         //onBtnClick();
-        lv!!.onItemClickListener = OnItemClickListener { parent, view, position, id ->
+        lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ ->
             et!!.setText(arrayList!![position])
             position1 = position
             bt!!.text = "Modificar"
@@ -154,7 +154,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         if (agregar == 1) {
             val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
-                Toast.makeText(this, "La asignatura es demasiado larga", Toast.LENGTH_LONG).show()
+                Toast.makeText(view!!.context, "La asignatura es demasiado larga", Toast.LENGTH_LONG).show()
             } else {
                 if (db!!.buscar(asignatura)) {
                     if (asignatura != "" && db!!.insertData(asignatura)) {
@@ -209,7 +209,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         val asignatura = et!!.text.toString()
         if (!db!!.buscar(asignatura) || asignatura == "") {
             if (asignatura != "" && db!!.Eliminar(asignatura)) {
-                Toast.makeText(this, "Se ha eliminado correctamente", Toast.LENGTH_LONG).show()
+                Toast.makeText(view!!.context, "Se ha eliminado correctamente", Toast.LENGTH_LONG).show()
                 arrayList!!.removeAt(position1)
                 adapter!!.notifyDataSetChanged()
                 et!!.setText("")
@@ -230,7 +230,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      */
     private fun viewData() {
         val cursor = db!!.viewData()
-        if (cursor!!.count == 0) {
+        if (cursor.count == 0) {
             Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             while (cursor.moveToNext()) {
