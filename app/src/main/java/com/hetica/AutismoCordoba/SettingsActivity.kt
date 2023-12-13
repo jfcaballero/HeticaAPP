@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -215,10 +216,11 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         val siguiente = Intent(this, MainActivity::class.java)
         startActivity(siguiente)
+        finish()
     }
+
 
     /**
      * Función que mide el valor del seekbar
@@ -248,6 +250,8 @@ class SettingsActivity : AppCompatActivity() {
      * @param view the view
      */
     fun guardar(view: View?) {
+        Log.d("Guardando", "Guardando usando $view")
+
         var fos: FileOutputStream? = null
         try {
             fos = openFileOutput("tiempo_trabajar.txt", MODE_PRIVATE)
@@ -275,13 +279,14 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+
     /**
      * Función que lleva a las opciones de las asignaturas
      *
      * @param view the view
      */
     fun pasar_asig(view: View?) {
-        val siguiente = Intent(this, ElegirAsignaturas::class.java)
+        val siguiente = Intent(view!!.context, ElegirAsignaturas::class.java)
         startActivity(siguiente)
     }
 
@@ -329,7 +334,7 @@ class SettingsActivity : AppCompatActivity() {
             fis = openFileInput("tiempo_trabajar.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
+            StringBuilder()
             var text: String
             text = br.readLine()
             seekBar!!.progress = Integer.valueOf(text) - 30
@@ -356,7 +361,7 @@ class SettingsActivity : AppCompatActivity() {
             fis = openFileInput("temporizador.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
+            StringBuilder()
             val text: String
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
@@ -381,7 +386,7 @@ class SettingsActivity : AppCompatActivity() {
             fis = openFileInput("pausa.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
+            StringBuilder()
             val text: String
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
@@ -406,7 +411,7 @@ class SettingsActivity : AppCompatActivity() {
             fis = openFileInput("fin.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
+            StringBuilder()
             val text: String
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
@@ -431,7 +436,7 @@ class SettingsActivity : AppCompatActivity() {
             fis = openFileInput("concentracion.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
+            StringBuilder()
             val text: String
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
@@ -467,7 +472,7 @@ class SettingsActivity : AppCompatActivity() {
      * @param view the view
      */
     fun pasar3(view: View?) {
-        val siguiente = Intent(this, MainActivity::class.java)
+        val siguiente = Intent(view!!.context, MainActivity::class.java)
         startActivity(siguiente)
     }
 

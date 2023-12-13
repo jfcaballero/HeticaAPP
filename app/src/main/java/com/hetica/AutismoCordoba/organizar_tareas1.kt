@@ -25,7 +25,7 @@ class organizar_tareas1 : AppCompatActivity() {
      * @param view the view
      */
     fun pasar3(view: View?) {
-        val siguiente = Intent(this, organizar_tareas6::class.java)
+        val siguiente = Intent(view!!.context, organizar_tareas6::class.java)
         startActivity(siguiente)
     }
 
@@ -35,7 +35,7 @@ class organizar_tareas1 : AppCompatActivity() {
      * @param view the view
      */
     fun pasaratras(view: View?) {
-        val siguiente = Intent(this, MainActivity::class.java)
+        val siguiente = Intent(view!!.context, MainActivity::class.java)
         startActivity(siguiente)
     }
 }

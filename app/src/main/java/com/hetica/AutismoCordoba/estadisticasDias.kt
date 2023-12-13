@@ -92,14 +92,14 @@ class estadisticasDias : AppCompatActivity() {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_estadisticas
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
                     true
                 }
                 R.id.action_tiempo_dedicado -> {
                     val intent = Intent(this, tiempo_dedicado::class.java)
-                    //Esto es para la animación de slide entre actividades
                     val animationBundle = ActivityOptions.makeCustomAnimation(
                         this,
                         R.anim.slide_in,  // Enter animation
@@ -142,6 +142,7 @@ class estadisticasDias : AppCompatActivity() {
             }
         }
 
+
         arrayList = ArrayList()
         if (resources.configuration.screenLayout and
                 Configuration.SCREENLAYOUT_SIZE_MASK ==
@@ -170,7 +171,7 @@ class estadisticasDias : AppCompatActivity() {
         monthAux = monthAux + 1
 
         //para establecer el promedio de actividad de una asignatura
-        lv!!.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+        lv!!.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val item = lv!!.getItemAtPosition(position) as String
             val asignatura = item.split("\\s+".toRegex())[0] // Obtener el nombre de la asignatura desde el item de la lista
             val promedio = db?.calcularPromedioAsignatura(asignatura) // Calcular el promedio para la asignatura utilizando la instancia de AdminSQLiteOpenHelperStats
@@ -193,10 +194,10 @@ class estadisticasDias : AppCompatActivity() {
         viewData()
         editText.setOnClickListener { // TODO Auto-generated method stub
             //To show current date in the datepicker
-            val mcurrentDate = Calendar.getInstance()
-            val year = mcurrentDate[Calendar.YEAR]
-            val month = mcurrentDate[Calendar.MONTH]
-            val day = mcurrentDate[Calendar.DAY_OF_MONTH]
+            val mcurrentDate2 = Calendar.getInstance()
+            val year = mcurrentDate2[Calendar.YEAR]
+            val month = mcurrentDate2[Calendar.MONTH]
+            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
             //month=month +1;
             //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
             yearFinal = if (month < 10) {
@@ -208,16 +209,16 @@ class estadisticasDias : AppCompatActivity() {
                 yearFinal = yearFinal + "0"
             }
             yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@estadisticasDias, { datepicker, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
+            val mDatePicker = DatePickerDialog(this@estadisticasDias, { _, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
                 /*      Your code   to get date and time    */
-                var selectedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $selectedMonth Day: $selectedDay Year: $selectedYear")
-                selectedMonth = selectedMonth + 1
-                editText.setText("$selectedDay/$selectedMonth/$selectedYear")
-                yearFinal = if (selectedMonth < 10) {
-                    "0" + Integer.toString(selectedMonth)
+                var adjustedMonth = selectedMonth
+                Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
+                adjustedMonth = adjustedMonth + 1
+                editText.setText("$selectedDay/$adjustedMonth/$selectedYear")
+                yearFinal = if (adjustedMonth < 10) {
+                    "0" + Integer.toString(adjustedMonth)
                 } else {
-                    Integer.toString(selectedMonth)
+                    Integer.toString(adjustedMonth)
                 }
                 if (selectedDay < 10) {
                     yearFinal = yearFinal + "0"
@@ -248,7 +249,7 @@ class estadisticasDias : AppCompatActivity() {
     private fun viewData() {
         Log.e("Date Selected", yearFinal!!)
         val cursor = db!!.viewDataDias(yearFinal)
-        if (cursor!!.count == 0) {
+        if (cursor.count == 0) {
             Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
             adapter!!.clear()
             adapter!!.notifyDataSetChanged()

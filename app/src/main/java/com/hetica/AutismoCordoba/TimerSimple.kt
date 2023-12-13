@@ -7,6 +7,8 @@ import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.HandlerThread
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
@@ -109,7 +111,7 @@ class TimerSimple : AppCompatActivity() {
         readParams()
         mTextViewCountDown?.visibility = View.VISIBLE
         startTimer()
-        Main!!.setOnTouchListener(OnTouchListener { v, event ->
+        Main!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -175,7 +177,8 @@ class TimerSimple : AppCompatActivity() {
                     mTextViewCountDown!!.text = "¿Necesitas un descanso?"
                     mTextViewCountDown!!.textSize = 40f
                     val sdf = SimpleDateFormat("MMddyyyy")
-                    val resultadoInsercion = db!!.insertData(asig, sdf.format(Date()), Integer.valueOf(timeString))
+                    db!!.insertData(asig, sdf.format(Date()),
+                        timeString?.let { Integer.valueOf(it) })
 
                     Pausa!!.visibility = View.INVISIBLE
                     Fin!!.visibility = View.INVISIBLE
@@ -185,7 +188,8 @@ class TimerSimple : AppCompatActivity() {
                 } else {
                     //las dos lineas siguientes son para que inserte la última asignatura porque se la salta al final
                     val sdf = SimpleDateFormat("MMddyyyy")
-                    db!!.insertData(asig, sdf.format(Date()), Integer.valueOf(timeString))
+                    db!!.insertData(asig, sdf.format(Date()),
+                        timeString?.let { Integer.valueOf(it) })
 
                     Pausa!!.visibility = View.INVISIBLE
                     Fin!!.visibility = View.INVISIBLE
@@ -205,24 +209,30 @@ class TimerSimple : AppCompatActivity() {
         mCountDownTimer!!.cancel()
         mTimerRunning = false
         Pausa!!.text = "Seguir"
+
     }
 
     fun finEstudio(view: View?) {
         r!!.stop()
-        val siguiente1 = Intent(this, Recompensa::class.java)
+        val siguiente1 = Intent(view!!.context, Recompensa::class.java)
         startActivity(siguiente1)
     }
 
     fun finTimer(view: View?) {
-        timeString = (Integer.valueOf(timeString) - (mTimeLeftInMillis / 1000).toInt() / 60).toString()
-        mCountDownTimer!!.cancel()
+        timeString?.let {
+            val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
+            timeString = intValue.toString()
+        }
+
+        mCountDownTimer?.cancel()
         mTimerRunning = false
+        Log.d("finTimer", "usando $view")
         finFlag = 1
         mTimeLeftInMillis = 1000
         startTimer()
-        Comentarios!!.visibility = View.VISIBLE
-
+        Comentarios?.visibility = View.VISIBLE
     }
+
 
     /**
      *
@@ -247,7 +257,7 @@ class TimerSimple : AppCompatActivity() {
     fun pasarNo(view: View?) {
         val bundle2 = Bundle()
         if (cuantas.equals("2", ignoreCase = true) && actual.equals("1", ignoreCase = true)) {
-            val siguiente1 = Intent(this, AsignaturaSiguiente::class.java)
+            val siguiente1 = Intent(view!!.context, AsignaturaSiguiente::class.java)
             bundle2.putString("actAsig", "2")
             bundle2.putString("numAsig", cuantas)
             siguiente1.putExtras(bundle2)
@@ -322,7 +332,7 @@ class TimerSimple : AppCompatActivity() {
     fun pasarSi(view: View?) {
         val bundle2 = Bundle()
         if ((cuantas.equals("2", ignoreCase = true) || cuantas.equals("3", ignoreCase = true) || cuantas.equals("4", ignoreCase = true) || cuantas.equals("5", ignoreCase = true)) && actual.equals("1", ignoreCase = true)) {
-            val siguiente1 = Intent(this, TimerDescanso::class.java)
+            val siguiente1 = Intent(view!!.context, TimerDescanso::class.java)
             bundle2.putString("actAsig", "1")
             bundle2.putString("numAsig", cuantas)
             if (finFlag == 0) {
@@ -374,8 +384,7 @@ class TimerSimple : AppCompatActivity() {
             fis = openFileInput("pausa.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
-            var text: String
+            StringBuilder()
             pausa = br.readLine()
             if (pausa.equals("0", ignoreCase = true)) {
                 Pausa!!.visibility = View.INVISIBLE
@@ -398,8 +407,7 @@ class TimerSimple : AppCompatActivity() {
             fis = openFileInput("fin.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
-            var text: String
+            StringBuilder()
             fin = br.readLine()
             if (fin.equals("0", ignoreCase = true)) {
                 Fin!!.visibility = View.INVISIBLE
@@ -424,12 +432,20 @@ class TimerSimple : AppCompatActivity() {
             val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
             r?.play()
-            val handler = Handler()
-            handler.postDelayed({ r?.stop() }, 60000)
+
+            val handlerThread = HandlerThread("StopRingtoneThread")
+            handlerThread.start()
+
+            val handler = Handler(handlerThread.looper)
+            handler.postDelayed({
+                r?.stop()
+                handlerThread.quitSafely()
+            }, 60000)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
 
     companion object {
         private const val START_TIME_IN_MILLIS: Long = 600000

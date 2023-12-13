@@ -140,7 +140,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_calificaciones
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
                     val intent = Intent(this, estadisticasDias::class.java)
@@ -172,9 +173,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
                     startActivity(intent, animationBundle)
                     true
                 }
-                R.id.action_calificaciones -> {
-                    true
-                }
+                R.id.action_calificaciones -> true
                 R.id.action_comentarios -> {
                     val intent = Intent(this, MostrarComentarios::class.java)
                     val animationBundle = ActivityOptions.makeCustomAnimation(
@@ -188,7 +187,6 @@ class VisualizarCalificaciones : AppCompatActivity() {
                 else -> false
             }
         }
-
 
     }
     /**

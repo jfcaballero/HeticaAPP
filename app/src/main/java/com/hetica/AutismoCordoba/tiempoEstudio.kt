@@ -61,7 +61,7 @@ class tiempoEstudio : AppCompatActivity() {
         textView3 = findViewById<View>(R.id.textView55) as TextView
         editText = findViewById<View>(R.id.editText4) as EditText
         viewData()
-        lv!!.onItemClickListener = OnItemClickListener { parent, view, position, id -> textView3!!.text = arrayList!![position] }
+        lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ -> textView3!!.text = arrayList!![position] }
     }
 
     /**
@@ -71,7 +71,7 @@ class tiempoEstudio : AppCompatActivity() {
      */
     fun pasarOrgEst(view: View?) {
         bundle = Bundle()
-        val siguiente = Intent(this, temporizadorUnico::class.java)
+        val siguiente = Intent(view!!.context, temporizadorUnico::class.java)
         if (editText!!.text.toString() == "") {
             Toast.makeText(this, "Introduce un tiempo", Toast.LENGTH_LONG).show()
         } else {
@@ -92,7 +92,7 @@ class tiempoEstudio : AppCompatActivity() {
      */
     private fun viewData() {
         val cursor = db!!.viewData()
-        if (cursor!!.count == 0) {
+        if (cursor.count == 0) {
             Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
         } else {
             while (cursor.moveToNext()) {

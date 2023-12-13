@@ -7,6 +7,8 @@ import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.HandlerThread
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
@@ -72,7 +74,7 @@ class TimerDescanso : AppCompatActivity() {
         mButtonSiguiente!!.visibility = View.INVISIBLE
         mTextViewCountDown?.visibility = View.VISIBLE
 
-        Main!!.setOnTouchListener(OnTouchListener { v, event ->
+        Main!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -215,7 +217,7 @@ class TimerDescanso : AppCompatActivity() {
     fun pasar(view: View?) {
         val bundle2 = Bundle()
         if (cuantas.equals("2", ignoreCase = true) && actual.equals("1", ignoreCase = true)) {
-            val siguiente1 = Intent(this, AsignaturaSiguiente::class.java)
+            val siguiente1 = Intent(view!!.context, AsignaturaSiguiente::class.java)
             bundle2.putString("actAsig", "2")
             bundle2.putString("numAsig", cuantas)
             siguiente1.putExtras(bundle2)
@@ -274,14 +276,23 @@ class TimerDescanso : AppCompatActivity() {
             val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
             r?.play()
-            val handler = Handler()
-            handler.postDelayed({ r?.stop() }, 60000)
+
+            val handlerThread = HandlerThread("StopRingtoneThread")
+            handlerThread.start()
+
+            val handler = Handler(handlerThread.looper)
+            handler.postDelayed({
+                r?.stop()
+                handlerThread.quitSafely()
+            }, 60000)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
+
     fun Finalizar(view: View?) {
+        Log.d("Finalizando", "Finalizando usando $view")
         mCountDownTimer!!.cancel()
         mTimerRunning = false
         flag = 0

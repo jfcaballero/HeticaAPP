@@ -72,9 +72,9 @@ class mayormenoractividad : AppCompatActivity() {
                 val selectedItem: String = parent.getItemAtPosition(pos).toString()
                 val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
 
-                val editTextYear = findViewById<EditText>(R.id.editTextYear)
+                val editTextYear2 = findViewById<EditText>(R.id.editTextYear)
 
-                val anyo = editTextYear.text.toString()
+                val anyo = editTextYear2.text.toString()
                 if (anyo.isNotEmpty()) { // Asegurarse de que el EditText no esté vacío antes de obtener el valor del año
                     obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
                 }
@@ -117,7 +117,8 @@ class mayormenoractividad : AppCompatActivity() {
         val bottomNavigation = binding.bottomNavigationViewestadisticas
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_actividad
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
                     val intent = Intent(this, estadisticasDias::class.java)
@@ -160,12 +161,13 @@ class mayormenoractividad : AppCompatActivity() {
                     true
                 }
                 R.id.action_actividad -> {
-                    // Nada, estamos ya
+                    // Nada, ya estamos en esta sección
                     true
                 }
                 else -> false
             }
         }
+
 
     }
 

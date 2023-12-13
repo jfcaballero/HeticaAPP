@@ -89,7 +89,8 @@ class tiempo_dedicado: AppCompatActivity()  {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_tiempo_dedicado
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_estadisticas -> {
                     val intent = Intent(this, estadisticasDias::class.java)
@@ -140,6 +141,7 @@ class tiempo_dedicado: AppCompatActivity()  {
 
 
 
+
         db = AdminSQLiteOpenHelperStats(this)
 
         val mcurrentDate = Calendar.getInstance()
@@ -161,10 +163,10 @@ class tiempo_dedicado: AppCompatActivity()  {
         viewData()
         editText.setOnClickListener {
             //To show current date in the datepicker
-            val mcurrentDate = Calendar.getInstance()
-            val year = mcurrentDate[Calendar.YEAR]
-            val month = mcurrentDate[Calendar.MONTH]
-            val day = mcurrentDate[Calendar.DAY_OF_MONTH]
+            val mcurrentDate2 = Calendar.getInstance()
+            val year = mcurrentDate2[Calendar.YEAR]
+            val month = mcurrentDate2[Calendar.MONTH]
+            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
 
             yearFinal = if (month < 10) {
                 "0" + Integer.toString(month)
@@ -175,16 +177,16 @@ class tiempo_dedicado: AppCompatActivity()  {
                 yearFinal = yearFinal + "0"
             }
             yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@tiempo_dedicado, { datepicker, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
+            val mDatePicker = DatePickerDialog(this@tiempo_dedicado, { _, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
                 /*      Your code   to get date and time    */
-                var selectedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $selectedMonth Day: $selectedDay Year: $selectedYear")
-                selectedMonth = selectedMonth + 1
-                editText.setText("$selectedDay/$selectedMonth/$selectedYear")
-                yearFinal = if (selectedMonth < 10) {
-                    "0" + Integer.toString(selectedMonth)
+                var adjustedMonth = selectedMonth
+                Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
+                adjustedMonth = adjustedMonth + 1
+                editText.setText("$selectedDay/$adjustedMonth/$selectedYear")
+                yearFinal = if (adjustedMonth < 10) {
+                    "0" + Integer.toString(adjustedMonth)
                 } else {
-                    Integer.toString(selectedMonth)
+                    Integer.toString(adjustedMonth)
                 }
                 if (selectedDay < 10) {
                     yearFinal = yearFinal + "0"
@@ -216,7 +218,7 @@ class tiempo_dedicado: AppCompatActivity()  {
     private fun viewData() {
         Log.e("Date Selected", yearFinal!!)
         val cursor = db!!.viewDataDias(yearFinal)
-        if (cursor!!.count == 0) {
+        if (cursor.count == 0) {
             Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
             binding.barChartHorizontal.visibility = View.INVISIBLE  // Ocultar la gráfica cuando no hay datos
 
@@ -243,7 +245,7 @@ class tiempo_dedicado: AppCompatActivity()  {
      */
     private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
-        val toastMessage = "Asignatura: ${data[0].first} - Tiempo Total: ${data[0].second} minutos"
+        "Asignatura: ${data[0].first} - Tiempo Total: ${data[0].second} minutos"
         //Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
 
         for (i in 0 until data.size) {

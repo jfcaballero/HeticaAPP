@@ -8,6 +8,7 @@ import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -105,7 +106,7 @@ class temporizadorUnico : AppCompatActivity() {
 
             true
         }
-        Main!!.setOnTouchListener(OnTouchListener { v, event ->
+        Main!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
@@ -128,7 +129,8 @@ class temporizadorUnico : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        //super.onBackPressed()
+        finish()
     }
 
     /**
@@ -148,7 +150,7 @@ class temporizadorUnico : AppCompatActivity() {
                 Fin!!.visibility = View.INVISIBLE
                 showNotification()
                 val sdf = SimpleDateFormat("MMddyyyy")
-                db!!.insertData(asig, sdf.format(Date()), Integer.valueOf(timeString))
+                db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
                 mTextViewCountDown!!.text = "00:00"
                 //final MediaPlayer alarmSound = MediaPlayer.create(this, R.raw.algo);
                 Pausa!!.visibility = View.INVISIBLE
@@ -166,13 +168,16 @@ class temporizadorUnico : AppCompatActivity() {
     }
 
     fun finTimer(view: View?) {
-        timeString = (Integer.valueOf(timeString) - (mTimeLeftInMillis / 1000).toInt() / 60).toString()
+        timeString?.let {
+            val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
+            timeString = intValue.toString()
+        }
         mCountDownTimer!!.cancel()
         mTimerRunning = false
         finFlag = 1
         val sdf = SimpleDateFormat("MMddyyyy")
-        db!!.insertData(asig, sdf.format(Date()), Integer.valueOf(timeString))
-        val siguiente1 = Intent(this, Recompensa::class.java)
+        db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
+        val siguiente1 = Intent(view!!.context, Recompensa::class.java)
         startActivity(siguiente1)
     }
 
@@ -193,7 +198,7 @@ class temporizadorUnico : AppCompatActivity() {
      * @param view the view
      */
     fun pasarInit(view: View?) {
-        val siguiente = Intent(this, Recompensa::class.java)
+        val siguiente = Intent(view!!.context, Recompensa::class.java)
         r!!.stop()
         startActivity(siguiente)
     }
@@ -205,8 +210,7 @@ class temporizadorUnico : AppCompatActivity() {
             fis = openFileInput("pausa.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
-            var text: String
+            StringBuilder()
             pausa = br.readLine()
             if (pausa.equals("0", ignoreCase = true)) {
                 Pausa!!.visibility = View.INVISIBLE
@@ -229,8 +233,7 @@ class temporizadorUnico : AppCompatActivity() {
             fis = openFileInput("fin.txt")
             val isr = InputStreamReader(fis)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
-            var text: String
+            StringBuilder()
             fin = br.readLine()
             if (fin.equals("0", ignoreCase = true)) {
                 Fin!!.visibility = View.INVISIBLE
@@ -254,10 +257,18 @@ class temporizadorUnico : AppCompatActivity() {
             val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
             r?.play()
-            val handler = Handler()
-            handler.postDelayed({ r?.stop() }, 60000)
+
+            val handlerThread = HandlerThread("StopRingtoneThread")
+            handlerThread.start()
+
+            val handler = Handler(handlerThread.looper)
+            handler.postDelayed({
+                r?.stop()
+                handlerThread.quitSafely()
+            }, 60000)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
 }
