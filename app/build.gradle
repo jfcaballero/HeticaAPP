@@ -48,9 +48,20 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.6.0-alpha04'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0-alpha01'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
     implementation 'com.diogobernardino:williamchart:3.10.1'
+    //implementation 'com.github.AnyChart:AnyChart-Android:0.0.3'
+    //implementation "com.github.AnyChart:AnyChart-Android:1.1.2"
+    implementation 'com.androidplot:androidplot-core:1.5.7'
+    implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
+
+
+
+
+
+
 
 
 

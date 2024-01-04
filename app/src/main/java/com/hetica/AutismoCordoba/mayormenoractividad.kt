@@ -12,15 +12,23 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import kotlin.math.roundToInt
 
 
 class mayormenoractividad : AppCompatActivity() {
     private var _binding: ActivityMayormenoractividadBinding? = null
     private val binding get() = _binding!!
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +84,9 @@ class mayormenoractividad : AppCompatActivity() {
 
                 val anyo = editTextYear2.text.toString()
                 if (anyo.isNotEmpty()) { // Asegurarse de que el EditText no esté vacío antes de obtener el valor del año
-                    obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
+                    //obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
+                    //db.clearData()
+                    obtenerDiasConMinutosEnUnMesAA(db, selectedItem, anyo)
                 }
             }
 
@@ -104,7 +114,8 @@ class mayormenoractividad : AppCompatActivity() {
                     }else{
                         val selectedItem = spinner.selectedItem.toString()
                         val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
-                        obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
+                        //obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
+                        obtenerDiasConMinutosEnUnMesAA(db, selectedItem, anyo)
                     }
 
                 } else {
@@ -170,7 +181,79 @@ class mayormenoractividad : AppCompatActivity() {
 
 
     }
+    //test
+    fun getTomorrowDate(): Date {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, 1) // Sumar un día
+        return calendar.time
+    }
+    private fun obtenerDiasConMinutosEnUnMesAA(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
+        //val tomorrow = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(getTomorrowDate())
+        //db.insertData("mates", tomorrow, 3)
 
+        val aaChartViewmayor = findViewById<AAChartView>(R.id.aamayoractividad)
+        val aaChartViewmenor = findViewById<AAChartView>(R.id.aamenoractividad)
+        val listaDias = db.obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes,anyo)
+
+        if (listaDias.isEmpty()) {
+            val mensaje = "No se encontraron resultados para el mes $mes, año $anyo"
+            Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
+            aaChartViewmayor.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
+            aaChartViewmenor.aa_drawChartWithChartModel(AAChartModel())
+            return
+        }
+
+        val listaDiasOrdenados = listaDias.sortedByDescending { it.second } // Ordenar la lista por cantidad de minutos en orden descendente
+        val listaDiasTop4 = listaDiasOrdenados.take(4) // Obtener solo los 4 primeros elementos de la lista ordenada
+        val listaDiasTop4Asc = listaDiasOrdenados.takeLast(4) // Obtener los 4 últimos elementos de la lista ordenada
+
+
+
+        val listaDiasFloat = listaDiasTop4.map { it.first to it.second.toFloat() }
+        val listaDiasFloatAsc = listaDiasTop4Asc.map { it.first to it.second.toFloat() }
+
+        val datamayor = generateAreaChartData(listaDiasFloat)
+        val datamenor = generateAreaChartData(listaDiasFloatAsc)
+
+        val aaChartModelMayor : AAChartModel = AAChartModel()
+            .chartType(AAChartType.Bar)
+            .title("Mayor actividad")
+            .subtitle("Mes $mes de $anyo")
+            .backgroundColor("#d8fcf2")
+            .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
+            .dataLabelsEnabled(true)
+            .categories(datamayor.map { it.first }.toTypedArray())
+            .series(arrayOf(
+                AASeriesElement()
+                    .name("Minutos")
+                    .data(datamayor.map { it.second }.toTypedArray())
+            )
+            )
+        val aaChartModelMenor : AAChartModel = AAChartModel()
+            .chartType(AAChartType.Bar)
+            .title("Menor actividad")
+            .subtitle("Mes $mes de $anyo")
+            .backgroundColor("#d8fcf2")
+            .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
+            .dataLabelsEnabled(true)
+            .categories(datamenor.map { it.first }.toTypedArray())
+            .series(arrayOf(
+                AASeriesElement()
+                    .name("Minutos")
+                    .data(datamenor.map { it.second }.toTypedArray())
+            )
+            )
+
+        // Dibuja el gráfico con el modelo configurado
+        aaChartViewmayor.aa_drawChartWithChartModel(aaChartModelMayor)
+        aaChartViewmenor.aa_drawChartWithChartModel(aaChartModelMenor)
+
+    }
+    // Función para generar datos para el gráfico de área
+    private fun generateAreaChartData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
+        return data.map { it.first to it.second }
+    }
+    //test
     private fun obtenerDiasConMinutosEnUnMes(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
         val listaDias = db.obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes,anyo)
 
