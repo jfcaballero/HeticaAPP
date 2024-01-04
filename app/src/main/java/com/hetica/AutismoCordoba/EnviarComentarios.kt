@@ -56,7 +56,7 @@ var dbComents: AdminSQLiteOpenHelperComentarios? = null
         val mensaje = editText.text.toString()
         dbComents= AdminSQLiteOpenHelperComentarios(requireContext())
 
-        val sdf = SimpleDateFormat("Mddyyyy")
+        val sdf = SimpleDateFormat("MMddyyyy")
         val fechadehoy = sdf.format(Date())
         dbComents?.insertData(fechadehoy, asignaturaSeleccionada, mensaje)
         dismiss()
