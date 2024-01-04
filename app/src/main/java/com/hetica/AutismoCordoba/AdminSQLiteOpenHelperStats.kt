@@ -116,8 +116,11 @@ class AdminSQLiteOpenHelperStats
 
     @SuppressLint("Range")
     fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
-
         val db = this.readableDatabase
+
+        // Asegurar que el mes tiene dos dígitos
+        //val mesFormateado = if (mes.length == 1) "0$mes" else mes
+
         val query =
             "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mes%$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
         Log.d("SQL_QUERY", "Query: $query")
@@ -129,9 +132,14 @@ class AdminSQLiteOpenHelperStats
             do {
                 val fecha = cursor.getString(cursor.getColumnIndex(DATE))
                 val totalMinutos = cursor.getInt(cursor.getColumnIndex("TotalMinutes"))
-                // Extraer solo los primeros dos caracteres que representan el día de la fecha
-                val dia = fecha.substring(2, 4)
+
+                // Asegurar que el día tiene dos dígitos
+                val dia = if (fecha.length == 7) fecha.substring(1, 3) else fecha.substring(0, 2)
+
                 listaDias.add(dia to totalMinutos) // Añadir solo el día al par
+
+                // Agregar log para mostrar la fecha de cada item en la lista
+                Log.d("LIST_ITEM", "Fecha: $fecha, Día: $dia, TotalMinutos: $totalMinutos")
             } while (cursor.moveToNext())
         }
 
@@ -143,6 +151,12 @@ class AdminSQLiteOpenHelperStats
         return listaDias
     }
 
+
+    fun clearData(): Boolean {
+        val db = this.writableDatabase
+        val result = db.delete(DB_TABLE, null, null)
+        return result > 0
+    }
 
 
     /**
