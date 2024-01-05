@@ -40,12 +40,27 @@ class AdminSQLiteOpenHelperStats
     fun insertData(name: String?, date: String?, time: Int?): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(NAME, name)
-        contentValues.put(DATE, date)
-        contentValues.put(TIME, time)
-        Log.e("Date Selected", date!!)
+        val fechaFormateada="0$date"
+        // Asegurar que la fecha tenga longitud de 8 caracteres
+        //var fechaFormateada = if (date?.length == 7) "0$date"  else date
+        if (date?.length ==7){
+
+            Log.d("Esta fecha esta mal","$date es ahora $fechaFormateada ")
+            contentValues.put(NAME, name)
+            contentValues.put(DATE, fechaFormateada)
+            contentValues.put(TIME, time)
+            Log.e("Date Selected", fechaFormateada!!)
+        }else{
+            Log.d("Esta fecha esta bien","$date no cambia")
+            contentValues.put(NAME, name)
+            contentValues.put(DATE, date)
+            contentValues.put(TIME, time)
+            Log.e("Good date Selected", date!!)
+        }
+
         val result = db.insert(DB_TABLE, null, contentValues)
         db.close()
+
         return result != -1L
     }
 
@@ -117,12 +132,13 @@ class AdminSQLiteOpenHelperStats
     @SuppressLint("Range")
     fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
         val db = this.readableDatabase
+        //val mesFormateado = if (mes.length != 1) "0$mes" else mes
 
-        // Asegurar que el mes tiene dos dígitos
-        //val mesFormateado = if (mes.length == 1) "0$mes" else mes
-
+        val mesFormateado = mes
+        //val query =
+        //    "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE "
         val query =
-            "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mes%$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
+                  "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mesFormateado%$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
         Log.d("SQL_QUERY", "Query: $query")
 
         val cursor = db.rawQuery(query, null)
@@ -134,7 +150,14 @@ class AdminSQLiteOpenHelperStats
                 val totalMinutos = cursor.getInt(cursor.getColumnIndex("TotalMinutes"))
 
                 // Asegurar que el día tiene dos dígitos
-                val dia = if (fecha.length == 7) fecha.substring(1, 3) else fecha.substring(0, 2)
+               var fechaaux=fecha
+                var dia = fecha.substring(2, 4)
+                if (fechaaux.length==7){
+                    dia = fecha.substring(1, 3)
+
+                }
+
+                //val mes = fecha.substring()
 
                 listaDias.add(dia to totalMinutos) // Añadir solo el día al par
 

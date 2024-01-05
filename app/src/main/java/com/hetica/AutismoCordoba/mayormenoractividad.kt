@@ -62,7 +62,7 @@ class mayormenoractividad : AppCompatActivity() {
         editTextYear.setText(year.toString())
 
 
-        val meses = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+        val meses = listOf("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12")
         val mesActualEnFormatoString = obtenerMesActualEnFormatoString()
         val spinner: Spinner = binding.selectormes
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, meses)
@@ -189,7 +189,7 @@ class mayormenoractividad : AppCompatActivity() {
     }
     private fun obtenerDiasConMinutosEnUnMesAA(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
         val tomorrow = SimpleDateFormat("MMddyyyy", Locale.getDefault()).format(getTomorrowDate())
-        //db.insertData("mates", tomorrow, 1)
+        //db.insertData("mates", "1032024", 1)
         //db.clearData()
         val aaChartViewmayor = findViewById<AAChartView>(R.id.aamayoractividad)
         val aaChartViewmenor = findViewById<AAChartView>(R.id.aamenoractividad)

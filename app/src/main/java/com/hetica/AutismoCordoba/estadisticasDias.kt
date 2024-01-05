@@ -246,6 +246,7 @@ class estadisticasDias : AppCompatActivity() {
      * Función que devuelve las estadísticas de una fecha en concreto
      *
      */
+    @SuppressLint("Range")
     private fun viewData() {
         Log.e("Date Selected", yearFinal!!)
         val cursor = db!!.viewDataDias(yearFinal)
@@ -258,6 +259,8 @@ class estadisticasDias : AppCompatActivity() {
             adapter!!.notifyDataSetChanged()
             while (cursor.moveToNext()) {
                 arrayList!!.add(cursor.getString(1) + "          " + cursor.getString(3) + " minutos")
+                val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
+                Log.d("Fecha","$fecha")
             }
             if (resources.configuration.screenLayout and
                     Configuration.SCREENLAYOUT_SIZE_MASK ==

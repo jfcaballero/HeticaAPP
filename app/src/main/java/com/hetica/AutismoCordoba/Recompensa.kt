@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,6 +32,8 @@ class Recompensa : AppCompatActivity() {
      */
     @SuppressLint("StaticFieldLeak")
     private var recompensa: ImageView? = null
+
+    private var Comentarios: Button? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +67,14 @@ class Recompensa : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        Comentarios = findViewById<View>(R.id.botonComentarEstudio) as Button
+        Comentarios!!.setOnClickListener {
+            val dialog = EnviarComentarios()
+            dialog.show(supportFragmentManager, "enviarComentarios")
+
+            true
         }
 
 

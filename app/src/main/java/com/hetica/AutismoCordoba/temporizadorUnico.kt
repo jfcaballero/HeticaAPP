@@ -34,7 +34,6 @@ class temporizadorUnico : AppCompatActivity() {
     private var mTextViewCountDown: TextView? = null
     private var textAsig: TextView? = null
     private var Pausa: Button? = null
-    private var Comentarios: Button? = null
 
     /**
      * The Db.
@@ -80,7 +79,7 @@ class temporizadorUnico : AppCompatActivity() {
         textAsig = findViewById<View>(R.id.textView56) as TextView
         botonFin = findViewById<View>(R.id.button48) as Button
         botonFin!!.visibility = View.INVISIBLE
-        Comentarios = findViewById<View>(R.id.comentariosBoton2) as Button
+
 
         finFlag = 1
         timeString = bundle!!.getString("time")
@@ -100,12 +99,7 @@ class temporizadorUnico : AppCompatActivity() {
                 startTimer()
             }
         }
-        Comentarios!!.setOnLongClickListener {
-            val dialog = EnviarComentarios()
-            dialog.show(supportFragmentManager, "enviarComentarios")
 
-            true
-        }
         Main!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 then = System.currentTimeMillis()

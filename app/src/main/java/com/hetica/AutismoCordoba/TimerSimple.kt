@@ -72,7 +72,7 @@ class TimerSimple : AppCompatActivity() {
     private var Fin: Button? = null
     private var Fin2: Button? = null
     private var Main: Button? = null
-    private var Comentarios: Button? = null
+
 
     //private long mStartTime = Long.parseLong(timeString) * 60000;
     private var mStartTime: Long = 0
@@ -99,7 +99,6 @@ class TimerSimple : AppCompatActivity() {
         mTimeLeftInMillis = mStartTime
         mTextViewCountDown = findViewById(R.id.text_view_count)
         Main = findViewById<View>(R.id.button13) as Button
-        Comentarios = findViewById<View>(R.id.comentariosBoton) as Button
         Fin = findViewById<View>(R.id.buttonFin) as Button
         Fin2 = findViewById<View>(R.id.buttonFin2) as Button
         Fin2!!.visibility = View.INVISIBLE
@@ -131,13 +130,7 @@ class TimerSimple : AppCompatActivity() {
             true
         })
 
-        Comentarios!!.visibility = View.INVISIBLE
-        Comentarios!!.setOnLongClickListener {
-            val dialog = EnviarComentarios()
-            dialog.show(supportFragmentManager, "enviarComentarios")
 
-            true
-        }
         Pausa!!.setOnClickListener {
             if (mTimerRunning) {
                 pauseTimer()
@@ -230,7 +223,7 @@ class TimerSimple : AppCompatActivity() {
         finFlag = 1
         mTimeLeftInMillis = 1000
         startTimer()
-        Comentarios?.visibility = View.VISIBLE
+
     }
 
 
