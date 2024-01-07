@@ -48,34 +48,7 @@ class AdminSQLiteOpenHelperStats
         db.close()
         return result != -1L
     }
-    /*
-    fun insertData(name: String?, date: String?, time: Int?): Boolean {
-        val db = this.writableDatabase
-        val contentValues = ContentValues()
-        val fechaFormateada="0$date"
-        // Asegurar que la fecha tenga longitud de 8 caracteres
-        //var fechaFormateada = if (date?.length == 7) "0$date"  else date
-        if (date?.length ==7){
 
-            Log.d("Esta fecha esta mal","$date es ahora $fechaFormateada ")
-            contentValues.put(NAME, name)
-            contentValues.put(DATE, fechaFormateada)
-            contentValues.put(TIME, time)
-            Log.e("Date Selected", fechaFormateada!!)
-        }else{
-            Log.d("Esta fecha esta bien","$date no cambia")
-            contentValues.put(NAME, name)
-            contentValues.put(DATE, date)
-            contentValues.put(TIME, time)
-            Log.e("Good date Selected", date!!)
-        }
-
-        val result = db.insert(DB_TABLE, null, contentValues)
-        db.close()
-
-        return result != -1L
-    }
-    */
 
     /**
      * Función para eliminar una estadistica
@@ -147,14 +120,10 @@ class AdminSQLiteOpenHelperStats
     @SuppressLint("Range")
     fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
         val db = this.readableDatabase
-        val mesFormateado = if (mes.length != 1) "0$mes" else mes
 
-        //val mesFormateado = mes
-        //val query =
-        //    "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE "
-        val query =
-                  "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '$mesFormateado%$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
+        val query = "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '%$mes/$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
         Log.d("SQL_QUERY", "Query: $query")
+
 
         val cursor = db.rawQuery(query, null)
         val listaDias = mutableListOf<Pair<String, Int>>()
@@ -167,12 +136,10 @@ class AdminSQLiteOpenHelperStats
                 Log.d("Fecha y Min","$fecha y $totalMinutos")
 
                 // Asegurar que el día tiene dos dígitos
-               var fechaaux=fecha
-                var dia = fecha.substring(2, 4)
-                if (fechaaux.length==7){
-                    dia = fecha.substring(1, 3)
+                var fechaaux=fecha
+                val parts = fecha.split("/")
+                val dia = parts[0].padStart(2, '0')
 
-                }
 
                 //val mes = fecha.substring()
 

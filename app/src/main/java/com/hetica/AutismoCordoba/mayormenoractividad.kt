@@ -65,7 +65,7 @@ class mayormenoractividad : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(pos).toString()
                 val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
-
+                //db.insertData("mates","11/01/2024",3)
                 val editTextYear2 = findViewById<EditText>(R.id.editTextYear)
 
                 val anyo = editTextYear2.text.toString()
@@ -174,9 +174,7 @@ class mayormenoractividad : AppCompatActivity() {
         return calendar.time
     }
     private fun obtenerDiasConMinutosEnUnMesAA(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
-        val tomorrow = SimpleDateFormat("MMddyyyy", Locale.getDefault()).format(getTomorrowDate())
-        //db.insertData("mates", "1032024", 1)
-        //db.clearData()
+
         val aaChartViewmayor = findViewById<AAChartView>(R.id.aamayoractividad)
         val aaChartViewmenor = findViewById<AAChartView>(R.id.aamenoractividad)
         val listaDias = db.obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes,anyo)
