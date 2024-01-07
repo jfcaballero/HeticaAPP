@@ -169,7 +169,7 @@ class TimerSimple : AppCompatActivity() {
                     mButtonNo!!.visibility = View.VISIBLE
                     mTextViewCountDown!!.text = "¿Necesitas un descanso?"
                     mTextViewCountDown!!.textSize = 40f
-                    val sdf = SimpleDateFormat("MMddyyyy")
+                    val sdf = SimpleDateFormat("dd/MM/yyyy")
                     db!!.insertData(asig, sdf.format(Date()),
                         timeString?.let { Integer.valueOf(it) })
 
@@ -180,7 +180,7 @@ class TimerSimple : AppCompatActivity() {
                     }
                 } else {
                     //las dos lineas siguientes son para que inserte la última asignatura porque se la salta al final
-                    val sdf = SimpleDateFormat("MMddyyyy")
+                    val sdf = SimpleDateFormat("dd/MM/yyyy")
                     db!!.insertData(asig, sdf.format(Date()),
                         timeString?.let { Integer.valueOf(it) })
 

@@ -40,6 +40,18 @@ class AdminSQLiteOpenHelperStats
     fun insertData(name: String?, date: String?, time: Int?): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
+        contentValues.put(NAME, name)
+        contentValues.put(DATE, date)
+        contentValues.put(TIME, time)
+        Log.d("Insertando stat db","Fecha $date, Asig: $name y min $time")
+        val result = db.insert(DB_TABLE, null, contentValues)
+        db.close()
+        return result != -1L
+    }
+    /*
+    fun insertData(name: String?, date: String?, time: Int?): Boolean {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
         val fechaFormateada="0$date"
         // Asegurar que la fecha tenga longitud de 8 caracteres
         //var fechaFormateada = if (date?.length == 7) "0$date"  else date
@@ -63,6 +75,7 @@ class AdminSQLiteOpenHelperStats
 
         return result != -1L
     }
+    */
 
     /**
      * Función para eliminar una estadistica
@@ -125,6 +138,8 @@ class AdminSQLiteOpenHelperStats
     fun viewDataDias(date: String?): Cursor {
         val db = this.readableDatabase
         val query = "Select * from " + DB_TABLE + " where DATE='" + date + "'"
+        //val query = "SELECT * FROM $DB_TABLE"
+        //val query ="SELECT * FROM $DB_TABLE WHERE DATE=?"
 
         return db.rawQuery(query, null)
     }
@@ -132,9 +147,9 @@ class AdminSQLiteOpenHelperStats
     @SuppressLint("Range")
     fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
         val db = this.readableDatabase
-        //val mesFormateado = if (mes.length != 1) "0$mes" else mes
+        val mesFormateado = if (mes.length != 1) "0$mes" else mes
 
-        val mesFormateado = mes
+        //val mesFormateado = mes
         //val query =
         //    "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE "
         val query =
@@ -148,6 +163,8 @@ class AdminSQLiteOpenHelperStats
             do {
                 val fecha = cursor.getString(cursor.getColumnIndex(DATE))
                 val totalMinutos = cursor.getInt(cursor.getColumnIndex("TotalMinutes"))
+
+                Log.d("Fecha y Min","$fecha y $totalMinutos")
 
                 // Asegurar que el día tiene dos dígitos
                var fechaaux=fecha

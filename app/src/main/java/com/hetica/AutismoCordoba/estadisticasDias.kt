@@ -89,6 +89,7 @@ class estadisticasDias : AppCompatActivity() {
         imageMain=findViewById(R.id.botonMain5)
         GoToMain()
 
+
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_estadisticas
@@ -164,6 +165,7 @@ class estadisticasDias : AppCompatActivity() {
             adapter = ArrayAdapter(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!)
         }
         lv!!.adapter = adapter
+
         val mcurrentDate = Calendar.getInstance()
         val yearAux = mcurrentDate[Calendar.YEAR]
         var monthAux = mcurrentDate[Calendar.MONTH]
@@ -249,7 +251,17 @@ class estadisticasDias : AppCompatActivity() {
     @SuppressLint("Range")
     private fun viewData() {
         Log.e("Date Selected", yearFinal!!)
-        val cursor = db!!.viewDataDias(yearFinal)
+
+        //esto es para switchear el mes y el dia porque estan al reves para hacer la consulta
+        val day = yearFinal!!.substring(0, 2)
+        val month = yearFinal!!.substring(2, 4)
+        val year = yearFinal!!.substring(4)
+
+        val formattedDate = "$month/$day/$year"
+
+        val cursor = db!!.viewDataDias(formattedDate)
+        Log.e("Date Formatted", formattedDate)
+
         if (cursor.count == 0) {
             Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
             adapter!!.clear()

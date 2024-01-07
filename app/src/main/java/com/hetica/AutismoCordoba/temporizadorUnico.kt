@@ -143,7 +143,7 @@ class temporizadorUnico : AppCompatActivity() {
                 botonFin!!.visibility = View.VISIBLE
                 Fin!!.visibility = View.INVISIBLE
                 showNotification()
-                val sdf = SimpleDateFormat("MMddyyyy")
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
                 db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
                 mTextViewCountDown!!.text = "00:00"
                 //final MediaPlayer alarmSound = MediaPlayer.create(this, R.raw.algo);
@@ -169,7 +169,7 @@ class temporizadorUnico : AppCompatActivity() {
         mCountDownTimer!!.cancel()
         mTimerRunning = false
         finFlag = 1
-        val sdf = SimpleDateFormat("MMddyyyy")
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
         db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
         val siguiente1 = Intent(view!!.context, Recompensa::class.java)
         startActivity(siguiente1)

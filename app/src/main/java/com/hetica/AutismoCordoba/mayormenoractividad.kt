@@ -36,20 +36,6 @@ class mayormenoractividad : AppCompatActivity() {
         _binding = ActivityMayormenoractividadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.apply {
-            diasmayoractividad.animation.duration = animationDuration
-            diasmayoractividad.animate(horizontalBarSet)
-            //diasmayoractividad.labelsFormatter = { "%.2f".format(it) }
-            diasmayoractividad.labelsFormatter = { "${it.roundToInt()}" }
-
-
-
-            diasmenoractividad.animation.duration = animationDuration
-            diasmenoractividad.animate(horizontalBarSet)
-            diasmenoractividad.labelsFormatter = { "${it.roundToInt()}" }
-            //diasmenoractividad.labelsFormatter = { "%.0f".format(it) }
-        }
-
         imageMain=findViewById(R.id.botonMain)
         GoToMain()
 
