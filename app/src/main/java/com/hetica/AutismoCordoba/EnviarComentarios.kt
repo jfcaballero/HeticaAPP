@@ -10,6 +10,7 @@ import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 import AdminSQLiteOpenHelperComentarios
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import java.text.SimpleDateFormat
@@ -56,8 +57,9 @@ var dbComents: AdminSQLiteOpenHelperComentarios? = null
         val mensaje = editText.text.toString()
         dbComents= AdminSQLiteOpenHelperComentarios(requireContext())
 
-        val sdf = SimpleDateFormat("MMddyyyy")
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
         val fechadehoy = sdf.format(Date())
+        Log.d("Insertando comentario","Fecha $fechadehoy para $asignaturaSeleccionada y dice $mensaje")
         dbComents?.insertData(fechadehoy, asignaturaSeleccionada, mensaje)
         dismiss()
     }

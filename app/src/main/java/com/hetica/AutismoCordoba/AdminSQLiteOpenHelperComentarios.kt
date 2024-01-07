@@ -3,6 +3,10 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
+import com.hetica.AutismoCordoba.AdminSQLiteOpenHelperStats
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class AdminSQLiteOpenHelperComentarios(context: Context?) :
     SQLiteOpenHelper(context, DB_NAME, null, 1) {
@@ -29,6 +33,8 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         contentValues.put(NAME, asignatura)
         contentValues.put(COMMENTS, comentario)
         val result = db.insert(DB_TABLE, null, contentValues)
+        Log.d("Comentario base de datos","Fecha $fecha para $asignatura y dice $comentario")
+        db.close()
         return result != -1L
     }
 
@@ -38,7 +44,11 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         db.close()
         return cantidad != -1L
     }
-
+    fun clearData(): Boolean {
+        val db = this.writableDatabase
+        val result = db.delete(AdminSQLiteOpenHelperComentarios.DB_TABLE, null, null)
+        return result > 0
+    }
     fun Modificar(asignatura: String?, asignaturaID: String?, comentario: String?): Boolean {
         val db = this.writableDatabase
         val registro = ContentValues()

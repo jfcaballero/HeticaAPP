@@ -15,10 +15,13 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 //import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_AUTO
 import com.google.android.material.navigation.NavigationBarView
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 
 /**
  * The Db Asig.
@@ -52,6 +55,11 @@ var lv: ListView? = null
 var yearFinal: String? = null
 
 /**
+ * The Year final2.
+ */
+var yearFinal2: String? = null
+
+/**
  * The Month final.
  */
 var monthFinal: String? = null
@@ -76,22 +84,52 @@ private var asignaturaSeleccionada: String? = null
 var imageMain2: ImageView?=null
 
 
+private var fechaInicio: EditText? = null
+private var fechaFin: EditText? = null
 
 class MostrarComentarios : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mostrar_comentarios)
-        val editText = findViewById<View>(R.id.fechacomentarios) as EditText
+
+        fechaInicio = findViewById<View>(R.id.comentariosDesde) as EditText
+        fechaFin = findViewById<View>(R.id.comentariosHasta) as EditText
         dbAsig = AdminSQLiteOpenHelperAsig(this)
+        dbComentarios = AdminSQLiteOpenHelperComentarios(this)
         listViewComentarios = findViewById(R.id.listViewComentarios)
         imageMain2=findViewById(R.id.botonMain2)
         GoToMain()
 
-        // Llamar a viewData con los valores iniciales del Spinner y la fecha
-        val fechaActual = obtenerFechaActual()
+        // Configuración inicial de fechas
+        val fechaHoy = obtenerFechaActual()
+        val fechaManana = obtenerFechaManana()
+
+        fechaInicio?.setText(fechaHoy)
+        fechaFin?.setText(fechaManana)
         if (asignaturaSeleccionada != null) {
-            viewData(asignaturaSeleccionada!!, fechaActual)
+            viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
         }
+
+
+        // Obtener la fecha de mañana
+        val calendarTomorrow = Calendar.getInstance()
+        calendarTomorrow.add(Calendar.DAY_OF_MONTH, 1)
+
+        // Configurar el DatePickerDialog para fechaInicio
+        fechaInicio?.setOnClickListener {
+            showDatePickerDialog(fechaInicio!!, fechaFin!!)
+        }
+
+        // Configurar el DatePickerDialog para fechaFin
+        fechaFin?.setOnClickListener {
+            showDatePickerDialog(fechaFin!!, fechaInicio!!)
+        }
+
+
+
+        //dbComentarios = AdminSQLiteOpenHelperComentarios(this)
+        //dbComentarios!!.clearData()
+
 
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
@@ -162,7 +200,7 @@ class MostrarComentarios : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
                     //Toast.makeText(applicationContext, "Asignatura seleccionada: $asignaturaSeleccionada, Fecha seleccionada: $fechaSeleccionada", Toast.LENGTH_SHORT).show()
-                    viewData(asignaturaSeleccionada, yearFinal)
+                    viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -172,72 +210,43 @@ class MostrarComentarios : AppCompatActivity() {
 
             // Llamar a viewData con los valores iniciales del Spinner y la fecha
             if (asignaturaSeleccionada != null) {
-                viewData(asignaturaSeleccionada, yearFinal)
+                viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
             }
 
         }
 
-
-        val mcurrentDate = Calendar.getInstance()
-        val yearAux = mcurrentDate[Calendar.YEAR]
-        var monthAux = mcurrentDate[Calendar.MONTH]
-        val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
-        monthAux = monthAux + 1
-        yearFinal = if (monthAux < 10) {
-            "0" + Integer.toString(monthAux)
-        } else {
-            Integer.toString(monthAux)
-        }
-        if (dayAux < 10) {
-            yearFinal = yearFinal + "0"
-        }
-        yearFinal = yearFinal + Integer.toString(dayAux) + Integer.toString(yearAux)
-        editText.setText("$dayAux/$monthAux/$yearAux")
-        //viewData()
-        //asignaturaSeleccionada?.let { viewData(it, yearFinal!!) }
-        viewData(asignaturaSeleccionada, yearFinal)
-        editText.setOnClickListener { // TODO Auto-generated method stub
-            //To show current date in the datepicker
-            val mcurrentDate2 = Calendar.getInstance()
-            val year = mcurrentDate2[Calendar.YEAR]
-            val month = mcurrentDate2[Calendar.MONTH]
-            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
-            //month=month +1;
-            //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
-            yearFinal = if (month < 10) {
-                "0" + Integer.toString(month)
-            } else {
-                Integer.toString(month)
-            }
-            if (day < 10) {
-                yearFinal = yearFinal + "0"
-            }
-            yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@MostrarComentarios, { _, selectedYear, selectedMonth, selectedDay ->
-                var adjustedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
-                adjustedMonth = adjustedMonth + 1
-                editText.setText("$selectedDay/$adjustedMonth/$selectedYear")
-                yearFinal = if (adjustedMonth < 10) {
-                    "0" + Integer.toString(adjustedMonth)
-                } else {
-                    Integer.toString(adjustedMonth)
-                }
-                if (selectedDay < 10) {
-                    yearFinal = yearFinal + "0"
-                }
-                yearFinal = yearFinal + Integer.toString(selectedDay) + Integer.toString(selectedYear)
-
-                // Llamar a viewData después de seleccionar la fecha
-                viewData(asignaturaSeleccionada, yearFinal)
-                //asignaturaSeleccionada?.let { viewData(it, yearFinal!!) }
-            }, year, month, day)
-            mDatePicker.setTitle("Select date")
-            mDatePicker.show()
-        }
 
 
     }
+
+
+
+
+    // Función para mostrar el DatePickerDialog
+    private fun showDatePickerDialog(editText: EditText, otherEditText: EditText) {
+        val currentDate = Calendar.getInstance()
+        val year = currentDate.get(Calendar.YEAR)
+        val month = currentDate.get(Calendar.MONTH)
+        val day = currentDate.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val adjustedMonth = selectedMonth + 1
+                val formattedDate = String.format("%02d/%02d/%d", selectedDay, adjustedMonth, selectedYear)
+                editText.setText(formattedDate)
+
+                // Llamar a viewData después de seleccionar la fecha
+                viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
+    }
+
     /**
      * Función para irnos al Main
      *
@@ -254,17 +263,10 @@ class MostrarComentarios : AppCompatActivity() {
      *
      */
     @SuppressLint("Range")
-    private fun viewData(asignaturaSeleccionada: String?, fechaSeleccionada: String?) {
-        dbComentarios = AdminSQLiteOpenHelperComentarios(this)
-        //dbComentarios!!.borrarTabla()
-        //val comentarioAgregado = dbComentarios?.insertData("10172023", "mates", "esto es un comentario de mates MUY ANTIGUO")
+    private fun viewData(asignaturaSeleccionada: String?, fechaInicio: String?, fechaFin: String?) {
 
-        /*if (comentarioAgregado == true) {
-            Log.d("MostrarComentarios", "Comentario agregado con éxito")
-        } else {
-            Log.e("MostrarComentarios", "Error al agregar el comentario")
-        }*/
         val cursor = dbComentarios?.viewData()
+        Log.d("Número de filas", "${cursor?.count}")
         val comentariosList: ArrayList<String> = ArrayList()
 
         if (cursor != null) {
@@ -272,8 +274,16 @@ class MostrarComentarios : AppCompatActivity() {
                 val name = cursor.getString(cursor.getColumnIndex("NAME"))
                 val date = cursor.getString(cursor.getColumnIndex("DATE"))
                 val comments = cursor.getString(cursor.getColumnIndex("COMMENTS"))
-                if (name == asignaturaSeleccionada && date == fechaSeleccionada) {
-                    comentariosList.add("$comments")
+                Log.d("Fecha de item", "La fecha del item es $date")
+                // Verificar si la fecha está comprendida entre fechaInicio y fechaFin
+                if (name == asignaturaSeleccionada && fechaInicio != null && fechaFin != null) {
+                    if (fechaEstaEntre(date,fechaInicio,fechaFin)) {
+                        comentariosList.add("$date - $comments")
+                        Log.d("Bien", "La fecha $date está comprendida entre $fechaInicio y $fechaFin")
+                    } else {
+                        Log.d("Mal", "La fecha $date NO está comprendida entre $fechaInicio y $fechaFin")
+
+                    }
                 }
             }
         }
@@ -281,6 +291,33 @@ class MostrarComentarios : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList)
         listViewComentarios?.adapter = adapter
     }
+
+    fun fechaEstaEntre(fecha: String, fechaInicio: String, fechaFin: String): Boolean {
+        val formato = SimpleDateFormat("dd/MM/yyyy")
+
+        try {
+            val dateFecha = formato.parse(fecha)!!
+            val dateInicio = formato.parse(fechaInicio)!!
+            val dateFin = formato.parse(fechaFin)!!
+
+            // Verificar si la fecha está entre fechaInicio y fechaFin
+            if (dateFecha.after(dateInicio) && dateFecha.before(dateFin)) {
+                Log.d("Fecha correcta", "La fecha $fecha está entre $fechaInicio y $fechaFin")
+                return true
+            } else {
+                Log.d("Fecha incorrecta", "La fecha $fecha NO está entre $fechaInicio y $fechaFin")
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("Fecha incorrecta", "Error al procesar fechas")
+        }
+
+        return false  // En caso de error
+    }
+
+
+
     /**
      * Función para obtener la fecha de hoy
      *
@@ -296,6 +333,21 @@ class MostrarComentarios : AppCompatActivity() {
 
         return "$diaFormateado/$mesFormateado/$year"
     }
+
+    fun obtenerFechaManana(): String {
+        val calendario = Calendar.getInstance()
+        calendario.add(Calendar.DAY_OF_MONTH, 1)  // Añadir un día
+
+        val year = calendario.get(Calendar.YEAR)
+        val month = calendario.get(Calendar.MONTH) + 1
+        val day = calendario.get(Calendar.DAY_OF_MONTH)
+
+        val mesFormateado = if (month < 10) "0$month" else month.toString()
+        val diaFormateado = if (day < 10) "0$day" else day.toString()
+
+        return "$diaFormateado/$mesFormateado/$year"
+    }
+
 
 
 
