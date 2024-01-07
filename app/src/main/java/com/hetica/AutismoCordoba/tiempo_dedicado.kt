@@ -4,13 +4,20 @@ import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.SimpleCursorAdapter
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,9 +33,13 @@ import java.util.Calendar
 
 class tiempo_dedicado: AppCompatActivity()  {
     /**
-     * The Db.
+     * The Stats Db.
      */
-    var db: AdminSQLiteOpenHelperStats? = null
+    var dbStats: AdminSQLiteOpenHelperStats? = null
+    /**
+     * The Stats Db.
+     */
+    var dbAsig: AdminSQLiteOpenHelperAsig? = null
 
     /**
      * The Array list.
@@ -54,37 +65,30 @@ class tiempo_dedicado: AppCompatActivity()  {
      */
     var imageMain: ImageView?=null
 
+    var fechaInicio: EditText?=null
 
+    var fechaFin: EditText?=null
 
+    var asignaturaSeleccionada: String?=null
 
-    // Método para configurar la instancia de AdminSQLiteOpenHelperStats
-    fun setAdminSQLiteOpenHelperStats(db: AdminSQLiteOpenHelperStats) {
-        this.db = db
-    }
-
-    private var _binding: TiempoDedicadoBinding? = null
-    private val binding get() = _binding!!
-
+    var ListViewDias: ListView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tiempo_dedicado)
 
-        _binding = TiempoDedicadoBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.apply {
 
-            barChartHorizontal.animation.duration = animationDuration
-            barChartHorizontal.animate(horizontalBarSet)
-            //barChartHorizontal.labelsFormatter = { "${it.roundToInt()}" }
-            barChartHorizontal.labelsFormatter = { "%.2f".format(it) }
-
-
-        }
         imageMain=findViewById(R.id.botonMain4)
         GoToMain()
 
-        val editText = findViewById<View>(R.id.fechatiempodedicado) as EditText
+        fechaInicio = findViewById<View>(R.id.tiempoInicio) as EditText?
+        fechaFin = findViewById<View>(R.id.tiempoFin) as EditText?
+        dbStats = AdminSQLiteOpenHelperStats(this)
+        dbAsig = AdminSQLiteOpenHelperAsig(this)
+        ListViewDias = findViewById(R.id.tiempoLista)
+
+
+
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
@@ -139,66 +143,135 @@ class tiempo_dedicado: AppCompatActivity()  {
             }
         }
 
+        mostrarAsignaturas()
+        mostrarOpcionesSpinner()
 
 
 
-        db = AdminSQLiteOpenHelperStats(this)
 
-        val mcurrentDate = Calendar.getInstance()
-        val yearAux = mcurrentDate[Calendar.YEAR]
-        var monthAux = mcurrentDate[Calendar.MONTH]
-        val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
-        monthAux = monthAux + 1
 
-        yearFinal = if (monthAux < 10) {
-            "0" + Integer.toString(monthAux)
-        } else {
-            Integer.toString(monthAux)
-        }
-        if (dayAux < 10) {
-            yearFinal = yearFinal + "0"
-        }
-        yearFinal = yearFinal + Integer.toString(dayAux) + Integer.toString(yearAux)
-        editText.setText("$dayAux/$monthAux/$yearAux")
-        viewData()
-        editText.setOnClickListener {
-            //To show current date in the datepicker
-            val mcurrentDate2 = Calendar.getInstance()
-            val year = mcurrentDate2[Calendar.YEAR]
-            val month = mcurrentDate2[Calendar.MONTH]
-            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
-
-            yearFinal = if (month < 10) {
-                "0" + Integer.toString(month)
-            } else {
-                Integer.toString(month)
-            }
-            if (day < 10) {
-                yearFinal = yearFinal + "0"
-            }
-            yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@tiempo_dedicado, { _, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
-                /*      Your code   to get date and time    */
-                var adjustedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
-                adjustedMonth = adjustedMonth + 1
-                editText.setText("$selectedDay/$adjustedMonth/$selectedYear")
-                yearFinal = if (adjustedMonth < 10) {
-                    "0" + Integer.toString(adjustedMonth)
-                } else {
-                    Integer.toString(adjustedMonth)
-                }
-                if (selectedDay < 10) {
-                    yearFinal = yearFinal + "0"
-                }
-                yearFinal = yearFinal + Integer.toString(selectedDay) + Integer.toString(selectedYear)
-                viewData()
-            }, year, month, day)
-            mDatePicker.setTitle("Select date")
-            mDatePicker.show()
-        }
 
     }
+    private fun mostrarOpcionesSpinner() {
+        val spinnerOpciones: Spinner = findViewById(R.id.tiempoOpciones)
+
+        val opciones = listOf("Rango", "Histórico", "Día")
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinnerOpciones.adapter = adapter
+
+        spinnerOpciones.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val opcionSeleccionada = opciones[position]
+
+                when (opcionSeleccionada) {
+                    "Rango" -> {
+                        fechaInicio?.visibility = View.VISIBLE
+                        fechaFin?.visibility = View.VISIBLE
+                       // mostrarDatosRango()
+                    }
+                    "Histórico" -> {
+                        fechaInicio?.visibility = View.GONE
+                        fechaFin?.visibility = View.GONE
+                        mostrarDatosHistoricos()
+                    }
+                    "Día" -> {
+                        fechaInicio?.visibility = View.VISIBLE
+                        fechaFin?.visibility = View.GONE
+                        //mostrarDatosDelDia()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // No se realiza ninguna acción si no se selecciona nada
+            }
+        }
+    }
+
+    private fun mostrarDatosDelDia() {
+        TODO("Not yet implemented")
+    }
+
+    private fun mostrarDatosRango() {
+        TODO("Not yet implemented")
+    }
+
+    private fun mostrarDatosHistoricos() {
+        try {
+            // Obtén la asignatura seleccionada del Spinner
+            val asignaturaSeleccionada = asignaturaSeleccionada ?: return
+
+            // Obtén el cursor con los datos históricos
+            val cursor = dbStats?.viewDataHistorico(asignaturaSeleccionada) ?: return
+
+            // Lista para almacenar pares de fecha y minutos totales
+            val datosHistoricos = mutableListOf<Pair<String, Int>>()
+
+            // Itera sobre el cursor y agrega los datos a la lista
+            if (cursor.moveToFirst()) {
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
+                    Log.d("Asignatura",name)
+                    val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
+                    val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
+
+                    datosHistoricos.add(fecha to minutosTotales)
+                } while (cursor.moveToNext())
+            }
+
+            // Crea un adaptador para el ListView
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                datosHistoricos.map { "${it.first}: ${it.second} minutos" }
+            )
+
+            // Asigna el adaptador al ListView
+            ListViewDias?.adapter = adapter
+        } catch (e: Exception) {
+            Log.e("MostrarDatosHistoricos", "Error: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+
+
+
+
+
+
+    private fun mostrarAsignaturas() {
+        val spinner: Spinner = findViewById(R.id.tiempoAsignatura)
+
+        // Obtener la lista de asignaturas desde la base de datos
+        val asignaturasList = dbAsig?.getAsignaturasList()
+        if (asignaturasList != null) {
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+
+            // Establecer el listener para el evento de clic del Spinner
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
+                    mostrarDatosHistoricos()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // No se realiza ninguna acción si no se selecciona nada
+                }
+            }
+
+            // Llamar a viewData con los valores iniciales del Spinner y la fecha
+            if (asignaturaSeleccionada != null) {
+                //viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
+            }
+
+        }
+    }
+
     /**
      * Función para irnos al Main
      *
@@ -210,10 +283,17 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
 
     }
-    /**
+
+
+
+
+
+
+
+    /*
      * Función que devuelve las estadísticas de una fecha en concreto
      *
-     */
+
     @SuppressLint("Range")
     private fun viewData() {
         Log.e("Date Selected", yearFinal!!)
@@ -225,12 +305,12 @@ class tiempo_dedicado: AppCompatActivity()  {
         } else {
             obtenerTiempoTotalAsignaturas(yearFinal)
         }
-    }
-    /**
+    }*/
+    /*
      * Función para convertir map a Lista de asignaturas y minutos
      * @param mapAsignaturas La lista mutable de asignaturas y minutos
      * @return list
-     */
+     *
     private fun convertMapToList(mapAsignaturas: HashMap<String, Int>): List<Pair<String, Float>> {
         val list = mutableListOf<Pair<String, Float>>()
         for ((asignatura, tiempoTotal) in mapAsignaturas) {
@@ -305,15 +385,6 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+     */
 
-    companion object {
-
-        private val horizontalBarSet = listOf("Default" to 0F)
-
-        private const val animationDuration = 1000L
-    }
 }

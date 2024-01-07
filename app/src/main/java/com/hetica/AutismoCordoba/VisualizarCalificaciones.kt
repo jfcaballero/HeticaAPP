@@ -44,7 +44,7 @@ var dbCalificaciones: AdminSQLiteOpenHelperCalificaciones? =null
 var imageMain: ImageView?=null
 
 @SuppressLint("StaticFieldLeak")
-private lateinit var spinnerAsignaturas: Spinner
+lateinit var spinnerAsignaturas: Spinner
 @SuppressLint("StaticFieldLeak")
 private lateinit var spinnerTipos: Spinner
 @SuppressLint("StaticFieldLeak")

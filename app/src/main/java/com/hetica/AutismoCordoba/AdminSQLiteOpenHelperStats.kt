@@ -118,6 +118,16 @@ class AdminSQLiteOpenHelperStats
     }
 
     @SuppressLint("Range")
+    fun viewDataHistorico(asignatura: String?): Cursor {
+        val db = this.readableDatabase
+        val query = "Select * from " + DB_TABLE + " where NAME='" + asignatura + "'"
+
+        return db.rawQuery(query, null)
+    }
+
+
+
+    @SuppressLint("Range")
     fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
         val db = this.readableDatabase
 
