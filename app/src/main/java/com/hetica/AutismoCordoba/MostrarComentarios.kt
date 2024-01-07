@@ -125,13 +125,6 @@ class MostrarComentarios : AppCompatActivity() {
             showDatePickerDialog(fechaFin!!, fechaInicio!!)
         }
 
-
-
-        //dbComentarios = AdminSQLiteOpenHelperComentarios(this)
-        //dbComentarios!!.clearData()
-
-
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_comentarios
@@ -199,7 +192,6 @@ class MostrarComentarios : AppCompatActivity() {
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
-                    //Toast.makeText(applicationContext, "Asignatura seleccionada: $asignaturaSeleccionada, Fecha seleccionada: $fechaSeleccionada", Toast.LENGTH_SHORT).show()
                     viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
                 }
 
@@ -266,7 +258,7 @@ class MostrarComentarios : AppCompatActivity() {
     private fun viewData(asignaturaSeleccionada: String?, fechaInicio: String?, fechaFin: String?) {
 
         val cursor = dbComentarios?.viewData()
-        Log.d("Número de filas", "${cursor?.count}")
+        //Log.d("Número de filas", "${cursor?.count}")
         val comentariosList: ArrayList<String> = ArrayList()
 
         if (cursor != null) {
@@ -274,7 +266,7 @@ class MostrarComentarios : AppCompatActivity() {
                 val name = cursor.getString(cursor.getColumnIndex("NAME"))
                 val date = cursor.getString(cursor.getColumnIndex("DATE"))
                 val comments = cursor.getString(cursor.getColumnIndex("COMMENTS"))
-                Log.d("Fecha de item", "La fecha del item es $date")
+                //Log.d("Fecha de item", "La fecha del item es $date")
                 // Verificar si la fecha está comprendida entre fechaInicio y fechaFin
                 if (name == asignaturaSeleccionada && fechaInicio != null && fechaFin != null) {
                     if (fechaEstaEntre(date,fechaInicio,fechaFin)) {
@@ -291,7 +283,10 @@ class MostrarComentarios : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList)
         listViewComentarios?.adapter = adapter
     }
-
+    /**
+     * Función para comprobar si una fecha está entre dos límites
+     *
+     */
     fun fechaEstaEntre(fecha: String, fechaInicio: String, fechaFin: String): Boolean {
         val formato = SimpleDateFormat("dd/MM/yyyy")
 
@@ -333,7 +328,10 @@ class MostrarComentarios : AppCompatActivity() {
 
         return "$diaFormateado/$mesFormateado/$year"
     }
-
+    /**
+     * Función para obtener la fecha de mañana
+     *
+     */
     fun obtenerFechaManana(): String {
         val calendario = Calendar.getInstance()
         calendario.add(Calendar.DAY_OF_MONTH, 1)  // Añadir un día
