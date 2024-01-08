@@ -206,7 +206,7 @@ class tiempo_dedicado: AppCompatActivity()  {
 
         val spinnerOpciones: Spinner = findViewById(R.id.tiempoOpciones)
         when (spinnerOpciones.selectedItem.toString()) {
-            //"Rango" -> mostrarDatosRango()
+            "Rango" -> mostrarDatosRango()
             "Histórico" -> mostrarDatosHistoricos()
             "Día" -> mostrarDatosDelDia()
         }
@@ -232,7 +232,7 @@ class tiempo_dedicado: AppCompatActivity()  {
                     "Rango" -> {
                         fechaInicio?.visibility = View.VISIBLE
                         fechaFin?.visibility = View.VISIBLE
-                       // mostrarDatosRango()
+                        mostrarDatosRango()
                     }
                     "Histórico" -> {
                         fechaInicio?.visibility = View.GONE
@@ -279,7 +279,7 @@ class tiempo_dedicado: AppCompatActivity()  {
                     datosDia.add(fecha to minutosTotales)
                 } while (cursor.moveToNext())
             }
-            MinutosEnTotal?.text = "$totalMinutos"
+            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
 
             // Crea un adaptador para el ListView
             val adapter = ArrayAdapter(
@@ -296,9 +296,52 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
     }
 
+    @SuppressLint("Range")
     private fun mostrarDatosRango() {
-        TODO("Not yet implemented")
+        try {
+            totalMinutos = 0
+
+            // Obtén la asignatura seleccionada del Spinner
+            val asignaturaSeleccionada = asignaturaSeleccionada ?: return
+            val fechaInicioSeleccionada = fechaInicio?.text.toString() ?: return
+            val fechaFinSeleccionada = fechaFin?.text.toString() ?: return
+
+            // Obtén el cursor con los datos en el rango de fechas y para la asignatura seleccionada
+            val cursor = dbStats?.viewDataRangoAsignatura(fechaInicioSeleccionada, fechaFinSeleccionada, asignaturaSeleccionada)
+                ?: return
+
+            // Lista para almacenar pares de fecha y minutos totales
+            val datosRango = mutableListOf<Pair<String, Int>>()
+
+            // Itera sobre el cursor y agrega los datos a la lista
+            if (cursor.moveToFirst()) {
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
+                    Log.d("Rango asig", name)
+                    val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
+                    val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
+                    totalMinutos += minutosTotales
+                    datosRango.add(fecha to minutosTotales)
+                } while (cursor.moveToNext())
+            }
+
+            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
+
+            // Crea un adaptador para el ListView
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                datosRango.map { "${it.first}: ${it.second} minutos" }
+            )
+
+            // Asigna el adaptador al ListView
+            ListViewDias?.adapter = adapter
+        } catch (e: Exception) {
+            Log.e("MostrarDatosRango", "Error: ${e.message}")
+            e.printStackTrace()
+        }
     }
+
 
     @SuppressLint("Range")
     private fun mostrarDatosHistoricos() {
@@ -325,7 +368,7 @@ class tiempo_dedicado: AppCompatActivity()  {
                     datosHistoricos.add(fecha to minutosTotales)
                 } while (cursor.moveToNext())
             }
-            MinutosEnTotal?.text = "$totalMinutos"
+            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
 
             // Crea un adaptador para el ListView
             val adapter = ArrayAdapter(
@@ -364,7 +407,7 @@ class tiempo_dedicado: AppCompatActivity()  {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
                     // Llamar a la función correspondiente según la opción seleccionada en el Spinner de opciones
                     when (spinnerOpciones.selectedItem.toString()) {
-                        //"Rango" -> mostrarDatosRango()
+                        "Rango" -> mostrarDatosRango()
                         "Histórico" -> mostrarDatosHistoricos()
                         "Día" -> mostrarDatosDelDia()
                     }

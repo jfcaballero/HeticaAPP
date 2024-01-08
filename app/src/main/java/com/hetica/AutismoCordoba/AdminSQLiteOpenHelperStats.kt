@@ -111,8 +111,6 @@ class AdminSQLiteOpenHelperStats
     fun viewDataDias(date: String?): Cursor {
         val db = this.readableDatabase
         val query = "Select * from " + DB_TABLE + " where DATE='" + date + "'"
-        //val query = "SELECT * FROM $DB_TABLE"
-        //val query ="SELECT * FROM $DB_TABLE WHERE DATE=?"
 
         return db.rawQuery(query, null)
     }
@@ -124,6 +122,16 @@ class AdminSQLiteOpenHelperStats
         return db.rawQuery(query, null)
 
     }
+
+    @SuppressLint("Range")
+    fun viewDataRangoAsignatura(fechaInicio: String, fechaFin: String, asignatura: String): Cursor {
+        val db = this.readableDatabase
+        val query =
+            "SELECT * FROM $DB_TABLE WHERE DATE BETWEEN '$fechaInicio' AND '$fechaFin' AND NAME='$asignatura'"
+        Log.d("Base de datos", "FechaInicio: $fechaInicio, FechaFin: $fechaFin, Asignatura: $asignatura")
+        return db.rawQuery(query, null)
+    }
+
 
     @SuppressLint("Range")
     fun viewDataHistorico(asignatura: String?): Cursor {
