@@ -61,10 +61,6 @@ class tiempo_dedicado: AppCompatActivity()  {
     var lv: ListView? = null
 
     /**
-     * The Year final.
-     */
-    var yearFinal: String? = null
-    /**
      * Imagen para irnos al Main
      */
     var imageMain: ImageView?=null
@@ -81,9 +77,8 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     var totalMinutos: Int = 0
 
-    var tiempoOpciones: Spinner? = null
-
     private val calendar = Calendar.getInstance()
+
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     @SuppressLint("MissingInflatedId")
@@ -506,101 +501,5 @@ class tiempo_dedicado: AppCompatActivity()  {
     }
 
 
-    /*
-     * Función que devuelve las estadísticas de una fecha en concreto
-     *
-
-    @SuppressLint("Range")
-    private fun viewData() {
-        Log.e("Date Selected", yearFinal!!)
-        val cursor = db!!.viewDataDias(yearFinal)
-        if (cursor.count == 0) {
-            Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
-            binding.barChartHorizontal.visibility = View.INVISIBLE  // Ocultar la gráfica cuando no hay datos
-
-        } else {
-            obtenerTiempoTotalAsignaturas(yearFinal)
-        }
-    }*/
-    /*
-     * Función para convertir map a Lista de asignaturas y minutos
-     * @param mapAsignaturas La lista mutable de asignaturas y minutos
-     * @return list
-     *
-    private fun convertMapToList(mapAsignaturas: HashMap<String, Int>): List<Pair<String, Float>> {
-        val list = mutableListOf<Pair<String, Float>>()
-        for ((asignatura, tiempoTotal) in mapAsignaturas) {
-            list.add(asignatura to tiempoTotal.toFloat())
-        }
-        return list
-    }
-    /**
-     * Función para generar una lista de pares mapeados de asignatura y minutos dada una lista
-     * @param data La lista de asignatura y minutos
-     * @return mappedData
-     */
-    private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
-        val mappedData = mutableListOf<Pair<String, Float>>()
-        "Asignatura: ${data[0].first} - Tiempo Total: ${data[0].second} minutos"
-        //Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show()
-
-        for (i in 0 until data.size) {
-            mappedData.add(data[i])
-        }
-
-        if (data.size == 1) {
-            mappedData.add(data[0])
-
-        }else{
-            val rectangle = findViewById<View>(R.id.rectangle)
-            rectangle.visibility = View.INVISIBLE
-
-        }
-
-        return mappedData
-    }
-
-
-
-
-
-    /**
-     * Función para mostrar en la grafica el tiempo dedicado a cada asignatura dada una fecha
-     * @param Fecha
-     */
-    @SuppressLint("Range")
-    private fun obtenerTiempoTotalAsignaturas(date: String?) {
-        val cursor = db!!.viewDataDias(date)
-        val mapAsignaturas = HashMap<String, Int>()
-
-        if (cursor.count == 0) {
-            Log.e("Obtener Tiempo Total", "No hay datos para la fecha especificada")
-            binding.barChartHorizontal.visibility = View.INVISIBLE  // Ocultar la gráfica cuando no hay datos
-
-        } else {
-            while (cursor.moveToNext()) {
-                val nombreAsignatura = cursor.getString(cursor.getColumnIndex("NAME"))
-                val tiempo = cursor.getInt(cursor.getColumnIndex("TIME"))
-
-                if (mapAsignaturas.containsKey(nombreAsignatura)) {
-                    val tiempoTotal = mapAsignaturas[nombreAsignatura] ?: 0
-                    mapAsignaturas[nombreAsignatura] = tiempoTotal + tiempo
-                } else {
-                    mapAsignaturas[nombreAsignatura] = tiempo
-                }
-            }
-
-            binding.barChartHorizontal.visibility = View.VISIBLE  // Mostrar la gráfica cuando hay datos disponibles
-
-            binding.barChartHorizontal.animation.duration = animationDuration
-            val dataList = convertMapToList(mapAsignaturas)
-            val data = generateHorizontalBarData(dataList)
-            binding.barChartHorizontal.animate(data)
-            binding.barChartHorizontal.invalidate()
-
-        }
-    }
-
-     */
 
 }

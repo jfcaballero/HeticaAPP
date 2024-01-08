@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".VisualizarCalificaciones">
 
-
     <com.db.williamchart.view.HorizontalBarChartView
         android:id="@+id/barChartCalificaciones"
         android:layout_width="383dp"
         android:layout_height="397dp"
         android:background="#D5D1E4E3"
+        android:visibility="gone"
         app:chart_axis="xy"
         app:chart_barsColor="#32605B"
         app:chart_barsRadius="4dp"
         app:chart_labelsColor="#000000"
+
         app:chart_labelsSize="10sp"
         app:chart_spacing="30dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.76"
@@ -27,6 +27,8 @@
         app:layout_constraintVertical_bias="0.571">
 
     </com.db.williamchart.view.HorizontalBarChartView>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewestadisticas"
@@ -44,12 +46,39 @@
         android:layout_width="421dp"
         android:layout_height="346dp"
         android:background="#F9F9F9"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.086" />
+
+    <com.androidplot.xy.XYPlot
+        android:id="@+id/plot"
+        style="@style/APDefacto.Light"
+        android:layout_width="373dp"
+        android:layout_height="357dp"
+        android:visibility="invisible"
+        app:domainTitle="domain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rangeTitle="rang"
+        app:title="XY PLOT Simple"
+        tools:ignore="MissingConstraints" />
+
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+        android:id="@+id/aa_chart_view"
+        android:layout_width="363dp"
+        android:layout_height="323dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar4">
+
+    </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"

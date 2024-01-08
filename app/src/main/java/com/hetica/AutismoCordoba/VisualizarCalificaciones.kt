@@ -17,6 +17,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding
 
+
+import android.graphics.Color
+import com.androidplot.xy.*
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import java.text.FieldPosition
+import java.text.Format
+import java.text.ParsePosition
+import java.text.SimpleDateFormat
+import java.util.*
+
+
+
+
 /**
  * The type VisualizarCalificaciones
  *
@@ -44,7 +60,7 @@ var dbCalificaciones: AdminSQLiteOpenHelperCalificaciones? =null
 var imageMain: ImageView?=null
 
 @SuppressLint("StaticFieldLeak")
-lateinit var spinnerAsignaturas: Spinner
+private lateinit var spinnerAsignaturas: Spinner
 @SuppressLint("StaticFieldLeak")
 private lateinit var spinnerTipos: Spinner
 @SuppressLint("StaticFieldLeak")
@@ -189,6 +205,110 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
     }
+    private fun testChartAA(asignatura: String, tipo: String) {
+        val aaChartView = findViewById<AAChartView>(R.id.aa_chart_view)
+
+        // Obtén tus datos de calificaciones
+        val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
+
+        if (listaCalificaciones.isNullOrEmpty()) {
+            Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
+            aaChartView.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
+            return
+        }
+
+        // Ordenar las calificaciones por fecha
+        val calificacionesOrdenadas = listaCalificaciones.sortedBy { parseDate(it.first) }
+
+        // Generar datos para la gráfica
+        val data = generateAreaChartData(calificacionesOrdenadas)
+
+        val aaChartModel : AAChartModel = AAChartModel()
+            .chartType(AAChartType.Bar)
+            .title("Calificaciones de $asignatura")
+            .subtitle("Tipo: $tipo")
+            .backgroundColor("#d8fcf2")
+            .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
+            .dataLabelsEnabled(true)
+            .categories(data.map { it.first }.toTypedArray())
+            .series(arrayOf(
+                AASeriesElement()
+                    .name("Calificaciones")
+                    .data(data.map { it.second }.toTypedArray())
+            )
+            )
+
+        // Dibuja el gráfico con el modelo configurado
+        aaChartView.aa_drawChartWithChartModel(aaChartModel)
+    }
+
+    // Función para convertir una cadena de fecha en un objeto Date
+    private fun parseDate(dateString: String): Date {
+        val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+        return dateFormat.parse(dateString) ?: Date()
+    }
+
+
+    // Función para generar datos para el gráfico de área
+    private fun generateAreaChartData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
+        return data.map { it.first to it.second }
+    }
+
+
+    private fun testChart(asignatura: String, tipo: String) {
+        val plot: XYPlot = binding.plot
+
+        // Obtén tus datos de calificaciones
+        val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
+
+        if (listaCalificaciones.isNullOrEmpty()) {
+            Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Ordenar las calificaciones por fecha
+        val calificacionesOrdenadas = listaCalificaciones.sortedBy { it.first }
+
+        // Generar datos para la gráfica
+        val data = generateHorizontalBarData(calificacionesOrdenadas)
+
+        if (data.isNotEmpty()) {
+            // Crear series XY para calificaciones
+            val series: XYSeries = SimpleXYSeries(
+                data.mapIndexed { index, _ -> index.toDouble() },
+                data.map { it.second },
+                "Calificaciones"
+            )
+
+            // Configurar formato de línea y punto
+            val seriesFormat = LineAndPointFormatter(Color.BLUE, Color.BLACK, null, null)
+            seriesFormat.setInterpolationParams(CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal))
+
+            // Limpiar las series existentes y agregar la nueva serie
+            plot.clear()
+            plot.addSeries(series, seriesFormat)
+
+            // Configurar el gráfico
+            plot.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object : Format() {
+                override fun format(obj: Any?, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
+                    val i = Math.round((obj as Number).toFloat())
+                    return toAppendTo.append(calificacionesOrdenadas[i.toInt()].first)  // Asignatura como etiquetas
+                }
+
+                override fun parseObject(source: String?, pos: ParsePosition): Any? {
+                    return null
+                }
+            }
+
+            PanZoom.attach(plot)
+            plot.redraw()
+        }
+    }
+
+
+
+
+
     /**
      * Función para irnos al Main
      *
@@ -241,7 +361,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
      * @return mappedData
      *
      */
-    private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
+    /*private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         val mappedData = mutableListOf<Pair<String, Float>>()
 
         rectangle = binding.rectangleVisualizarCalificaciones
@@ -261,7 +381,25 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
         return mappedData
+    }*/
+    private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
+        val mappedData = mutableListOf<Pair<String, Float>>()
+
+        rectangle = binding.rectangleVisualizarCalificaciones
+        for (i in 0 until data.size) {
+            mappedData.add(Pair(i.toString(), data[i].second))
+        }
+
+        if (data.size == 1) {
+            mappedData.add(Pair(data.size.toString(), data[0].second))
+            rectangle!!.visibility = View.VISIBLE
+        } else {
+            rectangle!!.visibility = View.INVISIBLE
+        }
+
+        return mappedData
     }
+
     /**
      * Función para mostrar los valores en la gráfica en base a los predeterminados al inicio por los
      * spinners
@@ -273,6 +411,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
         asignaturaSeleccionada = asignaturasList?.get(0)
         tipoSeleccionado = tipoExamenList[0]
         obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
+        testChart(asignaturaSeleccionada!!, tipoSeleccionado!!)
+        testChartAA(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }
     /**
      * Función para actualizar las gráficas al cambiar valores de spinner
@@ -282,6 +422,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
         asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
         tipoSeleccionado = spinnerTipos.selectedItem.toString()
         obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
+        testChart(asignaturaSeleccionada!!, tipoSeleccionado!!)
+        testChartAA(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }
 
 
