@@ -116,7 +116,7 @@
         app:layout_constraintVertical_bias="0.668" />
 
     <TextView
-        android:id="@+id/textView86"
+        android:id="@+id/tiempoMinutosTotales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Minutos totales"

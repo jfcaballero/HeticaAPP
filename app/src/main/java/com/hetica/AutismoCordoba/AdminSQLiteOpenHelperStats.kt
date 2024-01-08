@@ -117,6 +117,14 @@ class AdminSQLiteOpenHelperStats
         return db.rawQuery(query, null)
     }
 
+    fun viewDataDiaAsignatura(date: String?,asignatura:String?): Cursor {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $DB_TABLE WHERE DATE='$date' AND NAME='$asignatura'"
+        Log.d("Base de datos","Fecha $date y asign $asignatura")
+        return db.rawQuery(query, null)
+
+    }
+
     @SuppressLint("Range")
     fun viewDataHistorico(asignatura: String?): Cursor {
         val db = this.readableDatabase
