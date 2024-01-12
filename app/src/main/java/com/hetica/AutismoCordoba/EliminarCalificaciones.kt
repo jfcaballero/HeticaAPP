@@ -133,8 +133,8 @@ class EliminarCalificaciones : AppCompatActivity() {
                     //deleteData(date, asignatura, type, grade)
                 }
             } else {
-                listViewCalificaciones?.adapter =
-                    ArrayAdapter(this, android.R.layout.simple_list_item_1, emptyList<String>())
+                adapter.clear()
+                adapter.notifyDataSetChanged()
                 Toast.makeText(
                     this,
                     "No hay calificaciones para la asignatura seleccionada $asignatura",
@@ -154,26 +154,26 @@ class EliminarCalificaciones : AppCompatActivity() {
      */
     private fun deleteSelectedItems() {
         Log.d("deleteSelectedItems", "Entrando a deleteSelectedItems")
-
-        // Verificar si hay una asignatura seleccionada
-        if (asignaturaSeleccionada.isNullOrBlank()) {
-            Log.e("deleteSelectedItems", "No hay una asignatura seleccionada.")
-            return
+        //dbCalificaciones?.clearData()
+        val existentRows = dbCalificaciones?.getSubjectGradesForSubject(asignaturaSeleccionada ?: "")
+        if (existentRows != null) {
+            Log.d("deleteSelectedItems", "Rows before deletion: ${existentRows.size}")
         }
 
-        // Eliminar las calificaciones seleccionadas
-        val selectedItems = mutableSetOf<String>()  // Usamos un conjunto para evitar duplicados
+        // Contar la cantidad de elementos seleccionados con los mismos valores
+        val selectedItemsCountMap = mutableMapOf<String, Int>()
         for (i in 0 until listaCalificaciones.adapter.count) {
             val view = listaCalificaciones.getChildAt(i)
             val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
 
             if (checkBox.isChecked) {
                 val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
-                selectedItems.add(selectedItem)
+                selectedItemsCountMap[selectedItem] = selectedItemsCountMap.getOrDefault(selectedItem, 0) + 1
             }
         }
 
-        for (selectedItem in selectedItems) {
+        // Eliminar solo la cantidad seleccionada de elementos
+        for ((selectedItem, count) in selectedItemsCountMap) {
             val parts = selectedItem.split(" | ")
 
             if (parts.size == 3) {
@@ -181,10 +181,11 @@ class EliminarCalificaciones : AppCompatActivity() {
                 val type = parts[1]
                 val grade = parts[2].toFloat()
 
-                // Llamar a la función para eliminar la entrada de la base de datos
-                val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type, grade)
+                // Llamar a la función para eliminar la cantidad de elementos seleccionados
+                val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,
+                    grade.toString(), count)
                 if (deleted == true) {
-                    Log.d("deleteSelectedItems", "Se eliminó con éxito: $selectedItem")
+                    Log.d("deleteSelectedItems", "Se eliminaron $count elementos con éxito: $selectedItem")
                 } else {
                     Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
                 }
@@ -209,6 +210,7 @@ class EliminarCalificaciones : AppCompatActivity() {
      * Función para eliminar una calificación dadas fecha, asignatura, tipo y nota
      *
      */
+    /*
     private fun deleteData(date: String, subject: String, type: String, grade: Float) {
         val deleted = dbCalificaciones?.deleteDataByDetails(date, subject, type, grade)
         if (deleted == true) {
@@ -221,7 +223,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Error al eliminar la calificación.", Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
     /*
     /**
      * Función para imprimir una lista de notas

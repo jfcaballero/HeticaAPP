@@ -143,7 +143,8 @@ class AddCalificaciones : AppCompatActivity() {
             if (notaString.isNotEmpty()) {
                 NotaFloat = notaString.toFloat()
                 if (asignaturaSeleccionada != null && tipoSeleccionado != null && NotaFloat != null) {
-                    val isInserted = dbCalificaciones?.insertData(asignaturaSeleccionada, NotaFloat!!, tipoSeleccionado, yearFinal!!)
+                    val isInserted = dbCalificaciones?.insertData(asignaturaSeleccionada,
+                        NotaFloat!!.toString(), tipoSeleccionado, yearFinal!!)
                     if (isInserted == true) {
                         val toastMessage = "Calificación insertada: $asignaturaSeleccionada, Nota: $NotaFloat, Tipo: $tipoSeleccionado"
                         Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()

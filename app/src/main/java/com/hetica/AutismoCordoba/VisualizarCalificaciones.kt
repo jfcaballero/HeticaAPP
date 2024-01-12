@@ -256,10 +256,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
     private fun testChart(asignatura: String, tipo: String) {
         val plot: XYPlot = binding.plot
-
-        // Obtén tus datos de calificaciones
         val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
-
         if (listaCalificaciones.isNullOrEmpty()) {
             //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
             return
