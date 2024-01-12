@@ -7,9 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Spinner
 import android.widget.Toast
 import java.util.Calendar
 
@@ -18,107 +22,189 @@ import java.util.Calendar
  */
 @SuppressLint("StaticFieldLeak")
 private var listViewCalificaciones: ListView? = null
+/**
+ * La asignatura seleccionada.
+ */
+private var asignaturaSeleccionada: String? = null
 
-
+@SuppressLint("StaticFieldLeak")
+private var botonEliminar: Button?=null
 class EliminarCalificaciones : AppCompatActivity() {
+
+    private lateinit var listaCalificaciones: ListView
+
+    private lateinit var adapter: ArrayAdapter<String>
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_calificaciones)
-        val FechaEliminar = findViewById<View>(R.id.fechaEliminar) as EditText
-        dbCalificaciones =AdminSQLiteOpenHelperCalificaciones(this, null, 3)
-        listViewCalificaciones=findViewById(R.id.listaCalificaciones)
 
-        //gestionar el EditText de la fecha:
-        val mcurrentDate = Calendar.getInstance()
-        val yearAux = mcurrentDate[Calendar.YEAR]
-        var monthAux = mcurrentDate[Calendar.MONTH]
-        val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
-        monthAux = monthAux + 1
-        yearFinal = if (monthAux < 10) {
-            "0" + Integer.toString(monthAux)
-        } else {
-            Integer.toString(monthAux)
-        }
-        if (dayAux < 10) {
-            yearFinal = yearFinal + "0"
-        }
-        yearFinal = yearFinal + Integer.toString(dayAux) + Integer.toString(yearAux)
-        FechaEliminar.setText("$dayAux/$monthAux/$yearAux")
+        botonEliminar=findViewById(R.id.botonEliminarCalificacion)
+        listaCalificaciones = findViewById(R.id.listaCalificaciones)
+        val checkBoxSelectAll: CheckBox = findViewById(R.id.checkBoxSelectAll)
 
-        viewData(yearFinal!!)
-        FechaEliminar.setOnClickListener { // TODO Auto-generated method stub
-            //To show current date in the datepicker
-            val mcurrentDate2 = Calendar.getInstance()
-            val year = mcurrentDate2[Calendar.YEAR]
-            val month = mcurrentDate2[Calendar.MONTH]
-            val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
-            //month=month +1;
-            //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
-            yearFinal = if (month < 10) {
-                "0" + Integer.toString(month)
-            } else {
-                Integer.toString(month)
+        // Inicializar el adapter sin datos
+        adapter = ArrayAdapter(this, R.layout.list_item_checkbox, R.id.textViewItem, ArrayList())
+        listaCalificaciones.adapter = adapter
+
+        // Llamar a viewSubjectGrades con el valor inicial del Spinner
+        if (asignaturaSeleccionada != null) {
+            viewSubjectGrades()
+        }
+        botonEliminar?.setOnClickListener {
+            deleteSelectedItems()
+        }
+
+
+
+        // Configuración del evento de clic en los elementos de la lista
+        listaCalificaciones.setOnItemClickListener { _, view, position, _ ->
+            // Manejar la lógica al hacer clic en un elemento (en este caso, mostrar posición)
+            val selectedItem = listaCalificaciones.adapter.getItem(position).toString()
+            val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
+            // Realizar acciones con el estado de la casilla de verificación (marcado/desmarcado)
+            checkBox.isChecked = !checkBox.isChecked
+        }
+        checkBoxSelectAll.setOnCheckedChangeListener { _, isChecked ->
+            // Iterar sobre los elementos de la lista y actualizar el estado de las CheckBox
+            for (i in 0 until listaCalificaciones.adapter.count) {
+                val view = listaCalificaciones.getChildAt(i)
+                val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
+                checkBox.isChecked = isChecked
             }
-            if (day < 10) {
-                yearFinal = yearFinal + "0"
-            }
-            yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@EliminarCalificaciones, { _, selectedYear, selectedMonth, selectedDay ->
-                var adjustedMonth = selectedMonth
-                Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
-                adjustedMonth = adjustedMonth + 1
-                FechaEliminar.setText("$selectedDay/$adjustedMonth/$selectedYear")
-                yearFinal = if (adjustedMonth < 10) {
-                    "0" + Integer.toString(adjustedMonth)
-                } else {
-                    Integer.toString(adjustedMonth)
-                }
-                if (selectedDay < 10) {
-                    yearFinal = yearFinal + "0"
-                }
-                yearFinal = yearFinal + Integer.toString(selectedDay) + Integer.toString(selectedYear)
-
-                // Llamar a viewData después de seleccionar la fecha
-
-                viewData(yearFinal!!)
-            }, year, month, day)
-            mDatePicker.setTitle("Select date")
-            mDatePicker.show()
         }
-        //val dateString = FechaCalendario?.text.toString()
-        viewData(yearFinal!!)
 
+        val spinner: Spinner = findViewById(R.id.spinnerBorrarCalificacion)
+
+        // Obtener la lista de asignaturas desde la base de datos
+        val asignaturasList = dbAsig?.getAsignaturasList()
+        if (asignaturasList != null) {
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+
+            // Establecer el listener para el evento de clic del Spinner
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
+                    if (asignaturaSeleccionada != null) {
+                        viewSubjectGrades()
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // No se realiza ninguna acción si no se selecciona nada
+                }
+            }
+
+            // Llamar a viewData con los valores iniciales del Spinner y la fecha
+            if (asignaturaSeleccionada != null) {
+            }
+
+        }
     }
+
     /**
-     * Función para mostrar dada la fecha las calificaciones en la lista
-     *
+     * Función para mostrar las calificaciones de la asignatura seleccionada
      */
-    private fun viewData(dateString: String) {
-        val calificacionesBDList = dbCalificaciones?.getSubjectGradesForDate(dateString)
+    private fun viewSubjectGrades() {
+        Log.d("viewSubjectGrades", "Entrando a viewSubjectGrades")
 
-        if (!calificacionesBDList.isNullOrEmpty()) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, calificacionesBDList)
-            listViewCalificaciones?.adapter = adapter
-            adapter.notifyDataSetChanged()
+        asignaturaSeleccionada?.let { asignatura ->
+            val calificacionesBDList = dbCalificaciones?.getSubjectGradesForSubject(asignatura)
 
-            listViewCalificaciones?.setOnItemClickListener { parent, _, position, _ ->
-                val selectedItem = parent.getItemAtPosition(position) as String
-                // Para dividir el elemento en las partes como las mostramos en el ListView
-                val parts = selectedItem.split(" | ")
+            if (!calificacionesBDList.isNullOrEmpty()) {
+                adapter.clear()
+                adapter.addAll(calificacionesBDList)
+                adapter.notifyDataSetChanged()
 
-                val subject = parts[0]
+                listViewCalificaciones?.setOnItemClickListener { parent, _, position, _ ->
+                    val selectedItem = parent.getItemAtPosition(position) as String
+                    // Para dividir el elemento en las partes como las mostramos en el ListView
+                    val parts = selectedItem.split(" | ")
+
+                    val date = parts[0]
+                    val type = parts[1]
+                    val grade = parts[2].toFloat()
+
+                    // Llamar a la función para eliminar la entrada de la base de datos
+                    //deleteData(date, asignatura, type, grade)
+                }
+            } else {
+                listViewCalificaciones?.adapter =
+                    ArrayAdapter(this, android.R.layout.simple_list_item_1, emptyList<String>())
+                Toast.makeText(
+                    this,
+                    "No hay calificaciones para la asignatura seleccionada $asignatura",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+        Log.d("viewSubjectGrades", "Saliendo de viewSubjectGrades")
+    }
+
+
+    /**
+     * Función para eliminar las calificaciones seleccionadas
+     */
+    /**
+     * Función para eliminar las calificaciones seleccionadas
+     */
+    private fun deleteSelectedItems() {
+        Log.d("deleteSelectedItems", "Entrando a deleteSelectedItems")
+
+        // Verificar si hay una asignatura seleccionada
+        if (asignaturaSeleccionada.isNullOrBlank()) {
+            Log.e("deleteSelectedItems", "No hay una asignatura seleccionada.")
+            return
+        }
+
+        // Eliminar las calificaciones seleccionadas
+        val selectedItems = mutableSetOf<String>()  // Usamos un conjunto para evitar duplicados
+        for (i in 0 until listaCalificaciones.adapter.count) {
+            val view = listaCalificaciones.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
+
+            if (checkBox.isChecked) {
+                val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
+                selectedItems.add(selectedItem)
+            }
+        }
+
+        for (selectedItem in selectedItems) {
+            val parts = selectedItem.split(" | ")
+
+            if (parts.size == 3) {
+                val date = parts[0]
                 val type = parts[1]
                 val grade = parts[2].toFloat()
 
                 // Llamar a la función para eliminar la entrada de la base de datos
-                deleteData(dateString, subject, type, grade)
+                val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type, grade)
+                if (deleted == true) {
+                    Log.d("deleteSelectedItems", "Se eliminó con éxito: $selectedItem")
+                } else {
+                    Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
+                }
+            } else {
+                Log.e("deleteSelectedItems", "El elemento seleccionado no tiene el formato esperado: $selectedItem")
             }
-        } else {
-            listViewCalificaciones?.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, emptyList<String>())
-            Toast.makeText(this, "No hay calificaciones para el día seleccionado $dateString", Toast.LENGTH_LONG).show()
         }
+
+        // Actualizar la lista después de eliminar elementos
+        viewSubjectGrades()
+        Log.d("deleteSelectedItems", "Saliendo de deleteSelectedItems")
     }
+
+
+
+
+
+
+
+
     /**
      * Función para eliminar una calificación dadas fecha, asignatura, tipo y nota
      *
@@ -126,12 +212,17 @@ class EliminarCalificaciones : AppCompatActivity() {
     private fun deleteData(date: String, subject: String, type: String, grade: Float) {
         val deleted = dbCalificaciones?.deleteDataByDetails(date, subject, type, grade)
         if (deleted == true) {
-            Toast.makeText(this, "Se ha eliminado la calificación: $subject | $type | $grade", Toast.LENGTH_SHORT).show()
-            viewData(date) // Actualizar la lista después de eliminar un elemento
+            Toast.makeText(
+                this,
+                "Se ha eliminado la calificación: $subject | $date | $type | $grade",
+                Toast.LENGTH_SHORT
+            ).show()
+            viewSubjectGrades() // Actualizar la lista después de eliminar un elemento
         } else {
             Toast.makeText(this, "Error al eliminar la calificación.", Toast.LENGTH_SHORT).show()
         }
     }
+    /*
     /**
      * Función para imprimir una lista de notas
      *
@@ -140,10 +231,10 @@ class EliminarCalificaciones : AppCompatActivity() {
         for (grade in gradesList) {
             Toast.makeText(this, "$grade", Toast.LENGTH_LONG).show()
         }
-    }
-
-
+    }*/
 
 
 }
+
+
 

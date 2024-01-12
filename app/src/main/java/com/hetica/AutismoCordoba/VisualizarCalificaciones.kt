@@ -210,9 +210,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         // Obtén tus datos de calificaciones
         val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
-
-        if (listaCalificaciones.isNullOrEmpty()) {
-            Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
+        if (listaCalificaciones.isNullOrEmpty() ) {
+            //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
             aaChartView.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
         }
@@ -262,7 +261,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
 
         if (listaCalificaciones.isNullOrEmpty()) {
-            Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -410,7 +409,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val tipoExamenList = listOf("Parcial", "Final")
         asignaturaSeleccionada = asignaturasList?.get(0)
         tipoSeleccionado = tipoExamenList[0]
-        obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
+        //obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
         testChart(asignaturaSeleccionada!!, tipoSeleccionado!!)
         testChartAA(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }
@@ -421,7 +420,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
     private fun updateSelectedValues() {
         asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
         tipoSeleccionado = spinnerTipos.selectedItem.toString()
-        obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
+        //obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
         testChart(asignaturaSeleccionada!!, tipoSeleccionado!!)
         testChartAA(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }

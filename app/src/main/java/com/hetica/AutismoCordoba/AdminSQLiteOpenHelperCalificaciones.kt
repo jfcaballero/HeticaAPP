@@ -92,6 +92,29 @@ class AdminSQLiteOpenHelperCalificaciones(
         return subjectGradesList
     }
     /**
+     * Función para obtener todos los datos de una calificación dada la asignatura
+     **/
+    @SuppressLint("Range")
+    fun getSubjectGradesForSubject(asignatura: String): MutableList<String> {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $DB_TABLE WHERE $SUBJECT = ?"
+        val cursor = db.rawQuery(query, arrayOf(asignatura))
+        val subjectGradesList = mutableListOf<String>()
+
+        if (cursor.moveToFirst()) {
+            do {
+                //val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
+                val date = cursor.getString(cursor.getColumnIndex(DATE))
+                val type = cursor.getString(cursor.getColumnIndex(TYPE))
+                val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
+                val entry = "$date | $type | $grade "
+                subjectGradesList.add(entry)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return subjectGradesList
+    }
+    /**
      * Función para eliminar una asignatura dados sus atributos
      **/
     fun deleteDataByDetails(date: String, subject: String, type: String, grade: Float): Boolean {
