@@ -1,8 +1,6 @@
 package com.hetica.AutismoCordoba
 
-import AdminSQLiteOpenHelperCalificaciones
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,17 +9,11 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Toast
-import java.util.Calendar
 
-/**
- * ListView de calificaciones.
- */
-@SuppressLint("StaticFieldLeak")
-private var listViewCalificaciones: ListView? = null
+
 /**
  * La asignatura seleccionada.
  */
@@ -62,7 +54,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         // Configuración del evento de clic en los elementos de la lista
         listaCalificaciones.setOnItemClickListener { _, view, position, _ ->
             // Manejar la lógica al hacer clic en un elemento (en este caso, mostrar posición)
-            val selectedItem = listaCalificaciones.adapter.getItem(position).toString()
+            //val selectedItem = listaCalificaciones.adapter.getItem(position).toString()
             val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
             // Realizar acciones con el estado de la casilla de verificación (marcado/desmarcado)
             checkBox.isChecked = !checkBox.isChecked
@@ -120,18 +112,7 @@ class EliminarCalificaciones : AppCompatActivity() {
                 adapter.addAll(calificacionesBDList)
                 adapter.notifyDataSetChanged()
 
-                listViewCalificaciones?.setOnItemClickListener { parent, _, position, _ ->
-                    val selectedItem = parent.getItemAtPosition(position) as String
-                    // Para dividir el elemento en las partes como las mostramos en el ListView
-                    val parts = selectedItem.split(" | ")
 
-                    val date = parts[0]
-                    val type = parts[1]
-                    val grade = parts[2].toFloat()
-
-                    // Llamar a la función para eliminar la entrada de la base de datos
-                    //deleteData(date, asignatura, type, grade)
-                }
             } else {
                 adapter.clear()
                 adapter.notifyDataSetChanged()
@@ -154,43 +135,38 @@ class EliminarCalificaciones : AppCompatActivity() {
      */
     private fun deleteSelectedItems() {
         Log.d("deleteSelectedItems", "Entrando a deleteSelectedItems")
-        //dbCalificaciones?.clearData()
+
         val existentRows = dbCalificaciones?.getSubjectGradesForSubject(asignaturaSeleccionada ?: "")
         if (existentRows != null) {
             Log.d("deleteSelectedItems", "Rows before deletion: ${existentRows.size}")
         }
 
-        // Contar la cantidad de elementos seleccionados con los mismos valores
-        val selectedItemsCountMap = mutableMapOf<String, Int>()
+        // Eliminar los elementos seleccionados
         for (i in 0 until listaCalificaciones.adapter.count) {
             val view = listaCalificaciones.getChildAt(i)
             val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
 
             if (checkBox.isChecked) {
                 val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
-                selectedItemsCountMap[selectedItem] = selectedItemsCountMap.getOrDefault(selectedItem, 0) + 1
-            }
-        }
+                val parts = selectedItem.split(" | ")
 
-        // Eliminar solo la cantidad seleccionada de elementos
-        for ((selectedItem, count) in selectedItemsCountMap) {
-            val parts = selectedItem.split(" | ")
+                if (parts.size == 4) {
+                    val date = parts[0]
+                    val type = parts[1]
+                    val grade = parts[2].toFloat()
+                    val id= parts[3]
 
-            if (parts.size == 3) {
-                val date = parts[0]
-                val type = parts[1]
-                val grade = parts[2].toFloat()
-
-                // Llamar a la función para eliminar la cantidad de elementos seleccionados
-                val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,
-                    grade.toString(), count)
-                if (deleted == true) {
-                    Log.d("deleteSelectedItems", "Se eliminaron $count elementos con éxito: $selectedItem")
+                    // Llamar a la función para eliminar el elemento seleccionado
+                    val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,
+                        grade.toString(), id, 1)
+                    if (deleted == true) {
+                        Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
+                    } else {
+                        Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
+                    }
                 } else {
-                    Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
+                    Log.e("deleteSelectedItems", "El elemento seleccionado no tiene el formato esperado: $selectedItem")
                 }
-            } else {
-                Log.e("deleteSelectedItems", "El elemento seleccionado no tiene el formato esperado: $selectedItem")
             }
         }
 

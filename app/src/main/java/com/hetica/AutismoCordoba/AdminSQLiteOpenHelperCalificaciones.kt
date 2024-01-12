@@ -109,7 +109,8 @@ class AdminSQLiteOpenHelperCalificaciones(
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
-                val entry = "$date | $type | $grade "
+                val id = cursor.getFloat(cursor.getColumnIndex(ID))
+                val entry = "$date | $type | $grade | $id "
                 subjectGradesList.add(entry)
             } while (cursor.moveToNext())
         }
@@ -119,20 +120,22 @@ class AdminSQLiteOpenHelperCalificaciones(
     /**
      * Función para eliminar una asignatura dados sus atributos
      **/
-    fun deleteDataByDetails(date: String, subject: String, type: String, grade: String, count: Int): Boolean {
+    fun deleteDataByDetails(
+        date: String, subject: String, type: String, grade: String, id: String,
+        count: Int): Boolean {
         val db = this.writableDatabase
-        val whereClause = "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ?"
-        val whereArgs = arrayOf(date, subject, type, grade.toString())
+        val whereClause = "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?"
+        val whereArgs = arrayOf(date, subject, type, grade,id)
         Log.d("enBaseDeDatos","Los args son: $date,$subject,$type,$grade y $count")
         // Log para verificar el estado antes de la eliminación
-        val rowsBefore = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ?", whereArgs)
+        val rowsBefore = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?", whereArgs)
         Log.d("deleteDataByDetails", "Rows before deletion: $rowsBefore")
 
         // Eliminar todas las filas que coincidan con los criterios
         val result = db.delete(DB_TABLE, whereClause, whereArgs)
 
         // Log después de la eliminación
-        val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ?", whereArgs)
+        val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?", whereArgs)
         Log.d("deleteDataByDetails", "Deleted $result rows. Expected: $rowsBefore, Rows after deletion: $rowsAfter")
 
         if (result > 0) {
