@@ -145,24 +145,18 @@ class EliminarCalificaciones : AppCompatActivity() {
 
             if (checkBox.isChecked) {
                 val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
-                val parts = selectedItem.split(" | ")
 
-                if (parts.size == 4) {
-                    val date = parts[0]
-                    val type = parts[1]
-                    val grade = parts[2].toFloat()
-                    val id= parts[3]
+                val id = selectedItem.substringAfter("ID: ").substringBefore("\n").trim()
+                val date = selectedItem.substringAfter("Fecha: ").substringBefore("\n").trim()
+                val type = selectedItem.substringAfter("Tipo: ").substringBefore("\n").trim()
+                val grade = selectedItem.substringAfter("Nota: ").trim().toFloat()
 
-                    // Llamar a la función para eliminar el elemento seleccionado
-                    val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,
-                        grade.toString(), id)
-                    if (deleted == true) {
-                        Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
-                    } else {
-                        Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
-                    }
+                // Llamar a la función para eliminar el elemento seleccionado
+                val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type, grade.toString(), id)
+                if (deleted == true) {
+                    Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
                 } else {
-                    Log.e("deleteSelectedItems", "El elemento seleccionado no tiene el formato esperado: $selectedItem")
+                    Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
                 }
             }
         }
@@ -171,6 +165,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         viewSubjectGrades()
         Log.d("deleteSelectedItems", "Saliendo de deleteSelectedItems")
     }
+
 
 
 
