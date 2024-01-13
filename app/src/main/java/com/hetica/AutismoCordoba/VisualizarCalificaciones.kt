@@ -64,8 +64,7 @@ var imageMain: ImageView?=null
 private lateinit var spinnerAsignaturas: Spinner
 @SuppressLint("StaticFieldLeak")
 private lateinit var spinnerTipos: Spinner
-@SuppressLint("StaticFieldLeak")
-private var rectangle: View? = null
+
 
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityVisualizarCalificacionesBinding? = null
@@ -73,7 +72,7 @@ private val binding get() = _binding!!
 class VisualizarCalificaciones : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setInitialValues()
+
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
@@ -101,21 +100,11 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
 
-        binding.apply {
 
-            barChartCalificaciones.animation.duration = animationDuration
-            barChartCalificaciones.animate(horizontalBarSet)
-            barChartCalificaciones.labelsFormatter = { "%.2f".format(it) }
-
-
-        }
-        //dbCalificaciones!!.clearData()
-        //dbCalificaciones!!.insertData("lengua", 8.0F,"Parcial")
 
         spinnerAsignaturas = binding.spinnerCalificacionAsig
         spinnerTipos = binding.spinnerParcialFinal
-        rectangle = binding.rectangleVisualizarCalificaciones
-        rectangle!!.visibility = View.INVISIBLE
+
 
         //Spinner de asignaturas
         if (asignaturasList != null) {
@@ -257,57 +246,6 @@ class VisualizarCalificaciones : AppCompatActivity() {
     }
 
 
-    private fun testChart(asignatura: String, tipo: String) {
-        val plot: XYPlot = binding.plot
-        val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
-        if (listaCalificaciones.isNullOrEmpty()) {
-            //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Ordenar las calificaciones por fecha
-        val calificacionesOrdenadas = listaCalificaciones.sortedBy { it.first }
-
-        // Generar datos para la gráfica
-        val data = generateHorizontalBarData(calificacionesOrdenadas)
-
-        if (data.isNotEmpty()) {
-            // Crear series XY para calificaciones
-            val series: XYSeries = SimpleXYSeries(
-                data.mapIndexed { index, _ -> index.toDouble() },
-                data.map { it.second },
-                "Calificaciones"
-            )
-
-            // Configurar formato de línea y punto
-            val seriesFormat = LineAndPointFormatter(Color.BLUE, Color.BLACK, null, null)
-            seriesFormat.setInterpolationParams(CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal))
-
-            // Limpiar las series existentes y agregar la nueva serie
-            plot.clear()
-            plot.addSeries(series, seriesFormat)
-
-            // Configurar el gráfico
-            plot.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object : Format() {
-                override fun format(obj: Any?, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
-                    val i = Math.round((obj as Number).toFloat())
-                    return toAppendTo.append(calificacionesOrdenadas[i.toInt()].first)  // Asignatura como etiquetas
-                }
-
-                override fun parseObject(source: String?, pos: ParsePosition): Any? {
-                    return null
-                }
-            }
-
-            PanZoom.attach(plot)
-            plot.redraw()
-        }
-    }
-
-
-
-
-
     /**
      * Función para irnos al Main
      *
@@ -319,85 +257,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
     }
-    /**
-     * Función para mostrar las calificaciones en la gráfica
-     * @param asignatura
-     * @param tipo
-     */
-    private fun obtenerCalificaciones(asignatura: String, tipo: String) {
 
-        val listaCalificaciones= dbCalificaciones?.getSubjectGradesList(asignatura,tipo)
-        if (listaCalificaciones.isNullOrEmpty()) {
-            Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
-            binding.barChartCalificaciones.animate(emptyList())
-        }else{
-            //printSubjectGradesList(listaCalificaciones)
-            binding.barChartCalificaciones.animation.duration = animationDuration
-            val data = generateHorizontalBarData(listaCalificaciones)
-
-            if (data.isNotEmpty()) {
-                binding.barChartCalificaciones.animate(data)
-                binding.barChartCalificaciones.invalidate()
-            }
-        }
-
-    }
-    /**
-     * Función para imprimir todas las calificaciones
-     * @param subjectGradesList Lista de pares de asignatura y nota
-     *
-     */
-    private fun printSubjectGradesList(subjectGradesList: List<Pair<String, Float>>) {
-        val context = applicationContext
-        for ((subject, grade) in subjectGradesList) {
-            val message = "Asignatura: $subject, Calificación: $grade"
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-    }
-    /**
-     * Función para generar datos que se puedan leer por las gráficas
-     * @param data
-     * @return mappedData
-     *
-     */
-    /*private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
-        val mappedData = mutableListOf<Pair<String, Float>>()
-
-        rectangle = binding.rectangleVisualizarCalificaciones
-        for (i in 0 until data.size) {
-            mappedData.add(data[i])
-
-        }
-        if (data.size == 1) {
-            mappedData.add(data[0])
-
-            rectangle!!.visibility = View.VISIBLE
-
-        }else{
-
-            rectangle!!.visibility = View.INVISIBLE
-
-        }
-
-        return mappedData
-    }*/
-    private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
-        val mappedData = mutableListOf<Pair<String, Float>>()
-
-        rectangle = binding.rectangleVisualizarCalificaciones
-        for (i in 0 until data.size) {
-            mappedData.add(Pair(i.toString(), data[i].second))
-        }
-
-        if (data.size == 1) {
-            mappedData.add(Pair(data.size.toString(), data[0].second))
-            rectangle!!.visibility = View.VISIBLE
-        } else {
-            rectangle!!.visibility = View.INVISIBLE
-        }
-
-        return mappedData
-    }
 
     /**
      * Función para mostrar los valores en la gráfica en base a los predeterminados al inicio por los
@@ -409,8 +269,6 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val tipoExamenList = listOf("Parcial", "Final")
         asignaturaSeleccionada = asignaturasList?.get(0)
         tipoSeleccionado = tipoExamenList[0]
-        //obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
-        testChart(asignaturaSeleccionada!!, tipoSeleccionado!!)
         testChartAA(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }
     /**
@@ -420,25 +278,19 @@ class VisualizarCalificaciones : AppCompatActivity() {
     private fun updateSelectedValues() {
         asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
         tipoSeleccionado = spinnerTipos.selectedItem.toString()
-        //obtenerCalificaciones(asignaturaSeleccionada!!, tipoSeleccionado!!)
-        testChart(asignaturaSeleccionada!!, tipoSeleccionado!!)
         testChartAA(asignaturaSeleccionada!!, tipoSeleccionado!!)
     }
 
 
     override fun onResume() {
         super.onResume()
-        setInitialValues()
+        //setInitialValues()
+        updateSelectedValues()
     }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
-    companion object {
 
-        private val horizontalBarSet = listOf("Default" to 0F)
-
-        private const val animationDuration = 1000L
-    }
 }
