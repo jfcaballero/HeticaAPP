@@ -71,28 +71,7 @@ class AdminSQLiteOpenHelperCalificaciones(
         cursor.close()
         return subjectGradesList.reversed()
     }
-    /**
-     * Función para obtener todos los datos de una calificación dada la fecha
-     **/
-    @SuppressLint("Range")
-    fun getSubjectGradesForDate(date: String): MutableList<String> {
-        val db = this.readableDatabase
-        val query = "SELECT $SUBJECT, $TYPE, $GRADE FROM $DB_TABLE WHERE $DATE = ?"
-        val cursor = db.rawQuery(query, arrayOf(date))
-        val subjectGradesList = mutableListOf<String>()
 
-        if (cursor.moveToFirst()) {
-            do {
-                val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
-                val type = cursor.getString(cursor.getColumnIndex(TYPE))
-                val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
-                val entry = "$subject | $type | $grade"
-                subjectGradesList.add(entry)
-            } while (cursor.moveToNext())
-        }
-        cursor.close()
-        return subjectGradesList
-    }
     /**
      * Función para obtener todos los datos de una calificación dada la asignatura
      **/
@@ -121,22 +100,21 @@ class AdminSQLiteOpenHelperCalificaciones(
      * Función para eliminar una asignatura dados sus atributos
      **/
     fun deleteDataByDetails(
-        date: String, subject: String, type: String, grade: String, id: String,
-        count: Int): Boolean {
+        date: String, subject: String, type: String, grade: String, id: String): Boolean {
         val db = this.writableDatabase
         val whereClause = "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?"
         val whereArgs = arrayOf(date, subject, type, grade,id)
-        Log.d("enBaseDeDatos","Los args son: $date,$subject,$type,$grade y $count")
+        //Log.d("enBaseDeDatos","Los args son: $date,$subject,$type,$grade y $count")
         // Log para verificar el estado antes de la eliminación
         val rowsBefore = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?", whereArgs)
-        Log.d("deleteDataByDetails", "Rows before deletion: $rowsBefore")
+        //Log.d("deleteDataByDetails", "Rows before deletion: $rowsBefore")
 
         // Eliminar todas las filas que coincidan con los criterios
         val result = db.delete(DB_TABLE, whereClause, whereArgs)
 
         // Log después de la eliminación
-        val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?", whereArgs)
-        Log.d("deleteDataByDetails", "Deleted $result rows. Expected: $rowsBefore, Rows after deletion: $rowsAfter")
+        //val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?", whereArgs)
+        //Log.d("deleteDataByDetails", "Deleted $result rows. Expected: $rowsBefore, Rows after deletion: $rowsAfter")
 
         if (result > 0) {
             Log.e("deleteDataByDetails", "$result >0, fila eliminada con éxito")
@@ -146,11 +124,6 @@ class AdminSQLiteOpenHelperCalificaciones(
             return false  // No se eliminaron filas
         }
     }
-
-
-
-
-
 
 
 
@@ -172,8 +145,8 @@ class AdminSQLiteOpenHelperCalificaciones(
         private const val SUBJECT = "SUBJECT"
         private const val GRADE = "GRADE"
         private const val TYPE = "TYPE"
-        private const val DATE = "DATE" // New field for date
-        private const val DB_VERSION = 3
+        private const val DATE = "DATE" 
+        //private const val DB_VERSION = 3
         private const val CREATE_TABLE = "CREATE TABLE $DB_TABLE ($ID INTEGER PRIMARY KEY AUTOINCREMENT, $SUBJECT TEXT, $GRADE FLOAT, $TYPE TEXT, $DATE TEXT)"
     }
 }

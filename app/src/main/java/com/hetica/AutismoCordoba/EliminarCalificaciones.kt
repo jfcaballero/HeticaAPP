@@ -81,9 +81,8 @@ class EliminarCalificaciones : AppCompatActivity() {
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
-                    if (asignaturaSeleccionada != null) {
-                        viewSubjectGrades()
-                    }
+                    viewSubjectGrades()
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -127,9 +126,7 @@ class EliminarCalificaciones : AppCompatActivity() {
     }
 
 
-    /**
-     * Función para eliminar las calificaciones seleccionadas
-     */
+
     /**
      * Función para eliminar las calificaciones seleccionadas
      */
@@ -158,7 +155,7 @@ class EliminarCalificaciones : AppCompatActivity() {
 
                     // Llamar a la función para eliminar el elemento seleccionado
                     val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,
-                        grade.toString(), id, 1)
+                        grade.toString(), id)
                     if (deleted == true) {
                         Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
                     } else {
@@ -175,41 +172,6 @@ class EliminarCalificaciones : AppCompatActivity() {
         Log.d("deleteSelectedItems", "Saliendo de deleteSelectedItems")
     }
 
-
-
-
-
-
-
-
-    /**
-     * Función para eliminar una calificación dadas fecha, asignatura, tipo y nota
-     *
-     */
-    /*
-    private fun deleteData(date: String, subject: String, type: String, grade: Float) {
-        val deleted = dbCalificaciones?.deleteDataByDetails(date, subject, type, grade)
-        if (deleted == true) {
-            Toast.makeText(
-                this,
-                "Se ha eliminado la calificación: $subject | $date | $type | $grade",
-                Toast.LENGTH_SHORT
-            ).show()
-            viewSubjectGrades() // Actualizar la lista después de eliminar un elemento
-        } else {
-            Toast.makeText(this, "Error al eliminar la calificación.", Toast.LENGTH_SHORT).show()
-        }
-    }*/
-    /*
-    /**
-     * Función para imprimir una lista de notas
-     *
-     */
-    private fun printGradesList(gradesList: MutableList<String>) {
-        for (grade in gradesList) {
-            Toast.makeText(this, "$grade", Toast.LENGTH_LONG).show()
-        }
-    }*/
 
 
 }
