@@ -78,7 +78,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        //dbCalificaciones!!.clearData()
         imageMain=findViewById(R.id.botonMain3)
         GoToMain()
 
@@ -207,6 +207,9 @@ class VisualizarCalificaciones : AppCompatActivity() {
             return
         }
 
+        // Ordenar las calificaciones por fecha
+        //val calificacionesOrdenadas = listaCalificaciones.sortedBy { parseDate(it.first) }
+
         // Generar datos para la gráfica
         val data = generateAreaChartData(listaCalificaciones)
 
@@ -234,7 +237,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
     // Función para convertir una cadena de fecha en un objeto Date
     private fun parseDate(dateString: String): Date {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
         return dateFormat.parse(dateString) ?: Date()
     }
 

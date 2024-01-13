@@ -148,10 +148,10 @@ class EliminarCalificaciones : AppCompatActivity() {
                 val parts = selectedItem.split(" | ")
 
                 if (parts.size == 4) {
-                    val id= parts[0]
-                    val type = parts[2]
-                    val grade = parts[3].toFloat()
-                    val date = parts[1]
+                    val date = parts[0]
+                    val type = parts[1]
+                    val grade = parts[2].toFloat()
+                    val id= parts[3]
 
                     // Llamar a la función para eliminar el elemento seleccionado
                     val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,

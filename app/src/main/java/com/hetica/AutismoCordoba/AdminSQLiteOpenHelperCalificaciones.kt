@@ -51,12 +51,12 @@ class AdminSQLiteOpenHelperCalificaciones(
 
 
     /**
-     * Función para obtener la nota de una asignatura dados su nombre y tipo, ordenada por Fecha (asc) y luego por ID ascendente
+     * Función para obtener la nota de una asignatura dados su nombre y tipo
      **/
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
-        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $DATE ASC, $ID ASC"
+        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $DATE DESC, $ID DESC"
         val cursor = db.rawQuery(query, arrayOf(asignatura, tipo))
         val subjectGradesList = mutableListOf<Pair<String, Float>>()
 
@@ -69,7 +69,7 @@ class AdminSQLiteOpenHelperCalificaciones(
             } while (cursor.moveToNext())
         }
         cursor.close()
-        return subjectGradesList
+        return subjectGradesList.reversed()
     }
 
     /**
@@ -84,12 +84,13 @@ class AdminSQLiteOpenHelperCalificaciones(
 
         if (cursor.moveToFirst()) {
             do {
+                //val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
+                val entry = "$date | $type | $grade | $id "
                 //val entry = "$date | $type | $grade | $id "
-                val entry = "$id | $date | $type | $grade "
                 subjectGradesList.add(entry)
             } while (cursor.moveToNext())
         }
@@ -99,7 +100,8 @@ class AdminSQLiteOpenHelperCalificaciones(
     /**
      * Función para eliminar una asignatura dados sus atributos
      **/
-    fun deleteDataByDetails(date: String, subject: String, type: String, grade: String, id: String): Boolean {
+    fun deleteDataByDetails(
+        date: String, subject: String, type: String, grade: String, id: String): Boolean {
         val db = this.writableDatabase
         val whereClause = "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?"
         val whereArgs = arrayOf(date, subject, type, grade,id)
@@ -132,7 +134,7 @@ class AdminSQLiteOpenHelperCalificaciones(
     private fun formatDate(date: String): String {
         val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy
         val dateObj = inputFormat.parse(date)
-        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
         return outputFormat.format(dateObj as Date)
     }
 
