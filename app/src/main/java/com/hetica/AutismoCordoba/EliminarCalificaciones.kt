@@ -63,10 +63,13 @@ class EliminarCalificaciones : AppCompatActivity() {
             // Iterar sobre los elementos de la lista y actualizar el estado de las CheckBox
             for (i in 0 until listaCalificaciones.adapter.count) {
                 val view = listaCalificaciones.getChildAt(i)
-                val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
-                checkBox.isChecked = isChecked
+                val checkBox = view?.findViewById<CheckBox>(R.id.checkBoxItem)
+
+                // Asegurarse de que la vista y el CheckBox no son nulos antes de operar con ellos
+                checkBox?.isChecked = isChecked
             }
         }
+
 
         val spinner: Spinner = findViewById(R.id.spinnerBorrarCalificacion)
 
@@ -141,9 +144,9 @@ class EliminarCalificaciones : AppCompatActivity() {
         // Eliminar los elementos seleccionados
         for (i in 0 until listaCalificaciones.adapter.count) {
             val view = listaCalificaciones.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
+            val checkBox = view?.findViewById<CheckBox>(R.id.checkBoxItem)
 
-            if (checkBox.isChecked) {
+            if (checkBox?.isChecked == true) {
                 val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
                 val parts = selectedItem.split(" | ")
 
@@ -151,11 +154,10 @@ class EliminarCalificaciones : AppCompatActivity() {
                     val date = parts[0]
                     val type = parts[1]
                     val grade = parts[2].toFloat()
-                    val id= parts[3]
+                    val id = parts[3]
 
                     // Llamar a la función para eliminar el elemento seleccionado
-                    val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type,
-                        grade.toString(), id)
+                    val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type, grade.toString(), id)
                     if (deleted == true) {
                         Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
                     } else {
@@ -171,6 +173,8 @@ class EliminarCalificaciones : AppCompatActivity() {
         viewSubjectGrades()
         Log.d("deleteSelectedItems", "Saliendo de deleteSelectedItems")
     }
+
+
 
 
 
