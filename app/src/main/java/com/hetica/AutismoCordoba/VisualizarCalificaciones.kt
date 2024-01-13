@@ -24,6 +24,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationTyp
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import java.text.FieldPosition
 import java.text.Format
@@ -206,11 +207,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
             return
         }
 
-        // Ordenar las calificaciones por fecha
-        val calificacionesOrdenadas = listaCalificaciones.sortedBy { parseDate(it.first) }
-
         // Generar datos para la gráfica
-        val data = generateAreaChartData(calificacionesOrdenadas)
+        val data = generateAreaChartData(listaCalificaciones)
 
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
@@ -218,13 +216,14 @@ class VisualizarCalificaciones : AppCompatActivity() {
             .subtitle("Tipo: $tipo")
             .yAxisLabelsEnabled(true)
             .yAxisTitle("Nota")
+            .zoomType(AAChartZoomType.XY)
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
             .categories(data.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
-                    .name("Calificaciones")
+                    .name("Nota del día")
                     .data(data.map { it.second }.toTypedArray())
             )
             )
@@ -235,7 +234,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
     // Función para convertir una cadena de fecha en un objeto Date
     private fun parseDate(dateString: String): Date {
-        val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.parse(dateString) ?: Date()
     }
 

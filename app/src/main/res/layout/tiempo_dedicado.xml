@@ -7,20 +7,6 @@
     android:fitsSystemWindows="true">
 
     <EditText
-        android:id="@+id/tiempoFin"
-        android:layout_width="179dp"
-        android:layout_height="63dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="FechaFin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.926"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoOpciones"
-        app:layout_constraintVertical_bias="0.033" />
-
-    <EditText
         android:id="@+id/tiempoInicio"
         android:layout_width="176dp"
         android:layout_height="62dp"
@@ -67,10 +53,24 @@
         android:background="#606EADB5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintHorizontal_bias="0.68"
         app:layout_constraintStart_toEndOf="@+id/tiempoAsignatura"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.136" />
+
+    <EditText
+        android:id="@+id/tiempoFin"
+        android:layout_width="179dp"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="FechaFin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiempoOpciones"
+        app:layout_constraintVertical_bias="0.035" />
 
     <FrameLayout
         android:layout_width="0dp"

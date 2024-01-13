@@ -51,12 +51,12 @@ class AdminSQLiteOpenHelperCalificaciones(
 
 
     /**
-     * Función para obtener la nota de una asignatura dados su nombre y tipo, ordenada por Fecha (descendente) y luego por ID ascendente
+     * Función para obtener la nota de una asignatura dados su nombre y tipo, ordenada por Fecha (asc) y luego por ID ascendente
      **/
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
-        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $DATE DESC, $ID ASC"
+        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $DATE ASC, $ID ASC"
         val cursor = db.rawQuery(query, arrayOf(asignatura, tipo))
         val subjectGradesList = mutableListOf<Pair<String, Float>>()
 
@@ -84,7 +84,6 @@ class AdminSQLiteOpenHelperCalificaciones(
 
         if (cursor.moveToFirst()) {
             do {
-                //val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
@@ -133,7 +132,7 @@ class AdminSQLiteOpenHelperCalificaciones(
     private fun formatDate(date: String): String {
         val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy
         val dateObj = inputFormat.parse(date)
-        val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return outputFormat.format(dateObj as Date)
     }
 
