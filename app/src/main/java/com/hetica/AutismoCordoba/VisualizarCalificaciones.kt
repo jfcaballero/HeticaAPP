@@ -20,6 +20,7 @@ import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBin
 
 import android.graphics.Color
 import com.androidplot.xy.*
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
@@ -223,9 +224,11 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val data = generateAreaChartData(calificacionesOrdenadas)
 
         val aaChartModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Bar)
+            .chartType(AAChartType.Line)
             .title("Calificaciones de $asignatura")
             .subtitle("Tipo: $tipo")
+            .yAxisLabelsEnabled(true)
+            .yAxisTitle("Nota")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)

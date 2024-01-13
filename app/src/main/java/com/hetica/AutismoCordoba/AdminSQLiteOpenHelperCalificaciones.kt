@@ -51,12 +51,12 @@ class AdminSQLiteOpenHelperCalificaciones(
 
 
     /**
-     * Función para obtener la nota de una asignatura dados su nombre y tipo, ordenada por ID ascendente
+     * Función para obtener la nota de una asignatura dados su nombre y tipo, ordenada por Fecha (descendente) y luego por ID ascendente
      **/
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
-        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $ID ASC"
+        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $DATE DESC, $ID ASC"
         val cursor = db.rawQuery(query, arrayOf(asignatura, tipo))
         val subjectGradesList = mutableListOf<Pair<String, Float>>()
 
@@ -72,7 +72,6 @@ class AdminSQLiteOpenHelperCalificaciones(
         return subjectGradesList
     }
 
-
     /**
      * Función para obtener todos los datos de una calificación dada la asignatura
      **/
@@ -85,19 +84,19 @@ class AdminSQLiteOpenHelperCalificaciones(
 
         if (cursor.moveToFirst()) {
             do {
-                val id = cursor.getInt(cursor.getColumnIndex(ID))
+                //val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
-
-                val entry = "ID: $id\nFecha: $date\nTipo: $type\nNota: $grade"
+                val id = cursor.getInt(cursor.getColumnIndex(ID))
+                //val entry = "$date | $type | $grade | $id "
+                val entry = "$id | $date | $type | $grade "
                 subjectGradesList.add(entry)
             } while (cursor.moveToNext())
         }
         cursor.close()
         return subjectGradesList
     }
-
     /**
      * Función para eliminar una asignatura dados sus atributos
      **/
