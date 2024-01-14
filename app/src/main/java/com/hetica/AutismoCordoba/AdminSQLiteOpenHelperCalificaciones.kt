@@ -134,7 +134,7 @@ class AdminSQLiteOpenHelperCalificaciones(
     private fun formatDate(date: String): String {
         val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy
         val dateObj = inputFormat.parse(date)
-        val outputFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
         return outputFormat.format(dateObj as Date)
     }
 
