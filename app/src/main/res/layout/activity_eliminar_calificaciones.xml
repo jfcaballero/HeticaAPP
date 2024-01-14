@@ -20,13 +20,20 @@
 
     <ListView
         android:id="@+id/listaCalificaciones"
-        android:layout_width="355dp"
-        android:layout_height="462dp"
+        android:layout_width="358dp"
+        android:layout_height="456dp"
+        android:choiceMode="multipleChoice"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/checkBoxSelectAll"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSelectAll"
+        app:layout_constraintVertical_bias="0.377"
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/checkBoxSelectAll"

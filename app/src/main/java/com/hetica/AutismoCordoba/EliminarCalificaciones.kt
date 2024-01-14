@@ -5,14 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ListView
-import android.widget.Spinner
-import android.widget.Toast
-
+import android.widget.*
+import java.util.ArrayList
 
 /**
  * La asignatura seleccionada.
@@ -20,26 +14,27 @@ import android.widget.Toast
 private var asignaturaSeleccionada: String? = null
 
 @SuppressLint("StaticFieldLeak")
-private var botonEliminar: Button?=null
+private var botonEliminar: Button? = null
+
 class EliminarCalificaciones : AppCompatActivity() {
 
     private lateinit var listaCalificaciones: ListView
-
     private lateinit var adapter: ArrayAdapter<String>
-
+    private lateinit var checkBoxSelectAll: CheckBox
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_calificaciones)
 
-        botonEliminar=findViewById(R.id.botonEliminarCalificacion)
+        botonEliminar = findViewById(R.id.botonEliminarCalificacion)
         listaCalificaciones = findViewById(R.id.listaCalificaciones)
-        val checkBoxSelectAll: CheckBox = findViewById(R.id.checkBoxSelectAll)
+        checkBoxSelectAll = findViewById(R.id.checkBoxSelectAll)
 
         // Inicializar el adapter sin datos
-        adapter = ArrayAdapter(this, R.layout.list_item_checkbox, R.id.textViewItem, ArrayList())
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, ArrayList())
         listaCalificaciones.adapter = adapter
+        listaCalificaciones.choiceMode = ListView.CHOICE_MODE_MULTIPLE
 
         // Llamar a viewSubjectGrades con el valor inicial del Spinner
         if (asignaturaSeleccionada != null) {
@@ -49,27 +44,15 @@ class EliminarCalificaciones : AppCompatActivity() {
             deleteSelectedItems()
         }
 
-
-
         // Configuración del evento de clic en los elementos de la lista
-        listaCalificaciones.setOnItemClickListener { _, view, position, _ ->
-            // Manejar la lógica al hacer clic en un elemento (en este caso, mostrar posición)
-            //val selectedItem = listaCalificaciones.adapter.getItem(position).toString()
-            val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItem)
-            // Realizar acciones con el estado de la casilla de verificación (marcado/desmarcado)
-            checkBox.isChecked = !checkBox.isChecked
+        listaCalificaciones.setOnItemClickListener { _, _, _, _ ->
+            // No es necesario gestionar manualmente los estados de las casillas de verificación
         }
+
+        // Configuración del evento de clic en "Seleccionar Todo"
         checkBoxSelectAll.setOnCheckedChangeListener { _, isChecked ->
-            // Iterar sobre los elementos de la lista y actualizar el estado de las CheckBox
-            for (i in 0 until listaCalificaciones.adapter.count) {
-                val view = listaCalificaciones.getChildAt(i)
-                val checkBox = view?.findViewById<CheckBox>(R.id.checkBoxItem)
-
-                // Asegurarse de que la vista y el CheckBox no son nulos antes de operar con ellos
-                checkBox?.isChecked = isChecked
-            }
+            selectAllItems(isChecked)
         }
-
 
         val spinner: Spinner = findViewById(R.id.spinnerBorrarCalificacion)
 
@@ -85,7 +68,6 @@ class EliminarCalificaciones : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
                     viewSubjectGrades()
-
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -95,8 +77,8 @@ class EliminarCalificaciones : AppCompatActivity() {
 
             // Llamar a viewData con los valores iniciales del Spinner y la fecha
             if (asignaturaSeleccionada != null) {
+                // Realizar acciones adicionales si es necesario
             }
-
         }
     }
 
@@ -113,8 +95,6 @@ class EliminarCalificaciones : AppCompatActivity() {
                 adapter.clear()
                 adapter.addAll(calificacionesBDList)
                 adapter.notifyDataSetChanged()
-
-
             } else {
                 adapter.clear()
                 adapter.notifyDataSetChanged()
@@ -127,8 +107,6 @@ class EliminarCalificaciones : AppCompatActivity() {
         }
         Log.d("viewSubjectGrades", "Saliendo de viewSubjectGrades")
     }
-
-
 
     /**
      * Función para eliminar las calificaciones seleccionadas
@@ -143,10 +121,7 @@ class EliminarCalificaciones : AppCompatActivity() {
 
         // Eliminar los elementos seleccionados
         for (i in 0 until listaCalificaciones.adapter.count) {
-            val view = listaCalificaciones.getChildAt(i)
-            val checkBox = view?.findViewById<CheckBox>(R.id.checkBoxItem)
-
-            if (checkBox?.isChecked == true) {
+            if (listaCalificaciones.isItemChecked(i)) {
                 val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
                 val parts = selectedItem.split(" | ")
 
@@ -174,11 +149,12 @@ class EliminarCalificaciones : AppCompatActivity() {
         Log.d("deleteSelectedItems", "Saliendo de deleteSelectedItems")
     }
 
-
-
-
-
+    /**
+     * Función para seleccionar o deseleccionar todos los elementos en la lista
+     */
+    private fun selectAllItems(isChecked: Boolean) {
+        for (i in 0 until listaCalificaciones.adapter.count) {
+            listaCalificaciones.setItemChecked(i, isChecked)
+        }
+    }
 }
-
-
-
