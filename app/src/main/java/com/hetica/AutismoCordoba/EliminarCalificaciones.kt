@@ -146,6 +146,8 @@ class EliminarCalificaciones : AppCompatActivity() {
 
         // Actualizar la lista después de eliminar elementos
         viewSubjectGrades()
+        listaCalificaciones.clearChoices()
+        checkBoxSelectAll.isChecked = false
         Log.d("deleteSelectedItems", "Saliendo de deleteSelectedItems")
     }
 
