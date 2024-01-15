@@ -52,30 +52,30 @@
 
     <Button
         android:id="@+id/botonSalirMain"
-        android:layout_width="136dp"
-        android:layout_height="53dp"
+        android:layout_width="155dp"
+        android:layout_height="63dp"
         android:layout_marginTop="22dp"
         android:layout_marginBottom="16dp"
         android:text="SALIR"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintHorizontal_bias="0.293"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consejos"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/botonComentarEstudio"
-        android:layout_width="188dp"
-        android:layout_height="53dp"
+        android:layout_width="217dp"
+        android:layout_height="63dp"
         android:layout_marginTop="22dp"
         android:layout_marginBottom="16dp"
-        android:text="Comentar estudio"
+        android:text="@string/comentar_estudio"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.701"
+        app:layout_constraintHorizontal_bias="0.774"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consejos"
         app:layout_constraintVertical_bias="1.0" />

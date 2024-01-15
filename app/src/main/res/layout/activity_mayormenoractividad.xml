@@ -32,80 +32,6 @@
 
     </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
-    <com.db.williamchart.view.HorizontalBarChartView
-        android:id="@+id/diasmenoractividad"
-        android:layout_width="374dp"
-        android:layout_height="234dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#D5D1E4E3"
-
-        android:visibility="gone"
-        app:chart_axis="xy"
-        app:chart_barsColor="#32605B"
-        app:chart_barsRadius="4dp"
-        app:chart_labelsColor="#000000"
-        app:chart_labelsSize="15sp"
-        app:chart_spacing="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885">
-
-    </com.db.williamchart.view.HorizontalBarChartView>
-
-    <View
-        android:id="@+id/rectangle3"
-        android:layout_width="414dp"
-        android:layout_height="279dp"
-        android:background="#F9F9F9"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.617" />
-
-    <com.db.williamchart.view.HorizontalBarChartView
-        android:id="@+id/diasmayoractividad"
-        android:layout_width="374dp"
-        android:layout_height="234dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#D5D1E4E3"
-
-        android:visibility="gone"
-        app:chart_axis="xy"
-        app:chart_barsColor="#32605B"
-        app:chart_barsRadius="4dp"
-        app:chart_labelsColor="#000000"
-        app:chart_labelsSize="15sp"
-        app:chart_spacing="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34">
-
-    </com.db.williamchart.view.HorizontalBarChartView>
-
-    <View
-        android:id="@+id/rectangle2"
-        android:layout_width="414dp"
-        android:layout_height="279dp"
-        android:background="#F9F9F9"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -146,21 +72,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navegacion_estadisticas_menu" />
-
-    <TextView
-        android:id="@+id/textView65"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Menor actividad"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586" />
 
     <EditText
         android:id="@+id/editTextYear"
@@ -204,20 +115,6 @@
         app:layout_constraintVertical_bias="0.132" />
 
     <TextView
-        android:id="@+id/textView64"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mayor actividad"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.198" />
-
-    <TextView
         android:id="@+id/textView66"
         android:layout_width="47dp"
         android:layout_height="37dp"
@@ -242,5 +139,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView64"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="Día"
+        app:layout_constraintBottom_toTopOf="@+id/aamenoractividad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Día"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/aamayoractividad"
+        app:layout_constraintVertical_bias="0.53" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -82,4 +82,5 @@
     <string name="para_acceder_a_las_opciones_en_negro_mantenga_pulsado_el_bot_n_durante_3s">Para acceder a las opciones en azul oscuro, mantenga pulsado el botón durante 3s.</string>
     <string name="para_poder_acceder_a_las_funcionalidades_de_la_aplicaci_n_a_ada_al_menos_una_asignatura_en_el_men_de_opciones">Para poder acceder a las funcionalidades de la aplicación, añada al menos una asignatura en el menú de opciones.</string>
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
+    <string name="comentar_estudio">Comentar estudio</string>
 </resources>

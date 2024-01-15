@@ -18,11 +18,8 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import kotlin.math.roundToInt
+
 
 
 class mayormenoractividad : AppCompatActivity() {
@@ -65,13 +62,11 @@ class mayormenoractividad : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(pos).toString()
                 val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
-                //db.insertData("mates","11/01/2024",3)
                 val editTextYear2 = findViewById<EditText>(R.id.editTextYear)
 
                 val anyo = editTextYear2.text.toString()
                 if (anyo.isNotEmpty()) { // Asegurarse de que el EditText no esté vacío antes de obtener el valor del año
-                    //obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
-                    //db.clearData()
+
                     obtenerDiasConMinutosEnUnMesAA(db, selectedItem, anyo)
                 }
             }
@@ -100,7 +95,7 @@ class mayormenoractividad : AppCompatActivity() {
                     }else{
                         val selectedItem = spinner.selectedItem.toString()
                         val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
-                        //obtenerDiasConMinutosEnUnMes(db, selectedItem, anyo)
+
                         obtenerDiasConMinutosEnUnMesAA(db, selectedItem, anyo)
                     }
 
@@ -167,12 +162,7 @@ class mayormenoractividad : AppCompatActivity() {
 
 
     }
-    //test
-    fun getTomorrowDate(): Date {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, 1) // Sumar un día
-        return calendar.time
-    }
+
     private fun obtenerDiasConMinutosEnUnMesAA(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
 
         val aaChartViewmayor = findViewById<AAChartView>(R.id.aamayoractividad)
@@ -201,11 +191,13 @@ class mayormenoractividad : AppCompatActivity() {
 
         val aaChartModelMayor : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
-            .title("Mayor actividad")
+            .title("Días de mayor actividad")
             .subtitle("Mes $mes de $anyo")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
+            .xAxisReversed(true)
+            .yAxisTitle("Minutos del día")
             .categories(datamayor.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
@@ -215,11 +207,13 @@ class mayormenoractividad : AppCompatActivity() {
             )
         val aaChartModelMenor : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
-            .title("Menor actividad")
+            .title("Días de menor actividad")
             .subtitle("Mes $mes de $anyo")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
+            .xAxisReversed(true)
+            .yAxisTitle("Minutos del día")
             .categories(datamenor.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
@@ -237,39 +231,7 @@ class mayormenoractividad : AppCompatActivity() {
     private fun generateAreaChartData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         return data.map { it.first to it.second }
     }
-    //test
-    private fun obtenerDiasConMinutosEnUnMes(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
-        val listaDias = db.obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes,anyo)
 
-        if (listaDias.isEmpty()) {
-            val mensaje = "No se encontraron resultados para el mes $mes, año $anyo"
-            Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
-            binding.diasmayoractividad.animate(emptyList())
-            binding.diasmenoractividad.animate(emptyList())
-            return
-        }
-
-        val listaDiasOrdenados = listaDias.sortedByDescending { it.second } // Ordenar la lista por cantidad de minutos en orden descendente
-        val listaDiasTop4 = listaDiasOrdenados.take(4) // Obtener solo los 4 primeros elementos de la lista ordenada
-        val listaDiasTop4Asc = listaDiasOrdenados.takeLast(4) // Obtener los 4 últimos elementos de la lista ordenada
-
-
-
-        val listaDiasFloat = listaDiasTop4.map { it.first to it.second.toFloat() }
-        val listaDiasFloatAsc = listaDiasTop4Asc.map { it.first to it.second.toFloat() }
-
-
-        binding.diasmayoractividad.animation.duration = mayormenoractividad.animationDuration
-        val data = generateHorizontalBarData(listaDiasFloat)
-        binding.diasmayoractividad.animate(data)
-        binding.diasmayoractividad.invalidate()
-
-        binding.diasmenoractividad.animation.duration = mayormenoractividad.animationDuration
-        val dataAsc = generateHorizontalBarData(listaDiasFloatAsc)
-        binding.diasmenoractividad.animate(dataAsc)
-        binding.diasmenoractividad.invalidate()
-
-    }
 
     /**
      * Función para irnos al Main
@@ -282,30 +244,7 @@ class mayormenoractividad : AppCompatActivity() {
         }
 
     }
-    /**
-     * Función para generar datos para la gráfica dada la lista de días y minutos
-     *
-     */
-    private fun generateHorizontalBarData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
-        val mappedData = mutableListOf<Pair<String, Float>>()
-        val rectangle2 = findViewById<View>(R.id.rectangle2)
-        val rectangle3 = findViewById<View>(R.id.rectangle3)
-        for (i in 0 until data.size) {
-            mappedData.add(data[i])
 
-        }
-        if (data.size == 1) {
-            mappedData.add(data[0])
-            rectangle2.visibility = View.VISIBLE
-            rectangle3.visibility = View.VISIBLE
-
-        }else{
-            rectangle2.visibility = View.INVISIBLE
-            rectangle3.visibility = View.INVISIBLE
-        }
-
-        return mappedData
-    }
     /**
      * Función para obtener el mes actual en formato string
      *
@@ -329,10 +268,7 @@ class mayormenoractividad : AppCompatActivity() {
         _binding = null
     }
 
-    companion object {
-        private val horizontalBarSet = listOf("Default" to 0F)
-        private const val animationDuration = 1000L
-    }
+
 }
 
 
