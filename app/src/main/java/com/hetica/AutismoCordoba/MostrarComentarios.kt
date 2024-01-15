@@ -81,10 +81,13 @@ private var asignaturaSeleccionada: String? = null
 /**
  * Imagen para irnos al Main
  */
+@SuppressLint("StaticFieldLeak")
 var imageMain2: ImageView?=null
 
 
+@SuppressLint("StaticFieldLeak")
 private var fechaInicio: EditText? = null
+@SuppressLint("StaticFieldLeak")
 private var fechaFin: EditText? = null
 
 class MostrarComentarios : AppCompatActivity() {
@@ -295,8 +298,8 @@ class MostrarComentarios : AppCompatActivity() {
             val dateInicio = formato.parse(fechaInicio)!!
             val dateFin = formato.parse(fechaFin)!!
 
-            // Verificar si la fecha está entre fechaInicio y fechaFin
-            if (dateFecha.after(dateInicio) && dateFecha.before(dateFin)) {
+            // Verificar si la fecha está entre fechaInicio y fechaFin, incluyendo los límites
+            if (dateFecha.compareTo(dateInicio) >= 0 && dateFecha.compareTo(dateFin) <= 0) {
                 Log.d("Fecha correcta", "La fecha $fecha está entre $fechaInicio y $fechaFin")
                 return true
             } else {
@@ -310,6 +313,7 @@ class MostrarComentarios : AppCompatActivity() {
 
         return false  // En caso de error
     }
+
 
 
 
