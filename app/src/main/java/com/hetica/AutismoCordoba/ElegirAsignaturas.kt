@@ -157,10 +157,13 @@ class ElegirAsignaturas : AppCompatActivity() {
                 Toast.makeText(view!!.context, "La asignatura es demasiado larga", Toast.LENGTH_LONG).show()
             } else {
                 if (db!!.buscar(asignatura)) {
-                    if (asignatura != "" && db!!.insertData(asignatura)) {
+                    if (asignatura.isNotBlank() && db!!.insertData(replaceSpacesWithUnderscore(asignatura))) {
                         Toast.makeText(this, "Se ha introducido correctamente", Toast.LENGTH_LONG).show()
-                        arrayList!!.add(asignatura)
+
+                        // Actualizar la lista y notificar al adaptador
+                        arrayList!!.add(replaceSpacesWithUnderscore(asignatura))
                         adapter!!.notifyDataSetChanged()
+
                         lv!!.adapter = adapter
                         et!!.setText("")
                     } else {
@@ -176,16 +179,21 @@ class ElegirAsignaturas : AppCompatActivity() {
                 Toast.makeText(this, "La asignatura es demasiado larga", Toast.LENGTH_LONG).show()
             } else {
                 if (db!!.buscar(asignatura)) {
-                    if (asignatura != "" && db!!.Modificar(asignatura, modificarAux)) {
-                        //modifico tambien la base de datos de estadisticas
+                    if (asignatura.isNotBlank() && db!!.Modificar(replaceSpacesWithUnderscore(asignatura), modificarAux)) {
+                        // Modifico también la base de datos de estadísticas
                         val dbStats = AdminSQLiteOpenHelperStats(this)
-                        val actualizadoEnStats = dbStats.ModificarNombreAsignatura(modificarAux, asignatura)
-                        if(actualizadoEnStats){
+                        val actualizadoEnStats = dbStats.ModificarNombreAsignatura(
+                            modificarAux?.let { replaceSpacesWithUnderscore(it) },
+                            replaceSpacesWithUnderscore(asignatura)
+                        )
+                        if (actualizadoEnStats) {
                             Toast.makeText(this, "Se ha modificado correctamente", Toast.LENGTH_LONG).show()
                         }
-                        //
-                        arrayList!![position1] = asignatura
+
+                        // Actualizar la lista y notificar al adaptador
+                        arrayList!![position1] = replaceSpacesWithUnderscore(asignatura)
                         adapter!!.notifyDataSetChanged()
+
                         lv!!.adapter = adapter
                         et!!.setText("")
                         bt!!.text = "Agregar"
@@ -198,6 +206,17 @@ class ElegirAsignaturas : AppCompatActivity() {
                 }
             }
         }
+    }
+
+
+    /**
+     * Función para reemplazar espacios en blanco con guiones bajos
+     *
+     * @param input El texto que puede contener espacios en blanco
+     * @return El texto con espacios reemplazados por guiones bajos
+     */
+    private fun replaceSpacesWithUnderscore(input: String): String {
+        return input.replace(" ", "_")
     }
 
     /**
