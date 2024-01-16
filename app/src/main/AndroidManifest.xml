@@ -67,15 +67,18 @@
             android:name=".MostrarComentarios"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".mayormenoractividad"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".tiempo_dedicado"
             android:exported="false"
             android:label="@string/title_activity_tiempo_dedicado"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- android:enableOnBackInvokedCallBack="true" -->
         <activity
             android:name=".creditos"
@@ -105,6 +108,7 @@
         <activity
             android:name=".estadisticasDias"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".AsignaturaSiguiente"

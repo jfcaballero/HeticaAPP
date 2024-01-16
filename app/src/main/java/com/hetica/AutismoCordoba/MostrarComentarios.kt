@@ -289,6 +289,9 @@ class MostrarComentarios : AppCompatActivity() {
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList)
         listViewComentarios?.adapter = adapter
+        if (comentariosList.isEmpty()) {
+            Toast.makeText(this, "No hay comentarios para la asignatura $asignaturaSeleccionada", Toast.LENGTH_SHORT).show()
+        }
     }
     /**
      * Función para comprobar si una fecha está entre dos límites
