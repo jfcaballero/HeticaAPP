@@ -84,9 +84,15 @@ private var asignaturaSeleccionada: String? = null
 @SuppressLint("StaticFieldLeak")
 var imageMain2: ImageView?=null
 
-
+/**
+ * Edit Text de la fecha de inicio
+ */
 @SuppressLint("StaticFieldLeak")
 private var fechaInicio: EditText? = null
+
+/**
+ * Edit Text de la fecha de fin
+ */
 @SuppressLint("StaticFieldLeak")
 private var fechaFin: EditText? = null
 
@@ -215,9 +221,12 @@ class MostrarComentarios : AppCompatActivity() {
     }
 
 
+    /**
+     * Función para mostrar el DatePickerDialog de dos edit Text
+     * @param editText
+     * @param otherEditText
+      */
 
-
-    // Función para mostrar el DatePickerDialog
     private fun showDatePickerDialog(editText: EditText, otherEditText: EditText) {
         val currentDate = Calendar.getInstance()
         val year = currentDate.get(Calendar.YEAR)
@@ -259,6 +268,9 @@ class MostrarComentarios : AppCompatActivity() {
     }
     /**
      * Función que devuelve los comentarios de una fecha y asignatura en concreto
+     * @param asignaturaSeleccionada
+     * @param fechaInicio
+     * @param fechaFin
      *
      */
     @SuppressLint("Range")
@@ -295,6 +307,9 @@ class MostrarComentarios : AppCompatActivity() {
     }
     /**
      * Función para comprobar si una fecha está entre dos límites
+     * @param fecha Fecha a comprobar
+     * @param fechaInicio Límite por la izquierda
+     * @param fechaFin Límite por la derecha
      *
      */
     fun fechaEstaEntre(fecha: String, fechaInicio: String, fechaFin: String): Boolean {
@@ -326,6 +341,7 @@ class MostrarComentarios : AppCompatActivity() {
 
     /**
      * Función para obtener la fecha de hoy
+     * @return Toda la fecha formateada
      *
      */
     fun obtenerFechaActual(): String {
@@ -341,6 +357,7 @@ class MostrarComentarios : AppCompatActivity() {
     }
     /**
      * Función para obtener la fecha de mañana
+     * @param Toda la fecha de mañana formateada
      *
      */
     fun obtenerFechaManana(): String {

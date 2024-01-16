@@ -163,6 +163,12 @@ class mayormenoractividad : AppCompatActivity() {
 
     }
 
+    /**
+     * Función para mostrar en las gráficas los días con la cantidad de minutos para cada uno
+     * @param db Instancia de la base de datos de estadísticas
+     * @param mes Mes de los días de los que se quiere ver la cantidad de minutos
+     * @param anyo Año de los días de los que se quiere ver la cantidad de minutos
+     */
     private fun obtenerDiasConMinutosEnUnMesAA(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
 
         val aaChartViewmayor = findViewById<AAChartView>(R.id.aamayoractividad)
@@ -227,7 +233,12 @@ class mayormenoractividad : AppCompatActivity() {
         aaChartViewmenor.aa_drawChartWithChartModel(aaChartModelMenor)
 
     }
-    // Función para generar datos para el gráfico de área
+
+    /**
+     * Función para generar datos para el gráfico de área
+     * @param data Lista de día y cantidad de minutos
+     */
+
     private fun generateAreaChartData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         return data.map { it.first to it.second }
     }
@@ -247,6 +258,7 @@ class mayormenoractividad : AppCompatActivity() {
 
     /**
      * Función para obtener el mes actual en formato string
+     * @return Mes actual formateado
      *
      */
     fun obtenerMesActualEnFormatoString(): String {
@@ -256,6 +268,7 @@ class mayormenoractividad : AppCompatActivity() {
     }
     /**
      * Función para obtener el año actual en formato entero
+     * @return Año actual
      *
      */
     fun obtenerAnioActual(): Int {

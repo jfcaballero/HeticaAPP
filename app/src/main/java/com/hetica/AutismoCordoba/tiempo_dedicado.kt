@@ -196,7 +196,9 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     }
 
-
+    /**
+     * Función para mostrar los datos actuales teniendo en cuenta lo que esté configurado en el spinner
+     */
     private fun mostrarDatosEnTiempoReal() {
 
         val spinnerOpciones: Spinner = findViewById(R.id.tiempoOpciones)
@@ -208,7 +210,9 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     }
 
-
+    /**
+     * Función para mostrar las funciones disponibles en el spinner
+     */
     private fun mostrarOpcionesSpinner() {
         val spinnerOpciones: Spinner = findViewById(R.id.tiempoOpciones)
 
@@ -248,22 +252,26 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
     }
 
+    /**
+     * Función para mostrar la fecha y los minutos totales en la lista de un dia concreto
+     */
     @SuppressLint("Range")
     private fun mostrarDatosDelDia() {
         try {
             totalMinutos=0
-            // Obtén la asignatura seleccionada del Spinner
+
+            // Obtenmos la asignatura seleccionada del Spinner
             val asignaturaSeleccionada = asignaturaSeleccionada ?: return
             val fechaSeleccionada = fechaInicio?.text.toString()
 
-            // Obtén el cursor con los datos de un solo dia
+            // Cursor con los datos de un solo dia
             val cursor = dbStats?.viewDataDiaAsignatura(fechaSeleccionada,asignaturaSeleccionada) ?: return
 
             // Lista para almacenar pares de fecha y minutos totales
             val datosDia = mutableListOf<Pair<String, Int>>()
 
 
-            // Itera sobre el cursor y agrega los datos a la lista
+            // Agregamos los datos a la lista
             if (cursor.moveToFirst()) {
                 do {
                     val name = cursor.getString(cursor.getColumnIndex("NAME"))
@@ -276,39 +284,41 @@ class tiempo_dedicado: AppCompatActivity()  {
             }
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
 
-            // Crea un adaptador para el ListView
+            // Adaptador para el ListView
             val adapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
                 datosDia.map { "${it.first}: ${it.second} minutos" }
             )
 
-            // Asigna el adaptador al ListView
+            // Asignamos el adaptador al ListView
             ListViewDias?.adapter = adapter
         } catch (e: Exception) {
             Log.e("MostrarDatosHistoricos", "Error: ${e.message}")
             e.printStackTrace()
         }
     }
-
+    /**
+     * Función para mostrar la fecha y los minutos totales en la lista en un rango de dos fechas
+     */
     @SuppressLint("Range")
     private fun mostrarDatosRango() {
         try {
             totalMinutos = 0
 
-            // Obtén la asignatura seleccionada del Spinner
+            // Obtemos la asignatura seleccionada del Spinner
             val asignaturaSeleccionada = asignaturaSeleccionada ?: return
             val fechaInicioSeleccionada = fechaInicio?.text.toString()
             val fechaFinSeleccionada = fechaFin?.text.toString()
 
-            // Obtén el cursor con los datos en el rango de fechas y para la asignatura seleccionada
+            // Cursor con los datos en el rango de fechas y para la asignatura seleccionada
             val cursor = dbStats?.viewDataRangoAsignatura(fechaInicioSeleccionada, fechaFinSeleccionada, asignaturaSeleccionada)
                 ?: return
 
             // Lista para almacenar pares de fecha y minutos totales
             val datosRango = mutableListOf<Pair<String, Int>>()
 
-            // Itera sobre el cursor y agrega los datos a la lista
+            // Iteramos sobre el cursor y agrega los datos a la lista
             if (cursor.moveToFirst()) {
                 do {
                     val name = cursor.getString(cursor.getColumnIndex("NAME"))
@@ -322,14 +332,14 @@ class tiempo_dedicado: AppCompatActivity()  {
 
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
 
-            // Crea un adaptador para el ListView
+            // Adaptador para el ListView
             val adapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
                 datosRango.map { "${it.first}: ${it.second} minutos" }
             )
 
-            // Asigna el adaptador al ListView
+            // Asignamos el adaptador al ListView
             ListViewDias?.adapter = adapter
         } catch (e: Exception) {
             Log.e("MostrarDatosRango", "Error: ${e.message}")
@@ -337,22 +347,24 @@ class tiempo_dedicado: AppCompatActivity()  {
         }
     }
 
-
+    /**
+     * Función para mostrar la fecha y los minutos totales en la lista desde siempre
+     */
     @SuppressLint("Range")
     private fun mostrarDatosHistoricos() {
         try {
             totalMinutos=0
-            // Obtén la asignatura seleccionada del Spinner
+            // Obtemos la asignatura seleccionada del Spinner
             val asignaturaSeleccionada = asignaturaSeleccionada ?: return
 
-            // Obtén el cursor con los datos históricos
+            // Cursor con los datos históricos
             val cursor = dbStats?.viewDataHistorico(asignaturaSeleccionada) ?: return
 
             // Lista para almacenar pares de fecha y minutos totales
             val datosHistoricos = mutableListOf<Pair<String, Int>>()
 
 
-            // Itera sobre el cursor y agrega los datos a la lista
+            // Iteramos sobre el cursor y agrega los datos a la lista
             if (cursor.moveToFirst()) {
                 do {
                     val name = cursor.getString(cursor.getColumnIndex("NAME"))
@@ -365,14 +377,14 @@ class tiempo_dedicado: AppCompatActivity()  {
             }
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
 
-            // Crea un adaptador para el ListView
+            // Adaptador para el ListView
             val adapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
                 datosHistoricos.map { "${it.first}: ${it.second} minutos" }
             )
 
-            // Asigna el adaptador al ListView
+            // Asignamos el adaptador al ListView
             ListViewDias?.adapter = adapter
         } catch (e: Exception) {
             Log.e("MostrarDatosHistoricos", "Error: ${e.message}")
@@ -381,26 +393,26 @@ class tiempo_dedicado: AppCompatActivity()  {
     }
 
 
-
-
-
-
+    /**
+     * Función para mostrar los datos en función del spinner seleccionado
+     */
     private fun mostrarAsignaturas() {
         val spinner: Spinner = findViewById(R.id.tiempoAsignatura)
         val spinnerOpciones: Spinner = findViewById(R.id.tiempoOpciones)
 
-        // Obtener la lista de asignaturas desde la base de datos
+        // Obtenemos la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
 
-            // Establecer el listener para el evento de clic del Spinner
+            // Establecemos el listener para el evento de clic del Spinner
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
-                    // Llamar a la función correspondiente según la opción seleccionada en el Spinner de opciones
+
+                    // Llamamos a la función correspondiente según la opción seleccionada en el Spinner de opciones
                     when (spinnerOpciones.selectedItem.toString()) {
                         "Rango" -> mostrarDatosRango()
                         "Histórico" -> mostrarDatosHistoricos()
@@ -413,10 +425,6 @@ class tiempo_dedicado: AppCompatActivity()  {
                 }
             }
 
-            // Llamar a viewData con los valores iniciales del Spinner y la fecha
-            if (asignaturaSeleccionada != null) {
-                //viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
-            }
         }
     }
 
@@ -435,6 +443,7 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     /**
      * Función para obtener la fecha de hoy
+     * @return Fecha formateada
      *
      */
     fun obtenerFechaActual(): String {
@@ -450,7 +459,7 @@ class tiempo_dedicado: AppCompatActivity()  {
     }
     /**
      * Función para obtener la fecha de mañana
-     *
+     *@return Fecha formateada
      */
     fun obtenerFechaManana(): String {
         val calendario = Calendar.getInstance()
@@ -466,8 +475,11 @@ class tiempo_dedicado: AppCompatActivity()  {
         return "$diaFormateado/$mesFormateado/$year"
     }
 
+    /**
+     * Función para mostrar el DatePickerDialog
+     * @param editText Edit Text de la fecha
+     */
 
-    // Función para mostrar el DatePickerDialog
     private fun showDatePickerDialog(editText: EditText?) {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -476,14 +488,13 @@ class tiempo_dedicado: AppCompatActivity()  {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Actualiza el calendario con la nueva fecha seleccionada
+                // Actualizamos el calendario con la nueva fecha seleccionada
                 calendar.set(selectedYear, selectedMonth, selectedDay)
 
-                // Formatea la fecha y actualiza el texto del EditText
+                // Formateamos la fecha y actualiza el texto del EditText
                 val formattedDate = formatDate(selectedYear, selectedMonth + 1, selectedDay)
                 editText?.setText(formattedDate)
 
-                // Puedes realizar acciones adicionales aquí si es necesario
             },
             year,
             month,
@@ -494,7 +505,13 @@ class tiempo_dedicado: AppCompatActivity()  {
         datePickerDialog.show()
     }
 
-    // Función para formatear la fecha
+    /**
+     * Función para formatear la fecha
+     * @param year Año como entero
+     * @param month Mes como entero
+     * @param day Día como entero
+     * @return Fecha formateada
+     */
     private fun formatDate(year: Int, month: Int, day: Int): String {
         calendar.set(year, month - 1, day)
         return dateFormat.format(calendar.time)

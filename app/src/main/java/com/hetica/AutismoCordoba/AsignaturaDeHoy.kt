@@ -58,6 +58,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     }
     /**
      * Función para pasar a la actividad EditarCalendario
+     * @return boolean
      *
      */
     @SuppressLint("ClickableViewAccessibility")

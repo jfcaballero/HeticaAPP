@@ -14,18 +14,32 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE)
     }
-
+    /**
+     * Función para mejorar la base de datos
+     * @param db
+     * @param oldVersion Número de la versión anterior
+     */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
-
+    /**
+     * Función para visualizar todas los comentarios en pantalla
+     *
+     * @return cursor
+     */
     fun viewData(): Cursor {
         val db = this.readableDatabase
         val query = "SELECT * FROM $DB_TABLE"
         return db.rawQuery(query, null)
     }
-
+    /**
+     * Función para insertar en la base de datos
+     * @param fecha Fecha del comentario
+     * @param asignaturas Asignatura comentada
+     * @param comentario Texto del comentario
+     * @return boolean
+     */
     fun insertData(fecha: String?, asignatura: String?, comentario: String?): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
@@ -37,39 +51,28 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         db.close()
         return result != -1L
     }
-
+    /**
+     * Función para eliminar en la base de datos
+     * @param asignatura Asignatura a la que se quieren borrar sus comentarios
+     * @return boolean
+     */
     fun Eliminar(asignatura: String): Boolean {
         val db = this.writableDatabase
         val cantidad = db.delete(DB_TABLE, "NAME= ?", arrayOf(asignatura)).toLong()
         db.close()
         return cantidad != -1L
     }
+    /**
+     * Función para borrar los datos de la tabla
+     *
+     *
+     */
     fun clearData(): Boolean {
         val db = this.writableDatabase
         val result = db.delete(AdminSQLiteOpenHelperComentarios.DB_TABLE, null, null)
         return result > 0
     }
-    fun Modificar(asignatura: String?, asignaturaID: String?, comentario: String?): Boolean {
-        val db = this.writableDatabase
-        val registro = ContentValues()
-        registro.put(NAME, asignatura)
-        registro.put(COMMENTS, comentario)
-        val cantidad = db.update(DB_TABLE, registro, "NAME= ?", arrayOf(asignaturaID))
-        return cantidad != -1
-    }
 
-    fun buscar(asignatura: String): Boolean {
-        val db = this.readableDatabase
-        val query = "SELECT * FROM $DB_TABLE WHERE NAME=?"
-        val cursor = db.rawQuery(query, arrayOf(asignatura))
-        val aux = cursor.count
-        return aux == 0
-    }
-    fun borrarTabla() {
-        val db = this.writableDatabase
-        db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
-        onCreate(db)
-    }
     companion object {
         private const val DB_NAME = "Comentarios.db"
         private const val DB_TABLE = "Comentarios_Table"

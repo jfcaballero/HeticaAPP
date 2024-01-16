@@ -83,7 +83,8 @@ class EliminarCalificaciones : AppCompatActivity() {
     }
 
     /**
-     * Función para mostrar las calificaciones de la asignatura seleccionada
+     * Función para mostrar las calificaciones de la asignatura seleccionada en la lista
+     *
      */
     private fun viewSubjectGrades() {
         Log.d("viewSubjectGrades", "Entrando a viewSubjectGrades")
@@ -126,13 +127,13 @@ class EliminarCalificaciones : AppCompatActivity() {
                 val parts = selectedItem.split(" | ")
 
                 if (parts.size == 4) {
-                    val date = parts[0]
-                    val type = parts[1]
-                    val grade = parts[2].toFloat()
+                    //val date = parts[0]
+                    //val type = parts[1]
+                    //val grade = parts[2].toFloat()
                     val id = parts[3]
 
                     // Llamar a la función para eliminar el elemento seleccionado
-                    val deleted = dbCalificaciones?.deleteDataByDetails(date, asignaturaSeleccionada ?: "", type, grade.toString(), id)
+                    val deleted = dbCalificaciones?.deleteDataByDetails(id)
                     if (deleted == true) {
                         Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
                     } else {

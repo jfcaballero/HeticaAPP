@@ -78,7 +78,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         _binding = ActivityVisualizarCalificacionesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //dbCalificaciones!!.clearData()
+
         imageMain=findViewById(R.id.botonMain3)
         GoToMain()
 
@@ -129,7 +129,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         adapterTipos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTipos.adapter = adapterTipos
 
-        // Establecer el listener para el evento de clic del Spinner
+        // Establecemos el listener para el evento de clic del Spinner
         spinnerTipos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 updateSelectedValues()
@@ -196,10 +196,16 @@ class VisualizarCalificaciones : AppCompatActivity() {
         }
 
     }
+
+    /**
+     * Función para dibujar el gráfico
+     * @param asignatura
+     * @param tipo
+     */
     private fun testChartAA(asignatura: String, tipo: String) {
         val aaChartView = findViewById<AAChartView>(R.id.aa_chart_view)
 
-        // Obtén tus datos de calificaciones
+        // Obtenemos los datos de calificaciones
         val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
         if (listaCalificaciones.isNullOrEmpty() ) {
             //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
@@ -207,10 +213,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
             return
         }
 
-        // Ordenar las calificaciones por fecha
-        //val calificacionesOrdenadas = listaCalificaciones.sortedBy { parseDate(it.first) }
 
-        // Generar datos para la gráfica
+        // Generamos los datos para la gráfica
         val data = generateAreaChartData(listaCalificaciones)
 
         val aaChartModel : AAChartModel = AAChartModel()
@@ -231,18 +235,22 @@ class VisualizarCalificaciones : AppCompatActivity() {
             )
             )
 
-        // Dibuja el gráfico con el modelo configurado
+        // Dibujamos el gráfico con el modelo configurado
         aaChartView.aa_drawChartWithChartModel(aaChartModel)
     }
 
-    // Función para convertir una cadena de fecha en un objeto Date
+    /* Función para convertir una cadena de fecha en un objeto Date
     private fun parseDate(dateString: String): Date {
         val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
         return dateFormat.parse(dateString) ?: Date()
     }
+    */
 
+    /**
+     * Función para generar datos para el gráfico de área
+     * @param data Lista de Fecha y Notas
+     */
 
-    // Función para generar datos para el gráfico de área
     private fun generateAreaChartData(data: List<Pair<String, Float>>): List<Pair<String, Float>> {
         return data.map { it.first to it.second }
     }

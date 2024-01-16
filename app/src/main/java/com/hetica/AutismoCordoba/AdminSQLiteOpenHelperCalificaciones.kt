@@ -18,12 +18,20 @@ class AdminSQLiteOpenHelperCalificaciones(
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE)
     }
-
+    /**
+     * Función para mejorar la base de datos
+     * @param db
+     * @param oldVersion Número de la versión anterior
+     */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
-
+    /**
+     * Función para visualizar todas las calificaciones en pantalla
+     *
+     * @return cursor
+     */
     fun viewData(): Cursor {
         val db = this.readableDatabase
         val query = "SELECT * FROM $DB_TABLE"
@@ -37,6 +45,11 @@ class AdminSQLiteOpenHelperCalificaciones(
     }
     /**
      * Función para insertar una calificación nueva
+     *
+     * @param subject Asignatura de la calificación
+     * @param grade Calificación de la asignatura
+     * @param type Tipo de calificación (Parcial/Final)
+     * @param date Fecha de la calificación
      **/
     fun insertData(subject: String?, grade: String, type: String?, date: String): Boolean {
         val db = this.writableDatabase
@@ -51,7 +64,10 @@ class AdminSQLiteOpenHelperCalificaciones(
 
 
     /**
-     * Función para obtener la nota de una asignatura dados su nombre y tipo
+     * Función para obtener la nota y fehca de una calificación dados su asignatura y tipo
+     * @param asignatura Nombre de la asignatura
+     * @param tipo Tipo de la asignatura
+     * @return subjectGradesList Lista de pares Fecha-calificación
      **/
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
@@ -73,7 +89,9 @@ class AdminSQLiteOpenHelperCalificaciones(
     }
 
     /**
-     * Función para obtener todos los datos de una calificación dada la asignatura
+     * Función para obtener una lista con todas las fechas, tipos, notas e ids de una asignatura
+     *@param asignatura Nombre de la asignatura
+     * @result subjectGradeList
      **/
     @SuppressLint("Range")
     fun getSubjectGradesForSubject(asignatura: String): MutableList<String> {
@@ -90,7 +108,7 @@ class AdminSQLiteOpenHelperCalificaciones(
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
                 val entry = "$date | $type | $grade | $id "
-                //val entry = "$date | $type | $grade | $id "
+                //val entry = "$id | $type | $grade | $date "
                 subjectGradesList.add(entry)
             } while (cursor.moveToNext())
         }
@@ -98,16 +116,17 @@ class AdminSQLiteOpenHelperCalificaciones(
         return subjectGradesList
     }
     /**
-     * Función para eliminar una asignatura dados sus atributos
+     * Función para eliminar una calificación dados su id
+     * @param id Id de la calificación
+     * @return boolean
      **/
-    fun deleteDataByDetails(
-        date: String, subject: String, type: String, grade: String, id: String): Boolean {
+    fun deleteDataByDetails(id: String): Boolean {
         val db = this.writableDatabase
-        val whereClause = "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?"
-        val whereArgs = arrayOf(date, subject, type, grade,id)
+        val whereClause = "$ID=?"
+        val whereArgs = arrayOf(id)
         //Log.d("enBaseDeDatos","Los args son: $date,$subject,$type,$grade y $count")
         // Log para verificar el estado antes de la eliminación
-        val rowsBefore = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$DATE = ? AND $SUBJECT = ? AND $TYPE = ? AND $GRADE = ? AND $ID=?", whereArgs)
+        val rowsBefore = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$ID=?", whereArgs)
         //Log.d("deleteDataByDetails", "Rows before deletion: $rowsBefore")
 
         // Eliminar todas las filas que coincidan con los criterios

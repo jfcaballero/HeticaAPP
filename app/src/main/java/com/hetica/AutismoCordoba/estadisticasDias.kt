@@ -175,11 +175,11 @@ class estadisticasDias : AppCompatActivity() {
         //para establecer el promedio de actividad de una asignatura
         lv!!.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val item = lv!!.getItemAtPosition(position) as String
-            val asignatura = item.split("\\s+".toRegex())[0] // Obtener el nombre de la asignatura desde el item de la lista
-            val promedio = db?.calcularPromedioAsignatura(asignatura) // Calcular el promedio para la asignatura utilizando la instancia de AdminSQLiteOpenHelperStats
+            val asignatura = item.split("\\s+".toRegex())[0]
+            val promedio = db?.calcularPromedioAsignatura(asignatura)
             val promedioRedondeado = (promedio?.toFloat()?.times(100))?.roundToInt()?.div(100.0)// Redondear a dos decimales
 
-            promedioMinutos!!.text = "$promedioRedondeado minutos" // Actualizar el TextView con el resultado del promedio
+            promedioMinutos!!.text = "$promedioRedondeado minutos"
         }
 
         //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);

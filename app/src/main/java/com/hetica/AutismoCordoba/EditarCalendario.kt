@@ -135,6 +135,8 @@ class EditarCalendario : AppCompatActivity() {
     }
     /**
      * Función para añadir una asignatura dado el nombre y la fecha
+     * @param asignaturaSeleccionada La asignatura seleccionada
+     * @param dateString Fecha de la asignatura
      *
      */
     private fun addAsignatura(asignaturaSeleccionada: String, dateString: String) {
@@ -149,7 +151,8 @@ class EditarCalendario : AppCompatActivity() {
     }
 
     /**
-     * Función para mostrar dada una fecha las asignaturas para ese día
+     * Función para mostrar las asignaturas del calendario para una fecha
+     * @param dateString Fecha de las asignaturas
      *
      */
     private fun viewData(dateString: String) {
@@ -167,6 +170,8 @@ class EditarCalendario : AppCompatActivity() {
     }
     /**
      * Función para gestionar el borrar una asignatura dada la posición en la lista y la fecha
+     * @param position Posición de la asignatura en la lista
+     * @param dateString Fecha de la asignatura
      *
      */
     private fun deleteAsignatura(position: Int, dateString: String) {

@@ -114,7 +114,13 @@ class AdminSQLiteOpenHelperStats
 
         return db.rawQuery(query, null)
     }
-
+    /**
+     * Función para ver los atributos dada una asignatura y la fecha.
+     *
+     * @param date Fecha de la que queremos visualizar las estadísticas
+     * @param asignatura Asignatura de la que queremos visualizar las estadísticas
+     * @return cursor
+     */
     fun viewDataDiaAsignatura(date: String?,asignatura:String?): Cursor {
         val db = this.readableDatabase
         val query = "SELECT * FROM $DB_TABLE WHERE DATE='$date' AND NAME='$asignatura'"
@@ -122,7 +128,14 @@ class AdminSQLiteOpenHelperStats
         return db.rawQuery(query, null)
 
     }
-
+    /**
+     * Función para obtener las estadísticas de una asignatura que se encuentre entre 2 fechas.
+     *
+     * @param fechaInicio Fecha límite inicial
+     * @param fechaFin Fecha límite final
+     * @param asignatura Asignatura de la que queremos ver sus datos
+     * @return cursor
+     */
     @SuppressLint("Range")
     fun viewDataRangoAsignatura(fechaInicio: String, fechaFin: String, asignatura: String): Cursor {
         val db = this.readableDatabase
@@ -132,7 +145,12 @@ class AdminSQLiteOpenHelperStats
         return db.rawQuery(query, null)
     }
 
-
+    /**
+     * Función para obtener todas las estadísticas de una asignatura desde su inicio.
+     *
+     * @param asignatura Asignatura de la que queremos ver sus datos
+     * @return cursor
+     */
     @SuppressLint("Range")
     fun viewDataHistorico(asignatura: String?): Cursor {
         val db = this.readableDatabase
@@ -142,7 +160,13 @@ class AdminSQLiteOpenHelperStats
     }
 
 
-
+    /**
+     * Función para obtener una lista con días y el total de minutos que se dedicaron en cada día.
+     *
+     * @param mes Mes del día que devolvemos
+     * @param anyo Año del día que devolvemos
+     * @return listaDias
+     */
     @SuppressLint("Range")
     fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
         val db = this.readableDatabase
@@ -184,7 +208,11 @@ class AdminSQLiteOpenHelperStats
         return listaDias
     }
 
-
+    /**
+     * Función para borrar la base de datos
+     *
+     * @return boolean
+     */
     fun clearData(): Boolean {
         val db = this.writableDatabase
         val result = db.delete(DB_TABLE, null, null)

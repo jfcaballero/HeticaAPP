@@ -23,7 +23,11 @@ class AdminSQLiteOpenHelperAsig
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE)
     }
-
+    /**
+     * Función para mejorar la base de datos
+     * @param db
+     * @param oldVersion Número de la versión anterior
+     */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE)
         onCreate(db)

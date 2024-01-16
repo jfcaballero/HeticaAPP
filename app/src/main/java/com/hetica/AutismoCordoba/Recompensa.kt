@@ -32,7 +32,9 @@ class Recompensa : AppCompatActivity() {
      */
     @SuppressLint("StaticFieldLeak")
     private var recompensa: ImageView? = null
-
+    /**
+     * Botón de comentarios
+     */
     private var Comentarios: Button? = null
 
     @SuppressLint("MissingInflatedId")
