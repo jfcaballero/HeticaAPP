@@ -118,15 +118,15 @@ class MostrarComentarios : AppCompatActivity() {
         val calendarTomorrow = Calendar.getInstance()
         calendarTomorrow.add(Calendar.DAY_OF_MONTH, 1)
 
-        // Configurar el DatePickerDialog para fechaInicio
+
         fechaInicio?.setOnClickListener {
             showDatePickerDialog(fechaInicio!!, fechaFin!!)
         }
 
-        // Configurar el DatePickerDialog para fechaFin
         fechaFin?.setOnClickListener {
             showDatePickerDialog(fechaFin!!, fechaInicio!!)
         }
+
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
@@ -233,6 +233,10 @@ class MostrarComentarios : AppCompatActivity() {
 
                 // Llamar a viewData después de seleccionar la fecha
                 viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
+
+                // Configurar nuevamente el onFocusChangeListener
+                editText.onFocusChangeListener?.onFocusChange(editText, false)
+                otherEditText.onFocusChangeListener?.onFocusChange(otherEditText, false)
             },
             year,
             month,
