@@ -162,7 +162,7 @@ class AdminSQLiteOpenHelperStats
                 Log.d("Fecha y Min","$fecha y $totalMinutos")
 
                 // Asegurar que el día tiene dos dígitos
-                var fechaaux=fecha
+                //var fechaaux=fecha
                 val parts = fecha.split("/")
                 val dia = parts[0].padStart(2, '0')
 

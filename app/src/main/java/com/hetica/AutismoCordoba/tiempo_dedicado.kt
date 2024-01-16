@@ -254,7 +254,7 @@ class tiempo_dedicado: AppCompatActivity()  {
             totalMinutos=0
             // Obtén la asignatura seleccionada del Spinner
             val asignaturaSeleccionada = asignaturaSeleccionada ?: return
-            val fechaSeleccionada = fechaInicio?.text.toString() ?: return
+            val fechaSeleccionada = fechaInicio?.text.toString()
 
             // Obtén el cursor con los datos de un solo dia
             val cursor = dbStats?.viewDataDiaAsignatura(fechaSeleccionada,asignaturaSeleccionada) ?: return
@@ -298,8 +298,8 @@ class tiempo_dedicado: AppCompatActivity()  {
 
             // Obtén la asignatura seleccionada del Spinner
             val asignaturaSeleccionada = asignaturaSeleccionada ?: return
-            val fechaInicioSeleccionada = fechaInicio?.text.toString() ?: return
-            val fechaFinSeleccionada = fechaFin?.text.toString() ?: return
+            val fechaInicioSeleccionada = fechaInicio?.text.toString()
+            val fechaFinSeleccionada = fechaFin?.text.toString()
 
             // Obtén el cursor con los datos en el rango de fechas y para la asignatura seleccionada
             val cursor = dbStats?.viewDataRangoAsignatura(fechaInicioSeleccionada, fechaFinSeleccionada, asignaturaSeleccionada)

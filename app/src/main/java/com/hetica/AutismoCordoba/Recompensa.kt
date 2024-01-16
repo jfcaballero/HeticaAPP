@@ -74,7 +74,7 @@ class Recompensa : AppCompatActivity() {
             val dialog = EnviarComentarios()
             dialog.show(supportFragmentManager, "enviarComentarios")
 
-            true
+            //true
         }
 
 
