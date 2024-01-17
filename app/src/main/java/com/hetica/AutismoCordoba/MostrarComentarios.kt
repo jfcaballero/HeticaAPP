@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperComentarios
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -301,10 +302,42 @@ class MostrarComentarios : AppCompatActivity() {
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList)
         listViewComentarios?.adapter = adapter
+        listViewComentarios?.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                val comentarioSeleccionado = comentariosList[position]
+                mostrarCuadroFlotante(comentarioSeleccionado)
+            }
         if (comentariosList.isEmpty()) {
-            Toast.makeText(this, "No hay comentarios para la asignatura $asignaturaSeleccionada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No hay comentarios para ese intervalo", Toast.LENGTH_SHORT).show()
         }
     }
+    /**
+     * Función que muestra un comentario en un cuadro flotante
+     * @param comentario Cadena con la fecha y el comentario en texto
+     *
+     */
+    private fun mostrarCuadroFlotante(comentario: String) {
+        val partes = comentario.split(" - ", limit = 2)
+
+        // Fecha (el primer elemento después de dividir)
+        val fecha = if (partes.isNotEmpty()) partes[0] else ""
+
+        // Comentario (el segundo elemento después de dividir)
+        val soloComentario = if (partes.size > 1) partes[1] else comentario
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(fecha)
+            .setMessage(soloComentario)
+            .setPositiveButton("Salir") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
+
     /**
      * Función para comprobar si una fecha está entre dos límites
      * @param fecha Fecha a comprobar

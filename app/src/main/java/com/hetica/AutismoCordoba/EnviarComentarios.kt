@@ -61,6 +61,7 @@ var dbComents: AdminSQLiteOpenHelperComentarios? = null
         val fechadehoy = sdf.format(Date())
         Log.d("Insertando comentario","Fecha $fechadehoy para $asignaturaSeleccionada y dice $mensaje")
         dbComents?.insertData(fechadehoy, asignaturaSeleccionada, mensaje)
+        Toast.makeText(requireContext(), "Comentario registrado", Toast.LENGTH_SHORT).show()
         dismiss()
     }
 
