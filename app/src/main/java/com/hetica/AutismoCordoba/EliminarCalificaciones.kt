@@ -130,7 +130,7 @@ class EliminarCalificaciones : AppCompatActivity() {
                     //val date = parts[0]
                     //val type = parts[1]
                     //val grade = parts[2].toFloat()
-                    val id = parts[3]
+                    val id = parts[0]
 
                     // Llamar a la función para eliminar el elemento seleccionado
                     val deleted = dbCalificaciones?.deleteDataByDetails(id)

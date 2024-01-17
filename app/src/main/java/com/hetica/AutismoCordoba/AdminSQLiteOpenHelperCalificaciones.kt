@@ -107,7 +107,7 @@ class AdminSQLiteOpenHelperCalificaciones(
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
-                val entry = "Fecha: $date | Tipo: $type | Nota: $grade | $id "
+                val entry = "$id | Fecha: $date | Tipo: $type | Nota: $grade"
                 //val entry = "$id | $type | $grade | $date "
                 subjectGradesList.add(entry)
             } while (cursor.moveToNext())
