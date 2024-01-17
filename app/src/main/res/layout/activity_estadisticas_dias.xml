@@ -40,6 +40,7 @@
         android:text="Promedio:"
         android:textColor="#000000"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
@@ -49,15 +50,15 @@
 
     <TextView
         android:id="@+id/promedioMinutos"
-        android:layout_width="208dp"
-        android:layout_height="36dp"
-        android:text="Minutos"
+        android:layout_width="247dp"
+        android:layout_height="38dp"
+        android:text="Pulse en una asignatura"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintStart_toEndOf="@+id/textView63"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.86" />
 
