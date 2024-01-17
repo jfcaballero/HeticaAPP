@@ -341,7 +341,7 @@ class MostrarComentarios : AppCompatActivity() {
      * @return El comentario abreviado
      */
     private fun abreviarComentario(comentario: String): String {
-        val maxLength = 50 // Define la longitud máxima antes de agregar "..."
+        val maxLength = 50
         return if (comentario.length > maxLength) {
             comentario.substring(0, maxLength - 3) + "..."
         } else {
