@@ -276,9 +276,7 @@ class MostrarComentarios : AppCompatActivity() {
      */
     @SuppressLint("Range")
     private fun viewData(asignaturaSeleccionada: String?, fechaInicio: String?, fechaFin: String?) {
-
         val cursor = dbComentarios?.viewData()
-        //Log.d("Número de filas", "${cursor?.count}")
         val comentariosList: ArrayList<String> = ArrayList()
 
         if (cursor != null) {
@@ -286,15 +284,13 @@ class MostrarComentarios : AppCompatActivity() {
                 val name = cursor.getString(cursor.getColumnIndex("NAME"))
                 val date = cursor.getString(cursor.getColumnIndex("DATE"))
                 val comments = cursor.getString(cursor.getColumnIndex("COMMENTS"))
-                //Log.d("Fecha de item", "La fecha del item es $date")
-                // Verificar si la fecha está comprendida entre fechaInicio y fechaFin
+
                 if (name == asignaturaSeleccionada && fechaInicio != null && fechaFin != null) {
-                    if (fechaEstaEntre(date,fechaInicio,fechaFin)) {
-                        comentariosList.add("$date - $comments")
+                    if (fechaEstaEntre(date, fechaInicio, fechaFin)) {
+                        comentariosList.add("$date - ${abreviarComentario(comments)}")
                         Log.d("Bien", "La fecha $date está comprendida entre $fechaInicio y $fechaFin")
                     } else {
                         Log.d("Mal", "La fecha $date NO está comprendida entre $fechaInicio y $fechaFin")
-
                     }
                 }
             }
@@ -304,36 +300,46 @@ class MostrarComentarios : AppCompatActivity() {
         listViewComentarios?.adapter = adapter
         listViewComentarios?.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
-                val comentarioSeleccionado = comentariosList[position]
-                mostrarCuadroFlotante(comentarioSeleccionado)
+                // Obtener el comentario completo de la lista
+                val comentarioCompleto = comentariosList[position].substringAfter(" - ")
+                mostrarCuadroFlotante(comentarioCompleto)
             }
+
         if (comentariosList.isEmpty()) {
             Toast.makeText(this, "No hay comentarios para ese intervalo", Toast.LENGTH_SHORT).show()
         }
     }
+
+
     /**
-     * Función que muestra un comentario en un cuadro flotante
-     * @param comentario Cadena con la fecha y el comentario en texto
-     *
+     * Función para mostrar un comentario completo en un cuadro flotante
+     * @param comentario Cadena con la fecha y el comentario en texto completo
      */
     private fun mostrarCuadroFlotante(comentario: String) {
-        val partes = comentario.split(" - ", limit = 2)
-
-        // Fecha (el primer elemento después de dividir)
-        val fecha = if (partes.isNotEmpty()) partes[0] else ""
-
-        // Comentario (el segundo elemento después de dividir)
-        val soloComentario = if (partes.size > 1) partes[1] else comentario
 
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(fecha)
-            .setMessage(soloComentario)
+        builder.setTitle("Comentario de $asignaturaSeleccionada")
+            .setMessage(comentario)
             .setPositiveButton("Salir") { dialog, _ ->
                 dialog.dismiss()
             }
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    /**
+     * Función para abreviar el comentario y agregar "..." si es necesario
+     * @param comentario El comentario completo
+     * @return El comentario abreviado
+     */
+    private fun abreviarComentario(comentario: String): String {
+        val maxLength = 50 // Define la longitud máxima antes de agregar "..."
+        return if (comentario.length > maxLength) {
+            comentario.substring(0, maxLength - 3) + "..."
+        } else {
+            comentario
+        }
     }
 
 
