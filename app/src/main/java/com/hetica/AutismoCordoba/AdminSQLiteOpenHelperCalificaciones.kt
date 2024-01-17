@@ -103,7 +103,7 @@ class AdminSQLiteOpenHelperCalificaciones(
         if (cursor.moveToFirst()) {
             do {
                 //val subject = cursor.getString(cursor.getColumnIndex(SUBJECT))
-                val date = cursor.getString(cursor.getColumnIndex(DATE))
+                val date = formatDate(cursor.getString(cursor.getColumnIndex(DATE)))
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
