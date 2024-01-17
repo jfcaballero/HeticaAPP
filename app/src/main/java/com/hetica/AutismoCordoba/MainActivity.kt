@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         botonOpc = findViewById<View>(R.id.button4) as Button
         botonStat = findViewById<View>(R.id.button5) as Button
         botonCred = findViewById<View>(R.id.button6) as Button
-        botonCalendario = findViewById<View>(R.id.button16) as Button
+        botonCalendario = findViewById<View>(R.id.button16) as? Button ?: return
         botonTemp!!.visibility = View.INVISIBLE
         boton = findViewById<View>(R.id.button) as Button
         boton1 = findViewById<View>(R.id.button2) as Button
