@@ -14,7 +14,10 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Toast
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 /**
  * ListView de asignaturas asignadas.
@@ -52,7 +55,13 @@ class EditarCalendario : AppCompatActivity() {
 
         addAsignaturaCalendario?.setOnClickListener {
             val asignaturaSeleccionada = spinner.selectedItem as String
-            addAsignatura(asignaturaSeleccionada, yearFinal!!)
+            if(validateDate(yearFinal)){
+                addAsignatura(asignaturaSeleccionada, yearFinal!!)
+            }else{
+                Toast.makeText(this, "Introduce una fecha en formato dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
+
+            }
+
         }
         listViewAsignaturasDeUnDia?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             deleteAsignatura(position, yearFinal!!)
@@ -187,7 +196,28 @@ class EditarCalendario : AppCompatActivity() {
     }
 
 
+    private fun validateDate(dateString: String?): Boolean {
+        if (dateString == null || dateString.isEmpty()) {
+            return false
+        }
+        if (!dateString.matches(Regex("[0-9/]+"))) {
+            return false
+        }
+        if (dateString.length != 8) {
+            return false
+        }
 
+        try {
+            // Intentar parsear la fecha
+            val format = SimpleDateFormat("MMddyyyy", Locale.getDefault())
+            format.isLenient = false
+            format.parse(dateString)
+            return true
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            return false
+        }
+    }
 
 
 }

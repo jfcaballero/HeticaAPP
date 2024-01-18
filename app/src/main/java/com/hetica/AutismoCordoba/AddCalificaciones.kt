@@ -182,8 +182,9 @@ class AddCalificaciones : AppCompatActivity() {
         if (dateString == null || dateString.isEmpty()) {
             return false
         }
-
-        // Verificar que la longitud de la cadena sea la esperada "dd/MM/yyyy"
+        if (!dateString.matches(Regex("[0-9/]+"))) {
+            return false
+        }
         if (dateString.length != 8) {
             return false
         }
