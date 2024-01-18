@@ -14,7 +14,10 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 
 /**
@@ -140,24 +143,60 @@ class AddCalificaciones : AppCompatActivity() {
 
         Guardar.setOnClickListener {
             val notaString = Nota.text.toString()
+            val fechaString = yearFinal
+
             if (notaString.isNotEmpty()) {
-                NotaFloat = notaString.toFloat()
-                if (asignaturaSeleccionada != null && tipoSeleccionado != null && NotaFloat != null) {
-                    val isInserted = dbCalificaciones?.insertData(asignaturaSeleccionada,
-                        NotaFloat!!.toString(), tipoSeleccionado, yearFinal!!)
-                    if (isInserted == true) {
-                        val toastMessage = "Calificación insertada: $asignaturaSeleccionada, Nota: $NotaFloat, Tipo: $tipoSeleccionado"
-                        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, "No se pudo insertar la calificación.", Toast.LENGTH_SHORT).show()
+                if(validateDate(yearFinal)){
+                    NotaFloat = notaString.toFloat()
+                    if (asignaturaSeleccionada != null && tipoSeleccionado != null) {
+                        val isInserted = dbCalificaciones?.insertData(
+                            asignaturaSeleccionada,
+                            NotaFloat!!.toString(),
+                            tipoSeleccionado,
+                            yearFinal!!
+                        )
+                        Log.d("Fecha", "$yearFinal")
+                        if (isInserted == true) {
+                            val toastMessage =
+                                "Calificación insertada: $asignaturaSeleccionada, Nota: $NotaFloat, Tipo: $tipoSeleccionado"
+                            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "No se pudo insertar la calificación.", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
+                }else{
+                    Toast.makeText(this, "Introduce una fecha en formato dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
+
                 }
+
             } else {
-                Toast.makeText(this, "Introduce una nota antes de guardar.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Introduce una nota válida antes de guardar.", Toast.LENGTH_SHORT).show()
             }
         }
 
 
 
+    }
+    private fun validateDate(dateString: String?): Boolean {
+        if (dateString == null || dateString.isEmpty()) {
+            return false
+        }
+
+        // Verificar que la longitud de la cadena sea la esperada "dd/MM/yyyy"
+        if (dateString.length != 8) {
+            return false
+        }
+
+        try {
+            // Intentar parsear la fecha
+            val format = SimpleDateFormat("MMddyyyy", Locale.getDefault())
+            format.isLenient = false
+            format.parse(dateString)
+            return true
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            return false
+        }
     }
 }
