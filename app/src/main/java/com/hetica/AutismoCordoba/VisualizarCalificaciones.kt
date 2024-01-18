@@ -207,6 +207,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         // Obtenemos los datos de calificaciones
         val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
+
         if (listaCalificaciones.isNullOrEmpty() ) {
             //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
             aaChartView.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
@@ -239,12 +240,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         aaChartView.aa_drawChartWithChartModel(aaChartModel)
     }
 
-    /* Función para convertir una cadena de fecha en un objeto Date
-    private fun parseDate(dateString: String): Date {
-        val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
-        return dateFormat.parse(dateString) ?: Date()
-    }
-    */
+
 
     /**
      * Función para generar datos para el gráfico de área

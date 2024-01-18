@@ -72,7 +72,7 @@ class AdminSQLiteOpenHelperCalificaciones(
     @SuppressLint("Range")
     fun getSubjectGradesList(asignatura: String, tipo: String): List<Pair<String, Float>> {
         val db = this.readableDatabase
-        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY $DATE DESC, $ID DESC"
+        val query = "SELECT $SUBJECT, $GRADE, $DATE FROM $DB_TABLE WHERE $SUBJECT = ? AND $TYPE = ? ORDER BY SUBSTR($DATE, 5, 4) || SUBSTR($DATE, 1, 4) DESC, $ID DESC"
         val cursor = db.rawQuery(query, arrayOf(asignatura, tipo))
         val subjectGradesList = mutableListOf<Pair<String, Float>>()
 
@@ -82,6 +82,7 @@ class AdminSQLiteOpenHelperCalificaciones(
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
                 val formattedDate = formatDate(date)
                 subjectGradesList.add(Pair(formattedDate, grade))
+                Log.d("FechaBD","FechaBD: $formattedDate")
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -96,7 +97,7 @@ class AdminSQLiteOpenHelperCalificaciones(
     @SuppressLint("Range")
     fun getSubjectGradesForSubject(asignatura: String): MutableList<String> {
         val db = this.readableDatabase
-        val query = "SELECT * FROM $DB_TABLE WHERE $SUBJECT = ?"
+        val query = "SELECT * FROM $DB_TABLE WHERE $SUBJECT = ? ORDER BY SUBSTR($DATE, 5, 4) || SUBSTR($DATE, 1, 4) ASC, $ID ASC"
         val cursor = db.rawQuery(query, arrayOf(asignatura))
         val subjectGradesList = mutableListOf<String>()
 
