@@ -143,7 +143,7 @@ class AddCalificaciones : AppCompatActivity() {
 
         Guardar.setOnClickListener {
             val notaString = Nota.text.toString()
-            val fechaString = yearFinal
+            //val fechaString = yearFinal
 
             if (notaString.isNotEmpty()) {
                 if(validateDate(yearFinal)){
