@@ -218,7 +218,7 @@ class AdminSQLiteOpenHelperStats
         val result = db.delete(DB_TABLE, null, null)
         return result > 0
     }
-    
+
 
 
 

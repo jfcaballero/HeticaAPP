@@ -3,26 +3,26 @@
     <item
         android:id="@+id/action_estadisticas"
         android:icon="@drawable/baseline_query_stats_24"
-        android:title="Estadísticas" />
+        android:title=" " />
     <item
         android:id="@+id/action_tiempo_dedicado"
-        android:title="Tiempo total"
-        android:icon="@drawable/tiempototal" />
+        android:icon="@drawable/tiempototal"
+        android:title=" " />
 
     <item
         android:id="@+id/action_calificaciones"
-        android:title="Calificaciones"
-        android:icon="@drawable/baseline_school_24" />
+        android:icon="@drawable/baseline_school_24"
+        android:title=" " />
 
     <item
         android:id="@+id/action_comentarios"
         android:icon="@drawable/notas"
-        android:title="Comentarios" />
+        android:title=" " />
 
     <item
         android:id="@+id/action_actividad"
-        android:title="Actividad"
-        android:icon="@drawable/mayormenoractividad" />
+        android:icon="@drawable/mayormenoractividad"
+        android:title=" " />
 
 
 </menu>
