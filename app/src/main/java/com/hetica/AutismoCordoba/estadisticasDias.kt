@@ -10,7 +10,6 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import java.util.Calendar
-import kotlin.math.roundToInt
 
 /**
  * The type Estadisticas dias.
@@ -64,11 +62,13 @@ class estadisticasDias : AppCompatActivity() {
     /**
      * Promedio de minutos
      */
-    var  promedioMinutos: TextView?=null
+    var  sumaMinutos: TextView?=null
     /**
      * Imagen para irnos al Main
      */
     var imageMain: ImageView?=null
+
+    var totalMinutos: Double =0.0
 
 
     // Método para configurar la instancia de AdminSQLiteOpenHelperStats
@@ -85,7 +85,7 @@ class estadisticasDias : AppCompatActivity() {
         val editText = findViewById<View>(R.id.editText2) as EditText
         db = AdminSQLiteOpenHelperStats(this)
         lv = findViewById<View>(R.id.listViewAsignaturas) as ListView
-        promedioMinutos = findViewById(R.id.promedioMinutos)
+        sumaMinutos = findViewById(R.id.sumaMinutos)
         imageMain=findViewById(R.id.botonMain5)
         GoToMain()
 
@@ -172,15 +172,7 @@ class estadisticasDias : AppCompatActivity() {
         val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
         monthAux = monthAux + 1
 
-        //para establecer el promedio de actividad de una asignatura
-        lv!!.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            val item = lv!!.getItemAtPosition(position) as String
-            val asignatura = item.split("\\s+".toRegex())[0]
-            val promedio = db?.calcularPromedioAsignatura(asignatura)
-            val promedioRedondeado = (promedio?.toFloat()?.times(100))?.roundToInt()?.div(100.0)// Redondear a dos decimales
 
-            promedioMinutos!!.text = "$promedioRedondeado minutos"
-        }
 
         //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);
         yearFinal = if (monthAux < 10) {
@@ -270,10 +262,15 @@ class estadisticasDias : AppCompatActivity() {
             adapter!!.clear()
             adapter!!.notifyDataSetChanged()
             while (cursor.moveToNext()) {
-                arrayList!!.add(cursor.getString(1) + "          " + cursor.getString(3) + " minutos")
-                val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
-                Log.d("Fecha","$fecha")
+                val asignatura = cursor.getString(1)
+                val minutos = cursor.getString(3)
+                Log.d("Datos de la base de datos", "Asignatura: $asignatura, Minutos: $minutos")
+                arrayList!!.add("$asignatura          $minutos minutos")
+                totalMinutos += minutos.toDouble()
             }
+
+            sumaMinutos?.text = "Total: $totalMinutos minutos"
+            totalMinutos=0.0
             if (resources.configuration.screenLayout and
                     Configuration.SCREENLAYOUT_SIZE_MASK ==
                     Configuration.SCREENLAYOUT_SIZE_XLARGE) {
@@ -295,5 +292,7 @@ class estadisticasDias : AppCompatActivity() {
             }
             lv!!.adapter = adapter
         }
+
     }
+
 }

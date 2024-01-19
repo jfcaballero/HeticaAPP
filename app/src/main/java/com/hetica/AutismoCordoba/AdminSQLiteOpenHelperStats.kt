@@ -218,41 +218,7 @@ class AdminSQLiteOpenHelperStats
         val result = db.delete(DB_TABLE, null, null)
         return result > 0
     }
-
-
-    /**
-     * Función para calcular el promedio de tiempo para una asignatura específica
-     *
-     * @param name Nombre de la asignatura para la que deseas calcular el promedio de tiempo
-     * @return Double
-     */
-    @SuppressLint("Range")
-    fun calcularPromedioAsignatura(name: String): Double {
-        val db = this.readableDatabase
-        val query = "SELECT * FROM $DB_TABLE WHERE $NAME = '$name'"
-        val cursor = db.rawQuery(query, null)
-        var totalTiempo = 0
-        var contador = 0
-
-        if (cursor.moveToFirst()) {
-            do {
-                val tiempo = cursor.getInt(cursor.getColumnIndex(TIME))
-                totalTiempo += tiempo
-                contador++
-            } while (cursor.moveToNext())
-        }
-
-        cursor.close()
-        db.close()
-
-        val promedio = if (contador > 0) {
-            totalTiempo.toDouble() / contador
-        } else {
-            0.0
-        }
-
-        return promedio
-    }
+    
 
 
 
