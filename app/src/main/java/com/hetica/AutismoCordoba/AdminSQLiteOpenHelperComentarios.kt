@@ -63,6 +63,29 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         return cantidad != -1L
     }
     /**
+     * Función para obtener una lista con la fecha y comentarios de una asignatura
+     *
+     * @param asignatura Nombre de la asignatura
+     * @return Lista de pares Fecha-comentario
+     */
+    fun getCommentsForSubject(asignatura: String): List<Pair<String, String>> {
+        val db = this.readableDatabase
+        val query = "SELECT $DATE, $COMMENTS FROM $DB_TABLE WHERE $NAME = ?"
+        val cursor = db.rawQuery(query, arrayOf(asignatura))
+        val commentsList = mutableListOf<Pair<String, String>>()
+
+        if (cursor.moveToFirst()) {
+            do {
+                val fecha = cursor.getString(cursor.getColumnIndex(DATE))
+                val comentario = cursor.getString(cursor.getColumnIndex(COMMENTS))
+                commentsList.add(Pair(fecha, comentario))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return commentsList
+    }
+
+    /**
      * Función para borrar los datos de la tabla
      *
      *
