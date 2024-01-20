@@ -19,6 +19,8 @@ import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBin
 
 
 import android.graphics.Color
+import android.view.View.INVISIBLE
+import android.widget.TextView
 import com.androidplot.xy.*
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -26,6 +28,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import org.w3c.dom.Text
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
@@ -66,6 +69,7 @@ private lateinit var spinnerAsignaturas: Spinner
 @SuppressLint("StaticFieldLeak")
 private lateinit var spinnerTipos: Spinner
 
+var noHayDatos: TextView? = null
 
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityVisualizarCalificacionesBinding? = null
@@ -80,6 +84,13 @@ class VisualizarCalificaciones : AppCompatActivity() {
         setContentView(binding.root)
 
         imageMain=findViewById(R.id.botonMain3)
+        noHayDatos = findViewById(R.id.noHayDatos)
+
+        val noHayDatosTextView = noHayDatos
+        if (noHayDatosTextView != null) {
+            noHayDatosTextView.visibility = INVISIBLE
+        }
+
         GoToMain()
 
         val asignaturasList = dbAsig?.getAsignaturasList()
@@ -209,9 +220,11 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val listaCalificaciones = dbCalificaciones?.getSubjectGradesList(asignatura, tipo)
 
         if (listaCalificaciones.isNullOrEmpty() ) {
-            //Toast.makeText(this, "No hay datos disponibles para mostrar en el gráfico.", Toast.LENGTH_SHORT).show()
+            noHayDatos?.visibility = View.VISIBLE
             aaChartView.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
+        }else {
+            noHayDatos?.visibility = INVISIBLE
         }
 
 
