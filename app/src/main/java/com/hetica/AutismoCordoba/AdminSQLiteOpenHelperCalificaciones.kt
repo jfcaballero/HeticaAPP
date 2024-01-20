@@ -88,6 +88,34 @@ class AdminSQLiteOpenHelperCalificaciones(
         cursor.close()
         return subjectGradesList.reversed()
     }
+    /**
+     * Función para borrar todas las calificaciones de una asignatura
+     *
+     * @param asignatura Nombre de la asignatura
+     * @return Boolean que indica si se borraron calificaciones correctamente
+     */
+    fun deleteAllGradesForSubject(asignatura: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "$SUBJECT=?"
+        val whereArgs = arrayOf(asignatura)
+
+
+        val rowsBefore = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$SUBJECT=?", whereArgs)
+
+
+        val result = db.delete(DB_TABLE, whereClause, whereArgs)
+
+
+        val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$SUBJECT=?", whereArgs)
+
+        if (result > 0) {
+            Log.e("deleteAllGradesForSubject", "$result filas eliminadas con éxito")
+            return true  // Al menos una fila se eliminó con éxito
+        } else {
+            Log.e("deleteAllGradesForSubject", "Error al eliminar: $rowsBefore")
+            return false  // No se eliminaron filas
+        }
+    }
 
     /**
      * Función para obtener una lista con todas las fechas, tipos, notas e ids de una asignatura

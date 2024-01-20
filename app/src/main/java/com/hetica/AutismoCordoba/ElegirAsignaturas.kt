@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import AdminSQLiteOpenHelperCalificaciones
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.TypedValue
@@ -13,6 +14,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 
 /**
  * The type Elegir asignaturas.
@@ -226,6 +228,9 @@ class ElegirAsignaturas : AppCompatActivity() {
      */
     fun Eliminar(view: View?) {
         val asignatura = et!!.text.toString()
+        val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
+
+
         if (!db!!.buscar(asignatura) || asignatura == "") {
             if (asignatura != "" && db!!.Eliminar(asignatura)) {
                 Toast.makeText(view!!.context, "Se ha eliminado correctamente", Toast.LENGTH_LONG).show()
@@ -234,6 +239,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                 et!!.setText("")
                 bt!!.text = "AGREGAR"
                 agregar = 1
+                dbCalificaciones.deleteAllGradesForSubject(asignatura) //borramos las calificaciones
             } else {
                 Toast.makeText(this, "Debe seleccionar una asignatura", Toast.LENGTH_LONG).show()
             }
