@@ -95,7 +95,7 @@ class mayormenoractividad : AppCompatActivity() {
         dbStats = AdminSQLiteOpenHelperStats(this)
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         textoDeDia=findViewById(R.id.textoDeDia)
-        textoDeDia?.visibility=View.VISIBLE
+        //textoDeDia?.visibility=View.VISIBLE
 
         // Configuración inicial de fechas
         val fechaHoy = obtenerFechaActual()
@@ -207,6 +207,7 @@ class mayormenoractividad : AppCompatActivity() {
         when (spinnerOpciones.selectedItem.toString()) {
             "Rango" ->  obtenerGrafica(1)
             "Histórico" -> obtenerGrafica(2)
+            "Mes actual" -> obtenerGrafica(3)
 
         }
 
@@ -218,7 +219,7 @@ class mayormenoractividad : AppCompatActivity() {
     private fun mostrarOpcionesSpinner() {
         val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
 
-        val opciones = listOf("Rango", "Histórico")
+        val opciones = listOf("Rango", "Histórico","Mes actual")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -240,6 +241,11 @@ class mayormenoractividad : AppCompatActivity() {
                         fechaFin?.visibility = View.GONE
                         obtenerGrafica(2)
                     }
+                    "Mes actual" -> {
+                        fechaInicio?.visibility = View.GONE
+                        fechaFin?.visibility = View.GONE
+                        obtenerGrafica(3)
+                    }
 
                 }
             }
@@ -260,17 +266,25 @@ class mayormenoractividad : AppCompatActivity() {
     private fun obtenerGrafica(opcion:Int) {
         val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
         val asignaturaSeleccionada = asignaturaSeleccionada ?: return
-        val fechaInicial = fechaInicio?.text.toString()
-        val fechaFinal = fechaFin?.text.toString()
+        var fechaInicial = fechaInicio?.text.toString()
+        var fechaFinal = fechaFin?.text.toString()
+        if(opcion==3){ //como es la actividad del mes actual lo que hace es cambiar la fecha de inicio y fin
+            fechaInicial=obtenerPrimerDiaMesActual()
+            fechaFinal=obtenerUltimoDiaMesActual()
+
+        }
+
 
 
         val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
+
         val listaDias = db.obtenerListaDias(asignaturaSeleccionada,opcion,fechaInicial,fechaFinal)
 
         if (listaDias.isEmpty()) {
             val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
-            textoDeDia?.visibility=View.INVISIBLE
+            textoDeDia?.visibility=View.GONE
             Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
+            Log.d("He entrao","hola")
             aaChartViewGrafica.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
         }else{
@@ -285,7 +299,7 @@ class mayormenoractividad : AppCompatActivity() {
 
         val aaChartModelGrafica : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
-            .title("Días de actividad")
+            .title("Días de actividad de $asignaturaSeleccionada")
             //.subtitle("Histórico")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
@@ -425,6 +439,7 @@ class mayormenoractividad : AppCompatActivity() {
                     when (spinnerOpciones.selectedItem.toString()) {
                         "Rango" ->  obtenerGrafica(1)
                         "Histórico" -> obtenerGrafica(2)
+                        "Mes actual" -> obtenerGrafica(3)
 
                     }
                 }
@@ -472,6 +487,36 @@ class mayormenoractividad : AppCompatActivity() {
 
         return "$diaFormateado/$mesFormateado/$year"
     }
+    /**
+     * Función para obtener el primer día del mes actual
+     * @return Fecha formateada
+     */
+    fun obtenerPrimerDiaMesActual(): String {
+        val calendario = Calendar.getInstance()
+        val year = calendario.get(Calendar.YEAR)
+        val month = calendario.get(Calendar.MONTH) + 1
+
+        val mesFormateado = if (month < 10) "0$month" else month.toString()
+
+        return "01/$mesFormateado/$year"
+    }
+
+    /**
+     * Función para obtener el último día del mes actual
+     * @return Fecha formateada
+     */
+    fun obtenerUltimoDiaMesActual(): String {
+        val calendario = Calendar.getInstance()
+        val year = calendario.get(Calendar.YEAR)
+        val month = calendario.get(Calendar.MONTH) + 1
+        val ultimoDia = calendario.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        val mesFormateado = if (month < 10) "0$month" else month.toString()
+        val ultimoDiaFormateado = if (ultimoDia < 10) "0$ultimoDia" else ultimoDia.toString()
+
+        return "$ultimoDiaFormateado/$mesFormateado/$year"
+    }
+
 
     /**
      * Función para mostrar el DatePickerDialog

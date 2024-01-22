@@ -184,8 +184,9 @@ class AdminSQLiteOpenHelperStats
                 "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' GROUP BY DATE"
             }
             else -> {
-                // Otra opción: mes
-                "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' GROUP BY DATE ORDER BY TotalMinutes DESC"
+                // Otra opción: mes (desde el primer dia del mes actual hasta el ultimo)
+                "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' AND DATE BETWEEN '$fechaInicial' AND '$fechaFinal' GROUP BY DATE"
+
             }
         }
 
