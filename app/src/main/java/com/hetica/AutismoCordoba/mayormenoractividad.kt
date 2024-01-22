@@ -284,7 +284,6 @@ class mayormenoractividad : AppCompatActivity() {
             val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
             textoDeDia?.visibility=View.GONE
             Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
-            Log.d("He entrao","hola")
             aaChartViewGrafica.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
         }else{
@@ -321,99 +320,6 @@ class mayormenoractividad : AppCompatActivity() {
     }
 
 
-    /**
-     * Función para mostrar la fecha y los minutos totales en la lista en un rango de dos fechas
-     */
-    @SuppressLint("Range")
-    private fun mostrarDatosRango() {
-        try {
-            totalMinutos = 0
-
-            // Obtemos la asignatura seleccionada del Spinner
-            val asignaturaSeleccionada = asignaturaSeleccionada ?: return
-            val fechaInicioSeleccionada = fechaInicio?.text.toString()
-            val fechaFinSeleccionada = fechaFin?.text.toString()
-
-            // Cursor con los datos en el rango de fechas y para la asignatura seleccionada
-            val cursor = dbStats?.viewDataRangoAsignatura(fechaInicioSeleccionada, fechaFinSeleccionada, asignaturaSeleccionada)
-                ?: return
-
-            // Lista para almacenar pares de fecha y minutos totales
-            val datosRango = mutableListOf<Pair<String, Int>>()
-
-            // Iteramos sobre el cursor y agrega los datos a la lista
-            if (cursor.moveToFirst()) {
-                do {
-                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
-                    Log.d("Rango asig", name)
-                    val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
-                    val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
-                    totalMinutos += minutosTotales
-                    datosRango.add(fecha to minutosTotales)
-                } while (cursor.moveToNext())
-            }
-
-            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
-
-            // Adaptador para el ListView
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_list_item_1,
-                datosRango.map { "${it.first}: ${it.second} minutos" }
-            )
-
-            // Asignamos el adaptador al ListView
-            ListViewDias?.adapter = adapter
-        } catch (e: Exception) {
-            Log.e("MostrarDatosRango", "Error: ${e.message}")
-            e.printStackTrace()
-        }
-    }
-
-    /**
-     * Función para mostrar la fecha y los minutos totales en la lista desde siempre
-     */
-    @SuppressLint("Range")
-    private fun mostrarDatosHistoricos() {
-        try {
-            totalMinutos=0
-            // Obtemos la asignatura seleccionada del Spinner
-            val asignaturaSeleccionada = asignaturaSeleccionada ?: return
-
-            // Cursor con los datos históricos
-            val cursor = dbStats?.viewDataHistorico(asignaturaSeleccionada) ?: return
-
-            // Lista para almacenar pares de fecha y minutos totales
-            val datosHistoricos = mutableListOf<Pair<String, Int>>()
-
-
-            // Iteramos sobre el cursor y agrega los datos a la lista
-            if (cursor.moveToFirst()) {
-                do {
-                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
-                    Log.d("Historico asig",name)
-                    val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
-                    val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
-                    totalMinutos += minutosTotales
-                    datosHistoricos.add(fecha to minutosTotales)
-                } while (cursor.moveToNext())
-            }
-            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
-
-            // Adaptador para el ListView
-            val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_list_item_1,
-                datosHistoricos.map { "${it.first}: ${it.second} minutos" }
-            )
-
-            // Asignamos el adaptador al ListView
-            ListViewDias?.adapter = adapter
-        } catch (e: Exception) {
-            Log.e("MostrarDatosHistoricos", "Error: ${e.message}")
-            e.printStackTrace()
-        }
-    }
 
 
     /**
@@ -582,25 +488,8 @@ class mayormenoractividad : AppCompatActivity() {
 
     }
 
-    /**
-     * Función para obtener el mes actual en formato string
-     * @return Mes actual formateado
-     *
-     */
-    fun obtenerMesActualEnFormatoString(): String {
-        val calendar = Calendar.getInstance()
-        val mesActual = calendar.get(Calendar.MONTH) + 1 // Se suma 1 porque en Calendar, los meses comienzan en 0
-        return String.format("%02d", mesActual)
-    }
-    /**
-     * Función para obtener el año actual en formato entero
-     * @return Año actual
-     *
-     */
-    fun obtenerAnioActual(): Int {
-        val calendar = Calendar.getInstance()
-        return calendar.get(Calendar.YEAR)
-    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -148,9 +148,9 @@ class MostrarComentarios : AppCompatActivity() {
 
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
+            val adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter2
 
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -275,8 +275,8 @@ class MostrarComentarios : AppCompatActivity() {
 
         try {
             val dateFecha = formato.parse(fecha)!!
-            val dateInicio = formato.parse(fechaInicio)!!
-            val dateFin = formato.parse(fechaFin)!!
+            val dateInicio = fechaInicio?.let { formato.parse(it) }!!
+            val dateFin = fechaFin?.let { formato.parse(it) }!!
 
             if (dateFecha.compareTo(dateInicio) >= 0 && dateFecha.compareTo(dateFin) <= 0) {
                 Log.d("Fecha correcta", "La fecha $fecha está entre $fechaInicio y $fechaFin")
