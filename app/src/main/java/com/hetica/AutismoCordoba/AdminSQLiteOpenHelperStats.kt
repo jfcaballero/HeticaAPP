@@ -207,6 +207,15 @@ class AdminSQLiteOpenHelperStats
 
         return listaDias
     }
+    fun borrarEstadisticasAsignatura(nombreAsignatura: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "$NAME = ?"
+        val whereArgs = arrayOf(nombreAsignatura)
+        val cantidad = db.delete(DB_TABLE, whereClause, whereArgs).toLong()
+        db.close()
+        return cantidad != -1L
+    }
+
 
     /**
      * Función para borrar la base de datos

@@ -86,6 +86,15 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         cursor.close()
         return commentsList
     }
+    fun borrarComentariosAsignatura(nombreAsignatura: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "$NAME = ?"
+        val whereArgs = arrayOf(nombreAsignatura)
+        val cantidad = db.delete(DB_TABLE, whereClause, whereArgs).toLong()
+        db.close()
+        return cantidad != -1L
+    }
+
 
     /**
      * Función para borrar los datos de la tabla
