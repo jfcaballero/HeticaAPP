@@ -168,10 +168,10 @@ class AdminSQLiteOpenHelperStats
      * @return listaDias
      */
     @SuppressLint("Range")
-    fun obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes: String, anyo: String): List<Pair<String, Int>> {
+    fun obtenerListaDiasHistorico(asignatura:String?): List<Pair<String, Int>> {
         val db = this.readableDatabase
 
-        val query = "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE DATE LIKE '%$mes/$anyo%' GROUP BY DATE ORDER BY TotalMinutes DESC"
+        val query = "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' GROUP BY DATE ORDER BY TotalMinutes DESC"
         Log.d("SQL_QUERY", "Query: $query")
 
 
@@ -183,10 +183,9 @@ class AdminSQLiteOpenHelperStats
                 val fecha = cursor.getString(cursor.getColumnIndex(DATE))
                 val totalMinutos = cursor.getInt(cursor.getColumnIndex("TotalMinutes"))
 
-                Log.d("Fecha y Min","$fecha y $totalMinutos")
+                Log.d("Fecha y Min Historico","$fecha y $totalMinutos")
 
                 // Asegurar que el día tiene dos dígitos
-                //var fechaaux=fecha
                 val parts = fecha.split("/")
                 val dia = parts[0].padStart(2, '0')
 
@@ -196,11 +195,11 @@ class AdminSQLiteOpenHelperStats
                 listaDias.add(dia to totalMinutos) // Añadir solo el día al par
 
                 // Agregar log para mostrar la fecha de cada item en la lista
-                Log.d("LIST_ITEM", "Fecha: $fecha, Día: $dia, TotalMinutos: $totalMinutos")
+                Log.d("LIST_ITEM Historico", "Fecha: $fecha, Día: $dia, TotalMinutos: $totalMinutos")
             } while (cursor.moveToNext())
         }
 
-        Log.d("CURSOR_COUNT", "Count: ${cursor.count}")
+        Log.d("CURSOR_COUNT Historico", "Count: ${cursor.count}")
 
         cursor.close()
         db.close()

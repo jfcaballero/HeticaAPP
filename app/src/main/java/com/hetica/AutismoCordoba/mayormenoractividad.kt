@@ -1,16 +1,22 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
 import android.app.ActivityOptions
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
@@ -18,14 +24,58 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
+import java.text.SimpleDateFormat
 import java.util.Calendar
-
+import java.util.Locale
 
 
 class mayormenoractividad : AppCompatActivity() {
+    /**
+     * The Stats Db.
+     */
+    var dbStats: AdminSQLiteOpenHelperStats? = null
+    /**
+     * The Stats Db.
+     */
+    var dbAsig: AdminSQLiteOpenHelperAsig? = null
+
+    /**
+     * The Array list.
+     */
+    var arrayList: ArrayList<String>? = null
+
+    /**
+     * The Adapter.
+     */
+    var adapter: ArrayAdapter<String>? = null
+
+    /**
+     * The Lv.
+     */
+    var lv: ListView? = null
+
+    /**
+     * Imagen para irnos al Main
+     */
+    var imageMain: ImageView?=null
+
+    var fechaInicio: EditText?=null
+
+    var fechaFin: EditText?=null
+
+    var asignaturaSeleccionada: String?=null
+
+    var ListViewDias: ListView?=null
+
+    var MinutosEnTotal: TextView?=null
+
+    var totalMinutos: Int = 0
+
+    private val calendar = Calendar.getInstance()
+
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var _binding: ActivityMayormenoractividadBinding? = null
     private val binding get() = _binding!!
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,74 +86,52 @@ class mayormenoractividad : AppCompatActivity() {
         imageMain=findViewById(R.id.botonMain)
         GoToMain()
 
-        val editTextYear = findViewById<EditText>(R.id.editTextYear)
+        fechaInicio = findViewById<View>(R.id.graficasActividadInicio) as EditText?
+        fechaFin = findViewById<View>(R.id.graficasActividadFin) as EditText?
+        dbStats = AdminSQLiteOpenHelperStats(this)
+        dbAsig = AdminSQLiteOpenHelperAsig(this)
 
-        // Obtener el año actual
-        val year = obtenerAnioActual()
+        // Configuración inicial de fechas
+        val fechaHoy = obtenerFechaActual()
+        val fechaManana = obtenerFechaManana()
 
-        // Establecer el valor por defecto en el EditText
-        editTextYear.setText(year.toString())
+        fechaInicio?.setText(fechaHoy)
+        fechaFin?.setText(fechaManana)
 
-
-        val meses = listOf("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12")
-        val mesActualEnFormatoString = obtenerMesActualEnFormatoString()
-        val spinner: Spinner = binding.selectormes
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, meses)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
-        // Obtener el índice del mes actual en la lista de meses
-        val index = meses.indexOf(mesActualEnFormatoString)
-        if (index != -1) {
-            spinner.setSelection(index) // Establecer la posición predeterminada del Spinner al índice del mes actual
+        // Asigna el OnClickListener a los EditText de fecha
+        fechaInicio?.setOnClickListener {
+            showDatePickerDialog(fechaInicio)
         }
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-                val selectedItem: String = parent.getItemAtPosition(pos).toString()
-                val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
-                val editTextYear2 = findViewById<EditText>(R.id.editTextYear)
-
-                val anyo = editTextYear2.text.toString()
-                if (anyo.isNotEmpty()) { // Asegurarse de que el EditText no esté vacío antes de obtener el valor del año
-
-                    obtenerDiasConMinutosEnUnMesAA(db, selectedItem, anyo)
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) { //No se hace nada
-            }
+        fechaFin?.setOnClickListener {
+            showDatePickerDialog(fechaFin)
         }
 
-        // Agregar el TextWatcher al EditText
-        editTextYear.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No se realiza ninguna acción antes de que cambie el texto
-            }
+        fechaInicio?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No se realiza ninguna acción durante el cambio de texto
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                val anyo = s.toString()
-                if (anyo.isNotEmpty()) {
-                    val yearValue = anyo.toInt()
-                    if (yearValue < 2023) {
-                        Toast.makeText(this@mayormenoractividad, "El año debe ser igual o superior a 2023", Toast.LENGTH_SHORT).show()
-                        return
-                    }else{
-                        val selectedItem = spinner.selectedItem.toString()
-                        val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
-
-                        obtenerDiasConMinutosEnUnMesAA(db, selectedItem, anyo)
-                    }
-
-                } else {
-                    Toast.makeText(this@mayormenoractividad, "Debe especificar el año de consulta", Toast.LENGTH_SHORT).show()
-                }
+                // Actualiza los datos al cambiar la fecha de inicio
+                mostrarDatosEnTiempoReal()
             }
         })
+
+        fechaFin?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                // Actualiza los datos al cambiar la fecha de fin
+                mostrarDatosEnTiempoReal()
+            }
+        })
+
+        mostrarAsignaturas()
+        mostrarOpcionesSpinner()
+
 
 
         val bottomNavigation = binding.bottomNavigationViewestadisticas
@@ -163,75 +191,318 @@ class mayormenoractividad : AppCompatActivity() {
 
     }
 
+
+    /**
+     * Función para mostrar los datos actuales teniendo en cuenta lo que esté configurado en el spinner
+     */
+    private fun mostrarDatosEnTiempoReal() {
+
+        val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
+        when (spinnerOpciones.selectedItem.toString()) {
+           // "Rango" -> mostrarDatosRango()
+            "Histórico" -> obtenerDiasConMinutosEnUnMesAAHistoricos()
+
+        }
+
+    }
+
+    /**
+     * Función para mostrar las funciones disponibles en el spinner
+     */
+    private fun mostrarOpcionesSpinner() {
+        val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
+
+        val opciones = listOf("Rango", "Histórico")
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinnerOpciones.adapter = adapter
+
+        spinnerOpciones.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val opcionSeleccionada = opciones[position]
+
+                when (opcionSeleccionada) {
+                    "Rango" -> {
+                        fechaInicio?.visibility = View.VISIBLE
+                        fechaFin?.visibility = View.VISIBLE
+                        //mostrarDatosRango()
+                    }
+                    "Histórico" -> {
+                        fechaInicio?.visibility = View.GONE
+                        fechaFin?.visibility = View.GONE
+                        obtenerDiasConMinutosEnUnMesAAHistoricos()
+                    }
+
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // No se realiza ninguna acción si no se selecciona nada
+            }
+        }
+    }
+
+
+
+
+
     /**
      * Función para mostrar en las gráficas los días con la cantidad de minutos para cada uno
      * @param db Instancia de la base de datos de estadísticas
      * @param mes Mes de los días de los que se quiere ver la cantidad de minutos
      * @param anyo Año de los días de los que se quiere ver la cantidad de minutos
      */
-    private fun obtenerDiasConMinutosEnUnMesAA(db: AdminSQLiteOpenHelperStats, mes: String, anyo: String) {
-
-        val aaChartViewmayor = findViewById<AAChartView>(R.id.aamayoractividad)
-        val aaChartViewmenor = findViewById<AAChartView>(R.id.aamenoractividad)
-        val listaDias = db.obtenerListaDiasOrdenadosPorMinutosEstudiadosEnUnMes(mes,anyo)
+    private fun obtenerDiasConMinutosEnUnMesAAHistoricos() {
+        val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
+        val asignaturaSeleccionada = asignaturaSeleccionada ?: return
+        val aaChartViewHistorico = findViewById<AAChartView>(R.id.aamayoractividad)
+        val listaDias = db.obtenerListaDiasHistorico(asignaturaSeleccionada)
 
         if (listaDias.isEmpty()) {
-            val mensaje = "No se encontraron resultados para el mes $mes, año $anyo"
+            val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
             Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
-            aaChartViewmayor.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
-            aaChartViewmenor.aa_drawChartWithChartModel(AAChartModel())
+            aaChartViewHistorico.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
         }
 
         val listaDiasOrdenados = listaDias.sortedByDescending { it.second } // Ordenar la lista por cantidad de minutos en orden descendente
-        val listaDiasTop4 = listaDiasOrdenados.take(4) // Obtener solo los 4 primeros elementos de la lista ordenada
-        val listaDiasTop4Asc = listaDiasOrdenados.takeLast(4) // Obtener los 4 últimos elementos de la lista ordenada
 
+        val listaDiasFloat = listaDiasOrdenados.map { it.first to it.second.toFloat() }
 
+        val dataHistorico = generateAreaChartData(listaDiasFloat)
 
-        val listaDiasFloat = listaDiasTop4.map { it.first to it.second.toFloat() }
-        val listaDiasFloatAsc = listaDiasTop4Asc.map { it.first to it.second.toFloat() }
-
-        val datamayor = generateAreaChartData(listaDiasFloat)
-        val datamenor = generateAreaChartData(listaDiasFloatAsc)
-
-        val aaChartModelMayor : AAChartModel = AAChartModel()
+        val aaChartModelHistorico : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
-            .title("Días de mayor actividad")
-            .subtitle("Mes $mes de $anyo")
+            .title("Días de actividad")
+            .subtitle("Histórico")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
             .xAxisReversed(true)
             .yAxisTitle("Minutos del día")
-            .categories(datamayor.map { it.first }.toTypedArray())
+            .categories(dataHistorico.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
                     .name("Minutos")
-                    .data(datamayor.map { it.second }.toTypedArray())
+                    .data(dataHistorico.map { it.second }.toTypedArray())
             )
             )
-        val aaChartModelMenor : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Bar)
-            .title("Días de menor actividad")
-            .subtitle("Mes $mes de $anyo")
-            .backgroundColor("#d8fcf2")
-            .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
-            .dataLabelsEnabled(true)
-            .xAxisReversed(true)
-            .yAxisTitle("Minutos del día")
-            .categories(datamenor.map { it.first }.toTypedArray())
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("Minutos")
-                    .data(datamenor.map { it.second }.toTypedArray())
-            )
-            )
+
 
         // Dibuja el gráfico con el modelo configurado
-        aaChartViewmayor.aa_drawChartWithChartModel(aaChartModelMayor)
-        aaChartViewmenor.aa_drawChartWithChartModel(aaChartModelMenor)
+        aaChartViewHistorico.aa_drawChartWithChartModel(aaChartModelHistorico)
 
+    }
+
+
+    /**
+     * Función para mostrar la fecha y los minutos totales en la lista en un rango de dos fechas
+     */
+    @SuppressLint("Range")
+    private fun mostrarDatosRango() {
+        try {
+            totalMinutos = 0
+
+            // Obtemos la asignatura seleccionada del Spinner
+            val asignaturaSeleccionada = asignaturaSeleccionada ?: return
+            val fechaInicioSeleccionada = fechaInicio?.text.toString()
+            val fechaFinSeleccionada = fechaFin?.text.toString()
+
+            // Cursor con los datos en el rango de fechas y para la asignatura seleccionada
+            val cursor = dbStats?.viewDataRangoAsignatura(fechaInicioSeleccionada, fechaFinSeleccionada, asignaturaSeleccionada)
+                ?: return
+
+            // Lista para almacenar pares de fecha y minutos totales
+            val datosRango = mutableListOf<Pair<String, Int>>()
+
+            // Iteramos sobre el cursor y agrega los datos a la lista
+            if (cursor.moveToFirst()) {
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
+                    Log.d("Rango asig", name)
+                    val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
+                    val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
+                    totalMinutos += minutosTotales
+                    datosRango.add(fecha to minutosTotales)
+                } while (cursor.moveToNext())
+            }
+
+            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
+
+            // Adaptador para el ListView
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                datosRango.map { "${it.first}: ${it.second} minutos" }
+            )
+
+            // Asignamos el adaptador al ListView
+            ListViewDias?.adapter = adapter
+        } catch (e: Exception) {
+            Log.e("MostrarDatosRango", "Error: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * Función para mostrar la fecha y los minutos totales en la lista desde siempre
+     */
+    @SuppressLint("Range")
+    private fun mostrarDatosHistoricos() {
+        try {
+            totalMinutos=0
+            // Obtemos la asignatura seleccionada del Spinner
+            val asignaturaSeleccionada = asignaturaSeleccionada ?: return
+
+            // Cursor con los datos históricos
+            val cursor = dbStats?.viewDataHistorico(asignaturaSeleccionada) ?: return
+
+            // Lista para almacenar pares de fecha y minutos totales
+            val datosHistoricos = mutableListOf<Pair<String, Int>>()
+
+
+            // Iteramos sobre el cursor y agrega los datos a la lista
+            if (cursor.moveToFirst()) {
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
+                    Log.d("Historico asig",name)
+                    val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
+                    val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
+                    totalMinutos += minutosTotales
+                    datosHistoricos.add(fecha to minutosTotales)
+                } while (cursor.moveToNext())
+            }
+            MinutosEnTotal?.text = "Total: $totalMinutos minutos"
+
+            // Adaptador para el ListView
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_list_item_1,
+                datosHistoricos.map { "${it.first}: ${it.second} minutos" }
+            )
+
+            // Asignamos el adaptador al ListView
+            ListViewDias?.adapter = adapter
+        } catch (e: Exception) {
+            Log.e("MostrarDatosHistoricos", "Error: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+
+
+    /**
+     * Función para mostrar los datos en función del spinner seleccionado
+     */
+    private fun mostrarAsignaturas() {
+        val spinner: Spinner = findViewById(R.id.graficasActividadAsig)
+        val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
+
+        // Obtenemos la lista de asignaturas desde la base de datos
+        val asignaturasList = dbAsig?.getAsignaturasList()
+        if (asignaturasList != null) {
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+
+            // Establecemos el listener para el evento de clic del Spinner
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
+
+                    // Llamamos a la función correspondiente según la opción seleccionada en el Spinner de opciones
+                    when (spinnerOpciones.selectedItem.toString()) {
+                       // "Rango" -> mostrarDatosRango()
+                        "Histórico" -> obtenerDiasConMinutosEnUnMesAAHistoricos()
+
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // No se realiza ninguna acción si no se selecciona nada
+                }
+            }
+
+        }
+    }
+
+
+
+    /**
+     * Función para obtener la fecha de hoy
+     * @return Fecha formateada
+     *
+     */
+    fun obtenerFechaActual(): String {
+        val calendario = Calendar.getInstance()
+        val year = calendario.get(Calendar.YEAR)
+        val month = calendario.get(Calendar.MONTH) + 1
+        val day = calendario.get(Calendar.DAY_OF_MONTH)
+
+        val mesFormateado = if (month < 10) "0$month" else month.toString()
+        val diaFormateado = if (day < 10) "0$day" else day.toString()
+
+        return "$diaFormateado/$mesFormateado/$year"
+    }
+    /**
+     * Función para obtener la fecha de mañana
+     *@return Fecha formateada
+     */
+    fun obtenerFechaManana(): String {
+        val calendario = Calendar.getInstance()
+        calendario.add(Calendar.DAY_OF_MONTH, 1)  // Añadir un día
+
+        val year = calendario.get(Calendar.YEAR)
+        val month = calendario.get(Calendar.MONTH) + 1
+        val day = calendario.get(Calendar.DAY_OF_MONTH)
+
+        val mesFormateado = if (month < 10) "0$month" else month.toString()
+        val diaFormateado = if (day < 10) "0$day" else day.toString()
+
+        return "$diaFormateado/$mesFormateado/$year"
+    }
+
+    /**
+     * Función para mostrar el DatePickerDialog
+     * @param editText Edit Text de la fecha
+     */
+
+    private fun showDatePickerDialog(editText: EditText?) {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                // Actualizamos el calendario con la nueva fecha seleccionada
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+
+                // Formateamos la fecha y actualiza el texto del EditText
+                val formattedDate = formatDate(selectedYear, selectedMonth + 1, selectedDay)
+                editText?.setText(formattedDate)
+
+            },
+            year,
+            month,
+            day
+        )
+
+        // Muestra el DatePickerDialog
+        datePickerDialog.show()
+    }
+
+    /**
+     * Función para formatear la fecha
+     * @param year Año como entero
+     * @param month Mes como entero
+     * @param day Día como entero
+     * @return Fecha formateada
+     */
+    private fun formatDate(year: Int, month: Int, day: Int): String {
+        calendar.set(year, month - 1, day)
+        return dateFormat.format(calendar.time)
     }
 
     /**
