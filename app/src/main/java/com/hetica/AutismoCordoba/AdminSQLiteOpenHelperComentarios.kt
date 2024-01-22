@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -68,6 +69,7 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
      * @param asignatura Nombre de la asignatura
      * @return Lista de pares Fecha-comentario
      */
+    @SuppressLint("Range")
     fun getCommentsForSubject(asignatura: String): List<Pair<String, String>> {
         val db = this.readableDatabase
         val query = "SELECT $DATE, $COMMENTS FROM $DB_TABLE WHERE $NAME = ?"

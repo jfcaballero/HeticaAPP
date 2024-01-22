@@ -199,6 +199,7 @@ class MostrarComentarios : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("Range")
     private fun viewData(
         asignaturaSeleccionada: String?,
         fechaInicio: String? = obtenerFechaActual(),
