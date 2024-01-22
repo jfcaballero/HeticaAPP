@@ -24,6 +24,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -71,11 +72,14 @@ class mayormenoractividad : AppCompatActivity() {
 
     var totalMinutos: Int = 0
 
+    var textoDeDia:TextView?=null
+
     private val calendar = Calendar.getInstance()
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var _binding: ActivityMayormenoractividadBinding? = null
     private val binding get() = _binding!!
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +94,8 @@ class mayormenoractividad : AppCompatActivity() {
         fechaFin = findViewById<View>(R.id.graficasActividadFin) as EditText?
         dbStats = AdminSQLiteOpenHelperStats(this)
         dbAsig = AdminSQLiteOpenHelperAsig(this)
+        textoDeDia=findViewById(R.id.textoDeDia)
+        textoDeDia?.visibility=View.VISIBLE
 
         // Configuración inicial de fechas
         val fechaHoy = obtenerFechaActual()
@@ -199,8 +205,8 @@ class mayormenoractividad : AppCompatActivity() {
 
         val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
         when (spinnerOpciones.selectedItem.toString()) {
-           // "Rango" -> mostrarDatosRango()
-            "Histórico" -> obtenerDiasConMinutosEnUnMesAAHistoricos()
+            "Rango" ->  obtenerGrafica(1)
+            "Histórico" -> obtenerGrafica(2)
 
         }
 
@@ -227,12 +233,12 @@ class mayormenoractividad : AppCompatActivity() {
                     "Rango" -> {
                         fechaInicio?.visibility = View.VISIBLE
                         fechaFin?.visibility = View.VISIBLE
-                        //mostrarDatosRango()
+                        obtenerGrafica(1)
                     }
                     "Histórico" -> {
                         fechaInicio?.visibility = View.GONE
                         fechaFin?.visibility = View.GONE
-                        obtenerDiasConMinutosEnUnMesAAHistoricos()
+                        obtenerGrafica(2)
                     }
 
                 }
@@ -249,50 +255,54 @@ class mayormenoractividad : AppCompatActivity() {
 
 
     /**
-     * Función para mostrar en las gráficas los días con la cantidad de minutos para cada uno
-     * @param db Instancia de la base de datos de estadísticas
-     * @param mes Mes de los días de los que se quiere ver la cantidad de minutos
-     * @param anyo Año de los días de los que se quiere ver la cantidad de minutos
+     * Función para mostrar en la gráficas los días con la cantidad de minutos para cada uno (histórico)
      */
-    private fun obtenerDiasConMinutosEnUnMesAAHistoricos() {
+    private fun obtenerGrafica(opcion:Int) {
         val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
         val asignaturaSeleccionada = asignaturaSeleccionada ?: return
-        val aaChartViewHistorico = findViewById<AAChartView>(R.id.aamayoractividad)
-        val listaDias = db.obtenerListaDiasHistorico(asignaturaSeleccionada)
+        val fechaInicial = fechaInicio?.text.toString()
+        val fechaFinal = fechaFin?.text.toString()
+
+
+        val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
+        val listaDias = db.obtenerListaDias(asignaturaSeleccionada,opcion,fechaInicial,fechaFinal)
 
         if (listaDias.isEmpty()) {
             val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
+            textoDeDia?.visibility=View.INVISIBLE
             Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
-            aaChartViewHistorico.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
+            aaChartViewGrafica.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
+        }else{
+            textoDeDia?.visibility=View.VISIBLE
         }
 
-        val listaDiasOrdenados = listaDias.sortedByDescending { it.second } // Ordenar la lista por cantidad de minutos en orden descendente
+        val listaDiasOrdenados = listaDias.sortedByDescending { it.first } // Ordenar la lista por cantidad de minutos en orden descendente
 
         val listaDiasFloat = listaDiasOrdenados.map { it.first to it.second.toFloat() }
 
-        val dataHistorico = generateAreaChartData(listaDiasFloat)
+        val dataGrafica = generateAreaChartData(listaDiasFloat)
 
-        val aaChartModelHistorico : AAChartModel = AAChartModel()
+        val aaChartModelGrafica : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
             .title("Días de actividad")
-            .subtitle("Histórico")
+            //.subtitle("Histórico")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
             .xAxisReversed(true)
             .yAxisTitle("Minutos del día")
-            .categories(dataHistorico.map { it.first }.toTypedArray())
+            .categories(dataGrafica.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
                     .name("Minutos")
-                    .data(dataHistorico.map { it.second }.toTypedArray())
+                    .data(dataGrafica.map { it.second }.toTypedArray())
             )
             )
 
 
         // Dibuja el gráfico con el modelo configurado
-        aaChartViewHistorico.aa_drawChartWithChartModel(aaChartModelHistorico)
+        aaChartViewGrafica.aa_drawChartWithChartModel(aaChartModelGrafica)
 
     }
 
@@ -413,8 +423,8 @@ class mayormenoractividad : AppCompatActivity() {
 
                     // Llamamos a la función correspondiente según la opción seleccionada en el Spinner de opciones
                     when (spinnerOpciones.selectedItem.toString()) {
-                       // "Rango" -> mostrarDatosRango()
-                        "Histórico" -> obtenerDiasConMinutosEnUnMesAAHistoricos()
+                        "Rango" ->  obtenerGrafica(1)
+                        "Histórico" -> obtenerGrafica(2)
 
                     }
                 }

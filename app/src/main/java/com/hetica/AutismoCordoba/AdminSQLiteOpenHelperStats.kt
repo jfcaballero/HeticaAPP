@@ -163,15 +163,32 @@ class AdminSQLiteOpenHelperStats
     /**
      * Función para obtener una lista con días y el total de minutos que se dedicaron en cada día.
      *
-     * @param mes Mes del día que devolvemos
-     * @param anyo Año del día que devolvemos
      * @return listaDias
      */
     @SuppressLint("Range")
-    fun obtenerListaDiasHistorico(asignatura:String?): List<Pair<String, Int>> {
+    fun obtenerListaDias(asignatura:String?,opcion:Int?, fechaInicial: String? = null, fechaFinal: String? = null): List<Pair<String, Int>> {
         val db = this.readableDatabase
+        if (fechaInicial != null) {
+            Log.d("Fecha Inicial: ",fechaInicial)
+        }
+        if (fechaFinal != null) {
+            Log.d("Fecha Final: ",fechaFinal)
+        }
 
-        val query = "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' GROUP BY DATE ORDER BY TotalMinutes DESC"
+        val query: String = when (opcion) {
+            1 -> { //rango
+                "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' AND DATE BETWEEN '$fechaInicial' AND '$fechaFinal' GROUP BY DATE"
+
+            }
+            2 -> { //historico
+                "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' GROUP BY DATE"
+            }
+            else -> {
+                // Otra opción: mes
+                "SELECT DATE, SUM(TIME) as TotalMinutes FROM $DB_TABLE WHERE NAME = '$asignatura' GROUP BY DATE ORDER BY TotalMinutes DESC"
+            }
+        }
+
         Log.d("SQL_QUERY", "Query: $query")
 
 
@@ -181,9 +198,10 @@ class AdminSQLiteOpenHelperStats
         if (cursor.moveToFirst()) {
             do {
                 val fecha = cursor.getString(cursor.getColumnIndex(DATE))
+                Log.d("Asi son las fechas: ",fecha)
                 val totalMinutos = cursor.getInt(cursor.getColumnIndex("TotalMinutes"))
 
-                Log.d("Fecha y Min Historico","$fecha y $totalMinutos")
+                Log.d("Fecha y Min","$fecha y $totalMinutos")
 
                 // Asegurar que el día tiene dos dígitos
                 val parts = fecha.split("/")
@@ -192,10 +210,10 @@ class AdminSQLiteOpenHelperStats
 
                 //val mes = fecha.substring()
 
-                listaDias.add(dia to totalMinutos) // Añadir solo el día al par
+                listaDias.add(fecha to totalMinutos) // Añadir solo el día al par
 
                 // Agregar log para mostrar la fecha de cada item en la lista
-                Log.d("LIST_ITEM Historico", "Fecha: $fecha, Día: $dia, TotalMinutos: $totalMinutos")
+                Log.d("LIST_ITEM", "Fecha: $fecha, Día: $dia, TotalMinutos: $totalMinutos")
             } while (cursor.moveToNext())
         }
 
