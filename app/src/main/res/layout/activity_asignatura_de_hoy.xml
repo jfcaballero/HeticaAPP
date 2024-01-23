@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,10 +22,12 @@
 
     <ListView
         android:id="@+id/asignaturasdehoy"
-        android:layout_width="558dp"
-        android:layout_height="241dp"
+        android:layout_width="566dp"
+        android:layout_height="200dp"
         android:layout_marginTop="12dp"
         android:background="#FFFFFF"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,20 +51,6 @@
         app:tint="#232323" />
 
     <Button
-        android:id="@+id/asignaturaDeHoyComenzar"
-        android:layout_width="117dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/String_comenzar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/asignaturasdehoy"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
         android:id="@+id/asignaturaDeHoySalir"
         android:layout_width="117dp"
         android:layout_height="53dp"
@@ -76,6 +63,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/asignaturaDeHoyComenzar"
         app:layout_constraintTop_toBottomOf="@+id/asignaturasdehoy"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/asignaturaDeHoyComenzar"
+        android:layout_width="117dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/String_comenzar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturasdehoy"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

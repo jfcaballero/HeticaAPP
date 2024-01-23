@@ -39,6 +39,8 @@ var asignaturasCalendarioBD: MutableList<String>? = null
  */
 var adapterEditarCalendario: ArrayAdapter<String>? = null
 
+var MinutosAsignatura: EditText?=null
+
 
 class EditarCalendario : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -51,17 +53,19 @@ class EditarCalendario : AppCompatActivity() {
         listViewAsignaturasDeUnDia = findViewById(R.id.listViewCalendarioAsignaturas)
         val spinner: Spinner = findViewById(R.id.asignaturasCalendario)
         addAsignaturaCalendario=findViewById(R.id.addAsignaturaCalendario)
+        MinutosAsignatura=findViewById(R.id.calendarioMinutosAsignatura)
+
 
 
         addAsignaturaCalendario?.setOnClickListener {
             val asignaturaSeleccionada = spinner.selectedItem as String
-            if(validateDate(yearFinal)){
-                addAsignatura(asignaturaSeleccionada, yearFinal!!)
-            }else{
-                Toast.makeText(this, "Introduce una fecha en formato dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
+            val minutosAsignatura = MinutosAsignatura?.text.toString().toIntOrNull()
 
+            if (validateDate(yearFinal) && minutosAsignatura != null) {
+                addAsignatura(asignaturaSeleccionada, yearFinal!!, minutosAsignatura)
+            } else {
+                Toast.makeText(this, "Introduce una fecha válida y minutos para la asignatura.", Toast.LENGTH_SHORT).show()
             }
-
         }
         listViewAsignaturasDeUnDia?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             deleteAsignatura(position, yearFinal!!)
@@ -148,12 +152,12 @@ class EditarCalendario : AppCompatActivity() {
      * @param dateString Fecha de la asignatura
      *
      */
-    private fun addAsignatura(asignaturaSeleccionada: String, dateString: String) {
-        val success = dbCalendario?.insertData(dateString, listOf(asignaturaSeleccionada))
+    private fun addAsignatura(asignaturaSeleccionada: String, dateString: String, minutos: Int) {
+        val success = dbCalendario?.insertData(dateString, listOf(asignaturaSeleccionada to minutos))
         if (success == true) {
-            //Toast.makeText(this, "Se ha añadido la asignatura correctamente", Toast.LENGTH_SHORT).show()
             // Actualizar la lista de asignaturas mostrada
             viewData(dateString)
+            MinutosAsignatura?.text?.clear()
         } else {
             Toast.makeText(this, "Ha ocurrido un error al añadir la asignatura", Toast.LENGTH_SHORT).show()
         }
@@ -165,10 +169,10 @@ class EditarCalendario : AppCompatActivity() {
      *
      */
     private fun viewData(dateString: String) {
-        asignaturasCalendarioBD = dbCalendario?.getAsignaturasForDay(dateString) as MutableList<String>?
+        val asignaturasList = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
 
-        if (!asignaturasCalendarioBD.isNullOrEmpty()) {
-            val adapter = ArrayAdapter(this, R.layout.list_item_layout, asignaturasCalendarioBD!!)
+        if (!asignaturasList.isNullOrEmpty()) {
+            val adapter = ArrayAdapter(this, R.layout.list_item_layout, asignaturasList.map { "${it.first} - ${it.second} minutos" })
             listViewAsignaturasDeUnDia?.adapter = adapter
             adapterEditarCalendario = adapter
             adapter.notifyDataSetChanged()
@@ -177,6 +181,9 @@ class EditarCalendario : AppCompatActivity() {
             //Toast.makeText(this, "No hay asignaturas para el día seleccionado", Toast.LENGTH_LONG).show()
         }
     }
+
+
+
     /**
      * Función para gestionar el borrar una asignatura dada la posición en la lista y la fecha
      * @param position Posición de la asignatura en la lista

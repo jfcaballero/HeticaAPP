@@ -97,30 +97,23 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH) + 1 // Suma 1 ya que enero es 0
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val dateString = String.format("%02d%02d%d", month, day, year)
-        //val dateFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault())
-        //dbCalendario?.borrarTabla()
 
-        asignaturasList = dbCalendario?.getAsignaturasForDay(dateString) as MutableList<String>?
-        if (!asignaturasList.isNullOrEmpty()) {
-            val adapter = ArrayAdapter(this, R.layout.list_item_layout, asignaturasList!!)
+        val asignaturasListWithMinutos = dbCalendario?.getAsignaturasForDayWithMinutos(dateString) as MutableList<Pair<String, Int>>?
+
+        val displayList = asignaturasListWithMinutos?.map { "${it.first} - ${it.second} minutos" }?.toMutableList()
+
+        if (!displayList.isNullOrEmpty()) {
+            val adapter = CalendarioArrayAdapter(this, R.layout.list_item_checkbox_calendario, displayList)
             calendarioListView?.adapter = adapter
             adapterCalendario = adapter
-            adapter.notifyDataSetChanged()
         } else {
-            //Toast.makeText(this, "No hay asignaturas para hoy", Toast.LENGTH_LONG).show()
+            calendarioListView?.adapter = ArrayAdapter<String>(this, R.layout.list_item_checkbox_calendario, emptyList<String>())
         }
-
-        /*
-        val asignaturasInsertar = listOf("lengua", "mates")
-        val success = dbCalendario?.insertData(dateString, asignaturasInsertar)
-
-        if (success == true) {
-            Toast.makeText(this, "Se ha insertado correctamente", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Ha ocurrido un error al insertar", Toast.LENGTH_SHORT).show()
-        }*/
-
     }
+
+
+
+
     override fun onResume() {
         super.onResume()
         viewData()
