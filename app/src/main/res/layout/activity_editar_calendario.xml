@@ -9,34 +9,50 @@
 
     <TextView
         android:id="@+id/textView72"
-        android:layout_width="310dp"
-        android:layout_height="40dp"
-        android:text="Dia de la semana"
+        android:layout_width="127dp"
+        android:layout_height="43dp"
+        android:text="Fecha"
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="127dp"
+        android:layout_height="43dp"
+        android:text="Minutos"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.838"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.062" />
 
     <TextView
         android:id="@+id/textView73"
-        android:layout_width="381dp"
-        android:layout_height="47dp"
-        android:text="Asignaturas disponibles"
+        android:layout_width="177dp"
+        android:layout_height="52dp"
+        android:text="Asignaturas"
         android:textColor="#FFFFFF"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289" />
+        app:layout_constraintVertical_bias="0.294" />
 
     <TextView
         android:id="@+id/textView74"
@@ -68,14 +84,14 @@
 
     <EditText
         android:id="@+id/FechaCalendario"
-        android:layout_width="234dp"
-        android:layout_height="48dp"
+        android:layout_width="159dp"
+        android:layout_height="54dp"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Fecha"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView72" />
 
@@ -117,5 +133,18 @@
         app:layout_constraintHorizontal_bias="0.173"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+    <EditText
+        android:id="@+id/editTextNumberDecimal"
+        android:layout_width="132dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/FechaCalendario"
+        app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

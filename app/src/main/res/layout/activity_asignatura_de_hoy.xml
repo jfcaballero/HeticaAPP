@@ -23,8 +23,8 @@
 
     <ListView
         android:id="@+id/asignaturasdehoy"
-        android:layout_width="562dp"
-        android:layout_height="267dp"
+        android:layout_width="558dp"
+        android:layout_height="241dp"
         android:layout_marginTop="12dp"
         android:background="#FFFFFF"
         android:textAlignment="textEnd"
@@ -48,5 +48,34 @@
         app:layout_constraintVertical_bias="0.044"
         app:srcCompat="@android:drawable/ic_menu_edit"
         app:tint="#232323" />
+
+    <Button
+        android:id="@+id/asignaturaDeHoyComenzar"
+        android:layout_width="117dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/String_comenzar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturasdehoy"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/asignaturaDeHoySalir"
+        android:layout_width="117dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Salir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/asignaturaDeHoyComenzar"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturasdehoy"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
