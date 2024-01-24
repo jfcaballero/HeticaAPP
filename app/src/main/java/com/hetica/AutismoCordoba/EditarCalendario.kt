@@ -41,7 +41,7 @@ var adapterEditarCalendario: ArrayAdapter<String>? = null
 
 var MinutosAsignatura: EditText?=null
 
-
+var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
 class EditarCalendario : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {

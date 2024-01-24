@@ -229,8 +229,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AsignaturaDeHoy::class.java)
             startActivity(intent)
         }
-
     }
+
     /**
      * Pasar a la pantalla de "Organizar el Estudio"
      *
