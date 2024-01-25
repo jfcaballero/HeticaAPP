@@ -96,16 +96,23 @@ class AsignaturaDeHoy : AppCompatActivity() {
                     putExtra("actAsig", "1")  // Actividad de la asignatura actual
                     putExtra("numAsig", "1")  // Número total de asignaturas (1 siempre)
                 }
-                startActivity(intent)
+
 
                 startActivity(intent)
+                dbCalendario?.deleteAsignaturaByPosition(position, getDateAsString())
             } else {
                 showToast("Selecciona un único elemento")
             }
         }
     }
 
-
+    private fun getDateAsString(): String {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        return String.format("%02d%02d%d", month, day, year)
+    }
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
