@@ -88,9 +88,16 @@ class AsignaturaDeHoy : AppCompatActivity() {
             Log.d("lastcheckpos", adapter.lastCheckedPosition.toString())
             val position = adapter.lastCheckedPosition
             if (position != -1) {
-                val intent = Intent(this@AsignaturaDeHoy, temporizadorUnico::class.java)
-                intent.putExtra("asig", asignaturasList?.get(position)?.first)
-                intent.putExtra("minutos", asignaturasList?.get(position)?.second)
+
+                val intent = Intent(this, TimerSimple::class.java).apply {
+                    Log.d("Minutos:", asignaturasList?.get(position)?.second.toString())
+                    putExtra("time", asignaturasList?.get(position)?.second.toString())  // Tiempo en minutos como una cadena
+                    putExtra("asig", asignaturasList?.get(position)?.first)  // Nombre de la asignatura
+                    putExtra("actAsig", "1")  // Actividad de la asignatura actual
+                    putExtra("numAsig", "1")  // Número total de asignaturas (1 siempre)
+                }
+                startActivity(intent)
+
                 startActivity(intent)
             } else {
                 showToast("Selecciona un único elemento")
