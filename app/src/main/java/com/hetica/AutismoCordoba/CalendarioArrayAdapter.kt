@@ -14,8 +14,8 @@ class CalendarioArrayAdapter(
     objects: MutableList<String>
 ) : ArrayAdapter<String>(context, resource, objects) {
 
-    private val checkedItems = SparseBooleanArray()
-    private var lastCheckedPosition = -1
+    var lastCheckedPosition = -1
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView = convertView ?: inflater.inflate(R.layout.list_item_checkbox_calendario, parent, false)
@@ -26,23 +26,26 @@ class CalendarioArrayAdapter(
         val itemText = getItem(position) ?: ""
         textView.text = itemText
 
+        // Establecer el estado del CheckBox y el evento de clic
         checkBox.isChecked = position == lastCheckedPosition
-
-        checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                lastCheckedPosition = position
-                notifyDataSetChanged()
-            }
-
+        checkBox.setOnClickListener {
+            handleItemClick(position)
         }
 
         return rowView
     }
 
+    private fun handleItemClick(position: Int) {
+        // Desmarcar el elemento anteriormente seleccionado
+        if (lastCheckedPosition != -1) {
+            getItem(lastCheckedPosition)?.let {
+                notifyDataSetInvalidated()
+            }
+        }
 
-
-
-    fun getCheckedItems(): SparseBooleanArray {
-        return checkedItems
+        // Marcar el nuevo elemento seleccionado
+        lastCheckedPosition = position
+        notifyDataSetChanged()
     }
+
 }

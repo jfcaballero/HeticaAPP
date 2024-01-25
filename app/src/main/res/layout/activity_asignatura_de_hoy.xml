@@ -29,6 +29,7 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
         android:textAlignment="textEnd"
+        android:choiceMode="multipleChoice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.274"
