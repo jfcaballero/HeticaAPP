@@ -28,14 +28,32 @@ class CalendarioArrayAdapter(
         val itemText = getItem(position) ?: ""
         textView.text = itemText
 
+        // Verificar si el elemento está marcado como estudiado
+        val isStudied = isStudied(position)
+
+        // Si está estudiado, deshabilitar el CheckBox
+        checkBox.isEnabled = !isStudied
+
         // Establecer el estado del CheckBox y el evento de clic
         checkBox.isChecked = checkedPositions.get(position, false)
         checkBox.setOnClickListener {
-            handleItemClick(position)
+            if (!isStudied) {
+                handleItemClick(position)
+            }
         }
 
         return rowView
     }
+
+    // Método para verificar si el elemento en la posición dada está marcado como estudiado
+    private fun isStudied(position: Int): Boolean {
+        // Obtener el texto del elemento en la posición dada
+        val itemText = getItem(position)
+
+        // Verificar si el texto contiene "Estudiado: Sí"
+        return itemText?.contains("Estudiado: Sí") ?: false
+    }
+
 
     private fun handleItemClick(position: Int) {
         // Desmarcar el elemento anteriormente seleccionado
