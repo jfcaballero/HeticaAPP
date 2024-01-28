@@ -83,4 +83,15 @@
     <string name="para_poder_acceder_a_las_funcionalidades_de_la_aplicaci_n_a_ada_al_menos_una_asignatura_en_el_men_de_opciones">Para poder acceder a las funcionalidades de la aplicación, añada al menos una asignatura en el menú de opciones.</string>
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
     <string name="comentar_estudio">Comentar estudio</string>
+    <string name="texto_ayuda">
+        - Mostrar temporizador al inicio: Activa la opción de estudiar 1 asignatura desde el menú principal.\n\n
+        - Tiempo de trabajo fijo: Al activar el switch, al estudiar una asignatura el tiempo que se establezca
+        en la barra será el que siempre tenga. Pulse "Guardar" para establecerlo. Al desactivarlo, podrá elegir el tiempo
+        en el momento del estudio (siempre 30 minutos como mínimo).\n\n
+        - Gestionar asignaturas: Desde aquí puede introducir, modificar el nombre o eliminar una asignatura. También puede visualizar todas las creadas.\n\n
+        - Pausar temporizador: Habilita la opción para poder pausar el temporizador durante la fase de estudio.\n\n
+        - Habilitar finalizar: Al activarlo, permite al usuario que pueda finalizar la sesión de estudio sin necesidad de esperar a que termine el temporizador.\n\n
+        - Modo concentración: Al habilitarse, no permitirá que ninguna notificación sea recibida. La primera vez
+        deberá conceder los permisos a HETICA para su uso.\n\n</string>
+
 </resources>

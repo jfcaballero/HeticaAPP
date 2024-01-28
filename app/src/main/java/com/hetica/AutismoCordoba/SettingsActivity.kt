@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
@@ -28,13 +29,16 @@ import java.util.Calendar
 /**
  * The type Settings activity.
  */
+
 class SettingsActivity : AppCompatActivity() {
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         seekBar = findViewById<View>(R.id.seekBar4) as SeekBar
         textView = findViewById<View>(R.id.textView46) as TextView
+        ayudaOpciones=findViewById(R.id.ayudaOpciones)
         Switch = findViewById<View>(R.id.switch3) as Switch
         SwitchTemp = findViewById<View>(R.id.switch1) as Switch
         SwitchPausa = findViewById<View>(R.id.switch2) as Switch
@@ -48,6 +52,12 @@ class SettingsActivity : AppCompatActivity() {
         }
         read()
 
+        // Mostrar el cuadro de diálogo flotante de ayuda
+        val textoAyuda = resources.getString(R.string.texto_ayuda)
+        ayudaOpciones?.setOnClickListener {
+
+            mostrarCuadroFlotante(textoAyuda)
+        }
 
         if (Switch!!.isChecked) {
             seekBar!!.isEnabled = true
@@ -176,6 +186,16 @@ class SettingsActivity : AppCompatActivity() {
 
         setupSwitchConcentracionListener()
 
+    }
+    private fun mostrarCuadroFlotante(texto: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(texto)
+            .setTitle("Ayuda de opciones") // Título del cuadro de diálogo
+            .setPositiveButton("Entendido") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     /**
@@ -483,6 +503,10 @@ class SettingsActivity : AppCompatActivity() {
          * The constant textView.
          */
         var textView: TextView? = null
+        /**
+         * El texto de ayuda con la leyenda
+         */
+        var ayudaOpciones: TextView?=null
 
         /**
          * The constant Switch.
