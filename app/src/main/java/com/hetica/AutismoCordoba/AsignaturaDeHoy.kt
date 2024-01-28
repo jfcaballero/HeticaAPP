@@ -68,43 +68,64 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val dateString = String.format("%02d%02d%d", month, day, year)
 
-        asignaturasList = dbCalendario?.getAsignaturasForDayWithMinutos(dateString) as MutableList<Pair<String, Int>>?
+        val asignaturasData = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
         adapter.clear()
-        if (!asignaturasList.isNullOrEmpty()) {
-            val displayList = asignaturasList?.map { "${it.first} - ${it.second} minutos" }?.toMutableList() ?: mutableListOf()
-            adapter = CalendarioArrayAdapter(this, R.layout.list_item_checkbox, displayList)
-            calendarioListView?.adapter = adapter
+
+        if (!asignaturasData.isNullOrEmpty()) {
+            val displayList = mutableListOf<String>()
+            for (asignaturaData in asignaturasData) {
+                val displayText = "${asignaturaData.first} - ${asignaturaData.second} minutos - Estudiado: ${if (asignaturaData.third == 1) "Sí" else "No"}"
+                displayList.add(displayText)
+                if (asignaturaData.third == 1) { // Si la asignatura está estudiada, desactivar la interacción
+                    val position = displayList.size - 1
+                    adapter.checkedPositions.put(position, true)
+                }
+            }
+            adapter.addAll(displayList)
         } else {
             calendarioListView?.adapter = null
         }
-        adapter.notifyDataSetChanged() // Notificar al adaptador de los cambios
-        Log.d("Asignaturas", asignaturasList.toString())
+        adapter.notifyDataSetChanged()
+        Log.d("Asignaturas", asignaturasData.toString())
     }
+
+
 
 
 
     private fun comenzarSesion() {
         ComenzarSesion?.setOnClickListener {
-            Log.d("lastcheckpos", adapter.lastCheckedPosition.toString())
             val position = adapter.lastCheckedPosition
             if (position != -1) {
+                val asignaturaData = adapter.getItem(position)
+                val minutos = asignaturaData?.split(" ")?.get(2)?.toIntOrNull() ?: 0
+                val nombreAsignatura = asignaturaData?.split(" ")?.get(0)
 
-                val intent = Intent(this, TimerSimple::class.java).apply {
-                    Log.d("Minutos:", asignaturasList?.get(position)?.second.toString())
-                    putExtra("time", asignaturasList?.get(position)?.second.toString())  // Tiempo en minutos como una cadena
-                    putExtra("asig", asignaturasList?.get(position)?.first)  // Nombre de la asignatura
-                    putExtra("actAsig", "1")  // Actividad de la asignatura actual
-                    putExtra("numAsig", "1")  // Número total de asignaturas (1 siempre)
+                if (minutos != 0 && nombreAsignatura != null) {
+                    if (asignaturaData.split(" ").last() == "Sí") {
+                        showToast("Esta asignatura ya ha sido estudiada")
+                    } else {
+                        val intent = Intent(this, TimerSimple::class.java).apply {
+                            putExtra("time", minutos.toString())
+                            putExtra("asig", nombreAsignatura)
+                            putExtra("actAsig", "1")
+                            putExtra("numAsig", "1")
+                        }
+
+                        startActivity(intent)
+                        dbCalendario?.marcarComoEstudiado(position, getDateAsString())
+                    }
+                } else {
+                    showToast("Los datos de la asignatura son inválidos")
                 }
-
-
-                startActivity(intent)
-                dbCalendario?.deleteAsignaturaByPosition(position, getDateAsString())
             } else {
                 showToast("Selecciona un único elemento")
             }
         }
     }
+
+
+
 
     private fun getDateAsString(): String {
         val calendar = Calendar.getInstance()
