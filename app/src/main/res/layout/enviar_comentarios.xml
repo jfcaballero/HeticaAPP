@@ -6,16 +6,50 @@
     android:layout_height="450dp"
     android:padding="16dp">
 
-    <Spinner
-        android:id="@+id/spinnerAsignaturaComentarios"
-        android:layout_width="259dp"
-        android:layout_height="54dp" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout8"
+        android:layout_width="248dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight=".28"
+
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
+
+
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/spinnerAsignaturaComentarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerAsignaturaComentarios"
-        android:layout_marginTop="81dp">
+        android:layout_below="@+id/relativeLayout8"
+        android:layout_marginTop="80dp">
 
         <EditText
             android:id="@+id/comentariosTexto"
@@ -30,12 +64,12 @@
         android:id="@+id/registrarComentarios"
         android:layout_width="117dp"
         android:layout_height="56dp"
-        android:layout_below="@+id/spinnerAsignaturaComentarios"
+        android:layout_below="@+id/relativeLayout8"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
         android:text="REGISTRAR" />
 
 </RelativeLayout>

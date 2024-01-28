@@ -49,23 +49,54 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar6"
         app:layout_constraintVertical_bias="0.122" />
 
-    <Spinner
-        android:id="@+id/spinnerBorrarCalificacion"
-        android:layout_width="244dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="25dp"
-        android:background="#3C00BCD4"
-        app:layout_constraintBottom_toBottomOf="@+id/listaCalificaciones"
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout8"
+        android:layout_width="248dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight=".28"
+
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/spinnerBorrarCalificacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/botonEliminarCalificacion"
-        android:layout_width="125dp"
-        android:layout_height="48dp"
+        android:layout_width="136dp"
+        android:layout_height="57dp"
         android:layout_marginTop="89dp"
         android:layout_marginBottom="516dp"
         android:text="Eliminar"

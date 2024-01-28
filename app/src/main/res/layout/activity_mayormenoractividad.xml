@@ -22,33 +22,88 @@
         app:layout_constraintTop_toBottomOf="@+id/tiempoAsignatura"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Spinner
-        android:id="@+id/graficasActividadAsig"
-        android:layout_width="179dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="13dp"
-        android:background="#606EADB5"
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout6"
+        android:layout_width="162dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="584dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.833">
 
-    <Spinner
-        android:id="@+id/graficasActividadOpciones"
-        android:layout_width="179dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp"
-        android:background="#606EADB5"
+        <Spinner
+            android:id="@+id/graficasActividadOpciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="162dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="584dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.675"
-        app:layout_constraintStart_toEndOf="@+id/graficasActividadAsig"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.833">
+
+        <Spinner
+            android:id="@+id/graficasActividadAsig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/graficasActividadFin"
@@ -63,7 +118,7 @@
         app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tiempoOpciones"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/graficaActividad"
