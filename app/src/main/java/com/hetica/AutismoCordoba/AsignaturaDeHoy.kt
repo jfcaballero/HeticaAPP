@@ -24,7 +24,6 @@ class AsignaturaDeHoy : AppCompatActivity() {
 
     private var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
     private var calendarioListView: ListView? = null
-    private var asignaturasList: MutableList<Pair<String, Int>>? = null
     private var isLongPressFired = false
     private var ComenzarSesion: Button? = null
     private var SalirCalendario: Button? = null

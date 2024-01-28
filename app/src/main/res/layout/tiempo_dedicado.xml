@@ -10,7 +10,6 @@
         android:id="@+id/tiempoInicio"
         android:layout_width="176dp"
         android:layout_height="62dp"
-        android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="date"
         android:text="FechaInicio"
@@ -18,8 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoAsignatura"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="0.044" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,31 +33,85 @@
         app:title="@string/String_tiempodedicado" />
 
 
-    <Spinner
-        android:id="@+id/tiempoAsignatura"
-        android:layout_width="179dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="13dp"
-        android:background="#606EADB5"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="167dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="576dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <Spinner
-        android:id="@+id/tiempoOpciones"
-        android:layout_width="179dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="13dp"
-        android:background="#606EADB5"
+        <Spinner
+            android:id="@+id/tiempoAsignatura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="167dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.675"
-        app:layout_constraintStart_toEndOf="@+id/tiempoAsignatura"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <Spinner
+            android:id="@+id/tiempoOpciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/tiempoFin"
@@ -69,10 +122,10 @@
         android:text="FechaFin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintHorizontal_bias="0.931"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoOpciones"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+        app:layout_constraintVertical_bias="0.044" />
 
     <FrameLayout
         android:layout_width="0dp"
@@ -112,18 +165,17 @@
         android:id="@+id/tiempoLista"
         android:layout_width="382dp"
         android:layout_height="360dp"
-        android:layout_marginTop="98dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoAsignatura"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
     <TextView
         android:id="@+id/tiempoMinutosTotales"
         android:layout_width="220dp"
         android:layout_height="34dp"
+        android:layout_marginTop="10dp"
         android:text="Minutos totales"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -131,8 +183,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.909" />
+        app:layout_constraintTop_toBottomOf="@+id/tiempoLista"
+        app:layout_constraintVertical_bias="0.120000005" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

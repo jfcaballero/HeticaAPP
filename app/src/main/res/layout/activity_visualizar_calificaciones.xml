@@ -22,13 +22,12 @@
         android:id="@+id/aa_chart_view"
         android:layout_width="363dp"
         android:layout_height="323dp"
-        android:layout_marginTop="52dp"
         android:layout_marginBottom="53dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonActividadCalificacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCalificacionAsig"
-        app:layout_constraintVertical_bias="0.0">
+
+        >
 
     </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
@@ -71,29 +70,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/String_visualizar_calificaciones" />
 
-    <Spinner
-        android:id="@+id/spinnerParcialFinal"
-        android:layout_width="163dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/plot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
 
-    <Spinner
-        android:id="@+id/spinnerCalificacionAsig"
-        android:layout_width="163dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/plot"
+    <RelativeLayout
+        android:layout_width="167dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="67dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/aa_chart_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/spinnerParcialFinal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="167dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="67dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/aa_chart_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/spinnerCalificacionAsig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/buttonActividadEliminarCalificacion"
