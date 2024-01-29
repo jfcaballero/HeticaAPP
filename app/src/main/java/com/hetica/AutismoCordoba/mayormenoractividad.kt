@@ -21,6 +21,7 @@ import android.widget.Toast
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
@@ -312,6 +313,7 @@ class mayormenoractividad : AppCompatActivity() {
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
             .xAxisReversed(true)
+            .zoomType(AAChartZoomType.XY)
             .yAxisTitle("Minutos del día")
             .categories(dataGrafica.map { it.first }.toTypedArray())
             .series(arrayOf(
