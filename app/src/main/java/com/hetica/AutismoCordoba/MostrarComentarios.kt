@@ -16,6 +16,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 //import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_AUTO
@@ -39,6 +40,7 @@ private var fechaInicio: EditText? = null
 private var fechaFin: EditText? = null
 
 class MostrarComentarios : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mostrar_comentarios)
@@ -48,6 +50,7 @@ class MostrarComentarios : AppCompatActivity() {
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         dbComentarios = AdminSQLiteOpenHelperComentarios(this)
         listViewComentarios = findViewById(R.id.listViewComentarios)
+
         imageMain2 = findViewById(R.id.botonMain2)
         GoToMain()
 
@@ -227,6 +230,7 @@ class MostrarComentarios : AppCompatActivity() {
     }
 
     private fun mostrarComentarios(comentariosList: List<Pair<String, String>>) {
+        var nocomentarios: TextView?=findViewById(R.id.textoNoComentarios)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList.map { it.second })
         listViewComentarios?.adapter = adapter
         listViewComentarios?.onItemClickListener =
@@ -236,7 +240,15 @@ class MostrarComentarios : AppCompatActivity() {
             }
 
         if (comentariosList.isEmpty()) {
-            Toast.makeText(this, "No hay comentarios para ese intervalo", Toast.LENGTH_SHORT).show()
+            if (nocomentarios != null) {
+                nocomentarios.visibility=View.VISIBLE
+            }
+
+            //Toast.makeText(this, "No hay comentarios para ese intervalo", Toast.LENGTH_SHORT).show()
+        }else{
+            if (nocomentarios != null) {
+                nocomentarios.visibility=View.INVISIBLE
+            }
         }
     }
 

@@ -268,6 +268,8 @@ class mayormenoractividad : AppCompatActivity() {
         val asignaturaSeleccionada = asignaturaSeleccionada ?: return
         var fechaInicial = fechaInicio?.text.toString()
         var fechaFinal = fechaFin?.text.toString()
+        var nocomentarios: TextView?=findViewById(R.id.textoNoComentarios2)
+
         if(opcion==3){ //como es la actividad del mes actual lo que hace es cambiar la fecha de inicio y fin
             fechaInicial=obtenerPrimerDiaMesActual()
             fechaFinal=obtenerUltimoDiaMesActual()
@@ -281,13 +283,19 @@ class mayormenoractividad : AppCompatActivity() {
         val listaDias = db.obtenerListaDias(asignaturaSeleccionada,opcion,fechaInicial,fechaFinal)
 
         if (listaDias.isEmpty()) {
-            val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
+            //val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
             textoDeDia?.visibility=View.GONE
-            Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
+            if (nocomentarios != null) {
+                nocomentarios.visibility=View.VISIBLE
+            }
             aaChartViewGrafica.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
         }else{
             textoDeDia?.visibility=View.VISIBLE
+            if (nocomentarios != null) {
+                nocomentarios.visibility=View.INVISIBLE
+            }
         }
 
         val listaDiasOrdenados = listaDias.sortedByDescending { it.first } // Ordenar la lista por cantidad de minutos en orden descendente
