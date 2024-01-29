@@ -253,12 +253,19 @@ class estadisticasDias : AppCompatActivity() {
 
         val cursor = db!!.viewDataDias(formattedDate)
         Log.e("Date Formatted", formattedDate)
-
+        var nodatos: TextView?=findViewById(R.id.textoNoComentarios4)
         if (cursor.count == 0) {
-            Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
+
+            if (nodatos != null) {
+                nodatos.visibility=View.VISIBLE
+            }
             adapter!!.clear()
             adapter!!.notifyDataSetChanged()
         } else {
+            if (nodatos != null) {
+                nodatos.visibility=View.INVISIBLE
+            }
             adapter!!.clear()
             adapter!!.notifyDataSetChanged()
             while (cursor.moveToNext()) {

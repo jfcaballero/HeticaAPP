@@ -81,8 +81,11 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tiempo_dedicado)
 
@@ -96,6 +99,7 @@ class tiempo_dedicado: AppCompatActivity()  {
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         ListViewDias = findViewById(R.id.tiempoLista)
         MinutosEnTotal=findViewById(R.id.tiempoMinutosTotales)
+
 
         // Configuración inicial de fechas
         val fechaHoy = obtenerFechaActual()
@@ -283,7 +287,16 @@ class tiempo_dedicado: AppCompatActivity()  {
                 } while (cursor.moveToNext())
             }
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
-
+            var nodatos: TextView?=findViewById(R.id.textoNoComentarios3)
+            if(datosDia.isEmpty()){
+                if (nodatos != null) {
+                    nodatos.visibility=View.VISIBLE
+                }
+            }else{
+                if (nodatos != null) {
+                    nodatos.visibility=View.INVISIBLE
+                }
+            }
             // Adaptador para el ListView
             val adapter = ArrayAdapter(
                 this,
@@ -303,6 +316,7 @@ class tiempo_dedicado: AppCompatActivity()  {
      */
     @SuppressLint("Range")
     private fun mostrarDatosRango() {
+
         try {
             totalMinutos = 0
 
@@ -318,6 +332,7 @@ class tiempo_dedicado: AppCompatActivity()  {
             // Lista para almacenar pares de fecha y minutos totales
             val datosRango = mutableListOf<Pair<String, Int>>()
 
+
             // Iteramos sobre el cursor y agrega los datos a la lista
             if (cursor.moveToFirst()) {
                 do {
@@ -331,7 +346,16 @@ class tiempo_dedicado: AppCompatActivity()  {
             }
 
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
-
+            var nodatos: TextView?=findViewById(R.id.textoNoComentarios3)
+            if(datosRango.isEmpty()){
+                if (nodatos != null) {
+                    nodatos.visibility=View.VISIBLE
+                }
+            }else{
+                if (nodatos != null) {
+                    nodatos.visibility=View.INVISIBLE
+                }
+            }
             // Adaptador para el ListView
             val adapter = ArrayAdapter(
                 this,
@@ -383,7 +407,16 @@ class tiempo_dedicado: AppCompatActivity()  {
                 android.R.layout.simple_list_item_1,
                 datosHistoricos.map { "${it.first}: ${it.second} minutos" }
             )
-
+            var nodatos: TextView?=findViewById(R.id.textoNoComentarios3)
+            if(datosHistoricos.isEmpty()){
+                if (nodatos != null) {
+                    nodatos.visibility=View.VISIBLE
+                }
+            }else{
+                if (nodatos != null) {
+                    nodatos.visibility=View.INVISIBLE
+                }
+            }
             // Asignamos el adaptador al ListView
             ListViewDias?.adapter = adapter
         } catch (e: Exception) {
@@ -516,6 +549,7 @@ class tiempo_dedicado: AppCompatActivity()  {
         calendar.set(year, month - 1, day)
         return dateFormat.format(calendar.time)
     }
+
 
 
 

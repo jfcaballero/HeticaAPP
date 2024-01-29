@@ -5,7 +5,7 @@
     <string name="String_Mochila">Organizar la mochila</string>
     <string name="String_opciones">Opciones</string>
     <string name="String_estadisticas">Tiempo de estudio diario</string>
-    <string name="String_tiempodedicado">Tiempo dedicado</string>
+    <string name="String_tiempodedicado">Tiempo dedicado por asignatura</string>
     <string name="String_mayormenoractividad">Gráficas de actividad</string>
     <string name="String_comentarios">Anotaciones por asignatura</string>
     <string name="String_visualizar_calificaciones">Calificaciones</string>
