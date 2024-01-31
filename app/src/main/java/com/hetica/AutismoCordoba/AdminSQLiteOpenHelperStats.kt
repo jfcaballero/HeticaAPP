@@ -161,8 +161,11 @@ class AdminSQLiteOpenHelperStats
 
 
     /**
-     * Función para obtener una lista con días y el total de minutos que se dedicaron en cada día.
-     *
+     * Función para obtener una lista con días y el total de minutos que se dedicaron en cada día para una asignatura.
+     * @param asignatura Asignatura de la consulta
+     * @param opcion (Rango, Histórico o mes actual)
+     * @param fechaFinal (opcional, solo en caso de opción de rango)
+     * @param fechaFinal (opcional, solo en caso de opción de rango)
      * @return listaDias
      */
     @SuppressLint("Range")
@@ -225,6 +228,11 @@ class AdminSQLiteOpenHelperStats
 
         return listaDias
     }
+    /**
+     * Función para borrar todos las estadísticas de una asignatura
+     * @param nombreAsignatura Asignatura
+     * @return boolean
+     */
     fun borrarEstadisticasAsignatura(nombreAsignatura: String): Boolean {
         val db = this.writableDatabase
         val whereClause = "$NAME = ?"

@@ -38,6 +38,10 @@ class AdminSQLiteOpenHelperCalificaciones(
         return db.rawQuery(query, null)
     }
 
+    /**
+     * Función para borrar los datos de la tabla
+     * @return boolean
+     */
     fun clearData(): Boolean {
         val db = this.writableDatabase
         val result = db.delete(DB_TABLE, null, null)
@@ -177,7 +181,8 @@ class AdminSQLiteOpenHelperCalificaciones(
 
 
     /**
-    * Esta función es para mostrar la fecha en formato dd/MM para la gráfica
+    * Función es para mostrar la fecha en formato dd/MM para la gráfica de calificaciones.
+     *@param date Fecha
     **/
     private fun formatDate(date: String): String {
         val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy

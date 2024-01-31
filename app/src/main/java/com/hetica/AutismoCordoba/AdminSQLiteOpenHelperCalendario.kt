@@ -12,12 +12,22 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE)
     }
-
+    /**
+     * Función para mejorar la base de datos
+     * @param db
+     * @param oldVersion Número de la versión anterior
+     */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
-
+    /**
+     * Función para agregar una lista de asignaturas asociadas a una fecha y con un tiempo cada una.
+     *
+     * @param dateString Fecha del calendario
+     * @param asignaturas Asignaturas asociadas a la fecha con sus minutos
+     * @return boolean
+     */
     fun insertData(dateString: String, asignaturas: List<Pair<String, Int>>): Boolean {
         val db = this.writableDatabase
         for ((asignatura, tiempo) in asignaturas) {
@@ -30,12 +40,20 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         }
         return true
     }
-
+    /**
+     * Función para visualizar todas las asignaturas en pantalla.
+     *
+     * @return cursor
+     */
     fun viewData(): Cursor {
         val db = this.readableDatabase
         return db.rawQuery("SELECT * FROM $DB_TABLE", null)
     }
-
+    /**
+     * Función para obtener una lista con las asignaturas, el tiempo de cada una y el inidicador de si se ha estudiado.
+     * @param date Fecha de la lista
+     * @return asignaturasList
+     */
     @SuppressLint("Range")
     fun getAsignaturasForDayWithMinutos(date: String): List<Triple<String, Int, Int>> {
         val db = this.readableDatabase
@@ -54,7 +72,11 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         return asignaturasList
     }
 
-
+    /**
+     * Función para marcar una asignatura como estudiada dada la fecha y la posición que ocupa en la lista de ésta
+     * @param position Posición que ocupa la asignatura en la lista
+     * @param dateString Fecha
+     */
     fun marcarComoEstudiado(position: Int, dateString: String) {
         Log.d("Marcando", "posicion $position en fecha $dateString")
         val db = this.writableDatabase
@@ -65,13 +87,22 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         db.update(DB_TABLE, contentValues, whereClause, whereArgs)
     }
 
-
+    /**
+     * Función para eliminar la tabla
+     */
     fun borrarTabla() {
         val db = this.writableDatabase
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
-
+    /**
+     * Función para eliminar una asignatura dada la posición que ocupa en la lista y la fecha
+     *
+     * @param position Posición que ocupa la asignatura en la lista
+     * @param dateString Fecha
+     * @return boolean
+     */
+    @SuppressLint("Range")
     fun deleteAsignaturaByPosition(position: Int, dateString: String): Boolean {
         val db = this.writableDatabase
         val query = "SELECT $ID FROM $DB_TABLE WHERE $DATE = ? LIMIT 1 OFFSET ?"
@@ -88,6 +119,14 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         cursor.close()
         return false
     }
+    fun deleteAsignaturaFromAllDates(asignatura: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "$ASIGNATURAS = ?"
+        val whereArgs = arrayOf(asignatura)
+        val result = db.delete(DB_TABLE, whereClause, whereArgs)
+        return result != -1
+    }
+
 
     companion object {
         private const val DB_NAME = "Calendario.db"

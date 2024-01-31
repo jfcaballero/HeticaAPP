@@ -178,6 +178,12 @@ class AddCalificaciones : AppCompatActivity() {
 
 
     }
+
+    /**
+     * Función para comprobar si una fecha contiene carácteres no aceptados, está vacía y cumple la longitud de 8 caracteres.
+     * Después la pasa a formato MMddyyyy
+     * @param dateString Fecha a comprobar en formato String
+     */
     private fun validateDate(dateString: String?): Boolean {
         if (dateString == null || dateString.isEmpty()) {
             return false

@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import AdminSQLiteOpenHelperCalendario
 import AdminSQLiteOpenHelperCalificaciones
 import AdminSQLiteOpenHelperComentarios
 import android.content.res.Configuration
@@ -232,6 +233,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         val dbStats = AdminSQLiteOpenHelperStats(this)
         val dbComentarios=AdminSQLiteOpenHelperComentarios(this)
+        val dbCalendario=AdminSQLiteOpenHelperCalendario(this)
 
         if (!db!!.buscar(asignatura) || asignatura == "") {
             if (asignatura != "" && db!!.Eliminar(asignatura)) {
@@ -244,7 +246,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                 dbCalificaciones.deleteAllGradesForSubject(asignatura) //borramos las calificaciones
                 dbStats.borrarEstadisticasAsignatura(asignatura)//borramos las estadísticas de tiempo
                 dbComentarios.borrarComentariosAsignatura(asignatura)//borramos los comentarios
-
+                dbCalendario.deleteAsignaturaFromAllDates(asignatura) //borramos las sesiones asignadas a esa asignatura
             } else {
                 Toast.makeText(this, "Debe seleccionar una asignatura", Toast.LENGTH_LONG).show()
             }

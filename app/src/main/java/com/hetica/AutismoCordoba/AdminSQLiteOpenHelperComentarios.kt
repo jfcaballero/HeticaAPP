@@ -86,6 +86,12 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         cursor.close()
         return commentsList
     }
+
+    /**
+     * Función para borrar todos los comentarios de una asignatura
+     * @param nombreAsignatura Asignatura
+     * @return boolean
+     */
     fun borrarComentariosAsignatura(nombreAsignatura: String): Boolean {
         val db = this.writableDatabase
         val whereClause = "$NAME = ?"
