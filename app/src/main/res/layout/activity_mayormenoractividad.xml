@@ -10,7 +10,6 @@
         android:id="@+id/graficasActividadInicio"
         android:layout_width="176dp"
         android:layout_height="62dp"
-        android:layout_marginTop="18dp"
         android:layout_marginBottom="496dp"
         android:ems="10"
         android:inputType="date"
@@ -19,8 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoAsignatura"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+        app:layout_constraintVertical_bias="1.0" />
 
 
     <RelativeLayout
@@ -117,8 +116,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoOpciones"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout6"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/graficaActividad"

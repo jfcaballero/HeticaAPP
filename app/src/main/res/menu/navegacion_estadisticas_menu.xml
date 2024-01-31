@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_estadisticas"
-        android:icon="@drawable/baseline_query_stats_24"
+        android:icon="@drawable/lista2"
         android:title=" " />
     <item
         android:id="@+id/action_tiempo_dedicado"
-        android:icon="@drawable/tiempototal"
+        android:icon="@drawable/listporasignatura"
         android:title=" " />
 
     <item
         android:id="@+id/action_calificaciones"
-        android:icon="@drawable/baseline_school_24"
+        android:icon="@drawable/calificaciones"
         android:title=" " />
 
     <item
@@ -21,7 +21,7 @@
 
     <item
         android:id="@+id/action_actividad"
-        android:icon="@drawable/mayormenoractividad"
+        android:icon="@drawable/graficasdeactividad"
         android:title=" " />
 
 

@@ -106,7 +106,7 @@ class AdminSQLiteOpenHelperCalificaciones(
         val result = db.delete(DB_TABLE, whereClause, whereArgs)
 
 
-        val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$SUBJECT=?", whereArgs)
+        //val rowsAfter = DatabaseUtils.queryNumEntries(db, DB_TABLE, "$SUBJECT=?", whereArgs)
 
         if (result > 0) {
             Log.e("deleteAllGradesForSubject", "$result filas eliminadas con éxito")
