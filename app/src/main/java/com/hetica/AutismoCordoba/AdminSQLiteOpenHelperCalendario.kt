@@ -119,6 +119,11 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         cursor.close()
         return false
     }
+
+    /**
+     * Función para borrar todas las sesiones programadas para una asignatura en la base de datos
+     * @param asignatura Asignatura cuyas sesiones se desean borrar
+     */
     fun deleteAsignaturaFromAllDates(asignatura: String): Boolean {
         val db = this.writableDatabase
         val whereClause = "$ASIGNATURAS = ?"

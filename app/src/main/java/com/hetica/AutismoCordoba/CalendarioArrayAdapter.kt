@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.TextView
 import android.util.SparseBooleanArray
+
+/**
+ * Adaptador de la lista de checkboxes que se utiliza en la actividad de calendario.
+ * @author Álvaro Berjillos
+ */
 class CalendarioArrayAdapter(
     context: Context,
     resource: Int,
@@ -45,7 +50,12 @@ class CalendarioArrayAdapter(
         return rowView
     }
 
-    // Método para verificar si el elemento en la posición dada está marcado como estudiado
+    /**
+     * Función para verificar si el elemento en la posición dada está marcado como estudiado
+     * @param position Posición que ocupa
+     * @return boolean
+     */
+
     private fun isStudied(position: Int): Boolean {
         // Obtener el texto del elemento en la posición dada
         val itemText = getItem(position)
@@ -54,7 +64,10 @@ class CalendarioArrayAdapter(
         return itemText?.contains("Estudiado: Sí") ?: false
     }
 
-
+    /**
+     * Función para manejar que solo se seleccione un item al mismo tiempo de los disponibles
+     * @param position
+     */
     private fun handleItemClick(position: Int) {
         // Desmarcar el elemento anteriormente seleccionado
         if (lastCheckedPosition != -1) {

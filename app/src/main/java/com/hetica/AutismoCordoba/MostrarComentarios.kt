@@ -171,6 +171,11 @@ class MostrarComentarios : AppCompatActivity() {
         }
     }
 
+    /**
+     * Función para mostrar el dataPickerDialog para las fechas para dos editTexts
+     * @param editText
+     * @param otherEditText
+     */
     private fun showDatePickerDialog(editText: EditText, otherEditText: EditText) {
         val currentDate = Calendar.getInstance()
         val year = currentDate.get(Calendar.YEAR)
@@ -195,6 +200,9 @@ class MostrarComentarios : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    /**
+     * Función para dirigirnos a main al pulsar el botón de la casa
+     */
     fun GoToMain() {
         imageMain2?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -202,6 +210,9 @@ class MostrarComentarios : AppCompatActivity() {
         }
     }
 
+    /**
+     * Función para añadir los datos a la lista
+     */
     @SuppressLint("Range")
     private fun viewData(
         asignaturaSeleccionada: String?,
@@ -229,6 +240,10 @@ class MostrarComentarios : AppCompatActivity() {
         mostrarComentarios(comentariosList)
     }
 
+    /**
+     * Función para mostrar los comentarios de la lista en el ListView
+     * @param comentariosList
+     */
     private fun mostrarComentarios(comentariosList: List<Pair<String, String>>) {
         var nocomentarios: TextView?=findViewById(R.id.textoNoComentarios)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList.map { it.second })
@@ -252,11 +267,19 @@ class MostrarComentarios : AppCompatActivity() {
         }
     }
 
+    /**
+     * Función para verificar si el spinner está marcando la opción de histórico
+     * (para esconder las fechas de rango cuando la opción sea esa)
+     */
     private fun esOpcionHistoricoSeleccionada(): Boolean {
         val spinnerOpciones: Spinner = findViewById(R.id.selectorRangoHistorico)
         return spinnerOpciones.selectedItem == "Histórico"
     }
 
+    /**
+     * Función para mostrar el cuadro con el comentario al completo al pulsarlo en la lista
+     *
+     */
     private fun mostrarCuadroFlotante(comentario: String) {
         val partes = comentario.split(" - ", limit = 2)
         val fecha = if (partes.isNotEmpty()) partes[0] else ""
@@ -273,6 +296,10 @@ class MostrarComentarios : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * Función para acortar el comentario al mostrarlo en el listview
+     * @param comentario
+     */
     private fun abreviarComentario(comentario: String): String {
         val maxLength = 50
         return if (comentario.length > maxLength) {
@@ -282,6 +309,12 @@ class MostrarComentarios : AppCompatActivity() {
         }
     }
 
+    /**
+     * Función para verificar que una fecha está entre dos límites
+     * @param fecha Fecha a comprobar
+     * @param fechaFin
+     * @param fechaInicio
+     */
     fun fechaEstaEntre(fecha: String, fechaInicio: String?, fechaFin: String?): Boolean {
         val formato = SimpleDateFormat("dd/MM/yyyy")
 
@@ -305,6 +338,9 @@ class MostrarComentarios : AppCompatActivity() {
         return false
     }
 
+    /**
+     * Función para obtener la fecha actual para la fecha de inicio por defecto
+     */
     fun obtenerFechaActual(): String {
         val calendario = Calendar.getInstance()
         val year = calendario.get(Calendar.YEAR)
@@ -317,6 +353,9 @@ class MostrarComentarios : AppCompatActivity() {
         return "$diaFormateado/$mesFormateado/$year"
     }
 
+    /**
+     * Función para obtener la fecha de mañana para la fecha final por defecto
+     */
     fun obtenerFechaManana(): String {
         val calendario = Calendar.getInstance()
         calendario.add(Calendar.DAY_OF_MONTH, 1)

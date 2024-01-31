@@ -154,6 +154,7 @@ class EliminarCalificaciones : AppCompatActivity() {
 
     /**
      * Función para seleccionar o deseleccionar todos los elementos en la lista
+     * @param isChecked Estado de la caja de "Seleccionar todos" (checkeado/descheckeado)
      */
     private fun selectAllItems(isChecked: Boolean) {
         for (i in 0 until listaCalificaciones.adapter.count) {

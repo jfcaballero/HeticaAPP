@@ -187,6 +187,11 @@ class SettingsActivity : AppCompatActivity() {
         setupSwitchConcentracionListener()
 
     }
+
+    /**
+     * Función para mostrar el cuadro flotante de ayuda al pulsarse
+     * @param texto Texto de ayuda
+     */
     private fun mostrarCuadroFlotante(texto: String) {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(texto)

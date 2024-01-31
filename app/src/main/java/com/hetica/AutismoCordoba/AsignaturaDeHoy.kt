@@ -60,6 +60,10 @@ class AsignaturaDeHoy : AppCompatActivity() {
         pasarEditarCalendario()
         comenzarSesion()
     }
+
+    /**
+     * Función para mostrar la lista de asignaturas programadas para el día de hoy
+     */
     private fun viewData() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
