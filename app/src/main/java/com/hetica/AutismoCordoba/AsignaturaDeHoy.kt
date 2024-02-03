@@ -178,6 +178,12 @@ class AsignaturaDeHoy : AppCompatActivity() {
         viewData()
 
     }
+    override fun onBackPressed() {
+        onBackPressedDispatcher.onBackPressed()
+        viewData()
+    }
+
+
 
 
 }
