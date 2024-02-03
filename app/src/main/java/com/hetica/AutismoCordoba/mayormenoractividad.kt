@@ -67,12 +67,6 @@ class mayormenoractividad : AppCompatActivity() {
 
     var asignaturaSeleccionada: String?=null
 
-    var ListViewDias: ListView?=null
-
-    var MinutosEnTotal: TextView?=null
-
-    var totalMinutos: Int = 0
-
     var textoDeDia:TextView?=null
 
     private val calendar = Calendar.getInstance()
