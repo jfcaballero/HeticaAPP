@@ -82,4 +82,18 @@
         app:layout_constraintTop_toBottomOf="@+id/editarCalendarioBoton"
         app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/textoNoHayTareasHoy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="129dp"
+        android:text="No hay tareas para hoy"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/asignaturasdehoy"
+        app:layout_constraintEnd_toEndOf="@+id/asignaturasdehoy"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/asignaturasdehoy"
+        app:layout_constraintTop_toTopOf="@+id/asignaturasdehoy"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

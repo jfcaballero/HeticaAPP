@@ -37,6 +37,7 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
             contentValues.put(TIEMPO, tiempo)
             contentValues.put(ESTUDIADO, 0) // Por defecto, no estudiado
             db.insert(DB_TABLE, null, contentValues)
+            Log.d("Insertando en calendario","$asignatura,$dateString,$tiempo")
         }
         return true
     }

@@ -3,12 +3,14 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperCalendario
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
@@ -30,10 +32,7 @@ private var listViewAsignaturasDeUnDia: ListView? = null
  */
 private var addAsignaturaCalendario: ImageView?=null
 
-/**
- * La lista de asignaturas donde volcaremos la base de datos
- */
-var asignaturasCalendarioBD: MutableList<String>? = null
+
 /**
  * The Adapter.
  */
@@ -42,6 +41,8 @@ var adapterEditarCalendario: ArrayAdapter<String>? = null
 var MinutosAsignatura: EditText?=null
 
 var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
+
+var botonCalendario: Button?=null
 class EditarCalendario : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +57,11 @@ class EditarCalendario : AppCompatActivity() {
         MinutosAsignatura=findViewById(R.id.calendarioMinutosAsignatura)
 
 
+        botonCalendario=findViewById(R.id.volverCalendarioBoton)
+        botonCalendario?.setOnClickListener {
+            val intent = Intent(this, AsignaturaDeHoy::class.java)
+            startActivity(intent)
+        }
 
         addAsignaturaCalendario?.setOnClickListener {
             val asignaturaSeleccionada = spinner.selectedItem as String
@@ -228,6 +234,10 @@ class EditarCalendario : AppCompatActivity() {
             e.printStackTrace()
             return false
         }
+    }
+    override fun onBackPressed() {
+        // No realizar ninguna acción al presionar el botón de retroceso del dispositivo móvil
+        // super.onBackPressed()
     }
 
 

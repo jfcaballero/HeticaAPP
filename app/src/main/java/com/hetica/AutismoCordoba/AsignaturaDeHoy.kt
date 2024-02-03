@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.CheckedTextView
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hetica.AutismoCordoba.MainActivity
@@ -70,7 +71,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val dateString = String.format("%02d%02d%d", month, day, year)
-
+        var nohaytareas: TextView?=findViewById(R.id.textoNoHayTareasHoy)
         val asignaturasData = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
         adapter.clear()
 
@@ -85,7 +86,13 @@ class AsignaturaDeHoy : AppCompatActivity() {
                 }
             }
             adapter.addAll(displayList)
+            if (nohaytareas != null) {
+                nohaytareas.visibility=View.INVISIBLE
+            }
         } else {
+            if (nohaytareas != null) {
+                nohaytareas.visibility=View.VISIBLE
+            }
             calendarioListView?.adapter = null
         }
         adapter.notifyDataSetChanged()
@@ -178,12 +185,6 @@ class AsignaturaDeHoy : AppCompatActivity() {
         viewData()
 
     }
-    override fun onBackPressed() {
-        onBackPressedDispatcher.onBackPressed()
-        viewData()
-    }
-
-
 
 
 }
