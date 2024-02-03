@@ -120,7 +120,6 @@ class mayormenoractividad : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                // Actualiza los datos al cambiar la fecha de inicio
                 mostrarDatosEnTiempoReal()
             }
         })
@@ -131,7 +130,6 @@ class mayormenoractividad : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                // Actualiza los datos al cambiar la fecha de fin
                 mostrarDatosEnTiempoReal()
             }
         })
@@ -259,10 +257,33 @@ class mayormenoractividad : AppCompatActivity() {
 
 
 
+    /**
+     * Función para verificar si una fecha está entre dos fechas dadas
+     * @param fecha Fecha a verificar
+     * @param fechaInicio Fecha inicial del rango
+     * @param fechaFin Fecha final del rango
+     * @return true si la fecha está entre el rango, false de lo contrario
+     */
+    private fun fechaEstaEntre(fecha: String, fechaInicio: String?, fechaFin: String?): Boolean {
+        val formato = SimpleDateFormat("dd/MM/yyyy")
 
+        try {
+            val dateFecha = formato.parse(fecha)!!
+            val dateInicio = fechaInicio?.let { formato.parse(it) }!!
+            val dateFin = fechaFin?.let { formato.parse(it) }!!
+
+            return dateFecha.compareTo(dateInicio) >= 0 && dateFecha.compareTo(dateFin) <= 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("Fecha incorrecta", "Error al procesar fechas")
+        }
+
+        return false
+    }
 
     /**
      * Función para mostrar en la gráficas los días con la cantidad de minutos para cada uno (histórico)
+     * @param opcion Rango, histórico o mes actual
      */
     private fun obtenerGrafica(opcion:Int) {
         val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
@@ -270,23 +291,37 @@ class mayormenoractividad : AppCompatActivity() {
         var fechaInicial = fechaInicio?.text.toString()
         var fechaFinal = fechaFin?.text.toString()
         var nocomentarios: TextView?=findViewById(R.id.textoNoComentarios2)
-
-        if(opcion==3){ //como es la actividad del mes actual lo que hace es cambiar la fecha de inicio y fin
-            fechaInicial=obtenerPrimerDiaMesActual()
-            fechaFinal=obtenerUltimoDiaMesActual()
-
-        }
-
-
-
         val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
 
-        val listaDias = db.obtenerListaDias(asignaturaSeleccionada,opcion,fechaInicial,fechaFinal)
+        val listaDias = db.obtenerListaDias(asignaturaSeleccionada)
+        var listaDiasFiltrados = mutableListOf<Pair<String, Int>>()
 
-        if (listaDias.isEmpty()) {
-            //val mensaje = "No se encontraron resultados historicos para $asignaturaSeleccionada"
+        when (opcion) {
+            1 -> { //Rango
+                for (dia in listaDias) {
+                    if (fechaEstaEntre(dia.first, fechaInicial, fechaFinal)) {
+                        listaDiasFiltrados.add(dia)
+                    }
+                }
+            }
+            2 -> { //Histórico
+                listaDiasFiltrados= listaDias.toMutableList()
+            }
+            3 -> { //Mes actual
+                //como es la actividad del mes actual lo que hace es cambiar la fecha de inicio y fin al primer y ultimo dia del mes
+                fechaInicial=obtenerPrimerDiaMesActual()
+                fechaFinal=obtenerUltimoDiaMesActual()
+                for (dia in listaDias) {
+                    if (fechaEstaEntre(dia.first, fechaInicial, fechaFinal)) {
+                        listaDiasFiltrados.add(dia)
+                    }
+                }
+
+            }
+        }
+
+        if (listaDiasFiltrados.isEmpty()) {
             textoDeDia?.visibility=View.GONE
-            //Toast.makeText(this@mayormenoractividad, mensaje, Toast.LENGTH_SHORT).show()
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.VISIBLE
             }
@@ -299,7 +334,7 @@ class mayormenoractividad : AppCompatActivity() {
             }
         }
 
-        val listaDiasOrdenados = listaDias.sortedByDescending { it.first } // Ordenar la lista por cantidad de minutos en orden descendente
+        val listaDiasOrdenados = listaDiasFiltrados.sortedByDescending { dateFormat.parse(it.first) }
 
         val listaDiasFloat = listaDiasOrdenados.map { it.first to it.second.toFloat() }
 
@@ -308,7 +343,6 @@ class mayormenoractividad : AppCompatActivity() {
         val aaChartModelGrafica : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
             .title("Días de actividad de $asignaturaSeleccionada")
-            //.subtitle("Histórico")
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
