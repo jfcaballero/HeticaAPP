@@ -316,7 +316,6 @@ class tiempo_dedicado: AppCompatActivity()  {
      */
     @SuppressLint("Range")
     private fun mostrarDatosRango() {
-
         try {
             totalMinutos = 0
 
@@ -326,35 +325,31 @@ class tiempo_dedicado: AppCompatActivity()  {
             val fechaFinSeleccionada = fechaFin?.text.toString()
 
             // Cursor con los datos en el rango de fechas y para la asignatura seleccionada
-            val cursor = dbStats?.viewDataRangoAsignatura(fechaInicioSeleccionada, fechaFinSeleccionada, asignaturaSeleccionada)
-                ?: return
+            val cursor = dbStats?.viewDataHistorico(asignaturaSeleccionada) ?: return
 
             // Lista para almacenar pares de fecha y minutos totales
             val datosRango = mutableListOf<Pair<String, Int>>()
 
-
-            // Iteramos sobre el cursor y agrega los datos a la lista
+            // Iteramos sobre el cursor y agrega los datos a la lista si están dentro del rango de fechas
             if (cursor.moveToFirst()) {
                 do {
-                    val name = cursor.getString(cursor.getColumnIndex("NAME"))
-                    Log.d("Rango asig", name)
                     val fecha = cursor.getString(cursor.getColumnIndex("DATE"))
                     val minutosTotales = cursor.getInt(cursor.getColumnIndex("TIME"))
-                    totalMinutos += minutosTotales
-                    datosRango.add(fecha to minutosTotales)
+
+                    // Verificamos si la fecha está en el rango
+                    if (fechaEstaEntre(fecha, fechaInicioSeleccionada, fechaFinSeleccionada)) {
+                        totalMinutos += minutosTotales
+                        datosRango.add(fecha to minutosTotales)
+                    }
                 } while (cursor.moveToNext())
             }
 
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
-            var nodatos: TextView?=findViewById(R.id.textoNoComentarios3)
-            if(datosRango.isEmpty()){
-                if (nodatos != null) {
-                    nodatos.visibility=View.VISIBLE
-                }
-            }else{
-                if (nodatos != null) {
-                    nodatos.visibility=View.INVISIBLE
-                }
+            var nodatos: TextView? = findViewById(R.id.textoNoComentarios3)
+            if (datosRango.isEmpty()) {
+                nodatos?.visibility = View.VISIBLE
+            } else {
+                nodatos?.visibility = View.INVISIBLE
             }
             // Adaptador para el ListView
             val adapter = ArrayAdapter(
@@ -370,6 +365,25 @@ class tiempo_dedicado: AppCompatActivity()  {
             e.printStackTrace()
         }
     }
+
+    private fun fechaEstaEntre(fecha: String, fechaInicio: String?, fechaFin: String?): Boolean {
+        val formato = SimpleDateFormat("dd/MM/yyyy")
+
+        try {
+            val dateFecha = formato.parse(fecha)!!
+            val dateInicio = fechaInicio?.let { formato.parse(it) }!!
+            val dateFin = fechaFin?.let { formato.parse(it) }!!
+
+            return dateFecha.compareTo(dateInicio) >= 0 && dateFecha.compareTo(dateFin) <= 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("Fecha incorrecta", "Error al procesar fechas")
+        }
+
+        return false
+    }
+
+
 
     /**
      * Función para mostrar la fecha y los minutos totales en la lista desde siempre
