@@ -21,6 +21,7 @@ import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 //import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_AUTO
 import com.google.android.material.navigation.NavigationBarView
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -218,7 +219,13 @@ class MostrarComentarios : AppCompatActivity() {
         asignaturaSeleccionada: String?,
         fechaInicio: String? = obtenerFechaActual(),
         fechaFin: String? = obtenerFechaManana()
+
+
     ) {
+        val fechaInicioTexto: EditText? = findViewById(R.id.comentariosDesde)
+        val fechaFinTexto: EditText? = findViewById(R.id.comentariosHasta)
+        val textoDe: TextView? = findViewById(R.id.textoComentariosDe)
+        val textoA: TextView? = findViewById(R.id.textoComentariosA)
         val comentariosList: ArrayList<Pair<String, String>> = ArrayList()
         val cursor = dbComentarios?.viewData()
 
@@ -229,6 +236,22 @@ class MostrarComentarios : AppCompatActivity() {
                 val comments = cursor.getString(cursor.getColumnIndex("COMMENTS"))
 
                 if (name == asignaturaSeleccionada) {
+                    if (fechaInicioTexto != null && fechaFinTexto!=null && textoA!=null &&textoDe!=null) {
+                        if(esOpcionHistoricoSeleccionada()){ //esconder el texto si no hemos seleccionado rango
+
+                                fechaInicioTexto.visibility=View.INVISIBLE
+                                fechaFinTexto.visibility=View.INVISIBLE
+                                textoDe.visibility=View.INVISIBLE
+                                textoA.visibility=View.INVISIBLE
+                            } else{
+
+                                fechaInicioTexto.visibility=View.VISIBLE
+                                fechaFinTexto.visibility=View.VISIBLE
+                                textoDe.visibility=View.VISIBLE
+                                textoA.visibility=View.VISIBLE
+
+                        }
+                    }
                     if (esOpcionHistoricoSeleccionada() || fechaEstaEntre(date, fechaInicio, fechaFin)) {
                         val abreviado = abreviarComentario(comments)
                         comentariosList.add(Pair("$date - $comments", "$date - $abreviado"))

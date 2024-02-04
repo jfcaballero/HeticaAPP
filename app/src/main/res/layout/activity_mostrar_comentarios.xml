@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.248" />
 
     <TextView
-        android:id="@+id/textView83"
+        android:id="@+id/textoComentariosA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="A:"
@@ -48,7 +48,7 @@
         app:layout_constraintVertical_bias="0.349" />
 
     <TextView
-        android:id="@+id/textView82"
+        android:id="@+id/textoComentariosDe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="De:"
