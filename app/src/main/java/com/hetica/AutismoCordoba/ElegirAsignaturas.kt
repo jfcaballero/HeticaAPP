@@ -155,6 +155,10 @@ class ElegirAsignaturas : AppCompatActivity() {
      * @param view the view
      */
     fun Registrar(view: View?) {
+        val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
+        val dbStats = AdminSQLiteOpenHelperStats(this)
+        val dbComentarios=AdminSQLiteOpenHelperComentarios(this)
+        val dbCalendario=AdminSQLiteOpenHelperCalendario(this)
         if (agregar == 1) {
             val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
@@ -185,11 +189,14 @@ class ElegirAsignaturas : AppCompatActivity() {
                 if (db!!.buscar(asignatura)) {
                     if (asignatura.isNotBlank() && db!!.Modificar(replaceSpacesWithUnderscore(asignatura), modificarAux)) {
                         // Modifico también la base de datos de estadísticas
-                        val dbStats = AdminSQLiteOpenHelperStats(this)
+
                         val actualizadoEnStats = dbStats.ModificarNombreAsignatura(
                             modificarAux?.let { replaceSpacesWithUnderscore(it) },
                             replaceSpacesWithUnderscore(asignatura)
                         )
+                        dbComentarios.updateSubjectName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
+                        dbCalificaciones.updateSubjectName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
+                        dbCalendario.updateAsignaturaName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
                         if (actualizadoEnStats) {
                             Toast.makeText(this, "Se ha modificado correctamente", Toast.LENGTH_LONG).show()
                         }

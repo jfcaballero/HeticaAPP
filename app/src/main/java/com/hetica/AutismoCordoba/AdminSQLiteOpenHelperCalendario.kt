@@ -96,6 +96,17 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
+    fun updateAsignaturaName(oldName: String, newName: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(ASIGNATURAS, newName)
+
+        val whereClause = "$ASIGNATURAS = ?"
+        val whereArgs = arrayOf(oldName)
+
+        db.update(DB_TABLE, contentValues, whereClause, whereArgs)
+    }
+
     /**
      * Función para eliminar una asignatura dada la posición que ocupa en la lista y la fecha
      *

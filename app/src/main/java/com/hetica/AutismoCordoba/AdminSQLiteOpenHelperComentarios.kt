@@ -86,6 +86,17 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         cursor.close()
         return commentsList
     }
+    fun updateSubjectName(oldName: String, newName: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(NAME, newName)
+
+        val whereClause = "$NAME = ?"
+        val whereArgs = arrayOf(oldName)
+
+        db.update(DB_TABLE, contentValues, whereClause, whereArgs)
+    }
+
 
     /**
      * Función para borrar todos los comentarios de una asignatura

@@ -120,6 +120,17 @@ class AdminSQLiteOpenHelperCalificaciones(
             return false  // No se eliminaron filas
         }
     }
+    fun updateSubjectName(oldName: String, newName: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(SUBJECT, newName)
+
+        val whereClause = "$SUBJECT = ?"
+        val whereArgs = arrayOf(oldName)
+
+        db.update(DB_TABLE, contentValues, whereClause, whereArgs)
+    }
+
 
     /**
      * Función para obtener una lista con todas las fechas, tipos, notas e ids de una asignatura
