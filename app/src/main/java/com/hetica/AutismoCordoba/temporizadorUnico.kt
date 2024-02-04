@@ -85,7 +85,7 @@ class temporizadorUnico : AppCompatActivity() {
         timeString = bundle!!.getString("time")
         asig = bundle!!.getString("asig")
         textAsig!!.text = asig
-        Log.e("Date Selected", timeString!!)
+        Log.e("Minutes Selected", timeString!!)
         Pausa = findViewById<View>(R.id.buttonPausa) as Button
         Fin = findViewById<View>(R.id.buttonFin2) as Button
         readParams()
@@ -166,14 +166,29 @@ class temporizadorUnico : AppCompatActivity() {
             val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
             timeString = intValue.toString()
         }
+
+        // Detener el temporizador y mostrar el botón Fin2
         mCountDownTimer!!.cancel()
         mTimerRunning = false
-        finFlag = 1
+        botonFin!!.visibility = View.VISIBLE
+        Fin!!.visibility = View.INVISIBLE
+        Pausa!!.visibility=View.INVISIBLE
+
+        // Sonar la alarma
+        showNotification()
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
-        val siguiente1 = Intent(view!!.context, Recompensa::class.java)
-        startActivity(siguiente1)
+        mTextViewCountDown!!.text = "00:00"
+
+        // Reiniciar el temporizador a cero
+        mTimeLeftInMillis = 0
+        updateCountDownText()
+
+        // Mostrar botón Fin2 y ocultar botón Fin
+        botonFin!!.visibility = View.VISIBLE
+        Fin!!.visibility = View.INVISIBLE
     }
+
 
     /**
      * Función que escribe el tiempo restante
