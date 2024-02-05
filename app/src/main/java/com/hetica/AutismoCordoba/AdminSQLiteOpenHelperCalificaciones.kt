@@ -120,6 +120,11 @@ class AdminSQLiteOpenHelperCalificaciones(
             return false  // No se eliminaron filas
         }
     }
+    /**
+     * Función para actualizar el nombre de una asignatura en la base de datos
+     * @param oldName
+     * @param newName
+     */
     fun updateSubjectName(oldName: String, newName: String) {
         val db = this.writableDatabase
         val contentValues = ContentValues()

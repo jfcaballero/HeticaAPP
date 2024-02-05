@@ -128,7 +128,7 @@ class AdminSQLiteOpenHelperStats
         return db.rawQuery(query, null)
 
     }
-    /**
+    /** (NO SE USA PORQUE SE ESTÁ HACIENDO DIRECTAMENTE EN LA ACTIVIDAD)
      * Función para obtener las estadísticas de una asignatura que se encuentre entre 2 fechas.
      *
      * @param fechaInicio Fecha límite inicial

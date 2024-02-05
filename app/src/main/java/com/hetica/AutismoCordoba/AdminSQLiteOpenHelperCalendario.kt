@@ -96,6 +96,12 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
         onCreate(db)
     }
+
+    /**
+     * Función para actualizar el nombre de una asignatura en la base de datos
+     * @param oldName
+     * @param newName
+     */
     fun updateAsignaturaName(oldName: String, newName: String) {
         val db = this.writableDatabase
         val contentValues = ContentValues()
