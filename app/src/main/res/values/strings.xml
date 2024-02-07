@@ -84,7 +84,7 @@
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
     <string name="comentar_estudio">Comentar estudio</string>
     <string name="texto_ayuda">
-        - Mostrar temporizador al inicio: Activa la opción de estudiar 1 asignatura desde el menú principal.\n\n
+        - Mostrar temporizador al inicio: Activa la opción de estudiar únicamente una asignatura desde el menú principal.\n\n
         - Tiempo de trabajo fijo: Al activar el switch, el tiempo que se establezca
         en la barra será el que siempre tenga al estudiar una asignatura. Pulse "Guardar" para establecerlo. Al desactivarlo, podrá elegir el tiempo
         en el momento del estudio (siempre 30 minutos como mínimo).\n\n
