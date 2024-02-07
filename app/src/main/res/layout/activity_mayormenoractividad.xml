@@ -81,8 +81,8 @@
 
         <Spinner
             android:id="@+id/graficasActividadAsig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
