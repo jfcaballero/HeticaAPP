@@ -161,7 +161,7 @@ class temporizadorUnico : AppCompatActivity() {
         Pausa!!.text = "Seguir"
     }
 
-    fun finTimer(view: View?) {
+    fun finTimer() {
         timeString?.let {
             val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
             timeString = intValue.toString()
