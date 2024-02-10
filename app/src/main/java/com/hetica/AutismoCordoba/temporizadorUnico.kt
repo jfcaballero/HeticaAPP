@@ -161,7 +161,12 @@ class temporizadorUnico : AppCompatActivity() {
         Pausa!!.text = "Seguir"
     }
 
-    fun finTimer() {
+    fun finTimer(view: View?) {
+        //esto es para que no salte lo de que no se usa el view en la funcion
+        // (es necesario para que funcione, lo siento)
+        val siguiente2 = Intent(view!!.context, Recompensa::class.java)
+        Log.d("hola","$siguiente2")
+
         timeString?.let {
             val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
             timeString = intValue.toString()
