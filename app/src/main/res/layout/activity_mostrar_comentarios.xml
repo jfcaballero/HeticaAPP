@@ -6,127 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".MostrarComentarios">
 
-    <ListView
-        android:id="@+id/listViewComentarios"
-        android:layout_width="393dp"
-        android:layout_height="345dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comentariosHasta"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/comentariosDesde"
-        android:layout_width="319dp"
-        android:layout_height="54dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="FechaInicio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.673"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.248" />
-
     <TextView
-        android:id="@+id/textoComentariosA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A:"
+        android:id="@+id/textView82"
+        android:layout_width="179dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="8dp"
+        android:text="Rango temporal"
+        android:textColor="#5A5C5E"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/comentariosHasta"
-        app:layout_constraintHorizontal_bias="0.69"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.969"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.349" />
-
-    <TextView
-        android:id="@+id/textoComentariosDe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="De:"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/comentariosDesde"
-        app:layout_constraintHorizontal_bias="0.575"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
     <EditText
         android:id="@+id/comentariosHasta"
-        android:layout_width="318dp"
+        android:layout_width="167dp"
         android:layout_height="53dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="FechaFin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.348" />
+        app:layout_constraintVertical_bias="0.361" />
 
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="153dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="584dp"
-        android:layout_weight=".28"
-        android:background="#361FBFB0"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/textoComentariosA"
+        android:layout_width="76dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="7dp"
+        android:text="Fin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/comentariosHasta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintHorizontal_bias="0.671"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3">
-
-        <Spinner
-            android:id="@+id/selectorasignaturas"
-            android:layout_width="103dp"
-            android:layout_height="56dp"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:minHeight="48dp"
-            android:spinnerMode="dropdown" />
-
-        <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
-
-    </RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
-        android:layout_width="153dp"
+        android:layout_width="167dp"
         android:layout_height="57dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="584dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="540dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3">
 
@@ -155,6 +92,107 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="169dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="8dp"
+        android:text="Asignatura"
+        android:textColor="#5A5C5E"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+
+    <ListView
+        android:id="@+id/listViewComentarios"
+        android:layout_width="378dp"
+        android:layout_height="345dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="237dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <TextView
+        android:id="@+id/textoComentariosDe"
+        android:layout_width="76dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:text="Inicio"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/comentariosDesde"
+        app:layout_constraintEnd_toStartOf="@+id/textoComentariosA"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/comentariosDesde"
+        android:layout_width="167dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="FechaInicio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="167dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="540dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3">
+
+        <Spinner
+            android:id="@+id/selectorasignaturas"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/drop" />
+
+    </RelativeLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
