@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -67,7 +68,7 @@ class mayormenoractividad : AppCompatActivity() {
 
     var asignaturaSeleccionada: String?=null
 
-    var textoDeDia:TextView?=null
+
 
     private val calendar = Calendar.getInstance()
 
@@ -89,7 +90,7 @@ class mayormenoractividad : AppCompatActivity() {
         fechaFin = findViewById<View>(R.id.graficasActividadFin) as EditText?
         dbStats = AdminSQLiteOpenHelperStats(this)
         dbAsig = AdminSQLiteOpenHelperAsig(this)
-        textoDeDia=findViewById(R.id.textoDeDia)
+
         //textoDeDia?.visibility=View.VISIBLE
 
         // Configuración inicial de fechas
@@ -211,7 +212,7 @@ class mayormenoractividad : AppCompatActivity() {
      */
     private fun mostrarOpcionesSpinner() {
         val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
-
+        val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
         val opciones = listOf("Rango", "Histórico","Mes actual")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
@@ -222,19 +223,25 @@ class mayormenoractividad : AppCompatActivity() {
         spinnerOpciones.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val opcionSeleccionada = opciones[position]
-
+                val layoutParams = aaChartViewGrafica.layoutParams
                 when (opcionSeleccionada) {
                     "Rango" -> {
+                        layoutParams.height = resources.getDimensionPixelSize(R.dimen.default_chart_height)
+                        aaChartViewGrafica.layoutParams = layoutParams
                         fechaInicio?.visibility = View.VISIBLE
                         fechaFin?.visibility = View.VISIBLE
                         obtenerGrafica(1)
                     }
                     "Histórico" -> {
+                        layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_chart_height)
+                        aaChartViewGrafica.layoutParams = layoutParams
                         fechaInicio?.visibility = View.GONE
                         fechaFin?.visibility = View.GONE
                         obtenerGrafica(2)
                     }
                     "Mes actual" -> {
+                        layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_chart_height)
+                        aaChartViewGrafica.layoutParams = layoutParams
                         fechaInicio?.visibility = View.GONE
                         fechaFin?.visibility = View.GONE
                         obtenerGrafica(3)
@@ -315,14 +322,14 @@ class mayormenoractividad : AppCompatActivity() {
         }
 
         if (listaDiasFiltrados.isEmpty()) {
-            textoDeDia?.visibility=View.GONE
+
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.VISIBLE
             }
             aaChartViewGrafica.aa_drawChartWithChartModel(AAChartModel())  // Dibuja un gráfico vacío
             return
         }else{
-            textoDeDia?.visibility=View.VISIBLE
+
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.INVISIBLE
             }

@@ -6,28 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".mayormenoractividad">
 
-    <EditText
-        android:id="@+id/graficasActividadInicio"
-        android:layout_width="176dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="496dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="FechaInicio"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
-        app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/textView86"
+        android:layout_width="179dp"
+        android:layout_height="38dp"
+        android:text="Rango temporal"
+        android:textColor="#5A5C5E"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.915" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout6"
         android:layout_width="162dp"
         android:layout_height="63dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="584dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="536dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
@@ -35,8 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.833">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <Spinner
             android:id="@+id/graficasActividadOpciones"
@@ -63,12 +62,72 @@
 
     </RelativeLayout>
 
+    <EditText
+        android:id="@+id/graficasActividadFin"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="FechaFin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout6"
+        app:layout_constraintVertical_bias="0.002" />
+
+    <TextView
+        android:id="@+id/textView85"
+        android:layout_width="163dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="8dp"
+        android:text="Asignatura"
+        android:textColor="#5A5C5E"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+        android:id="@+id/graficaActividad"
+        android:layout_width="374dp"
+        android:layout_height="388dp"
+        android:layout_marginTop="19dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graficasActividadInicio"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/graficasActividadInicio"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="472dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="FechaInicio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+        app:layout_constraintVertical_bias="0.0" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout5"
         android:layout_width="162dp"
         android:layout_height="63dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="584dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="536dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
@@ -76,8 +135,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.833">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <Spinner
             android:id="@+id/graficasActividadAsig"
@@ -103,35 +161,6 @@
             android:src="@mipmap/drop" />
 
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/graficasActividadFin"
-        android:layout_width="179dp"
-        android:layout_height="62dp"
-        android:layout_marginBottom="496dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="FechaFin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout6"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-        android:id="@+id/graficaActividad"
-        android:layout_width="373dp"
-        android:layout_height="391dp"
-        android:layout_marginTop="67dp"
-        android:layout_marginBottom="33dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0">
-
-    </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -186,18 +215,6 @@
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/ic_home_black_24dp" />
 
-    <TextView
-        android:id="@+id/textoDeDia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="309dp"
-        android:layout_marginBottom="63dp"
-        android:text="Día"
-        app:layout_constraintBottom_toBottomOf="@+id/graficaActividad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/graficaActividad" />
 
     <TextView
         android:id="@+id/textoNoComentarios2"
