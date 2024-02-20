@@ -9,40 +9,20 @@
 
     <TextView
         android:id="@+id/textView68"
-        android:layout_width="670dp"
-        android:layout_height="134dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="101dp"
+        android:layout_width="645dp"
+        android:layout_height="183dp"
+        android:layout_marginTop="4dp"
         android:scrollbars="vertical"
-        android:text="@string/para_poder_acceder_a_las_funcionalidades_de_la_aplicaci_n_a_ada_al_menos_una_asignatura_en_el_men_de_opciones"
+        android:text="@string/mensaje_de_bienvenida"
         android:textAlignment="center"
         android:textColor="#494646"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/btn_entendido"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.688"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView67"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TextSizeCheck" />
-
-    <TextView
-        android:id="@+id/textView70"
-        android:layout_width="667dp"
-        android:layout_height="90dp"
-        android:layout_marginBottom="11dp"
-        android:scrollbars="vertical"
-        android:text="@string/para_acceder_a_las_opciones_en_negro_mantenga_pulsado_el_bot_n_durante_3s"
-        android:textAlignment="center"
-        android:textColor="#494646"
-        android:textSize="30sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/btn_entendido"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView68"
+        app:layout_constraintVertical_bias="0.34"
         tools:ignore="TextSizeCheck" />
 
     <TextView
@@ -71,7 +51,7 @@
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.953"
+        app:layout_constraintVertical_bias="0.909"
         tools:ignore="TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
