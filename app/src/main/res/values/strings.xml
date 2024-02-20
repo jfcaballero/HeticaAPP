@@ -95,5 +95,36 @@
         - Habilitar finalizar: Al activarlo, permite al usuario que pueda finalizar la sesión de estudio sin necesidad de esperar a que termine el temporizador.\n\n
         - Modo concentración: Al habilitarse, no permitirá que ninguna notificación sea recibida. La primera vez
         deberá conceder los permisos a HETICA para su uso.\n\n</string>
+    <string name = "creditos_texto">
+        <b>HETICA</b>: Una Herramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger.\n\n
+
+        Este proyecto fue inicialmente desarrollado (periodo 2019-2020) en el marco del V Plan
+        Propio Galileo de Innovación y Transferencia de la Universidad de Córdoba, Modalidad
+        IV, proyectos UCO-SOCIAL-INNOVA, con colaboración de la Obra Social “La Caixa” y la Asociación Autismo Córdoba. \n\n
+
+        <b>Coordinador principal</b>:\n
+            \u2022 Juan Carlos Fernández Caballero, jfcaballero@uco.es. Universidad de Córdoba.\n\n
+
+        <b>Equipo de investigación</b>: \n
+            \u2022 César Hervás Martínez, chervas@uco.es. Universidad de Córdoba.\n
+            \u2022 Pedro Antonio Gutiérrez Peña, pagutierrez@uco.es. Universidad de Córdoba. \n\n
+
+        <b>Equipo de trabajo</b>: \n
+            \u2022 Miguel Ángel Borreguero Aparicio, i52boapm@uco.es. Universidad de Córdoba. Desarrollador principal.  \n
+            \u2022 María Muñoz Reyes, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).  \n
+            \u2022 Carmen Moscoso Galisteo, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).  \n
+            \u2022 Julio Camacho Cañamón, julio.camacho@uco.es. Universidad de Córdoba. \n
+            \u2022 Antonio Manuel Gómez Orellana, am.gomez@uco.es. Universidad de Córdoba.  \n
+            \u2022 David Guijo Rubio, dguijo@uco.es. Universidad de Córdoba.\n\n
+
+        <b>Desarrollos y mejoras posteriores</b>: \n
+             \u00A0\u00A0\u2022 <b>Año 2024</b>:\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 Juan Carlos Fernández Caballero, Universidad de Córdoba, jfcaballero@uco.es: Dirección y coordinación.\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 Álvaro Berjillos Roldán, lvaro.berjillos@gmail.com: Desarrollador principal.\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 María Muñoz Reyes, Asociación Autismo Córdoba, direccion@autismocordoba.org: Asesoramiento.\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 Inmaculada García Valiente, Asociación Autismo Córdoba, inmaculada.valiente@autismocordoba.org: Asesoramiento.
+
+
+    </string>
 
 </resources>
