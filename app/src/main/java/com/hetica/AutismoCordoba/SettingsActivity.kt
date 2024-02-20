@@ -6,18 +6,24 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.provider.Settings
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -40,6 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         textView = findViewById<View>(R.id.textView46) as TextView
         ayudaOpciones=findViewById(R.id.ayudaOpciones)
         Switch = findViewById<View>(R.id.switch3) as Switch
+        gestionarAsignaturasBoton = findViewById(R.id.button35)
         SwitchTemp = findViewById<View>(R.id.switch1) as Switch
         SwitchPausa = findViewById<View>(R.id.switch2) as Switch
         SwitchFin = findViewById<View>(R.id.switchFin) as Switch
@@ -194,13 +201,38 @@ class SettingsActivity : AppCompatActivity() {
      */
     private fun mostrarCuadroFlotante(texto: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setMessage(texto)
+        builder.setMessage(getFormattedText(texto))
             .setTitle("Ayuda de opciones") // Título del cuadro de diálogo
             .setPositiveButton("Entendido") { dialog, _ ->
                 dialog.dismiss()
             }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    /**
+     * Función para formatear el texto con saltos de línea y negritas
+     */
+    private fun getFormattedText(texto: String): CharSequence {
+        val spannableStringBuilder = SpannableStringBuilder()
+        val lines = texto.split("\n")
+        for (line in lines) {
+            val startIndex = line.indexOf('\u25AA')
+            val endIndex = line.indexOf(':')
+            if (startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
+                val formattedLine = SpannableStringBuilder(line)
+                formattedLine.setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableStringBuilder.append(formattedLine)
+            } else {
+                spannableStringBuilder.append(line)
+            }
+            spannableStringBuilder.append("\n")
+        }
+        // Eliminar el último carácter de salto de línea adicional
+        if (spannableStringBuilder.endsWith("\n")) {
+            spannableStringBuilder.delete(spannableStringBuilder.length - 1, spannableStringBuilder.length)
+        }
+        return spannableStringBuilder
     }
 
     /**
@@ -501,6 +533,7 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(siguiente)
     }
 
+
     companion object {
         private var seekBar: SeekBar? = null
 
@@ -525,5 +558,7 @@ class SettingsActivity : AppCompatActivity() {
         var SwitchPausa: Switch? = null
         var SwitchFin: Switch? = null
         var SwitchConcentracion: Switch? = null
+
+        var gestionarAsignaturasBoton:Button?=null
     }
 }

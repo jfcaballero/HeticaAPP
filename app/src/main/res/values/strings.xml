@@ -86,15 +86,27 @@
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
     <string name="comentar_estudio">Comentar estudio</string>
     <string name="texto_ayuda">
-        - Mostrar temporizador al inicio: Activa la opción de estudiar únicamente una asignatura desde el menú principal.\n\n
-        - Tiempo de trabajo fijo: Al activar el switch, el tiempo que se establezca
-        en la barra será el que siempre tenga al estudiar una asignatura. Pulse "Guardar" para establecerlo. Al desactivarlo, podrá elegir el tiempo
-        en el momento del estudio (siempre 30 minutos como mínimo).\n\n
-        - Gestionar asignaturas: Desde aquí puede introducir, modificar el nombre o eliminar una asignatura. También puede visualizar todas las creadas.\n\n
-        - Pausar temporizador: Habilita la opción para poder pausar el temporizador durante la fase de estudio.\n\n
-        - Habilitar finalizar: Al activarlo, permite al usuario que pueda finalizar la sesión de estudio sin necesidad de esperar a que termine el temporizador.\n\n
-        - Modo concentración: Al habilitarse, no permitirá que ninguna notificación sea recibida. La primera vez
-        deberá conceder los permisos a HETICA para su uso.\n\n</string>
+        \u25AA Mostrar temporizador al inicio: Con la opción activada se permite estudiar
+        directamente una asignatura desde el menú principal. Aparecerá un nuevo icono en
+        forma de cronómetro blanco.\n\n
+
+        \u25AA Tiempo de trabajo fijo: Con la opción activada se permite establecer un tiempo
+        fijo para estudiar las asignaturas. Si está desactiva puede establecer el tiempo en el
+        momento del estudio (como mínimo 30 minutos). Pulse GUARDAR para poder
+        establecer los cambios.\n\n
+
+        \u25AA Gestionar asignaturas: Mediante esta opción se permite gestionar asignaturas
+        (añadir, eliminar, modificar, visualizar).\n\n
+
+        \u25AA Pausar temporizador: Con la opción activada se permite el poder pausar el
+        cronómetro de estudio durante una sesión de estudio.\n\n
+
+        \u25AA Habilitar finalizar: Con la opción activada se permite finalizar una sesión de
+        estudio sin tener que esperar a que finalice el temporizador.\n\n
+
+        \u25AA Modo concentración:  Con la opción activada no se recibirán notificaciones en el
+        dispositivo móvil mientras se usa la aplicación Hetica. \n\n
+    </string>
     <string name = "creditos_texto">
         <b>HETICA</b>: Una Herramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger.\n\n
 
