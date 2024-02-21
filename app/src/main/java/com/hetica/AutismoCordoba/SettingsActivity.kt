@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
@@ -37,11 +38,13 @@ import java.util.Calendar
  */
 
 class SettingsActivity : AppCompatActivity() {
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        sharedPreferences = getSharedPreferences("settings_preferences", Context.MODE_PRIVATE)
         seekBar = findViewById<View>(R.id.seekBar4) as SeekBar
         textView = findViewById<View>(R.id.textView46) as TextView
         ayudaOpciones=findViewById(R.id.ayudaOpciones)
@@ -194,6 +197,16 @@ class SettingsActivity : AppCompatActivity() {
         setupSwitchConcentracionListener()
 
     }
+    // Métodos para guardar y obtener el estado del modo de concentración en SharedPreferences
+    private fun saveConcentrationModeState(state: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("concentration_mode", state)
+        editor.apply()
+    }
+
+    private fun getConcentrationModeState(): Boolean {
+        return sharedPreferences.getBoolean("concentration_mode", false)
+    }
 
     /**
      * Función para mostrar el cuadro flotante de ayuda al pulsarse
@@ -258,10 +271,13 @@ class SettingsActivity : AppCompatActivity() {
             if (isChecked && notificationPolicyAccessGranted()) {
                 val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+                saveConcentrationModeState(true) // Guardar estado en SharedPreferences
             } else {
                 val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
+                saveConcentrationModeState(false) // Guardar estado en SharedPreferences
             }
+
         }
     }
     /**

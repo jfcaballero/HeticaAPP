@@ -16,6 +16,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         tools:ignore="ExtraText,GoogleAppIndexingWarning">
+        <service android:name=".ConcentrationModeService" />
+
         <activity
             android:name=".EliminarCalificaciones"
             android:exported="false"

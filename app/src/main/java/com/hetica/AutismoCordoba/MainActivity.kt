@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     var db: AdminSQLiteOpenHelperAsig? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val serviceIntent = Intent(this, ConcentrationModeService::class.java)
+        startService(serviceIntent)
         setContentView(R.layout.activity_main)
         db = AdminSQLiteOpenHelperAsig(this)
         botonTemp = findViewById<View>(R.id.button45) as Button
