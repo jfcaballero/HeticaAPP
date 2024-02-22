@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperCalendario
 import AdminSQLiteOpenHelperCalificaciones
 import AdminSQLiteOpenHelperComentarios
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.TypedValue
@@ -149,6 +150,16 @@ class ElegirAsignaturas : AppCompatActivity() {
 
 
     }*/
+
+    /**
+     * Función para volver a Settings
+     *
+     * @param view the view
+     */
+    fun Settings(view: View?) {
+        val siguiente = Intent(view!!.context, SettingsActivity::class.java)
+        startActivity(siguiente)
+    }
     /**
      * Función que introduce o modifica una asignatura en la BBDD y tiene control de errores
      *
