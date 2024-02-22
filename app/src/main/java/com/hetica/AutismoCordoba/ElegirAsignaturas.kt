@@ -159,17 +159,21 @@ class ElegirAsignaturas : AppCompatActivity() {
         val dbStats = AdminSQLiteOpenHelperStats(this)
         val dbComentarios=AdminSQLiteOpenHelperComentarios(this)
         val dbCalendario=AdminSQLiteOpenHelperCalendario(this)
+
+        val asignatura = et!!.text.toString().trim() // Eliminar espacios al principio y al final
+
         if (agregar == 1) {
-            val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
                 Toast.makeText(view!!.context, "La asignatura es demasiado larga", Toast.LENGTH_LONG).show()
             } else {
                 if (db!!.buscar(asignatura)) {
-                    if (asignatura.isNotBlank() && db!!.insertData(replaceSpacesWithUnderscore(asignatura))) {
+                    //if (asignatura.isNotBlank() && db!!.insertData(replaceSpacesWithUnderscore(asignatura))) {
+                    if (asignatura.isNotBlank() && db!!.insertData(asignatura)) {
                         Toast.makeText(this, "Se ha introducido correctamente", Toast.LENGTH_LONG).show()
 
                         // Actualizar la lista y notificar al adaptador
-                        arrayList!!.add(replaceSpacesWithUnderscore(asignatura))
+                        //arrayList!!.add(replaceSpacesWithUnderscore(asignatura))
+                        arrayList!!.add(asignatura)
                         adapter!!.notifyDataSetChanged()
 
                         lv!!.adapter = adapter
@@ -182,27 +186,33 @@ class ElegirAsignaturas : AppCompatActivity() {
                 }
             }
         } else {
-            val asignatura = et!!.text.toString()
+            //val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
                 Toast.makeText(this, "La asignatura es demasiado larga", Toast.LENGTH_LONG).show()
             } else {
                 if (db!!.buscar(asignatura)) {
-                    if (asignatura.isNotBlank() && db!!.Modificar(replaceSpacesWithUnderscore(asignatura), modificarAux)) {
+                    //if (asignatura.isNotBlank() && db!!.Modificar(replaceSpacesWithUnderscore(asignatura), modificarAux)) {
+                    if (asignatura.isNotBlank() && db!!.Modificar(asignatura, modificarAux)) {
                         // Modifico también la base de datos de estadísticas
 
                         val actualizadoEnStats = dbStats.ModificarNombreAsignatura(
-                            modificarAux?.let { replaceSpacesWithUnderscore(it) },
-                            replaceSpacesWithUnderscore(asignatura)
-                        )
-                        dbComentarios.updateSubjectName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
-                        dbCalificaciones.updateSubjectName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
-                        dbCalendario.updateAsignaturaName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
+                            //modificarAux?.let { replaceSpacesWithUnderscore(it) }, asignatura)
+                            modificarAux?.let { it }, asignatura)
+                            //replaceSpacesWithUnderscore(asignatura)
+
+                        //dbComentarios.updateSubjectName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
+                        //dbCalificaciones.updateSubjectName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
+                        //dbCalendario.updateAsignaturaName(modificarAux ?: "", replaceSpacesWithUnderscore(asignatura))
+                        dbComentarios.updateSubjectName(modificarAux ?: "", asignatura)
+                        dbCalificaciones.updateSubjectName(modificarAux ?: "", asignatura)
+                        dbCalendario.updateAsignaturaName(modificarAux ?: "", asignatura)
                         if (actualizadoEnStats) {
                             Toast.makeText(this, "Se ha modificado correctamente", Toast.LENGTH_LONG).show()
                         }
 
                         // Actualizar la lista y notificar al adaptador
-                        arrayList!![position1] = replaceSpacesWithUnderscore(asignatura)
+                        //arrayList!![position1] = replaceSpacesWithUnderscore(asignatura)
+                        arrayList!![position1] = asignatura
                         adapter!!.notifyDataSetChanged()
 
                         lv!!.adapter = adapter
