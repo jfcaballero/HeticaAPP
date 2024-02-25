@@ -6,8 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:scrollbarThumbVertical">@color/mi_color_de_barra</item>
+
 
     </style>
+    
 
     <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
 
@@ -21,6 +24,8 @@
     <style name="toolbarbig" parent="@style/Base.TextAppearance.AppCompat.Title">
         <item name="android:textSize">36dp</item>
     </style>
+
+
 
 
 </resources>

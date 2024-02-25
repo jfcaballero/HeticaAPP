@@ -183,9 +183,13 @@
 
     <ListView
         android:id="@+id/tiempoLista"
-        android:layout_width="388dp"
-        android:layout_height="319dp"
+        android:layout_width="372dp"
+        android:layout_height="314dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="124dp"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/mi_color_de_barra"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
