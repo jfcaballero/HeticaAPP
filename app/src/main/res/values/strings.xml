@@ -107,7 +107,7 @@
         \u25AA Modo concentración:  Con la opción activada no se recibirán notificaciones en el
         dispositivo móvil mientras se usa la aplicación Hetica. \n\n
     </string>
-    <string name = "creditos_texto">
+    <string name="creditos_texto">
         <b>HETICA</b>: Una Herramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger.\n\n
 
         Este proyecto fue inicialmente desarrollado (periodo 2019-2020) en el marco del V Plan

@@ -197,6 +197,17 @@ class tiempo_dedicado: AppCompatActivity()  {
         mostrarAsignaturas()
         mostrarOpcionesSpinner()
 
+        ListViewDias?.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val asignaturaSeleccionada = asignaturaSeleccionada ?: return@OnItemClickListener
+            val itemSeleccionado = parent.getItemAtPosition(position).toString()
+            val partes = itemSeleccionado.split(": ")
+            val fecha = partes[0]
+
+            val intent = Intent(this, InsertarComentarios::class.java)
+            intent.putExtra("asignatura", asignaturaSeleccionada)
+            intent.putExtra("fecha", fecha)
+            startActivity(intent)
+        }
 
     }
 
