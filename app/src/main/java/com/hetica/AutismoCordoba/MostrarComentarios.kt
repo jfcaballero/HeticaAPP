@@ -318,14 +318,16 @@ class MostrarComentarios : AppCompatActivity() {
 
     /**
      * Función para acortar el comentario al mostrarlo en el listview
-     * @param comentario
+     * @param comentario El comentario a acortar si excede la longitud máxima
+     * @return El comentario acortado si excede la longitud máxima, de lo contrario, el comentario sin cambios
      */
     private fun abreviarComentario(comentario: String): String {
-        val maxLength = 50
-        return if (comentario.length > maxLength) {
-            comentario.substring(0, maxLength - 3) + "..."
+        val maxLength = 20
+        val comentarioSinSaltos = comentario.replace("\n", " ") // Reemplazar saltos de línea por espacios
+        return if (comentarioSinSaltos.length > maxLength) {
+            comentarioSinSaltos.substring(0, maxLength - 3) + "..."
         } else {
-            comentario
+            comentarioSinSaltos
         }
     }
 
