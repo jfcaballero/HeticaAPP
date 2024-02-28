@@ -86,6 +86,7 @@ class MostrarComentarios : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 // Llamar a viewData cada vez que cambies la opción en el Spinner de opciones
                 viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -234,20 +235,8 @@ class MostrarComentarios : AppCompatActivity() {
 
                 if (name == asignaturaSeleccionada) {
                     if (fechaInicioTexto != null && fechaFinTexto!=null && textoA!=null &&textoDe!=null) {
-                        if(esOpcionHistoricoSeleccionada()){ //esconder el texto si no hemos seleccionado rango
+                        ajustarVisibilidadElementos()
 
-                                fechaInicioTexto.visibility=View.INVISIBLE
-                                fechaFinTexto.visibility=View.INVISIBLE
-                                textoDe.visibility=View.INVISIBLE
-                                textoA.visibility=View.INVISIBLE
-                            } else{
-
-                                fechaInicioTexto.visibility=View.VISIBLE
-                                fechaFinTexto.visibility=View.VISIBLE
-                                textoDe.visibility=View.VISIBLE
-                                textoA.visibility=View.VISIBLE
-
-                        }
                     }
                     if (esOpcionHistoricoSeleccionada() || fechaEstaEntre(date, fechaInicio, fechaFin)) {
                         val abreviado = abreviarComentario(comments)
@@ -258,6 +247,7 @@ class MostrarComentarios : AppCompatActivity() {
         }
 
         mostrarComentarios(comentariosList)
+
     }
 
     /**
@@ -273,7 +263,7 @@ class MostrarComentarios : AppCompatActivity() {
                 val comentarioCompleto = comentariosList[position].first
                 mostrarCuadroFlotante(comentarioCompleto)
             }
-
+        ajustarVisibilidadElementos()
         if (comentariosList.isEmpty()) {
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.VISIBLE
@@ -391,4 +381,23 @@ class MostrarComentarios : AppCompatActivity() {
 
         return "$diaFormateado/$mesFormateado/$year"
     }
+    private fun ajustarVisibilidadElementos() {
+        val fechaInicioTexto: EditText? = findViewById(R.id.comentariosDesde)
+        val fechaFinTexto: EditText? = findViewById(R.id.comentariosHasta)
+        val textoDe: TextView? = findViewById(R.id.textoComentariosDe)
+        val textoA: TextView? = findViewById(R.id.textoComentariosA)
+
+        if (esOpcionHistoricoSeleccionada()) { // Si la opción es histórico, ocultar los elementos
+            fechaInicioTexto?.visibility = View.INVISIBLE
+            fechaFinTexto?.visibility = View.INVISIBLE
+            textoDe?.visibility = View.INVISIBLE
+            textoA?.visibility = View.INVISIBLE
+        } else { // Si la opción no es histórico, mostrar los elementos
+            fechaInicioTexto?.visibility = View.VISIBLE
+            fechaFinTexto?.visibility = View.VISIBLE
+            textoDe?.visibility = View.VISIBLE
+            textoA?.visibility = View.VISIBLE
+        }
+    }
+
 }
