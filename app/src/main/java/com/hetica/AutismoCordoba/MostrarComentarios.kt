@@ -263,6 +263,8 @@ class MostrarComentarios : AppCompatActivity() {
                 val comentarioCompleto = comentariosList[position].first
                 mostrarCuadroFlotante(comentarioCompleto)
             }
+
+
         ajustarVisibilidadElementos()
         if (comentariosList.isEmpty()) {
             if (nocomentarios != null) {
@@ -386,17 +388,25 @@ class MostrarComentarios : AppCompatActivity() {
         val fechaFinTexto: EditText? = findViewById(R.id.comentariosHasta)
         val textoDe: TextView? = findViewById(R.id.textoComentariosDe)
         val textoA: TextView? = findViewById(R.id.textoComentariosA)
-
+        val layoutParams = listViewComentarios?.layoutParams
         if (esOpcionHistoricoSeleccionada()) { // Si la opción es histórico, ocultar los elementos
             fechaInicioTexto?.visibility = View.INVISIBLE
             fechaFinTexto?.visibility = View.INVISIBLE
             textoDe?.visibility = View.INVISIBLE
             textoA?.visibility = View.INVISIBLE
+
+            if (layoutParams != null) {
+                layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_coments_height)
+            }
+
         } else { // Si la opción no es histórico, mostrar los elementos
             fechaInicioTexto?.visibility = View.VISIBLE
             fechaFinTexto?.visibility = View.VISIBLE
             textoDe?.visibility = View.VISIBLE
             textoA?.visibility = View.VISIBLE
+            if (layoutParams != null) {
+                layoutParams.height = resources.getDimensionPixelSize(R.dimen.default_coments_height)
+            }
         }
     }
 

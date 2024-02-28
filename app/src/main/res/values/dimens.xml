@@ -3,5 +3,7 @@
     <dimen name="fab_bigger_margin">64dp</dimen>
     <dimen name="default_chart_height">391dp</dimen>
     <dimen name="expanded_chart_height">450dp</dimen>
+    <dimen name="expanded_coments_height">450dp</dimen>
+    <dimen name="default_coments_height">345dp</dimen>
 
 </resources>
