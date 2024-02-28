@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperCalificaciones
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -34,6 +35,8 @@ private var tipoSeleccionado: String? = null
  */
 private var NotaFloat: Float? = null
 
+private var btnVolverAVisualizarCalificaciones: Button?=null
+
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityAddCalificacionesBinding? = null
 private val binding get() = _binding!!
@@ -45,7 +48,7 @@ class AddCalificaciones : AppCompatActivity() {
 
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
-
+        btnVolverAVisualizarCalificaciones=findViewById(R.id.volverAVisualizarCalificaciones)
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
         val spinnerAsignaturas: Spinner = binding.spinnerAddAsignatura
@@ -143,8 +146,7 @@ class AddCalificaciones : AppCompatActivity() {
 
         Guardar.setOnClickListener {
             val notaString = Nota.text.toString()
-            //val fechaString = yearFinal
-
+            var toastMessage=""
             if (notaString.isNotEmpty()) {
                 if(validateDate(yearFinal)){
                     NotaFloat = notaString.toFloat()
@@ -155,24 +157,25 @@ class AddCalificaciones : AppCompatActivity() {
                             tipoSeleccionado,
                             yearFinal!!
                         )
-                        Log.d("Fecha", "$yearFinal")
                         if (isInserted == true) {
-                            val toastMessage =
-                                "Calificación insertada: $asignaturaSeleccionada, Nota: $NotaFloat, Tipo: $tipoSeleccionado"
-                            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+                            toastMessage = "Calificación insertada."
+                            VolverAVisualizarCalificaciones()
                         } else {
-                            Toast.makeText(this, "No se pudo insertar la calificación.", Toast.LENGTH_SHORT)
-                                .show()
+                            toastMessage = "No se pudo insertar la calificación."
                         }
                     }
                 }else{
-                    Toast.makeText(this, "Introduce una fecha en formato dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
+                    toastMessage ="Introduce una fecha en formato dd/MM/yyyy."
 
                 }
 
             } else {
-                Toast.makeText(this, "Introduce una nota válida antes de guardar.", Toast.LENGTH_SHORT).show()
+                toastMessage ="Introduce una nota válida antes de guardar."
             }
+            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+        }
+        btnVolverAVisualizarCalificaciones?.setOnClickListener {
+            VolverAVisualizarCalificaciones()
         }
 
 
@@ -185,6 +188,7 @@ class AddCalificaciones : AppCompatActivity() {
      * @param dateString Fecha a comprobar en formato String
      */
     private fun validateDate(dateString: String?): Boolean {
+        Log.d("Como esta la fecha","$dateString")
         if (dateString == null || dateString.isEmpty()) {
             return false
         }
@@ -196,7 +200,7 @@ class AddCalificaciones : AppCompatActivity() {
         }
 
         try {
-            // Intentar parsear la fecha
+            // comprobar si la fecha está en MMddyyyy
             val format = SimpleDateFormat("MMddyyyy", Locale.getDefault())
             format.isLenient = false
             format.parse(dateString)
@@ -205,5 +209,10 @@ class AddCalificaciones : AppCompatActivity() {
             e.printStackTrace()
             return false
         }
+    }
+
+    private fun VolverAVisualizarCalificaciones(){
+        val intent = Intent(this, VisualizarCalificaciones::class.java)
+        startActivity(intent)
     }
 }
