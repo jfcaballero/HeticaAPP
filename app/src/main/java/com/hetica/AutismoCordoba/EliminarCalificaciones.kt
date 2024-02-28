@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,9 @@ private var asignaturaSeleccionada: String? = null
 @SuppressLint("StaticFieldLeak")
 private var botonEliminar: Button? = null
 
+
+private var btnVolverAVisualizarCalificaciones: Button?=null
+
 class EliminarCalificaciones : AppCompatActivity() {
 
     private lateinit var listaCalificaciones: ListView
@@ -28,6 +32,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         setContentView(R.layout.activity_eliminar_calificaciones)
 
         botonEliminar = findViewById(R.id.botonEliminarCalificacion)
+        btnVolverAVisualizarCalificaciones=findViewById(R.id.volverAVisualizarCalificacionesDesdeEliminar)
         listaCalificaciones = findViewById(R.id.listaCalificaciones)
         checkBoxSelectAll = findViewById(R.id.checkBoxSelectAll)
 
@@ -79,6 +84,9 @@ class EliminarCalificaciones : AppCompatActivity() {
             if (asignaturaSeleccionada != null) {
                 // Realizar acciones adicionales si es necesario
             }
+        }
+        btnVolverAVisualizarCalificaciones?.setOnClickListener {
+            volverAVisualizarCalificaciones()
         }
     }
 
@@ -160,5 +168,10 @@ class EliminarCalificaciones : AppCompatActivity() {
         for (i in 0 until listaCalificaciones.adapter.count) {
             listaCalificaciones.setItemChecked(i, isChecked)
         }
+    }
+
+    private fun volverAVisualizarCalificaciones(){
+        val intent = Intent(this, VisualizarCalificaciones::class.java)
+        startActivity(intent)
     }
 }
