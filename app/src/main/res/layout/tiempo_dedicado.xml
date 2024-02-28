@@ -242,7 +242,7 @@
         android:id="@+id/textView70"
         android:layout_width="372dp"
         android:layout_height="51dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginBottom="8dp"
         android:text="Pulse en una asignatura para anotar un comentario."
         android:textColor="#009688"
         android:textSize="18sp"
@@ -250,9 +250,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tiempoLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoInicio"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
