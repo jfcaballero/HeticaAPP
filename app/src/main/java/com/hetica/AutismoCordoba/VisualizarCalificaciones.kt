@@ -101,7 +101,9 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         val buttonActividadCalificacion: Button = binding.buttonActividadCalificacion
         buttonActividadCalificacion.setOnClickListener {
+            val asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
             val intent = Intent(this, AddCalificaciones::class.java)
+            intent.putExtra("asignaturaSeleccionada", asignaturaSeleccionada)
             startActivity(intent)
         }
 

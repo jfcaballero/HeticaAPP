@@ -95,13 +95,11 @@
         android:id="@+id/aa_chart_view"
         android:layout_width="363dp"
         android:layout_height="323dp"
-        android:layout_marginTop="126dp"
-        android:layout_marginBottom="67dp"
 
-        app:layout_constraintBottom_toTopOf="@+id/buttonActividadCalificacion"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4">
+        app:layout_constraintTop_toBottomOf="@+id/textView84">
 
     </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
@@ -114,7 +112,8 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"
@@ -171,26 +170,32 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/buttonActividadEliminarCalificacion"
-        android:layout_width="155dp"
-        android:layout_height="65dp"
+        android:id="@+id/buttonActividadCalificacion"
+        android:layout_width="130dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="16dp"
-        android:text="Eliminar calificación"
+        android:text="Añadir"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aa_chart_view"
+        app:layout_constraintVertical_bias="0.55" />
 
     <Button
-        android:id="@+id/buttonActividadCalificacion"
-        android:layout_width="155dp"
-        android:layout_height="65dp"
+        android:id="@+id/buttonActividadEliminarCalificacion"
+        android:layout_width="130dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="16dp"
-        android:text="Añadir calificación"
+        android:text="Eliminar"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aa_chart_view"
+        app:layout_constraintVertical_bias="0.55" />
 
     <ImageView
         android:id="@+id/botonMain3"
@@ -206,17 +211,16 @@
 
     <TextView
         android:id="@+id/textView84"
-        android:layout_width="344dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginBottom="31dp"
+        android:layout_width="364dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="43dp"
         android:text="Notas obtenidas en la asignatura. Para un nuevo curso, elimine la asignatura."
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonActividadCalificacion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aa_chart_view"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,18 +46,23 @@
         app:layout_constraintVertical_bias="0.593" />
 
     <TextView
-        android:id="@+id/textView77"
+        android:id="@+id/asignaturaCalificacionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#25009688"
+        android:gravity="center"
         android:text="Asignatura"
-        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#174E49"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView79"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar5"
+        app:layout_constraintVertical_bias="0.29" />
 
     <TextView
         android:id="@+id/textView80"
@@ -100,48 +105,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.338" />
-
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout6"
-        android:layout_width="248dp"
-        android:layout_height="62dp"
-        android:layout_weight=".28"
-        android:background="#361FBFB0"
-
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24000001"
-        tools:ignore="MissingConstraints">
-
-        <Spinner
-            android:id="@+id/spinnerAddAsignatura"
-            android:layout_width="185dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:minHeight="48dp"
-            android:spinnerMode="dropdown" />
-
-        <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
-
-    </RelativeLayout>
 
 
     <RelativeLayout

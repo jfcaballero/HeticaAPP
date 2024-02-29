@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
 import java.text.ParseException
@@ -37,6 +38,8 @@ private var NotaFloat: Float? = null
 
 private var btnVolverAVisualizarCalificaciones: Button?=null
 
+private var asignaturaSeleccionadaTextView: TextView?=null
+
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityAddCalificacionesBinding? = null
 private val binding get() = _binding!!
@@ -51,11 +54,13 @@ class AddCalificaciones : AppCompatActivity() {
         btnVolverAVisualizarCalificaciones=findViewById(R.id.volverAVisualizarCalificaciones)
         val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
-        val spinnerAsignaturas: Spinner = binding.spinnerAddAsignatura
         val spinnerTipos: Spinner = binding.spinnerAddTipo
         val Nota: EditText = binding.AddNota
         val Guardar: Button = binding.buttonAddCalif
         val FechaEditText: EditText = binding.addCalificacionFecha
+        asignaturaSeleccionada = intent.getStringExtra("asignaturaSeleccionada")
+        asignaturaSeleccionadaTextView=findViewById(R.id.asignaturaCalificacionTextView)
+        asignaturaSeleccionadaTextView?.setText(asignaturaSeleccionada)
 
         //gestionar el EditText de la fecha:
         val mcurrentDate = Calendar.getInstance()
@@ -111,24 +116,6 @@ class AddCalificaciones : AppCompatActivity() {
             mDatePicker.show()
         }
 
-        //Spinner de asignaturas
-        if (asignaturasList != null) {
-            val adapterAddAsig = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
-            adapterAddAsig.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerAsignaturas.adapter = adapterAddAsig
-
-            spinnerAsignaturas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                    asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString() // Asignar valor a la variable global
-                    tipoSeleccionado = spinnerTipos.selectedItem.toString()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // No se realiza ninguna acción si no se selecciona nada
-                }
-            }
-
-        }
         //Spinner de tipo de examen
         val adapterAddTipos = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipoExamenList)
         adapterAddTipos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -136,7 +123,6 @@ class AddCalificaciones : AppCompatActivity() {
         spinnerTipos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 tipoSeleccionado = spinnerTipos.selectedItem.toString() // Asignar valor a la variable global
-                asignaturaSeleccionada = spinnerAsignaturas.selectedItem.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
