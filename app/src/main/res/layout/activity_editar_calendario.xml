@@ -10,15 +10,15 @@
 
     <ListView
         android:id="@+id/listViewCalendarioAsignaturas"
-        android:layout_width="366dp"
-        android:layout_height="222dp"
+        android:layout_width="362dp"
+        android:layout_height="238dp"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="100dp"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/mi_color_de_barra"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fadeScrollbars="false"
-        android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@color/mi_color_de_barra"
         app:layout_constraintHorizontal_bias="0.355"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView75"
@@ -50,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.226"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView74" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout9"
@@ -85,15 +86,18 @@
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
 
     </RelativeLayout>
 
@@ -125,7 +129,7 @@
         app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintVertical_bias="0.228" />
 
     <EditText
         android:id="@+id/calendarioMinutosAsignatura"
@@ -189,19 +193,13 @@
 
     <Button
         android:id="@+id/volverCalendarioBoton"
-        android:layout_width="133dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="167dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="156dp"
-        android:layout_marginBottom="25dp"
+        android:layout_width="127dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
         android:text="Volver"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewCalendarioAsignaturas"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

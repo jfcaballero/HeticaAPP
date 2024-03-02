@@ -19,8 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.529" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout6"
@@ -50,15 +50,18 @@
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
 
     </RelativeLayout>
 
@@ -81,7 +84,6 @@
         android:id="@+id/textView85"
         android:layout_width="163dp"
         android:layout_height="38dp"
-        android:layout_marginTop="88dp"
         android:layout_marginBottom="8dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
@@ -91,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
@@ -139,8 +141,8 @@
 
         <Spinner
             android:id="@+id/graficasActividadAsig"
-            android:layout_width="103dp"
-            android:layout_height="56dp"
+            android:layout_width="144dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
@@ -150,15 +152,18 @@
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
 
     </RelativeLayout>
 

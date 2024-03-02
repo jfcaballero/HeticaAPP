@@ -42,25 +42,29 @@
 
         <Spinner
             android:id="@+id/spinnerCalificacionAsig"
-            android:layout_width="103dp"
-            android:layout_height="56dp"
+            android:layout_width="153dp"
+            android:layout_height="64dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
             android:gravity="center"
+            android:minHeight="48dp"
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
 
     </RelativeLayout>
 
@@ -147,25 +151,29 @@
 
         <Spinner
             android:id="@+id/spinnerParcialFinal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="152dp"
+            android:layout_height="63dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
             android:gravity="center"
+            android:minHeight="48dp"
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="47dp"
-            android:layout_height="50dp"
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/drop" />
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
 
     </RelativeLayout>
 
