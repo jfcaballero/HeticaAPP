@@ -33,8 +33,8 @@
 
     <ListView
         android:id="@+id/listViewAsig"
-        android:layout_width="363dp"
-        android:layout_height="404dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="20dp"
@@ -42,7 +42,7 @@
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/volverElegirAsig"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
