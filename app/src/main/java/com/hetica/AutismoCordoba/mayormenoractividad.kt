@@ -349,7 +349,7 @@ class mayormenoractividad : AppCompatActivity() {
             .dataLabelsEnabled(true)
             .xAxisReversed(true)
             .zoomType(AAChartZoomType.XY)
-            .yAxisTitle("Minutos del día")
+            .yAxisTitle("Minutos estudiados")
             .categories(dataGrafica.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
