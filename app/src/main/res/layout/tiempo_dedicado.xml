@@ -10,32 +10,27 @@
         android:id="@+id/textView65"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginTop="20dp"
         android:text="Rango temporal"
         android:textColor="#5A5C5E"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintHorizontal_bias="0.831"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.375" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textView64"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="20dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -56,13 +51,12 @@
         android:id="@+id/tiempoFin"
         android:layout_width="167dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="452dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="date"
         android:text="FechaFin"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4" />
 
@@ -70,16 +64,14 @@
         android:id="@+id/relativeLayout4"
         android:layout_width="167dp"
         android:layout_height="65dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginBottom="536dp"
+        android:layout_marginTop="16dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/textView65">
 
         <Spinner
             android:id="@+id/tiempoOpciones"
@@ -112,16 +104,14 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="167dp"
         android:layout_height="65dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginBottom="536dp"
+        android:layout_marginTop="16dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/textView64">
 
         <Spinner
             android:id="@+id/tiempoAsignatura"
@@ -155,24 +145,23 @@
         android:id="@+id/tiempoInicio"
         android:layout_width="167dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="452dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="date"
         android:text="FechaInicio"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
@@ -190,32 +179,31 @@
 
     <ListView
         android:id="@+id/tiempoLista"
-        android:layout_width="373dp"
-        android:layout_height="276dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="116dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintBottom_toTopOf="@+id/tiempoMinutosTotales"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView70"
+        app:layout_constraintVertical_bias="0.148" />
 
     <TextView
         android:id="@+id/tiempoMinutosTotales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:text="Minutos totales"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempoLista"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewestadisticas"
@@ -246,17 +234,17 @@
 
     <TextView
         android:id="@+id/textView70"
-        android:layout_width="372dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="8dp"
-        android:text="Pulse en una asignatura para anotar un comentario."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Pulse en una asignatura para anotar \n un comentario."
         android:textColor="#009688"
         android:textSize="18sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/tiempoLista"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiempoInicio" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

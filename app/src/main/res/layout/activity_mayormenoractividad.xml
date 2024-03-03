@@ -98,8 +98,8 @@
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/graficaActividad"
-        android:layout_width="374dp"
-        android:layout_height="388dp"
+        android:layout_width="381dp"
+        android:layout_height="367dp"
         android:layout_marginTop="19dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
