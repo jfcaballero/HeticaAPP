@@ -16,6 +16,8 @@
         android:background="@mipmap/studyicon"
         android:onClick="pasarOrgEst"
         android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,15 +25,13 @@
         android:id="@+id/button2"
         android:layout_width="123dp"
         android:layout_height="123dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
         android:background="@mipmap/homeworkicon"
         android:onClick="pasarOrgTar"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.356"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button16"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -44,6 +44,8 @@
         android:onClick="pasarOrgMoch"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button16"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -55,7 +57,9 @@
         android:text="@string/String_organizaMochila"
         android:textColor="#000000"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toStartOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <Button
@@ -63,78 +67,60 @@
         android:layout_width="123dp"
         android:layout_height="123dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="72dp"
         android:background="@mipmap/calendario_iconsnova"
         android:onClick="pasarAsignaturaDeHoy"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_stats"
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView61"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button4" />
 
     <Button
         android:id="@+id/button45"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_timer_black_24dp"
         android:onClick="pasarTemporizador"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView59"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginStart="190dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_settings_black_24dp"
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView61"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button45" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_menu_black_24dp"
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/textView61"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button5" />
 
     <TextView
         android:id="@+id/textView44"
@@ -144,7 +130,7 @@
         android:layout_marginTop="16dp"
         android:text="HETICA"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -154,12 +140,12 @@
         android:id="@+id/textView59"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="ORGANIZAR EL ESTUDIO"
         android:textColor="#000000"
         android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
@@ -171,7 +157,9 @@
         android:text="ASIGNATURA DE HOY"
         android:textColor="#000000"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button16"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toStartOf="@+id/button16"
         app:layout_constraintTop_toBottomOf="@+id/button16" />
 
     <TextView
@@ -182,9 +170,9 @@
         android:text="@string/String_organizaTareas"
         android:textColor="#000000"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
