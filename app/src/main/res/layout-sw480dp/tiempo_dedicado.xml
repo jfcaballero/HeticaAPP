@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:text="Rango temporal"
         android:textColor="#5A5C5E"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.675"
@@ -27,7 +27,7 @@
         android:layout_marginTop="20dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
@@ -230,11 +230,11 @@
         android:text="No hay actividad disponible."
         android:textSize="24sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintBottom_toBottomOf="@+id/tiempoLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tiempoLista"
-        app:layout_constraintVertical_bias="0.63" />
+        app:layout_constraintVertical_bias="0.85" />
 
     <TextView
         android:id="@+id/textView70"
