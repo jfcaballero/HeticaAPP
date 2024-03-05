@@ -79,7 +79,7 @@
     <ImageView
         android:id="@+id/botonMain5"
         android:layout_width="63dp"
-        android:layout_height="62dp"
+        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.97"
@@ -95,7 +95,7 @@
         android:layout_marginTop="16dp"
         android:text="Selecciona el día de trabajo"
         android:textColor="#5A5C5E"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
