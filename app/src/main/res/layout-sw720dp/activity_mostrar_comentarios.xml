@@ -202,8 +202,8 @@
 
     <ImageView
         android:id="@+id/botonMain2"
-        android:layout_width="63dp"
-        android:layout_height="63dp"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
