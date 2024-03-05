@@ -79,7 +79,7 @@
         <Spinner
             android:id="@+id/tiempoOpciones"
             android:layout_width="285dp"
-            android:layout_height="86dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
@@ -119,7 +119,7 @@
         <Spinner
             android:id="@+id/tiempoAsignatura"
             android:layout_width="285dp"
-            android:layout_height="86dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"

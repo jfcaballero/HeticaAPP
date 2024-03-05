@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:text="Rango temporal"
         android:textColor="#5A5C5E"
-        android:textSize="20sp"
+        android:textSize="37sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,24 +22,25 @@
 
     <EditText
         android:id="@+id/comentariosHasta"
-        android:layout_width="167dp"
-        android:layout_height="53dp"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="FechaFin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.762"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textoComentariosA" />
 
     <TextView
         android:id="@+id/textoComentariosA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Fin"
-        android:textSize="20sp"
+        android:textSize="37sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/comentariosHasta"
         app:layout_constraintHorizontal_bias="0.0"
@@ -48,8 +49,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
-        android:layout_width="167dp"
-        android:layout_height="57dp"
+        android:layout_width="308dp"
+        android:layout_height="100dp"
         android:layout_marginTop="16dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
@@ -61,7 +62,7 @@
 
         <Spinner
             android:id="@+id/selectorRangoHistorico"
-            android:layout_width="match_parent"
+            android:layout_width="285dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
@@ -72,8 +73,8 @@
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="33dp"
+            android:layout_width="23dp"
+            android:layout_height="63dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -94,7 +95,7 @@
         android:layout_marginTop="20dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
-        android:textSize="22sp"
+        android:textSize="37sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -105,10 +106,10 @@
         android:id="@+id/listViewComentarios"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
@@ -123,9 +124,9 @@
         android:id="@+id/textoComentariosDe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Inicio"
-        android:textSize="20sp"
+        android:textSize="37sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/comentariosDesde"
         app:layout_constraintHorizontal_bias="0.0"
@@ -134,21 +135,22 @@
 
     <EditText
         android:id="@+id/comentariosDesde"
-        android:layout_width="167dp"
-        android:layout_height="53dp"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="date"
         android:text="FechaInicio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textoComentariosDe" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
-        android:layout_width="167dp"
-        android:layout_height="57dp"
+        android:layout_width="308dp"
+        android:layout_height="100dp"
         android:layout_marginTop="16dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
@@ -160,8 +162,9 @@
 
         <Spinner
             android:id="@+id/selectorasignaturas"
-            android:layout_width="147dp"
+            android:layout_width="285dp"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
@@ -170,8 +173,8 @@
             android:spinnerMode="dropdown" />
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="33dp"
+            android:layout_width="23dp"
+            android:layout_height="63dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -199,13 +202,14 @@
 
     <ImageView
         android:id="@+id/botonMain2"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.76"
         app:srcCompat="@drawable/ic_home_black_24dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
