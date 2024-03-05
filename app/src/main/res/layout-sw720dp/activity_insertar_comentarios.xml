@@ -8,15 +8,16 @@
 
     <Button
         android:id="@+id/volverATiempoDedicado"
-        android:layout_width="107dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="168dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:onClick="pasar3"
         android:text="@string/String_volver"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/insertarComentario" />
+        app:layout_constraintBottom_toTopOf="@id/insertarComentario"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/asignaturaDelComentario"
@@ -26,7 +27,7 @@
         android:layout_marginTop="20dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
-        android:textSize="20sp"
+        android:textSize="37sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar7" />
@@ -39,7 +40,7 @@
         android:layout_marginEnd="44dp"
         android:text="Fecha"
         android:textColor="#5A5C5E"
-        android:textSize="20sp"
+        android:textSize="37sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -60,11 +61,11 @@
 
     <Button
         android:id="@+id/insertarComentario"
-        android:layout_width="247dp"
-        android:layout_height="74dp"
+        android:layout_width="381dp"
+        android:layout_height="108dp"
         android:layout_marginBottom="16dp"
         android:text="REGISTRAR COMENTARIO"
-        android:textSize="18sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,10 +76,10 @@
         android:id="@+id/textoDeComentario"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:background="#469DD3DA"
         android:ems="10"
         android:fadeScrollbars="false"
@@ -87,6 +88,7 @@
         android:inputType="textMultiLine"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/volverATiempoDedicado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
