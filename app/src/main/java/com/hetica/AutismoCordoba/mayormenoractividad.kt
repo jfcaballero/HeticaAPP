@@ -226,22 +226,22 @@ class mayormenoractividad : AppCompatActivity() {
                 val layoutParams = aaChartViewGrafica.layoutParams
                 when (opcionSeleccionada) {
                     "Rango" -> {
-                        layoutParams.height = resources.getDimensionPixelSize(R.dimen.default_chart_height)
-                        aaChartViewGrafica.layoutParams = layoutParams
+                        //layoutParams.height = resources.getDimensionPixelSize(R.dimen.default_chart_height)
+                        //aaChartViewGrafica.layoutParams = layoutParams
                         fechaInicio?.visibility = View.VISIBLE
                         fechaFin?.visibility = View.VISIBLE
                         obtenerGrafica(1)
                     }
                     "Histórico" -> {
-                        layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_chart_height)
-                        aaChartViewGrafica.layoutParams = layoutParams
+                        //layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_chart_height)
+                        //aaChartViewGrafica.layoutParams = layoutParams
                         fechaInicio?.visibility = View.GONE
                         fechaFin?.visibility = View.GONE
                         obtenerGrafica(2)
                     }
                     "Mes actual" -> {
-                        layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_chart_height)
-                        aaChartViewGrafica.layoutParams = layoutParams
+                        //layoutParams.height = resources.getDimensionPixelSize(R.dimen.expanded_chart_height)
+                        //aaChartViewGrafica.layoutParams = layoutParams
                         fechaInicio?.visibility = View.GONE
                         fechaFin?.visibility = View.GONE
                         obtenerGrafica(3)
