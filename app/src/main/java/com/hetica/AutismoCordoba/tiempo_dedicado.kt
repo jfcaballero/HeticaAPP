@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
@@ -53,7 +54,9 @@ class tiempo_dedicado: AppCompatActivity()  {
     /**
      * The Adapter.
      */
-    var adapter: ArrayAdapter<String>? = null
+    var adapter: CustomListAdapter? = null
+
+    //var adapterList: CustomListAdapter? = null
 
     /**
      * The Lv.
@@ -83,7 +86,7 @@ class tiempo_dedicado: AppCompatActivity()  {
 
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -197,17 +200,23 @@ class tiempo_dedicado: AppCompatActivity()  {
         mostrarAsignaturas()
         mostrarOpcionesSpinner()
 
-        ListViewDias?.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val asignaturaSeleccionada = asignaturaSeleccionada ?: return@OnItemClickListener
-            val itemSeleccionado = parent.getItemAtPosition(position).toString()
-            val partes = itemSeleccionado.split(": ")
-            val fecha = partes[0]
+        ListViewDias?.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                val asignaturaSeleccionada = asignaturaSeleccionada ?: return@OnItemClickListener
+                val itemSeleccionado = parent.getItemAtPosition(position).toString()
+                val partes = itemSeleccionado.split(": ")
+                val fecha = partes[0]
 
-            val intent = Intent(this, InsertarComentarios::class.java)
-            intent.putExtra("asignatura", asignaturaSeleccionada)
-            intent.putExtra("fecha", fecha)
-            startActivity(intent)
-        }
+                val intent = Intent(this, InsertarComentarios::class.java)
+                intent.putExtra("asignatura", asignaturaSeleccionada)
+                intent.putExtra("fecha", fecha)
+                startActivity(intent)
+            }
+
+        arrayList = ArrayList()
+        adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, arrayList!!)
+        lv = findViewById(R.id.tiempoLista)
+        lv!!.adapter = adapter
 
     }
 
@@ -233,7 +242,7 @@ class tiempo_dedicado: AppCompatActivity()  {
 
         val opciones = listOf("Rango", "Histórico", "Día")
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerOpciones.adapter = adapter
@@ -309,7 +318,7 @@ class tiempo_dedicado: AppCompatActivity()  {
                 }
             }
             // Adaptador para el ListView
-            val adapter = ArrayAdapter(
+            val adapter = CustomListAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
                 datosDia.map { "${it.first}: ${it.second} minutos" }
@@ -363,7 +372,7 @@ class tiempo_dedicado: AppCompatActivity()  {
                 nodatos?.visibility = View.INVISIBLE
             }
             // Adaptador para el ListView
-            val adapter = ArrayAdapter(
+            val adapter = CustomListAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
                 datosRango.map { "${it.first}: ${it.second} minutos" }
@@ -427,7 +436,7 @@ class tiempo_dedicado: AppCompatActivity()  {
             MinutosEnTotal?.text = "Total: $totalMinutos minutos"
 
             // Adaptador para el ListView
-            val adapter = ArrayAdapter(
+            val adapter = CustomListAdapter(
                 this,
                 android.R.layout.simple_list_item_1,
                 datosHistoricos.map { "${it.first}: ${it.second} minutos" }
@@ -461,7 +470,7 @@ class tiempo_dedicado: AppCompatActivity()  {
         // Obtenemos la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
 

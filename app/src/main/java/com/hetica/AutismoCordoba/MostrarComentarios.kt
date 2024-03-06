@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperComentarios
+import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.AlertDialog
@@ -28,7 +29,7 @@ import java.util.Calendar
 var dbAsig: AdminSQLiteOpenHelperAsig? = null
 var dbComentarios: AdminSQLiteOpenHelperComentarios? = null
 var arrayList: ArrayList<String>? = null
-var adapter: ArrayAdapter<String>? = null
+var adapter: CustomListAdapter? = null
 var lv: ListView? = null
 var yearFinal: String? = null
 private var listViewComentarios: ListView? = null
@@ -76,7 +77,7 @@ class MostrarComentarios : AppCompatActivity() {
 
         val opciones = listOf("Rango", "Histórico")
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerOpciones.adapter = adapter
@@ -150,7 +151,7 @@ class MostrarComentarios : AppCompatActivity() {
 
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
-            val adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            val adapter2 = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter2
 
@@ -256,7 +257,7 @@ class MostrarComentarios : AppCompatActivity() {
      */
     private fun mostrarComentarios(comentariosList: List<Pair<String, String>>) {
         var nocomentarios: TextView?=findViewById(R.id.textoNoComentarios)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, comentariosList.map { it.second })
+        val adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, comentariosList.map { it.second })
         listViewComentarios?.adapter = adapter
         listViewComentarios?.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->

@@ -117,7 +117,7 @@ class AddCalificaciones : AppCompatActivity() {
         }
 
         //Spinner de tipo de examen
-        val adapterAddTipos = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipoExamenList)
+        val adapterAddTipos = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, tipoExamenList)
         adapterAddTipos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTipos.adapter = adapterAddTipos
         spinnerTipos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
@@ -50,7 +51,7 @@ class mayormenoractividad : AppCompatActivity() {
     /**
      * The Adapter.
      */
-    var adapter: ArrayAdapter<String>? = null
+    var adapter: CustomSpinnerAdapter? = null
 
     /**
      * The Lv.
@@ -215,7 +216,7 @@ class mayormenoractividad : AppCompatActivity() {
         val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
         val opciones = listOf("Rango", "Histórico","Mes actual")
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerOpciones.adapter = adapter
@@ -377,7 +378,7 @@ class mayormenoractividad : AppCompatActivity() {
         // Obtenemos la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
 

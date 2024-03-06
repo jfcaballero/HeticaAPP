@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
@@ -21,65 +22,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import java.util.Calendar
 
+
+
 /**
  * The type Estadisticas dias.
  */
 class estadisticasDias : AppCompatActivity() {
-    /**
-     * The Db.
-     */
+
     var db: AdminSQLiteOpenHelperStats? = null
-
-    /**
-     * The Array list.
-     */
     var arrayList: ArrayList<String>? = null
-
-    /**
-     * The Adapter.
-     */
-    var adapter: ArrayAdapter<String>? = null
-
-    /**
-     * The Lv.
-     */
+    var adapter: CustomListAdapter? = null
     var lv: ListView? = null
-
-    /**
-     * The Year final.
-     */
     var yearFinal: String? = null
-
-    /**
-     * The Month final.
-     */
     var monthFinal: String? = null
-
-    /**
-     * The Day final.
-     */
     var dayFinal: String? = null
-    /**
-     * Promedio de minutos
-     */
-    var  sumaMinutos: TextView?=null
-    /**
-     * Imagen para irnos al Main
-     */
-    var imageMain: ImageView?=null
+    var sumaMinutos: TextView? = null
+    var imageMain: ImageView? = null
+    var totalMinutos: Double = 0.0
 
-    var totalMinutos: Double =0.0
-
-
-    // Método para configurar la instancia de AdminSQLiteOpenHelperStats
     fun setAdminSQLiteOpenHelperStats(db: AdminSQLiteOpenHelperStats) {
         this.db = db
     }
 
     @SuppressLint("SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_estadisticas_dias)
         val editText = findViewById<View>(R.id.editText2) as EditText
@@ -89,16 +55,13 @@ class estadisticasDias : AppCompatActivity() {
         imageMain=findViewById(R.id.botonMain5)
         GoToMain()
 
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
         bottomNavigation.selectedItemId = R.id.action_estadisticas
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_estadisticas -> {
-                    true
-                }
+                R.id.action_estadisticas -> true
                 R.id.action_tiempo_dedicado -> {
                     val intent = Intent(this, tiempo_dedicado::class.java)
                     val animationBundle = ActivityOptions.makeCustomAnimation(
@@ -143,27 +106,8 @@ class estadisticasDias : AppCompatActivity() {
             }
         }
 
-
         arrayList = ArrayList()
-        if (resources.configuration.screenLayout and
-                Configuration.SCREENLAYOUT_SIZE_MASK ==
-                Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-            object : ArrayAdapter<String>(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!) {
-                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                    /// Get the Item from ListView
-                    val view = super.getView(position, convertView, parent)
-                    val tv = view.findViewById<View>(android.R.id.text1) as TextView
-
-                    // Set the text size 25 dip for ListView each item
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
-
-                    // Return the view
-                    return view
-                }
-            }
-        } else {
-            adapter = ArrayAdapter(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!)
-        }
+        adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, arrayList!!)
         lv!!.adapter = adapter
 
         val mcurrentDate = Calendar.getInstance()
@@ -172,9 +116,6 @@ class estadisticasDias : AppCompatActivity() {
         val dayAux = mcurrentDate[Calendar.DAY_OF_MONTH]
         monthAux = monthAux + 1
 
-
-
-        //yearFinal = Integer.toString(monthAux) + Integer.toString(dayAux) + Integer.toString(yearAux);
         yearFinal = if (monthAux < 10) {
             "0" + Integer.toString(monthAux)
         } else {
@@ -186,14 +127,11 @@ class estadisticasDias : AppCompatActivity() {
         yearFinal = yearFinal + Integer.toString(dayAux) + Integer.toString(yearAux)
         editText.setText("$dayAux/$monthAux/$yearAux")
         viewData()
-        editText.setOnClickListener { // TODO Auto-generated method stub
-            //To show current date in the datepicker
+        editText.setOnClickListener {
             val mcurrentDate2 = Calendar.getInstance()
             val year = mcurrentDate2[Calendar.YEAR]
             val month = mcurrentDate2[Calendar.MONTH]
             val day = mcurrentDate2[Calendar.DAY_OF_MONTH]
-            //month=month +1;
-            //yearFinal = Integer.toString(month) + Integer.toString(day) + Integer.toString(year);
             yearFinal = if (month < 10) {
                 "0" + Integer.toString(month)
             } else {
@@ -203,8 +141,7 @@ class estadisticasDias : AppCompatActivity() {
                 yearFinal = yearFinal + "0"
             }
             yearFinal = yearFinal + Integer.toString(day) + Integer.toString(year)
-            val mDatePicker = DatePickerDialog(this@estadisticasDias, { _, selectedYear, selectedMonth, selectedDay -> // TODO Auto-generated method stub
-                /*      Your code   to get date and time    */
+            val mDatePicker = DatePickerDialog(this@estadisticasDias, { _, selectedYear, selectedMonth, selectedDay ->
                 var adjustedMonth = selectedMonth
                 Log.e("Date Selected", "Month: $adjustedMonth Day: $selectedDay Year: $selectedYear")
                 adjustedMonth = adjustedMonth + 1
@@ -224,39 +161,25 @@ class estadisticasDias : AppCompatActivity() {
             mDatePicker.show()
         }
     }
-    /**
-     * Función para irnos al Main
-     *
-     */
+
     fun GoToMain(){
         imageMain?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
     }
 
-    /**
-     * Función que devuelve las estadísticas de una fecha en concreto
-     *
-     */
     @SuppressLint("Range")
     private fun viewData() {
         Log.e("Date Selected", yearFinal!!)
-
-        //esto es para switchear el mes y el dia porque estan al reves para hacer la consulta
         val day = yearFinal!!.substring(0, 2)
         val month = yearFinal!!.substring(2, 4)
         val year = yearFinal!!.substring(4)
-
         val formattedDate = "$month/$day/$year"
-
         val cursor = db!!.viewDataDias(formattedDate)
         Log.e("Date Formatted", formattedDate)
         var nodatos: TextView?=findViewById(R.id.textoNoComentarios4)
         if (cursor.count == 0) {
-            //Toast.makeText(this, "No se trabajó este día", Toast.LENGTH_LONG).show()
-
             if (nodatos != null) {
                 nodatos.visibility=View.VISIBLE
             }
@@ -278,28 +201,8 @@ class estadisticasDias : AppCompatActivity() {
 
             sumaMinutos?.text = "Total: $totalMinutos minutos"
             totalMinutos=0.0
-            if (resources.configuration.screenLayout and
-                    Configuration.SCREENLAYOUT_SIZE_MASK ==
-                    Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-                object : ArrayAdapter<String>(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!) {
-                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                        /// Get the Item from ListView
-                        val view = super.getView(position, convertView, parent)
-                        val tv = view.findViewById<View>(android.R.id.text1) as TextView
-
-                        // Set the text size 25 dip for ListView each item
-                        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
-
-                        // Return the view
-                        return view
-                    }
-                }
-            } else {
-                adapter = ArrayAdapter(this@estadisticasDias, android.R.layout.simple_list_item_1, arrayList!!)
-            }
             lv!!.adapter = adapter
         }
 
     }
-
 }

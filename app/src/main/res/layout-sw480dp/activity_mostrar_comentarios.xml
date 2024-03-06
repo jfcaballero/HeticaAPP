@@ -239,7 +239,7 @@
         android:layout_marginEnd="174dp"
         android:layout_marginBottom="206dp"
         android:text="No hay comentarios disponibles."
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"

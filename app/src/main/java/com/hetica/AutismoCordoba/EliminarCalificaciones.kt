@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomListAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,7 @@ private var btnVolverAVisualizarCalificaciones: Button?=null
 class EliminarCalificaciones : AppCompatActivity() {
 
     private lateinit var listaCalificaciones: ListView
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var adapter: CustomListAdapter
     private lateinit var checkBoxSelectAll: CheckBox
 
     @SuppressLint("MissingInflatedId")
@@ -37,7 +38,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         checkBoxSelectAll = findViewById(R.id.checkBoxSelectAll)
 
         // Inicializar el adapter sin datos
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, ArrayList())
+        adapter = CustomListAdapter(this, android.R.layout.simple_list_item_multiple_choice, ArrayList())
         listaCalificaciones.adapter = adapter
         listaCalificaciones.choiceMode = ListView.CHOICE_MODE_MULTIPLE
 
@@ -64,7 +65,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         // Obtener la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
 

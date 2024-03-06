@@ -122,7 +122,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         //Spinner de asignaturas
         if (asignaturasList != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerAsignaturas.adapter = adapter
 
@@ -138,7 +138,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
             }
         }
         //Spinner de tipo de examen
-        val adapterTipos = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipoExamenList)
+        val adapterTipos = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, tipoExamenList)
         adapterTipos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTipos.adapter = adapterTipos
 
