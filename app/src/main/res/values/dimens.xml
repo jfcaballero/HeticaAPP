@@ -8,8 +8,8 @@
 
 
     <!-- Tamaños de texto para pantallas menores de 480dp -->
-    <dimen name="text_size_small_less_than_480dp">12sp</dimen>
-    <dimen name="text_size_medium_less_than_480dp">16sp</dimen>
+    <dimen name="text_size_small_less_than_480dp">16sp</dimen>
+    <dimen name="text_size_medium_less_than_480dp">20sp</dimen>
     <dimen name="text_size_large_less_than_480dp">24sp</dimen>
 
     <!-- Tamaños de texto para pantallas de 480dp -->
