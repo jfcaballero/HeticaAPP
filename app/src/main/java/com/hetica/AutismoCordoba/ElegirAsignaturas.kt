@@ -6,6 +6,7 @@ import AdminSQLiteOpenHelperComentarios
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -81,75 +82,39 @@ class ElegirAsignaturas : AppCompatActivity() {
         lv = findViewById<View>(R.id.listViewAsig) as ListView
         db = AdminSQLiteOpenHelperAsig(this)
         arrayList = ArrayList()
-        if (resources.configuration.screenLayout and
-                Configuration.SCREENLAYOUT_SIZE_MASK ==
+        try {
+            // Intenta acceder al directorio de recientes y ejecuta el código correspondiente
+            if (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK ==
                 Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-            object : ArrayAdapter<String>(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!) {
-                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                    /// Get the Item from ListView
-                    val view = super.getView(position, convertView, parent)
-                    val tv = view.findViewById<View>(android.R.id.text1) as TextView
-
-                    // Set the text size 25 dip for ListView each item
-                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
-
-                    // Return the view
-                    return view
+                adapter = object : ArrayAdapter<String>(
+                    this@ElegirAsignaturas,
+                    android.R.layout.simple_list_item_1,
+                    arrayList!!
+                ) {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                        val view = super.getView(position, convertView, parent)
+                        val tv = view.findViewById<View>(android.R.id.text1) as TextView
+                        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
+                        return view
+                    }
                 }
+            } else {
+                adapter = ArrayAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
             }
-        } else {
-            adapter = ArrayAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
-        }
-        viewData()
-
-        //onBtnClick();
-        lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ ->
-            et!!.setText(arrayList!![position])
-            position1 = position
-            bt!!.text = "Modificar"
-            agregar = 0
-            modificarAux = arrayList!![position]
+            viewData()
+            lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ ->
+                et!!.setText(arrayList!![position])
+                position1 = position
+                bt!!.text = "Modificar"
+                agregar = 0
+                modificarAux = arrayList!![position]
+            }
+        } catch (e: Exception) {
+            Log.e("Error", "Error al acceder al directorio de recientes: ${e.message}")
+            e.printStackTrace()
         }
     }
-    /*public void onBtnClick(){
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String result = et.getText().toString();
-                arrayList.add(result);
-                adapter.notifyDataSetChanged();
-                et.setText("");
-            }
-        });
 
-    }*/
-    /*public void guardar(View view){
-        FileOutputStream fos = null;
-
-        try {
-            fos = openFileOutput("asignaturas_listado.txt", MODE_PRIVATE);
-            for (int i=0; i<arrayList.size(); i++){
-                fos.write(arrayList.get(i).getBytes());
-                fos.write("\n".getBytes());
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-
-
-    }*/
 
     /**
      * Función para volver a Settings

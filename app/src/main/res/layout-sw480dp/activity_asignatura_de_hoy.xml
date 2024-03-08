@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/asignaturas_de_hoy"
         android:textColor="#FFFFFF"
-        android:textSize="34sp"
+        android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
         android:background="#FFFFFF"
@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/editarCalendarioBoton"
-        android:layout_width="58dp"
-        android:layout_height="53dp"
+        android:layout_width="77dp"
+        android:layout_height="86dp"
         android:layout_marginStart="143dp"
         android:layout_marginEnd="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,38 +59,42 @@
 
     <Button
         android:id="@+id/asignaturaDeHoySalir"
-        android:layout_width="127dp"
-        android:layout_height="57dp"
+        android:layout_width="175dp"
+        android:layout_height="83dp"
         android:layout_marginTop="145dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="144dp"
         android:text="Salir"
+        android:textSize="@dimen/text_size_small_480dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyComenzar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyComenzar"
         app:layout_constraintTop_toBottomOf="@+id/editarCalendarioBoton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.537" />
 
     <Button
         android:id="@+id/asignaturaDeHoyComenzar"
-        android:layout_width="127dp"
-        android:layout_height="57dp"
+        android:layout_width="175dp"
+        android:layout_height="83dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="28dp"
         android:text="@string/String_comenzar"
+        android:textSize="@dimen/text_size_small_480dp"
         app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoySalir"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/editarCalendarioBoton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.208" />
 
     <TextView
         android:id="@+id/textoNoHayTareasHoy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No hay tareas para hoy"
-        android:textSize="24sp"
+        android:textSize="@dimen/text_size_large_480dp"
         app:layout_constraintBottom_toBottomOf="@+id/asignaturasdehoy"
         app:layout_constraintEnd_toEndOf="@+id/asignaturasdehoy"
         app:layout_constraintHorizontal_bias="0.5"
