@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalendario
+import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -67,7 +68,7 @@ class EditarCalendario : AppCompatActivity() {
             val asignaturaSeleccionada = spinner.selectedItem as String
             val minutosAsignatura = MinutosAsignatura?.text.toString().toIntOrNull()
 
-            if (validateDate(yearFinal) && minutosAsignatura != null) {
+            if (validateDate(yearFinal) && minutosAsignatura != null && minutosAsignatura!=0) {
                 addAsignatura(asignaturaSeleccionada, yearFinal!!, minutosAsignatura)
             } else {
                 Toast.makeText(this, "Introduce una fecha válida y minutos para la asignatura.", Toast.LENGTH_SHORT).show()
@@ -83,7 +84,7 @@ class EditarCalendario : AppCompatActivity() {
         // Obtener la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
+            val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
             }
@@ -178,12 +179,12 @@ class EditarCalendario : AppCompatActivity() {
         val asignaturasList = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
 
         if (!asignaturasList.isNullOrEmpty()) {
-            val adapter = ArrayAdapter(this, R.layout.list_item_layout, asignaturasList.map { "${it.first} - ${it.second} minutos" })
+            val adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, asignaturasList.map { "${it.first} - ${it.second} minutos" })
             listViewAsignaturasDeUnDia?.adapter = adapter
             adapterEditarCalendario = adapter
             adapter.notifyDataSetChanged()
         } else {
-            listViewAsignaturasDeUnDia?.adapter = ArrayAdapter(this, R.layout.list_item_layout, emptyList<String>())
+            listViewAsignaturasDeUnDia?.adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, emptyList<String>())
             //Toast.makeText(this, "No hay asignaturas para el día seleccionado", Toast.LENGTH_LONG).show()
         }
     }

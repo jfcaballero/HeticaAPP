@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.TextView
 import android.util.SparseBooleanArray
+import android.util.TypedValue
 
 /**
  * Adaptador de la lista de checkboxes que se utiliza en la actividad de calendario.
@@ -20,7 +21,6 @@ class CalendarioArrayAdapter(
 ) : ArrayAdapter<String>(context, resource, objects) {
 
     val checkedPositions = SparseBooleanArray()
-
     var lastCheckedPosition = -1
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -46,6 +46,20 @@ class CalendarioArrayAdapter(
                 handleItemClick(position)
             }
         }
+        val screenWidthDp = context.resources.configuration.screenWidthDp
+        // Adaptar el tamaño de texto basado en el tamaño de pantalla
+        val textSizeResId = when {
+            // Ajusta los valores de screenWidthDp según tus necesidades
+            screenWidthDp >= 720 -> R.dimen.text_size_small_720dp
+            screenWidthDp >= 480 -> R.dimen.text_size_small_480dp
+            else -> R.dimen.text_size_small_less_than_480dp
+        }
+
+        // Obtener el tamaño de texto desde dimens.xml
+        val textSizePx = context.resources.getDimensionPixelSize(textSizeResId)
+
+        // Establecer el tamaño de texto en el TextView
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizePx.toFloat())
 
         return rowView
     }
