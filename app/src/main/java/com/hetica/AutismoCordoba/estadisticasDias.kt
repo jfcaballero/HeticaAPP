@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import CustomListAdapter
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
@@ -18,6 +19,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import java.util.Calendar
@@ -39,6 +41,9 @@ class estadisticasDias : AppCompatActivity() {
     var sumaMinutos: TextView? = null
     var imageMain: ImageView? = null
     var totalMinutos: Double = 0.0
+    private lateinit var toolbar: Toolbar
+
+    private lateinit var customToolbarAdapter: CustomToolbarAdapter
 
     fun setAdminSQLiteOpenHelperStats(db: AdminSQLiteOpenHelperStats) {
         this.db = db
@@ -54,6 +59,11 @@ class estadisticasDias : AppCompatActivity() {
         sumaMinutos = findViewById(R.id.sumaMinutos)
         imageMain=findViewById(R.id.botonMain5)
         GoToMain()
+
+        toolbar = findViewById(R.id.toolbar2)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationViewestadisticas)
         bottomNavigation.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
