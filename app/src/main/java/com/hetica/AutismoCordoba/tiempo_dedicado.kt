@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import CustomListAdapter
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
@@ -23,6 +24,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.TiempoDedicadoBinding
@@ -84,7 +86,9 @@ class tiempo_dedicado: AppCompatActivity()  {
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
+    private lateinit var toolbar: Toolbar
 
+    private lateinit var customToolbarAdapter: CustomToolbarAdapter
 
     @SuppressLint("MissingInflatedId", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,6 +106,11 @@ class tiempo_dedicado: AppCompatActivity()  {
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         ListViewDias = findViewById(R.id.tiempoLista)
         MinutosEnTotal=findViewById(R.id.tiempoMinutosTotales)
+
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
 
         // Configuración inicial de fechas

@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalificaciones
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
@@ -21,6 +22,7 @@ import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBin
 import android.graphics.Color
 import android.view.View.INVISIBLE
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.androidplot.xy.*
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -71,6 +73,9 @@ private lateinit var spinnerTipos: Spinner
 
 var noHayDatos: TextView? = null
 
+private lateinit var toolbar: Toolbar
+private lateinit var customToolbarAdapter: CustomToolbarAdapter
+
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityVisualizarCalificacionesBinding? = null
 private val binding get() = _binding!!
@@ -85,6 +90,13 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         imageMain=findViewById(R.id.botonMain3)
         noHayDatos = findViewById(R.id.noHayDatos)
+
+        toolbar = findViewById(R.id.toolbar4)
+        setSupportActionBar(toolbar)
+
+
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
         val noHayDatosTextView = noHayDatos
         if (noHayDatosTextView != null) {
