@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomListAdapter
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -31,7 +32,7 @@ class tiempoEstudio : AppCompatActivity() {
     /**
      * The Adapter.
      */
-    var adapter: ArrayAdapter<String>? = null
+    var adapter: CustomListAdapter? = null
 
     /**
      * The Db.
@@ -98,25 +99,9 @@ class tiempoEstudio : AppCompatActivity() {
             while (cursor.moveToNext()) {
                 arrayList!!.add(cursor.getString(1))
             }
-            if (resources.configuration.screenLayout and
-                    Configuration.SCREENLAYOUT_SIZE_MASK ==
-                    Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-                object : ArrayAdapter<String>(this@tiempoEstudio, android.R.layout.simple_list_item_1, arrayList!!) {
-                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                        /// Get the Item from ListView
-                        val view = super.getView(position, convertView, parent)
-                        val tv = view.findViewById<View>(android.R.id.text1) as TextView
 
-                        // Set the text size 25 dip for ListView each item
-                        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
+            adapter = CustomListAdapter(this@tiempoEstudio, android.R.layout.simple_list_item_1, arrayList!!)
 
-                        // Return the view
-                        return view
-                    }
-                }
-            } else {
-                adapter = ArrayAdapter(this@tiempoEstudio, android.R.layout.simple_list_item_1, arrayList!!)
-            }
             lv!!.adapter = adapter
         }
     }
