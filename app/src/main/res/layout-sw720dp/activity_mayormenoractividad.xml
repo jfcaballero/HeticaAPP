@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout6"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout6"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarmayormenor" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout6"
@@ -88,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarmayormenor" />
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/graficaActividad"
@@ -161,9 +161,9 @@
     </RelativeLayout>
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarmayormenor"
         android:layout_width="0dp"
-        android:layout_height="78dp"
+        android:layout_height="100dp"
         android:background="#009688"
         android:minHeight="@dimen/fab_bigger_margin"
         android:theme="@style/AppTheme"
@@ -186,7 +186,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewestadisticas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:background="#ACEDE7"
 
         app:chart_axis="xy"
@@ -203,9 +203,9 @@
 
     <ImageView
         android:id="@+id/botonMain"
-        android:layout_width="63dp"
-        android:layout_height="63dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        android:layout_width="78dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarmayormenor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"

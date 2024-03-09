@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import CustomListAdapter
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.DatePickerDialog
@@ -20,6 +21,7 @@ import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
@@ -77,6 +79,10 @@ class mayormenoractividad : AppCompatActivity() {
     private var _binding: ActivityMayormenoractividadBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var toolbar: Toolbar
+
+    private lateinit var customToolbarAdapter: CustomToolbarAdapter
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +98,10 @@ class mayormenoractividad : AppCompatActivity() {
         dbStats = AdminSQLiteOpenHelperStats(this)
         dbAsig = AdminSQLiteOpenHelperAsig(this)
 
-        //textoDeDia?.visibility=View.VISIBLE
+        toolbar = findViewById(R.id.toolbarmayormenor)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
         // Configuración inicial de fechas
         val fechaHoy = obtenerFechaActual()

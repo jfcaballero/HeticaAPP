@@ -191,19 +191,20 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="0dp"
-        android:layout_height="78dp"
+        android:layout_height="100dp"
         android:background="#009688"
         android:minHeight="@dimen/fab_bigger_margin"
         android:theme="@style/AppTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/String_comentarios" />
 
     <ImageView
         android:id="@+id/botonMain2"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
+        android:layout_width="78dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
@@ -215,7 +216,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewestadisticas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:background="#ACEDE7"
 
         app:chart_axis="xy"

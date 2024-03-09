@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarmayormenor" />
 
     <TextView
         android:id="@+id/textView64"
@@ -32,10 +32,10 @@
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarmayormenor" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarmayormenor"
         android:layout_width="0dp"
         android:layout_height="78dp"
         android:background="#009688"
@@ -169,7 +169,7 @@
         android:id="@+id/botonMain4"
         android:layout_width="55dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarmayormenor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"

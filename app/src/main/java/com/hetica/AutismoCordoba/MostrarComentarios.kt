@@ -2,6 +2,7 @@ package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperComentarios
 import CustomListAdapter
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.AlertDialog
@@ -19,6 +20,7 @@ import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 //import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_AUTO
 import com.google.android.material.navigation.NavigationBarView
@@ -37,6 +39,8 @@ private var asignaturaSeleccionada: String? = null
 private var imageMain2: ImageView? = null
 private var fechaInicio: EditText? = null
 private var fechaFin: EditText? = null
+private lateinit var toolbar: Toolbar
+private lateinit var customToolbarAdapter: CustomToolbarAdapter
 
 class MostrarComentarios : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -52,6 +56,11 @@ class MostrarComentarios : AppCompatActivity() {
 
         imageMain2 = findViewById(R.id.botonMain2)
         GoToMain()
+
+        toolbar = findViewById(R.id.toolbar3)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
         val fechaHoy = obtenerFechaActual()
         val fechaManana = obtenerFechaManana()
