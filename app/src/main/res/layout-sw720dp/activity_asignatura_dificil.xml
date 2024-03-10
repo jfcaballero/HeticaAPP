@@ -15,7 +15,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/String_asignatura_dificil"
         android:textColor="#FFFFFF"
-        android:textSize="55dp"
+        android:textSize="55sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
