@@ -73,7 +73,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/String_click_asignatura"
         android:textColor="#15635C"
-        android:textSize="27dp"
+        android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView43"
         app:layout_constraintHorizontal_bias="0.0"
