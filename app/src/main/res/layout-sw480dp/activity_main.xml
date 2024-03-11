@@ -153,7 +153,6 @@
         android:id="@+id/button6"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:layout_marginStart="68dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_menu_black_24dp"
         android:textSize="8sp"
