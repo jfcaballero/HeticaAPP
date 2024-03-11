@@ -108,22 +108,29 @@ class AsignaturaDeHoy : AppCompatActivity() {
             val position = adapter.lastCheckedPosition
             if (position != -1) {
                 val asignaturaData = adapter.getItem(position)
-                val minutos = asignaturaData?.split(" ")?.get(2)?.toIntOrNull() ?: 0
-                val nombreAsignatura = asignaturaData?.split(" ")?.get(0)
+                val nombreAsignatura = asignaturaData?.substringBefore(" - ")
+                val minutosIndex = asignaturaData?.indexOf("minutos") ?: -1
 
-                if (minutos != 0 && nombreAsignatura != null) {
-                    if (asignaturaData.split(" ").last() == "Sí") {
-                        showToast("Esta asignatura ya ha sido estudiada")
-                    } else {
-                        val intent = Intent(this, TimerSimple::class.java).apply {
-                            putExtra("time", minutos.toString())
-                            putExtra("asig", nombreAsignatura)
-                            putExtra("actAsig", "1")
-                            putExtra("numAsig", "1")
+                if (minutosIndex != -1 && nombreAsignatura != null) {
+                    val minutosString = asignaturaData.substring(minutosIndex - 3, minutosIndex).trim()
+                    val minutos = minutosString.toIntOrNull()
+
+                    if (minutos != null && minutos != 0) {
+                        if (asignaturaData.endsWith("Sí")) {
+                            showToast("Esta asignatura ya ha sido estudiada")
+                        } else {
+                            val intent = Intent(this, TimerSimple::class.java).apply {
+                                putExtra("time", minutos.toString())
+                                putExtra("asig", nombreAsignatura)
+                                putExtra("actAsig", "1")
+                                putExtra("numAsig", "1")
+                            }
+
+                            startActivity(intent)
+                            dbCalendario?.marcarComoEstudiado(position, getDateAsString())
                         }
-
-                        startActivity(intent)
-                        dbCalendario?.marcarComoEstudiado(position, getDateAsString())
+                    } else {
+                        showToast("Los datos de la asignatura son inválidos")
                     }
                 } else {
                     showToast("Los datos de la asignatura son inválidos")
@@ -133,6 +140,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
             }
         }
     }
+
 
 
 
