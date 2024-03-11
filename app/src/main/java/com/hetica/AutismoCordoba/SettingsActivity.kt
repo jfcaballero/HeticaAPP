@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.NotificationManager
@@ -24,6 +25,7 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -39,11 +41,15 @@ import java.util.Calendar
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
-
+    private lateinit var toolbar: Toolbar
+    private lateinit var customToolbarAdapter: CustomToolbarAdapter
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        toolbar = findViewById(R.id.toolbar2)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
         sharedPreferences = getSharedPreferences("settings_preferences", Context.MODE_PRIVATE)
         seekBar = findViewById<View>(R.id.seekBar4) as SeekBar
         textView = findViewById<View>(R.id.textView46) as TextView
@@ -55,6 +61,12 @@ class SettingsActivity : AppCompatActivity() {
         SwitchFin = findViewById<View>(R.id.switchFin) as Switch
         SwitchConcentracion = findViewById<View>(R.id.switchConcentracion) as Switch
         seebbarr()
+
+        toolbar = findViewById(R.id.toolbar2)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
+
         if (getCurrentInterruptionFilter() == NotificationManager.INTERRUPTION_FILTER_NONE) {
             SwitchConcentracion!!.isChecked = true
         } else {

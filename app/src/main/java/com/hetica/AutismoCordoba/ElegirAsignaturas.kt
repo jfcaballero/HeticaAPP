@@ -3,6 +3,8 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperCalendario
 import AdminSQLiteOpenHelperCalificaciones
 import AdminSQLiteOpenHelperComentarios
+import CustomListAdapter
+import CustomToolbarAdapter
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -18,6 +20,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 
 /**
@@ -73,6 +76,9 @@ class ElegirAsignaturas : AppCompatActivity() {
      * The Modificar aux.
      */
     var modificarAux: String? = null
+
+    private lateinit var toolbar: Toolbar
+    private lateinit var customToolbarAdapter: CustomToolbarAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_elegir_asignaturas)
@@ -82,6 +88,10 @@ class ElegirAsignaturas : AppCompatActivity() {
         lv = findViewById<View>(R.id.listViewAsig) as ListView
         db = AdminSQLiteOpenHelperAsig(this)
         arrayList = ArrayList()
+        toolbar = findViewById(R.id.toolbar2)
+        setSupportActionBar(toolbar)
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
         try {
             // Intenta acceder al directorio de recientes y ejecuta el código correspondiente
             if (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK ==
@@ -99,7 +109,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                     }
                 }
             } else {
-                adapter = ArrayAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
+                adapter = CustomListAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
             }
             viewData()
             lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ ->
@@ -278,7 +288,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                     }
                 }
             } else {
-                adapter = ArrayAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
+                adapter = CustomListAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
             }
             lv!!.adapter = adapter
         }

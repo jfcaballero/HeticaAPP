@@ -7,7 +7,7 @@
     <string name="String_estadisticas">Tiempo de estudio diario</string>
     <string name="String_tiempodedicado">Tiempo dedicado por asignatura</string>
     <string name="String_mayormenoractividad">Gráficas de actividad</string>
-    <string name="String_comentarios">Anotaciones por asignatura</string>
+    <string name="String_comentarios">Anotación sobre estudio</string>
     <string name="String_visualizar_calificaciones">Calificaciones</string>
     <string name="String_add_calificaciones">Añadir una calificación</string>
     <string name="String_delete_calificaciones">Eliminar calificaciones</string>
