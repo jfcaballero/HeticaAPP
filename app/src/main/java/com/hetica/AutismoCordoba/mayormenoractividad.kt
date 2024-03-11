@@ -223,7 +223,7 @@ class mayormenoractividad : AppCompatActivity() {
     private fun mostrarOpcionesSpinner() {
         val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
         val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
-        val opciones = listOf("Rango", "Histórico","Mes actual")
+        val opciones = listOf("Rango","Mes actual")
 
         val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
