@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import CustomListAdapter
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -35,7 +36,7 @@ class AsignaturaDificil : AppCompatActivity() {
     /**
      * The Adapter.
      */
-    var adapter: ArrayAdapter<String>? = null
+    var adapter: CustomListAdapter? = null
 
     /**
      * The Bundle.
@@ -247,22 +248,7 @@ class AsignaturaDificil : AppCompatActivity() {
                 arrayList?.add(cursor.getString(1))
             }
 
-            val adapter: ArrayAdapter<String> = if (resources.configuration.screenLayout and
-                    Configuration.SCREENLAYOUT_SIZE_MASK ==
-                    Configuration.SCREENLAYOUT_SIZE_XLARGE
-            ) {
-                object : ArrayAdapter<String>(this@AsignaturaDificil, android.R.layout.simple_list_item_1, arrayList!!) {
-                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                        val view = super.getView(position, convertView, parent)
-                        val tv = view.findViewById<View>(android.R.id.text1) as TextView
-                        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35f)
-                        return view
-                    }
-                }
-            } else {
-                ArrayAdapter(this@AsignaturaDificil, android.R.layout.simple_list_item_1, arrayList!!)
-            }
-
+            adapter = CustomListAdapter(this@AsignaturaDificil, android.R.layout.simple_list_item_1, arrayList!!)
             lv?.adapter = adapter
         }
     }
