@@ -56,8 +56,8 @@
         android:background="#361FBFB0"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textView82">
 
         <Spinner
@@ -106,16 +106,14 @@
         android:id="@+id/listViewComentarios"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/comentariosDesde"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -152,11 +150,12 @@
         android:layout_width="308dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView66">
 
@@ -218,13 +217,13 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="#ACEDE7"
-
         app:chart_axis="xy"
         app:chart_barsColor="#32605B"
         app:chart_barsRadius="4dp"
         app:chart_labelsColor="#000000"
         app:chart_labelsSize="15sp"
         app:chart_spacing="15dp"
+        app:itemIconSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -235,17 +234,13 @@
         android:id="@+id/textoNoComentarios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="179dp"
-        android:layout_marginTop="113dp"
-        android:layout_marginEnd="174dp"
-        android:layout_marginBottom="206dp"
         android:text="No hay comentarios disponibles."
-        android:textSize="20sp"
+        android:textSize="34sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comentariosHasta"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/listViewComentarios"
+        app:layout_constraintVertical_bias="0.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

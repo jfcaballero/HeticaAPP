@@ -30,8 +30,8 @@
         android:background="#361FBFB0"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textView86">
 
         <Spinner
@@ -94,14 +94,12 @@
         android:id="@+id/graficaActividad"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout6"
         app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
         app:layout_constraintTop_toBottomOf="@+id/graficasActividadInicio"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -124,11 +122,12 @@
         android:layout_width="308dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView85">
 
@@ -188,13 +187,13 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="#ACEDE7"
-
         app:chart_axis="xy"
         app:chart_barsColor="#32605B"
         app:chart_barsRadius="4dp"
         app:chart_labelsColor="#000000"
         app:chart_labelsSize="15sp"
         app:chart_spacing="15dp"
+        app:itemIconSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

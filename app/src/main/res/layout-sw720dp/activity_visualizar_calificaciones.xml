@@ -16,7 +16,7 @@
         android:textColor="#5A5C5E"
         android:textSize="37sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
         app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
@@ -26,6 +26,7 @@
         android:layout_width="308dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
@@ -72,7 +73,7 @@
         android:textColor="#5A5C5E"
         android:textSize="37sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout10"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout10"
         app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
@@ -86,6 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:itemIconSize="50dp"
         app:menu="@menu/navegacion_estadisticas_menu" />
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
@@ -93,14 +95,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
 
-        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonActividadCalificacion"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout10"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textView84"
         app:layout_constraintVertical_bias="0.0">
 
@@ -213,15 +213,13 @@
         android:id="@+id/textView84"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:text="Notas obtenidas en la asignatura. Para un nuevo curso, elimine la asignatura."
         android:textColor="#009688"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/aa_chart_view"
+        app:layout_constraintStart_toStartOf="@+id/aa_chart_view"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

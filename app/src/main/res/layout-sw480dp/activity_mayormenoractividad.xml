@@ -188,7 +188,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#ACEDE7"
-
+        app:itemIconSize="32dp"
         app:chart_axis="xy"
         app:chart_barsColor="#32605B"
         app:chart_barsRadius="4dp"
