@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/button15"
-        android:layout_width="53dp"
-        android:layout_height="53dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="8dp"
         android:text="00:00"
         android:textColor="#FFFFFF"
-        android:textSize="80sp"
+        android:textSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +43,7 @@
         android:layout_marginTop="19dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:textStyle="bold"
+        android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

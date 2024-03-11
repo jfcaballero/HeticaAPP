@@ -18,8 +18,8 @@ class CustomListAdapter(context: Context, resource: Int, objects: List<String>) 
 
         // Establecer el tamaño de texto basado en el tamaño de pantalla
         val textSizeResId = when {
-            screenWidthDp >= 720 -> R.dimen.text_size_medium_720dp
-            screenWidthDp >= 480 -> R.dimen.text_size_small_480dp
+            screenWidthDp >= 720 -> R.dimen.text_size_large_720dp
+            screenWidthDp >= 480 -> R.dimen.text_size_medium_480dp
             else -> R.dimen.text_size_medium_less_than_480dp
         }
 
