@@ -239,10 +239,10 @@
 
     <TextView
         android:id="@+id/textView70"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Pulse en una asignatura para anotar un comentario."
+        android:text="@string/tiempo_dedicado_leyenda"
         android:textColor="#009688"
         android:textSize="30sp"
         android:textStyle="bold|italic"

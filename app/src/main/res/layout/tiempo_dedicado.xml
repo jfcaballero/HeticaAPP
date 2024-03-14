@@ -69,6 +69,7 @@
         android:background="#361FBFB0"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textView65">
 
@@ -107,6 +108,8 @@
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView64">
 
@@ -232,16 +235,17 @@
 
     <TextView
         android:id="@+id/textView70"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:text="Pulse en una asignatura para anotar \n un comentario."
+        android:text="@string/tiempo_dedicado_leyenda"
         android:textColor="#009688"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.185"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tiempoLista"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tiempoLista"
         app:layout_constraintTop_toBottomOf="@+id/tiempoInicio" />
 
 

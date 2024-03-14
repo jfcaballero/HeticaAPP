@@ -139,5 +139,7 @@
 
     </string>
     <string name="calendario_sin_asignatura_de_hoy">Pulsar lapiz durante 3s</string>
+    <string name="tiempo_dedicado_leyenda">Pulse en una asignatura para anotar un comentario. Pestaña \"Anotación sobre estudio\" para visualizarlos.</string>
+
 
 </resources>
