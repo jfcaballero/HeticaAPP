@@ -92,7 +92,7 @@
         android:id="@+id/textoNoHayTareasHoy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No hay tareas para hoy"
+        android:text="@string/calendario_sin_asignatura_de_hoy"
         android:textSize="@dimen/text_size_large_720dp"
         app:layout_constraintBottom_toBottomOf="@+id/asignaturasdehoy"
         app:layout_constraintEnd_toEndOf="@+id/asignaturasdehoy"

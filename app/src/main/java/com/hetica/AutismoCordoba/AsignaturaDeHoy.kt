@@ -29,6 +29,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     private var ComenzarSesion: Button? = null
     private var SalirCalendario: Button? = null
     private lateinit var adapter: CalendarioArrayAdapter
+    private var todasMarcadas=true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,8 @@ class AsignaturaDeHoy : AppCompatActivity() {
         var nohaytareas: TextView?=findViewById(R.id.textoNoHayTareasHoy)
         val asignaturasData = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
         adapter.clear()
+        ComenzarSesion?.isEnabled = true
+
 
         if (!asignaturasData.isNullOrEmpty()) {
             val displayList = mutableListOf<String>()
@@ -83,15 +86,22 @@ class AsignaturaDeHoy : AppCompatActivity() {
                 if (asignaturaData.third == 1) { // Si la asignatura está estudiada, desactivar la interacción
                     val position = displayList.size - 1
                     adapter.checkedPositions.put(position, true)
+                }else{
+                    todasMarcadas=false
                 }
             }
             adapter.addAll(displayList)
             if (nohaytareas != null) {
                 nohaytareas.visibility=View.INVISIBLE
             }
+            if(todasMarcadas){ //esto es para que cuando esten todas marcadas no deje pulsar el boton
+                ComenzarSesion?.isEnabled = false
+
+            }
         } else {
             if (nohaytareas != null) {
                 nohaytareas.visibility=View.VISIBLE
+                ComenzarSesion?.isEnabled = false //para que no deje pulsar el boton tampoco cuando no haya sesiones programadas
             }
             calendarioListView?.adapter = null
         }
@@ -116,9 +126,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
                     val minutos = minutosString.toIntOrNull()
 
                     if (minutos != null && minutos != 0) {
-                        if (asignaturaData.endsWith("Sí")) {
-                            showToast("Esta asignatura ya ha sido estudiada")
-                        } else {
+                        if (asignaturaData.endsWith("No")) {
                             val intent = Intent(this, TimerSimple::class.java).apply {
                                 putExtra("time", minutos.toString())
                                 putExtra("asig", nombreAsignatura)
@@ -136,6 +144,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
                     showToast("Los datos de la asignatura son inválidos")
                 }
             } else {
+
                 showToast("Selecciona un único elemento")
             }
         }
@@ -191,6 +200,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewData()
+
 
     }
 
