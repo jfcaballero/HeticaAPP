@@ -126,7 +126,11 @@ class temporizadorUnico : AppCompatActivity() {
         //super.onBackPressed()
         finish()
     }
-
+    override fun onPause() {
+        super.onPause()
+        // Detener la alarma si está sonando
+        r?.stop()
+    }
     /**
      * Función que maneja el temporizador
      *
@@ -162,37 +166,36 @@ class temporizadorUnico : AppCompatActivity() {
     }
 
     fun finTimer(view: View?) {
-        //esto es para que no salte lo de que no se usa el view en la funcion
-        // (es necesario para que funcione, lo siento)
-        val siguiente2 = Intent(view!!.context, Recompensa::class.java)
-        Log.d("hola","$siguiente2")
+        // Deshabilitar el botón "Finalizar" para evitar múltiples clics
+        Fin!!.isEnabled = false
 
-        timeString?.let {
-            val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
-            timeString = intValue.toString()
-        }
+        // Esperar durante unos segundos antes de habilitar el botón nuevamente
+        Handler().postDelayed({
+            // Habilitar el botón "Finalizar" después del retraso
+            Fin!!.isEnabled = true
 
-        // Detener el temporizador y mostrar el botón Fin2
-        mCountDownTimer!!.cancel()
-        mTimerRunning = false
-        botonFin!!.visibility = View.VISIBLE
-        Fin!!.visibility = View.INVISIBLE
-        Pausa!!.visibility=View.INVISIBLE
-
-        // Sonar la alarma
-        showNotification()
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
-        mTextViewCountDown!!.text = "00:00"
-
-        // Reiniciar el temporizador a cero
-        mTimeLeftInMillis = 0
-        updateCountDownText()
-
-        // Mostrar botón Fin2 y ocultar botón Fin
-        botonFin!!.visibility = View.VISIBLE
-        Fin!!.visibility = View.INVISIBLE
+            val siguiente2 = Intent(view!!.context, Recompensa::class.java)
+            Log.d("hola","$siguiente2")
+            timeString?.let {
+                val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
+                timeString = intValue.toString()
+            }
+            mCountDownTimer!!.cancel()
+            mTimerRunning = false
+            botonFin!!.visibility = View.VISIBLE
+            Fin!!.visibility = View.INVISIBLE
+            Pausa!!.visibility=View.INVISIBLE
+            showNotification()
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+            db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
+            mTextViewCountDown!!.text = "00:00"
+            mTimeLeftInMillis = 0
+            updateCountDownText()
+            botonFin!!.visibility = View.VISIBLE
+            Fin!!.visibility = View.INVISIBLE
+        }, 500) // Espera 0.5 segundos antes de habilitar nuevamente el botón "Finalizar"
     }
+
 
 
     /**

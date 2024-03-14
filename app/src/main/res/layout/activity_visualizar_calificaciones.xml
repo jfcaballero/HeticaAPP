@@ -217,12 +217,12 @@
 
     <TextView
         android:id="@+id/textView84"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Notas obtenidas en la asignatura. Para un nuevo curso, elimine la asignatura."
         android:textColor="#009688"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/aa_chart_view"
         app:layout_constraintHorizontal_bias="0.0"

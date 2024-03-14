@@ -2,6 +2,8 @@ package com.hetica.AutismoCordoba
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.Ringtone
+import android.media.RingtoneManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -37,6 +39,8 @@ class Recompensa : AppCompatActivity() {
      */
     private var Comentarios: Button? = null
 
+    private var r: Ringtone? = null
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,7 @@ class Recompensa : AppCompatActivity() {
         salir=findViewById(R.id.botonSalirMain)
         consejo=findViewById(R.id.consejos)
         recompensa=findViewById(R.id.imagenRecompensa)
+        detenerAlarmaSiEstaSonando()
 
         // Establecer el texto aleatorio en el TextView
         val arrayConsejos = resources.getStringArray(R.array.array_consejos)
@@ -79,9 +84,17 @@ class Recompensa : AppCompatActivity() {
 
         }
 
+    }
 
-
-
-
+    private fun detenerAlarmaSiEstaSonando() {
+        try {
+            val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+            val ringtone = RingtoneManager.getRingtone(applicationContext, notification)
+            if (ringtone.isPlaying) {
+                ringtone.stop()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
