@@ -136,7 +136,7 @@ class TimerSimple : AppCompatActivity() {
                     mButtonSi.visibility = View.VISIBLE
                     mButtonNo.visibility = View.VISIBLE
                     mTextViewCountDown.text = "¿Necesitas un descanso?"
-                    mTextViewCountDown.textSize = 40F
+                    mTextViewCountDown.textSize = (mTextViewCountDown.textSize*0.3).toFloat()
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
                     db.insertData(asig, sdf.format(Date()),
                         timeString.let { Integer.valueOf(it) })
