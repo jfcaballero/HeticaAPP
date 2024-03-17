@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".EliminarCalificaciones">
 
+    <TextView
+        android:id="@+id/noCalificacionesEliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No hay calificaciones disponibles."
+        android:textSize="34sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/listaCalificaciones"
+        app:layout_constraintEnd_toEndOf="@+id/listaCalificaciones"
+        app:layout_constraintStart_toStartOf="@+id/listaCalificaciones"
+        app:layout_constraintTop_toTopOf="@+id/listaCalificaciones" />
+
     <Button
         android:id="@+id/volverAVisualizarCalificacionesDesdeEliminar"
         android:layout_width="168dp"

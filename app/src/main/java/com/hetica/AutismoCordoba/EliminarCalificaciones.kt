@@ -26,6 +26,7 @@ class EliminarCalificaciones : AppCompatActivity() {
     private lateinit var listaCalificaciones: ListView
     private lateinit var adapter: CustomListAdapter
     private lateinit var checkBoxSelectAll: CheckBox
+    private lateinit var noHayCalificacionesEliminar:TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +37,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         btnVolverAVisualizarCalificaciones=findViewById(R.id.volverAVisualizarCalificacionesDesdeEliminar)
         listaCalificaciones = findViewById(R.id.listaCalificaciones)
         checkBoxSelectAll = findViewById(R.id.checkBoxSelectAll)
+        noHayCalificacionesEliminar=findViewById(R.id.noCalificacionesEliminar)
 
         // Inicializar el adapter sin datos
         adapter = CustomListAdapter(this, android.R.layout.simple_list_item_multiple_choice, ArrayList())
@@ -105,14 +107,12 @@ class EliminarCalificaciones : AppCompatActivity() {
                 adapter.clear()
                 adapter.addAll(calificacionesBDList)
                 adapter.notifyDataSetChanged()
+                noHayCalificacionesEliminar.visibility=View.INVISIBLE
             } else {
                 adapter.clear()
                 adapter.notifyDataSetChanged()
-                Toast.makeText(
-                    this,
-                    "No hay calificaciones para la asignatura seleccionada $asignatura",
-                    Toast.LENGTH_LONG
-                ).show()
+                //Toast.makeText(this, "No hay calificaciones para la asignatura seleccionada $asignatura", Toast.LENGTH_LONG).show()
+                noHayCalificacionesEliminar.visibility=View.VISIBLE
             }
         }
         Log.d("viewSubjectGrades", "Saliendo de viewSubjectGrades")
