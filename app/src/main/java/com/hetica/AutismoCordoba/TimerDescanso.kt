@@ -69,9 +69,9 @@ class TimerDescanso : AppCompatActivity() {
         mTimeLeftInMillis = mStartTime
         mTextViewCountDown = findViewById(R.id.text_view_count)
         Main = findViewById<View>(R.id.button14) as Button
-        mButtonSiguiente = findViewById<View>(R.id.button38) as Button
+        //mButtonSiguiente = findViewById<View>(R.id.button38) as Button
         mButtonFin = findViewById<View>(R.id.buttonFinDesc) as Button
-        mButtonSiguiente!!.visibility = View.INVISIBLE
+        //mButtonSiguiente!!.visibility = View.INVISIBLE
         mTextViewCountDown?.visibility = View.VISIBLE
 
         Main!!.setOnTouchListener(OnTouchListener { _, event ->
@@ -111,7 +111,7 @@ class TimerDescanso : AppCompatActivity() {
 
             override fun onFinish() {
                 mTimerRunning = false
-                mButtonSiguiente!!.visibility = View.VISIBLE
+                //mButtonSiguiente!!.visibility = View.VISIBLE
                 mButtonFin!!.visibility = View.INVISIBLE
                 mTextViewCountDown?.text = "00:00"
 
