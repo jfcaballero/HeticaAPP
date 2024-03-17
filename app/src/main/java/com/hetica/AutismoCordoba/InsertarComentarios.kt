@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -55,7 +56,12 @@ class InsertarComentarios : AppCompatActivity() {
         }
 
         btnVolverATiempoDedicado?.setOnClickListener {
-            volverATiempoDedicado()
+            if (hayComentario()) {
+                mostrarDialogoConfirmacion()
+            } else {
+                volverATiempoDedicado()
+            }
+
         }
 
 
@@ -79,5 +85,22 @@ class InsertarComentarios : AppCompatActivity() {
         val intent = Intent(this, tiempo_dedicado::class.java)
         startActivity(intent)
     }
+    private fun hayComentario(): Boolean {
+        val textoComentario = comentario.text.toString().trim()
+        return textoComentario.isNotEmpty()
+    }
+    private fun mostrarDialogoConfirmacion() {
+        AlertDialog.Builder(this)
+            .setMessage("No ha guardado los cambios, ¿desea salir?")
+            .setPositiveButton("Sí") { dialog, _ ->
+                volverATiempoDedicado()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
 
 }
