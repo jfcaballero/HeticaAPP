@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -170,7 +171,7 @@ class temporizadorUnico : AppCompatActivity() {
         Fin!!.isEnabled = false
 
         // Esperar durante unos segundos antes de habilitar el botón nuevamente
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             // Habilitar el botón "Finalizar" después del retraso
             Fin!!.isEnabled = true
 

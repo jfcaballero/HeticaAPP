@@ -45,7 +45,7 @@ class Bienvenida : AppCompatActivity() {
      * @return
      */
     private fun countData(): Int {
-        val cursor = db!!.viewData()
+        val cursor = db.viewData()
         return cursor.count
     }
 

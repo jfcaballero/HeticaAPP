@@ -52,7 +52,7 @@ class AddCalificaciones : AppCompatActivity() {
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         btnVolverAVisualizarCalificaciones=findViewById(R.id.volverAVisualizarCalificaciones)
-        val asignaturasList = dbAsig?.getAsignaturasList()
+        //val asignaturasList = dbAsig?.getAsignaturasList()
         val tipoExamenList = listOf("Parcial", "Final")
         val spinnerTipos: Spinner = binding.spinnerAddTipo
         val Nota: EditText = binding.AddNota

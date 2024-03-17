@@ -10,20 +10,24 @@ import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
+import android.os.HandlerThread
 
 class ConcentrationModeService : Service() {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var handlerThread: HandlerThread
     private lateinit var handler: Handler
     private lateinit var dndModeChecker: Runnable
 
     override fun onCreate() {
         super.onCreate()
         sharedPreferences = getSharedPreferences("settings_preferences", Context.MODE_PRIVATE)
-        handler = Handler()
+        handlerThread = HandlerThread("DNDModeCheckerThread")
+        handlerThread.start()
+        handler = Handler(handlerThread.looper)
         dndModeChecker = Runnable {
             checkDNDMode()
-            handler.postDelayed(dndModeChecker,  500)
+            handler.postDelayed(dndModeChecker, 500)
         }
     }
 
@@ -35,6 +39,7 @@ class ConcentrationModeService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(dndModeChecker)
+        handlerThread.quitSafely()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -59,10 +64,8 @@ class ConcentrationModeService : Service() {
                 notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
                 saveConcentrationModeState(false)
             }
-
-        } else if(Settings.Global.getInt(contentResolver, "zen_mode")!=0)  { //el modo de No molestar está activo pero no por HETICA
-            Log.d(TAG, "Modo No molestar activado por otra app") //No hacemos nada
-
+        } else if(Settings.Global.getInt(contentResolver, "zen_mode")!=0)  {
+            Log.d(TAG, "Modo No molestar activado por otra app")
         }
     }
 
@@ -80,22 +83,23 @@ class ConcentrationModeService : Service() {
             if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND &&
                 appProcess.processName == packageName
             ) {
-                return true //true si la app esta en PRIMER PLANO
+                return true
             }
         }
 
         return false
     }
+
     private fun saveConcentrationModeState(state: Boolean) {
         val editor = sharedPreferences.edit()
         editor.putBoolean("concentration_mode", state)
         editor.apply()
     }
+
     private fun isAppClosed(): Boolean {
-//por implementar
+        // Por implementar
         return false
     }
-
 
     companion object {
         private const val TAG = "DNDModeService"

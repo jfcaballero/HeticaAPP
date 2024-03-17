@@ -203,7 +203,7 @@ class tiempo_dedicado: AppCompatActivity()  {
         mostrarOpcionesSpinner()
 
         ListViewDias?.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
                 val asignaturaSeleccionada = asignaturaSeleccionada ?: return@OnItemClickListener
                 val itemSeleccionado = parent.getItemAtPosition(position).toString()
                 val partes = itemSeleccionado.split(": ")

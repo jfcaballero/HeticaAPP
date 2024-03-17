@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -137,8 +138,8 @@ class TimerSimple : AppCompatActivity() {
                     mTextViewCountDown.text = "¿Necesitas un descanso?"
                     mTextViewCountDown.textSize = 40F
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
-                    db!!.insertData(asig, sdf.format(Date()),
-                        timeString?.let { Integer.valueOf(it) })
+                    db.insertData(asig, sdf.format(Date()),
+                        timeString.let { Integer.valueOf(it) })
                     Pausa.visibility = View.INVISIBLE
                     Fin.visibility = View.INVISIBLE
                     if (!cuantas.equals(actual, ignoreCase = true) && finFlag == 0) {
@@ -146,8 +147,8 @@ class TimerSimple : AppCompatActivity() {
                     }
                 } else {
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
-                    db!!.insertData(asig, sdf.format(Date()),
-                        timeString?.let { Integer.valueOf(it) })
+                    db.insertData(asig, sdf.format(Date()),
+                        timeString.let { Integer.valueOf(it) })
                     Pausa.visibility = View.INVISIBLE
                     Fin.visibility = View.INVISIBLE
                     Fin2.visibility = View.VISIBLE
@@ -173,12 +174,12 @@ class TimerSimple : AppCompatActivity() {
     }
 
     fun finTimer(view: View?) {
-        timeString?.let {
+        timeString.let {
             val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
             timeString = intValue.toString()
         }
 
-        mCountDownTimer?.cancel()
+        mCountDownTimer.cancel()
         mTimerRunning = false
         Log.d("finTimer", "usando $view")
         finFlag = 1
@@ -208,9 +209,10 @@ class TimerSimple : AppCompatActivity() {
         val bundle2 = Bundle()
         when {
             cuantas.equals("2", ignoreCase = true) && actual.equals("1", ignoreCase = true) -> {
-                val siguiente1 = Intent(this, AsignaturaSiguiente::class.java)
+                val siguiente1 = Intent(view!!.context, AsignaturaSiguiente::class.java)
                 bundle2.putString("actAsig", "2")
                 bundle2.putString("numAsig", cuantas)
+
                 siguiente1.putExtras(bundle2)
                 if (finFlag == 0) {
                     r.stop()
@@ -284,7 +286,7 @@ class TimerSimple : AppCompatActivity() {
         val bundle2 = Bundle()
         when {
             (cuantas.equals("2", ignoreCase = true) || cuantas.equals("3", ignoreCase = true) || cuantas.equals("4", ignoreCase = true) || cuantas.equals("5", ignoreCase = true)) && actual.equals("1", ignoreCase = true) -> {
-                val siguiente1 = Intent(this, TimerDescanso::class.java)
+                val siguiente1 = Intent(view!!.context, TimerDescanso::class.java)
                 bundle2.putString("actAsig", "1")
                 bundle2.putString("numAsig", cuantas)
                 if (finFlag == 0) {
@@ -337,8 +339,7 @@ class TimerSimple : AppCompatActivity() {
             fis = openFileInput("pausa.txt")
             val isr = InputStreamReader(fis!!)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
-            var text: String?
+
 
             pausa = br.readLine()
 
@@ -364,8 +365,7 @@ class TimerSimple : AppCompatActivity() {
             fis = openFileInput("fin.txt")
             val isr = InputStreamReader(fis!!)
             val br = BufferedReader(isr)
-            val sb = StringBuilder()
-            var text: String?
+
 
             fin = br.readLine()
 
@@ -392,10 +392,10 @@ class TimerSimple : AppCompatActivity() {
             val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
             r.play()
-            val handler = Handler()
-            handler.postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 r.stop()
             }, 60000)
+
         } catch (e: Exception) {
             e.printStackTrace()
         }

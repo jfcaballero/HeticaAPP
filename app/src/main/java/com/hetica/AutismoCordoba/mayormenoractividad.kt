@@ -222,7 +222,7 @@ class mayormenoractividad : AppCompatActivity() {
      */
     private fun mostrarOpcionesSpinner() {
         val spinnerOpciones: Spinner = findViewById(R.id.graficasActividadOpciones)
-        val aaChartViewGrafica = findViewById<AAChartView>(R.id.graficaActividad)
+
         val opciones = listOf("Rango","Mes actual")
 
         val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, opciones)
@@ -233,7 +233,6 @@ class mayormenoractividad : AppCompatActivity() {
         spinnerOpciones.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val opcionSeleccionada = opciones[position]
-                val layoutParams = aaChartViewGrafica.layoutParams
                 when (opcionSeleccionada) {
                     "Rango" -> {
                         //layoutParams.height = resources.getDimensionPixelSize(R.dimen.default_chart_height)
