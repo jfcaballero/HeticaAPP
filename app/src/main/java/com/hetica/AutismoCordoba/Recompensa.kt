@@ -76,13 +76,7 @@ class Recompensa : AppCompatActivity() {
             finish()
         }
 
-        Comentarios = findViewById<View>(R.id.botonComentarEstudio) as Button
-        Comentarios!!.setOnClickListener {
-            val dialog = EnviarComentarios()
-            dialog.show(supportFragmentManager, "enviarComentarios")
 
-
-        }
 
     }
 
