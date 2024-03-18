@@ -15,6 +15,7 @@ import android.provider.AlarmClock
 import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
@@ -225,14 +226,30 @@ class SettingsActivity : AppCompatActivity() {
      * @param texto Texto de ayuda
      */
     private fun mostrarCuadroFlotante(texto: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage(getFormattedText(texto))
+        val dialogTextSize = getDialogTextSize()
+        val formattedText = getFormattedText(texto)
+
+        val builder = AlertDialog.Builder(this, dialogTextSize)
+        builder.setMessage(formattedText)
             .setTitle("Ayuda de opciones") // Título del cuadro de diálogo
             .setPositiveButton("Entendido") { dialog, _ ->
                 dialog.dismiss()
             }
         val dialog = builder.create()
         dialog.show()
+    }
+    private fun getDialogTextSize(): Int {
+        val screenSize = resources.configuration.screenWidthDp
+        // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
+        val textSizeSmall = R.style.DialogTextStyleSmall
+        val textSizeMedium = R.style.DialogTextStyleMedium
+        val textSizeLarge = R.style.DialogTextStyleLarge
+
+        return when {
+            screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+            screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+            else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
+        }
     }
 
     /**
@@ -241,16 +258,21 @@ class SettingsActivity : AppCompatActivity() {
     private fun getFormattedText(texto: String): CharSequence {
         val spannableStringBuilder = SpannableStringBuilder()
         val lines = texto.split("\n")
+        val screenWidthDp = resources.configuration.screenWidthDp
+        // Tamaños de contenido del alertdialog para diferentes tamaños de pantalla
+        val textSizeSmall = 19
+        val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
+        val textSizeLarge = this.resources.getDimensionPixelSize(R.dimen.text_size_medium_less_than_480dp)
         for (line in lines) {
-            val startIndex = line.indexOf('\u25AA')
-            val endIndex = line.indexOf(':')
-            if (startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
-                val formattedLine = SpannableStringBuilder(line)
-                formattedLine.setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                spannableStringBuilder.append(formattedLine)
-            } else {
-                spannableStringBuilder.append(line)
+            val formattedLine = SpannableStringBuilder(line)
+
+            val textSize = when {
+                screenWidthDp >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+                screenWidthDp >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+                else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
             }
+            formattedLine.setSpan(AbsoluteSizeSpan(textSize, true), 0, formattedLine.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannableStringBuilder.append(formattedLine)
             spannableStringBuilder.append("\n")
         }
         // Eliminar el último carácter de salto de línea adicional
@@ -259,6 +281,9 @@ class SettingsActivity : AppCompatActivity() {
         }
         return spannableStringBuilder
     }
+
+
+
 
     /**
      * Función para obtener el filtro de interrupción actual.
