@@ -238,7 +238,7 @@ class SettingsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
-    private fun getDialogTextSize(): Int {
+     private fun getDialogTextSize(): Int {
         val screenSize = resources.configuration.screenWidthDp
         // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
         val textSizeSmall = R.style.DialogTextStyleSmall
@@ -258,7 +258,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun getFormattedText(texto: String): CharSequence {
         val spannableStringBuilder = SpannableStringBuilder()
         val lines = texto.split("\n")
-        val screenWidthDp = resources.configuration.screenWidthDp
+        val screenSize = resources.configuration.screenWidthDp
         // Tamaños de contenido del alertdialog para diferentes tamaños de pantalla
         val textSizeSmall = 19
         val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
@@ -267,8 +267,8 @@ class SettingsActivity : AppCompatActivity() {
             val formattedLine = SpannableStringBuilder(line)
 
             val textSize = when {
-                screenWidthDp >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
-                screenWidthDp >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+                screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+                screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
                 else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
             }
             formattedLine.setSpan(AbsoluteSizeSpan(textSize, true), 0, formattedLine.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

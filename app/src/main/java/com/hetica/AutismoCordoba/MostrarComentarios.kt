@@ -7,9 +7,13 @@ import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -307,9 +311,12 @@ class MostrarComentarios : AppCompatActivity() {
         val fecha = if (partes.isNotEmpty()) partes[0] else ""
         val soloComentario = if (partes.size > 1) partes[1] else comentario
 
-        val builder = AlertDialog.Builder(this)
+        val dialogTextSize = getDialogTextSize()
+        val formattedText = getFormattedText(soloComentario)
+
+        val builder = AlertDialog.Builder(this,dialogTextSize)
         builder.setTitle(fecha)
-            .setMessage(soloComentario)
+            .setMessage(formattedText)
             .setPositiveButton("Salir") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -317,6 +324,43 @@ class MostrarComentarios : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+    private fun getDialogTextSize(): Int {
+        val screenSize = resources.configuration.screenWidthDp
+        // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
+        val textSizeSmall = R.style.DialogTextStyleSmall
+        val textSizeMedium = R.style.DialogTextStyleMedium
+        val textSizeLarge = R.style.DialogTextStyleLarge
+
+        return when {
+            screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+            screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+            else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
+        }
+    }
+    fun getFormattedText(texto: String): CharSequence {
+        val spannableStringBuilder = SpannableStringBuilder(texto)
+        val screenSize = resources.configuration.screenWidthDp
+
+        val textSizeSmall = 19
+        val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
+        val textSizeLarge = this.resources.getDimensionPixelSize(R.dimen.text_size_medium_less_than_480dp)
+
+        val textSize = when {
+            screenSize >= 720 -> textSizeLarge
+            screenSize >= 480 -> textSizeMedium
+            else -> textSizeSmall
+        }
+
+        spannableStringBuilder.setSpan(
+            AbsoluteSizeSpan(textSize, true),
+            0,
+            spannableStringBuilder.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannableStringBuilder
+    }
+
 
     /**
      * Función para acortar el comentario al mostrarlo en el listview

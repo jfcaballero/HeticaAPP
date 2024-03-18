@@ -20,7 +20,7 @@
     <!-- Tamaños de texto para pantallas de 720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
     <dimen name="text_size_medium_720dp">30sp</dimen>
-    <dimen name="text_size_large_720dp">34sp</dimen>
+    <dimen name="text_size_large_720dp">36sp</dimen>
 
 
 
