@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.HandlerThread
 import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
@@ -132,6 +133,7 @@ class TimerSimple : AppCompatActivity() {
 
             override fun onFinish() {
                 if (!cuantas.equals(actual, ignoreCase = true)) {
+
                     mTimerRunning = false
                     mButtonSi.visibility = View.VISIBLE
                     mButtonNo.visibility = View.VISIBLE
@@ -149,6 +151,7 @@ class TimerSimple : AppCompatActivity() {
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
                     db.insertData(asig, sdf.format(Date()),
                         timeString.let { Integer.valueOf(it) })
+                    Main.visibility=View.INVISIBLE
                     Pausa.visibility = View.INVISIBLE
                     Fin.visibility = View.INVISIBLE
                     Fin2.visibility = View.VISIBLE
@@ -174,6 +177,9 @@ class TimerSimple : AppCompatActivity() {
     }
 
     fun finTimer(view: View?) {
+        Fin.isEnabled = false
+        Pausa.isEnabled=false
+
         timeString.let {
             val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
             timeString = intValue.toString()
@@ -195,10 +201,10 @@ class TimerSimple : AppCompatActivity() {
         val seconds = (mTimeLeftInMillis / 1000).toInt() % 60
         val timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
         mTextViewCountDown.text = timeLeftFormatted
-        if (cuantas.equals(actual, ignoreCase = true) && seconds == 1 && minutes == 0) {
-            val siguiente1 = Intent(this, Recompensa::class.java)
-            startActivity(siguiente1)
-        }
+        //if (cuantas.equals(actual, ignoreCase = true) && seconds == 1 && minutes == 0) {
+        //    val siguiente1 = Intent(this, Recompensa::class.java)
+        //    startActivity(siguiente1)
+        //}
     }
     /**
      * Función que pasa a la siguiente asignatura ya que no se ha elegido descanso
@@ -387,15 +393,20 @@ class TimerSimple : AppCompatActivity() {
         }
     }
 
-    private fun showNotification() {
+    fun showNotification() {
         try {
-            val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+            val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
-            r.play()
-            Handler(Looper.getMainLooper()).postDelayed({
-                r.stop()
-            }, 60000)
+            r?.play()
 
+            val handlerThread = HandlerThread("StopRingtoneThread")
+            handlerThread.start()
+
+            val handler = Handler(handlerThread.looper)
+            handler.postDelayed({
+                r?.stop()
+                handlerThread.quitSafely()
+            }, 60000)
         } catch (e: Exception) {
             e.printStackTrace()
         }

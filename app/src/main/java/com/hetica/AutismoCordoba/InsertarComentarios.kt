@@ -5,6 +5,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -90,8 +93,11 @@ class InsertarComentarios : AppCompatActivity() {
         return textoComentario.isNotEmpty()
     }
     private fun mostrarDialogoConfirmacion() {
-        AlertDialog.Builder(this)
-            .setMessage("No ha guardado los cambios, ¿desea salir?")
+        val mensaje="No ha guardado los cambios, ¿desea salir?"
+        val dialogTextSize = getDialogTextSize()
+        val formattedText = getFormattedText(mensaje)
+        AlertDialog.Builder(this,dialogTextSize)
+            .setMessage(formattedText)
             .setPositiveButton("Sí") { dialog, _ ->
                 volverATiempoDedicado()
                 dialog.dismiss()
@@ -100,6 +106,42 @@ class InsertarComentarios : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+    private fun getDialogTextSize(): Int {
+        val screenSize = resources.configuration.screenWidthDp
+        // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
+        val textSizeSmall = R.style.DialogTextStyleSmall
+        val textSizeMedium = R.style.DialogTextStyleMedium
+        val textSizeLarge = R.style.DialogTextStyleLarge
+
+        return when {
+            screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+            screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+            else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
+        }
+    }
+    fun getFormattedText(texto: String): CharSequence {
+        val spannableStringBuilder = SpannableStringBuilder(texto)
+        val screenSize = resources.configuration.screenWidthDp
+
+        val textSizeSmall = 19
+        val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
+        val textSizeLarge = this.resources.getDimensionPixelSize(R.dimen.text_size_medium_less_than_480dp)
+
+        val textSize = when {
+            screenSize >= 720 -> textSizeLarge
+            screenSize >= 480 -> textSizeMedium
+            else -> textSizeSmall
+        }
+
+        spannableStringBuilder.setSpan(
+            AbsoluteSizeSpan(textSize, true),
+            0,
+            spannableStringBuilder.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannableStringBuilder
     }
 
 

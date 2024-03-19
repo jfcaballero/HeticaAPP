@@ -78,7 +78,7 @@ class temporizadorUnico : AppCompatActivity() {
         db = AdminSQLiteOpenHelperStats(this)
         mTextViewCountDown = findViewById<View>(R.id.textViewCountDown2) as TextView
         textAsig = findViewById<View>(R.id.textView56) as TextView
-        botonFin = findViewById<View>(R.id.button48) as Button
+        botonFin = findViewById<View>(R.id.button48) as Button //el ultimo en aparecer y el que corta la alarma y sale de la actividad
         botonFin!!.visibility = View.INVISIBLE
 
 
@@ -88,7 +88,7 @@ class temporizadorUnico : AppCompatActivity() {
         textAsig!!.text = asig
         Log.e("Minutes Selected", timeString!!)
         Pausa = findViewById<View>(R.id.buttonPausa) as Button
-        Fin = findViewById<View>(R.id.buttonFin2) as Button
+        Fin = findViewById<View>(R.id.buttonFin2) as Button //el que es visible de primeras y lleva el marcador al 0, activando la alarma
         readParams()
         mStartTime = timeString!!.toLong() * 60000
         mTimeLeftInMillis = mStartTime
@@ -145,6 +145,7 @@ class temporizadorUnico : AppCompatActivity() {
 
             override fun onFinish() {
                 mTimerRunning = false
+                Main!!.visibility=View.INVISIBLE
                 botonFin!!.visibility = View.VISIBLE
                 Fin!!.visibility = View.INVISIBLE
                 showNotification()
@@ -167,34 +168,33 @@ class temporizadorUnico : AppCompatActivity() {
     }
 
     fun finTimer(view: View?) {
-        // Deshabilitar el botón "Finalizar" para evitar múltiples clics
+        // Deshabilita el segundo botón Finalizar y Pausa para evitar múltiples clics
         Fin!!.isEnabled = false
+        Pausa!!.isEnabled=false
+        timeString?.let {
+            val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
+            timeString = intValue.toString()
+        }
+        mCountDownTimer!!.cancel()
+        mTimerRunning = false
+        Main!!.visibility=View.INVISIBLE
+        botonFin!!.visibility = View.VISIBLE
+        Fin!!.visibility = View.INVISIBLE
+        Pausa!!.visibility=View.INVISIBLE
+        showNotification()
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
+        mTextViewCountDown!!.text = "00:00"
+        mTimeLeftInMillis = 0
+        updateCountDownText()
 
-        // Esperar durante unos segundos antes de habilitar el botón nuevamente
-        Handler(Looper.getMainLooper()).postDelayed({
-            // Habilitar el botón "Finalizar" después del retraso
-            Fin!!.isEnabled = true
+        //basura para que no me de error con por no usar view
+        val siguiente2 = Intent(view!!.context, Recompensa::class.java)
+        Log.d("hola","$siguiente2")
+        //
 
-            val siguiente2 = Intent(view!!.context, Recompensa::class.java)
-            Log.d("hola","$siguiente2")
-            timeString?.let {
-                val intValue = Integer.valueOf(it) - (mTimeLeftInMillis / 1000).toInt() / 60
-                timeString = intValue.toString()
-            }
-            mCountDownTimer!!.cancel()
-            mTimerRunning = false
-            botonFin!!.visibility = View.VISIBLE
-            Fin!!.visibility = View.INVISIBLE
-            Pausa!!.visibility=View.INVISIBLE
-            showNotification()
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
-            db!!.insertData(asig!!, sdf.format(Date()), Integer.valueOf(timeString!!))
-            mTextViewCountDown!!.text = "00:00"
-            mTimeLeftInMillis = 0
-            updateCountDownText()
-            botonFin!!.visibility = View.VISIBLE
-            Fin!!.visibility = View.INVISIBLE
-        }, 500) // Espera 0.5 segundos antes de habilitar nuevamente el botón "Finalizar"
+
+
     }
 
 
