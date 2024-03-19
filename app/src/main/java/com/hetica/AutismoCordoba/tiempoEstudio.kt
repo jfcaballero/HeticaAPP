@@ -73,8 +73,8 @@ class tiempoEstudio : AppCompatActivity() {
     fun pasarOrgEst(view: View?) {
         bundle = Bundle()
         val siguiente = Intent(view!!.context, temporizadorUnico::class.java)
-        if (editText!!.text.toString() == "") {
-            Toast.makeText(this, "Introduce un tiempo", Toast.LENGTH_LONG).show()
+        if (editText!!.text.toString() == "" || editText!!.text.toString().toInt() == 0 ) {
+            Toast.makeText(this, "Introduce un tiempo mayor de 0", Toast.LENGTH_LONG).show()
         } else {
             if (textView3!!.text.toString() == "" || textView3!!.text.toString() == "Clica una asignatura") {
                 Toast.makeText(this, "Selecciona una asignatura", Toast.LENGTH_LONG).show()
