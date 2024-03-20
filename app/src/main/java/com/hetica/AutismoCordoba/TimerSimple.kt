@@ -397,14 +397,14 @@ class TimerSimple : AppCompatActivity() {
         try {
             val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
-            r?.play()
+            r.play()
 
             val handlerThread = HandlerThread("StopRingtoneThread")
             handlerThread.start()
 
             val handler = Handler(handlerThread.looper)
             handler.postDelayed({
-                r?.stop()
+                r.stop()
                 handlerThread.quitSafely()
             }, 60000)
         } catch (e: Exception) {
