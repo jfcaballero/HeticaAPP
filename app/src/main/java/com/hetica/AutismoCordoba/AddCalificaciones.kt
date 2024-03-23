@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -158,7 +159,7 @@ class AddCalificaciones : AppCompatActivity() {
             } else {
                 toastMessage ="Introduce una nota válida antes de guardar."
             }
-            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, toastMessage)
         }
         btnVolverAVisualizarCalificaciones?.setOnClickListener {
             VolverAVisualizarCalificaciones()

@@ -12,10 +12,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import java.text.SimpleDateFormat
-import java.util.Date
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
+
 
 private var AsignaturaTextView: TextView? =null
 private var FechaTextView: TextView? =null
@@ -54,7 +53,7 @@ class InsertarComentarios : AppCompatActivity() {
             if (!comentarioString.isNullOrEmpty() && asignatura != null && fecha != null) {
                 insertarComentario(asignatura, comentarioString, fecha)
             } else {
-                Toast.makeText(this, "Por favor ingrese un comentario", Toast.LENGTH_SHORT).show()
+                showSnackbarWithCustomTextSize(this, "Por favor ingrese un comentario",)
             }
         }
 
@@ -79,7 +78,7 @@ class InsertarComentarios : AppCompatActivity() {
     private fun insertarComentario(asignatura: String,mensaje:String,fecha:String) {
         Log.d("Insertando comentario","Fecha $fecha para $asignatura y dice $mensaje")
         comentariosDB?.insertData(fecha, asignatura, mensaje)
-        Toast.makeText(this, "Comentario insertado", Toast.LENGTH_SHORT).show()
+        showSnackbarWithCustomTextSize(this, "Comentario insertado" )
         volverATiempoDedicado()
 
     }

@@ -23,6 +23,7 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 
 /**
  * The type Asignatura unica.
@@ -112,7 +113,10 @@ class AsignaturaUnica : AppCompatActivity() {
             return
         }
         doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show()
+        showSnackbarWithCustomTextSize(
+            this,
+            "Presiona de nuevo para salir",
+        )
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
@@ -191,8 +195,8 @@ class AsignaturaUnica : AppCompatActivity() {
         }
         siguiente.putExtras(bundle!!)
         if (textView2!!.text.toString().equals("Clica una asignatura", ignoreCase = true)) {
-            Toast.makeText(applicationContext,
-                    "Tienes que clicar una asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this,"Tienes que clicar una asignatura")
+
         } else {
             startActivity(siguiente)
         }
@@ -236,7 +240,7 @@ class AsignaturaUnica : AppCompatActivity() {
     private fun viewData() {
         val cursor = db!!.viewData()
         if (cursor.count == 0) {
-            Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, "No hay ninguna asignatura")
         } else {
             while (cursor.moveToNext()) {
                 arrayList!!.add(cursor.getString(1))

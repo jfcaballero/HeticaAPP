@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 
 /**
  * The type Put time.
@@ -27,22 +27,12 @@ class PutTime : AppCompatActivity() {
         val siguiente = Intent(this, TimerSimple::class.java)
         val input = mTextViewTime!!.text.toString()
         if (input.length == 0) {
-            displayToast(view)
+            showSnackbarWithCustomTextSize(view!!.context, "No ha introducido ningún tiempo")
         }
         val bundle = Bundle()
         bundle.putString("time", input)
         siguiente.putExtras(bundle)
         startActivity(siguiente)
-    }
-
-    /**
-     * Display toast.
-     *
-     * @param view the view
-     */
-    fun displayToast(view: View?) {
-        view?.let { }
-        Toast.makeText(this@PutTime, "No ha introducido ningún tiempo", Toast.LENGTH_LONG).show()
     }
 
 }

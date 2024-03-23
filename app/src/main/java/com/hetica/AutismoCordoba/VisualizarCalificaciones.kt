@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBinding

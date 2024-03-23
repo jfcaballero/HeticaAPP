@@ -8,8 +8,8 @@ import android.view.View.OnTouchListener
 import android.view.WindowInsets
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarAsignaturaDeHoy(view: View) {
         if (countData() == 0) {
-            Toast.makeText(view.context, "Introduce primero una asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(view.context, "Introduce primero una asignatura")
         } else {
             val intent = Intent(this, AsignaturaDeHoy::class.java)
             startActivity(intent)
@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarOrgEst(view: View?) {
         if (countData() == 0) {
-            Toast.makeText(view!!.context, "Introduce primero una asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(view!!.context, "Introduce primero una asignatura")
         } else {
             val siguiente = Intent(this, organizar_tareas1::class.java)
             startActivity(siguiente)
@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarOrgTar(view: View?) {
         if (countData() == 0) {
-            Toast.makeText(view!!.context, "Introduce primero una asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(view!!.context, "Introduce primero una asignatura")
         } else {
             val siguiente = Intent(this, OrganizarEstudio1::class.java)
             startActivity(siguiente)
@@ -306,7 +306,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun pasarTemporizador(view: View?) {
         if (countData() == 0) {
-            Toast.makeText(view!!.context, "Introduce primero una asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(view!!.context, "Introduce primero una asignatura" )
         } else {
             val siguiente = Intent(this, tiempoEstudio::class.java)
             startActivity(siguiente)

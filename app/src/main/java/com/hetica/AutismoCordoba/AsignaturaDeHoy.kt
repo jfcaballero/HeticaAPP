@@ -138,14 +138,23 @@ class AsignaturaDeHoy : AppCompatActivity() {
                             dbCalendario?.marcarComoEstudiado(position, getDateAsString())
                         }
                     } else {
-                        showToast("Los datos de la asignatura son inválidos")
+                        FuncionesComunes.showSnackbarWithCustomTextSize(
+                            this,
+                            "Los datos de la asignatura son inválidos"
+                        )
                     }
                 } else {
-                    showToast("Los datos de la asignatura son inválidos")
+                    FuncionesComunes.showSnackbarWithCustomTextSize(
+                        this,
+                        "Los datos de la asignatura son inválidos"
+                    )
                 }
             } else {
 
-                showToast("Selecciona un único elemento")
+                FuncionesComunes.showSnackbarWithCustomTextSize(
+                    this,
+                    "Selecciona un único elemento"
+                )
             }
         }
     }
@@ -161,9 +170,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         return String.format("%02d%02d%d", month, day, year)
     }
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
+
 
     private fun salir() {
         SalirCalendario?.setOnClickListener {

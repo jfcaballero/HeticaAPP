@@ -17,18 +17,14 @@ import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-//import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_AUTO
 import com.google.android.material.navigation.NavigationBarView
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -285,7 +281,6 @@ class MostrarComentarios : AppCompatActivity() {
                 nocomentarios.visibility=View.VISIBLE
             }
 
-            //Toast.makeText(this, "No hay comentarios para ese intervalo", Toast.LENGTH_SHORT).show()
         }else{
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.INVISIBLE

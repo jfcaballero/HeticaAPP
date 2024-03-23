@@ -111,7 +111,6 @@ class EliminarCalificaciones : AppCompatActivity() {
             } else {
                 adapter.clear()
                 adapter.notifyDataSetChanged()
-                //Toast.makeText(this, "No hay calificaciones para la asignatura seleccionada $asignatura", Toast.LENGTH_LONG).show()
                 noHayCalificacionesEliminar.visibility=View.VISIBLE
             }
         }

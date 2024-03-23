@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 
 /**
  * The type Cuantas asignaturas.
@@ -46,7 +47,10 @@ class CuantasAsignaturas : AppCompatActivity() {
             return
         }
         doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show()
+        showSnackbarWithCustomTextSize(
+            this,
+            "Presiona de nuevo para salir",
+        )
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
@@ -102,8 +106,8 @@ class CuantasAsignaturas : AppCompatActivity() {
                 startActivity(siguiente)
             }
 
-            "0" -> Toast.makeText(this, "No se permiten cero asignaturas", Toast.LENGTH_LONG).show()
-            else -> Toast.makeText(this, "El número de asignaturas es muy grande", Toast.LENGTH_LONG).show()
+            "0" -> showSnackbarWithCustomTextSize(this, "No se permiten cero asignaturas")
+            else -> showSnackbarWithCustomTextSize(this, "El número de asignaturas es muy grande")
         }
     }
 }

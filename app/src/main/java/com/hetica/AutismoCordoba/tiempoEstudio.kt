@@ -12,8 +12,8 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 
 /**
  * The type Tiempo estudio.
@@ -74,10 +74,10 @@ class tiempoEstudio : AppCompatActivity() {
         bundle = Bundle()
         val siguiente = Intent(view!!.context, temporizadorUnico::class.java)
         if (editText!!.text.toString() == "" || editText!!.text.toString().toInt() == 0 ) {
-            Toast.makeText(this, "Introduce un tiempo mayor de 0", Toast.LENGTH_LONG).show()
+            showSnackbarWithCustomTextSize(this, "Introduce un tiempo mayor de 0")
         } else {
             if (textView3!!.text.toString() == "" || textView3!!.text.toString() == "Clica una asignatura") {
-                Toast.makeText(this, "Selecciona una asignatura", Toast.LENGTH_LONG).show()
+                showSnackbarWithCustomTextSize(this, "Selecciona una asignatura")
             } else {
                 bundle!!.putString("asig", textView3!!.text.toString())
                 bundle!!.putString("time", editText!!.text.toString())
@@ -94,7 +94,7 @@ class tiempoEstudio : AppCompatActivity() {
     private fun viewData() {
         val cursor = db!!.viewData()
         if (cursor.count == 0) {
-            Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, "No hay ninguna asignatura" )
         } else {
             while (cursor.moveToNext()) {
                 arrayList!!.add(cursor.getString(1))

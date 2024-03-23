@@ -24,10 +24,10 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -302,7 +302,7 @@ class SettingsActivity : AppCompatActivity() {
                 if (!notificationPolicyAccessGranted()) {
                     val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
                     startActivity(intent)
-                    Toast.makeText(this, "Habilite el permiso de acceso a la política de notificaciones.", Toast.LENGTH_LONG).show()
+                    showSnackbarWithCustomTextSize(this, "Habilite el permiso de acceso a la política de notificaciones." )
                 }
             }
             if (isChecked && notificationPolicyAccessGranted()) {

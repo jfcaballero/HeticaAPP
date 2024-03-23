@@ -16,8 +16,8 @@ import android.widget.ListView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -111,7 +111,10 @@ class AsignaturaDificil : AppCompatActivity() {
             return
         }
         doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show()
+        showSnackbarWithCustomTextSize(
+            this,
+            "Presiona de nuevo para salir",
+            )
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
@@ -191,8 +194,7 @@ class AsignaturaDificil : AppCompatActivity() {
         }
         siguiente.putExtras(bundle!!)
         if (textView2!!.text.toString().equals("Clica una asignatura", ignoreCase = true)) {
-            Toast.makeText(applicationContext,
-                    "Tienes que clicar una asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this,"Tienes que clicar una asignatura")
         } else {
             startActivity(siguiente)
         }
@@ -237,12 +239,12 @@ class AsignaturaDificil : AppCompatActivity() {
         val cursor = db?.viewData()
 
         if (cursor == null) {
-            Toast.makeText(this, "No se pudo obtener los datos de la base de datos", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, "No se pudo obtener los datos de la base de datos")
             return
         }
 
         if (cursor.count == 0) {
-            Toast.makeText(this, "No hay ninguna asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, "No hay ninguna asignatura")
         } else {
             while (cursor.moveToNext()) {
                 arrayList?.add(cursor.getString(1))

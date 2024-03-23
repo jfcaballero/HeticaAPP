@@ -16,7 +16,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
-import android.widget.Toast
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -71,7 +71,7 @@ class EditarCalendario : AppCompatActivity() {
             if (validateDate(yearFinal) && minutosAsignatura != null && minutosAsignatura!=0) {
                 addAsignatura(asignaturaSeleccionada, yearFinal!!, minutosAsignatura)
             } else {
-                Toast.makeText(this, "Introduce una fecha válida y minutos para la asignatura.", Toast.LENGTH_SHORT).show()
+                showSnackbarWithCustomTextSize(this, "Introduce una fecha válida y minutos para la asignatura.")
             }
         }
         listViewAsignaturasDeUnDia?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -166,7 +166,7 @@ class EditarCalendario : AppCompatActivity() {
             viewData(dateString)
             MinutosAsignatura?.text?.clear()
         } else {
-            Toast.makeText(this, "Ha ocurrido un error al añadir la asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, "Ha ocurrido un error al añadir la asignatura")
         }
     }
 
@@ -185,7 +185,6 @@ class EditarCalendario : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         } else {
             listViewAsignaturasDeUnDia?.adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, emptyList<String>())
-            //Toast.makeText(this, "No hay asignaturas para el día seleccionado", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -200,12 +199,11 @@ class EditarCalendario : AppCompatActivity() {
     private fun deleteAsignatura(position: Int, dateString: String) {
         val success = dbCalendario?.deleteAsignaturaByPosition(position, dateString)
         if (success == true) {
-            //Toast.makeText(this, "Se ha eliminado la asignatura correctamente", Toast.LENGTH_SHORT).show()
             // Actualizar la lista de asignaturas mostrada
             viewData(dateString)
 
         } else {
-            Toast.makeText(this, "Ha ocurrido un error al eliminar la asignatura", Toast.LENGTH_SHORT).show()
+            showSnackbarWithCustomTextSize(this, "Ha ocurrido un error al eliminar la asignatura")
         }
     }
 
