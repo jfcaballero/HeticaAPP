@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.AbsoluteSizeSpan
@@ -79,13 +81,18 @@ class InsertarComentarios : AppCompatActivity() {
         Log.d("Insertando comentario","Fecha $fecha para $asignatura y dice $mensaje")
         comentariosDB?.insertData(fecha, asignatura, mensaje)
         showSnackbarWithCustomTextSize(this, "Comentario insertado" )
+        btnRegistrarComentarios?.isEnabled=false
         volverATiempoDedicado()
 
     }
 
     private fun volverATiempoDedicado(){
         val intent = Intent(this, tiempo_dedicado::class.java)
-        startActivity(intent)
+        val handler = Handler(Looper.getMainLooper())
+
+        handler.postDelayed({
+            startActivity(intent)
+        }, 500)
     }
     private fun hayComentario(): Boolean {
         val textoComentario = comentario.text.toString().trim()

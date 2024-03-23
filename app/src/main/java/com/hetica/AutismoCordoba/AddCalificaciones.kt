@@ -6,6 +6,8 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -145,6 +147,7 @@ class AddCalificaciones : AppCompatActivity() {
                             yearFinal!!
                         )
                         if (isInserted == true) {
+                            Guardar.isEnabled=false
                             toastMessage = "Calificación insertada."
                             VolverAVisualizarCalificaciones()
                         } else {
@@ -157,7 +160,7 @@ class AddCalificaciones : AppCompatActivity() {
                 }
 
             } else {
-                toastMessage ="Introduce una nota válida antes de guardar."
+                toastMessage ="Introduce una nota válida."
             }
             showSnackbarWithCustomTextSize(this, toastMessage)
         }
@@ -200,6 +203,11 @@ class AddCalificaciones : AppCompatActivity() {
 
     private fun VolverAVisualizarCalificaciones(){
         val intent = Intent(this, VisualizarCalificaciones::class.java)
-        startActivity(intent)
+        val handler = Handler(Looper.getMainLooper())
+
+        handler.postDelayed({
+            startActivity(intent)
+        }, 500)
+
     }
 }
