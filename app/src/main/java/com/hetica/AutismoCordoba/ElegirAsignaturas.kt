@@ -95,7 +95,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
         customToolbarAdapter.setTextSizeBasedOnScreenWidth()
         try {
-            // Intenta acceder al directorio de recientes y ejecuta el código correspondiente
+            /* Intenta acceder al directorio de recientes y ejecuta el código correspondiente
             if (resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK ==
                 Configuration.SCREENLAYOUT_SIZE_XLARGE) {
                 adapter = object : ArrayAdapter<String>(
@@ -110,9 +110,9 @@ class ElegirAsignaturas : AppCompatActivity() {
                         return view
                     }
                 }
-            } else {
-                adapter = CustomListAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
-            }
+            }*/
+            adapter = CustomListAdapter(this@ElegirAsignaturas, android.R.layout.simple_list_item_1, arrayList!!)
+
             viewData()
             lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ ->
                 et!!.setText(arrayList!![position])
@@ -134,7 +134,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      * @param view the view
      */
     fun Settings(view: View?) {
-        val siguiente = Intent(view!!.context, SettingsActivity::class.java)
+        val siguiente = Intent(view?.context, SettingsActivity::class.java)
         startActivity(siguiente)
     }
     /**
@@ -152,31 +152,28 @@ class ElegirAsignaturas : AppCompatActivity() {
 
         if (agregar == 1) {
             if (asignatura.length > 25) {
-                showSnackbarWithCustomTextSize(view!!.context,"La asignatura es demasiado larga")
+                showSnackbarWithCustomTextSize(this,"La asignatura es demasiado larga")
             } else {
                 if (db!!.buscar(asignatura)) {
-                    //if (asignatura.isNotBlank() && db!!.insertData(replaceSpacesWithUnderscore(asignatura))) {
                     if (asignatura.isNotBlank() && db!!.insertData(asignatura)) {
-                        showSnackbarWithCustomTextSize(view!!.context,"Se ha introducido correctamente")
-
+                        showSnackbarWithCustomTextSize(this,"Se ha introducido correctamente")
                         // Actualizar la lista y notificar al adaptador
-                        //arrayList!!.add(replaceSpacesWithUnderscore(asignatura))
                         arrayList!!.add(asignatura)
                         adapter!!.notifyDataSetChanged()
 
                         lv!!.adapter = adapter
                         et!!.setText("")
                     } else {
-                        showSnackbarWithCustomTextSize(view!!.context,"Debe escribir una asignatura")
+                        showSnackbarWithCustomTextSize(this,"Debe escribir una asignatura")
                     }
                 } else {
-                    showSnackbarWithCustomTextSize(view!!.context,"La asignatura ya existe")
+                    showSnackbarWithCustomTextSize(this,"La asignatura ya existe")
                 }
             }
         } else {
             //val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
-                showSnackbarWithCustomTextSize(view!!.context,"La asignatura es demasiado larga")
+                showSnackbarWithCustomTextSize(this,"La asignatura es demasiado larga")
             } else {
                 if (db!!.buscar(asignatura)) {
                     if (asignatura.isNotBlank() && db!!.Modificar(asignatura, modificarAux)) {
@@ -188,7 +185,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                         dbCalificaciones.updateSubjectName(modificarAux ?: "", asignatura)
                         dbCalendario.updateAsignaturaName(modificarAux ?: "", asignatura)
                         if (actualizadoEnStats) {
-                            showSnackbarWithCustomTextSize(view!!.context,"Se ha modificado correctamente")
+                            showSnackbarWithCustomTextSize(this,"Se ha modificado correctamente")
                         }
 
                         // Actualizar la lista y notificar al adaptador
@@ -200,10 +197,10 @@ class ElegirAsignaturas : AppCompatActivity() {
                         bt!!.text = "Agregar"
                         agregar = 1
                     } else {
-                        showSnackbarWithCustomTextSize(view!!.context,"Debe escribir una asignatura")
+                        showSnackbarWithCustomTextSize(this,"Debe escribir una asignatura")
                     }
                 } else {
-                    showSnackbarWithCustomTextSize(view!!.context,"La asignatura ya existe")
+                    showSnackbarWithCustomTextSize(this,"La asignatura ya existe")
                 }
             }
         }
@@ -234,7 +231,8 @@ class ElegirAsignaturas : AppCompatActivity() {
 
         if (!db!!.buscar(asignatura) || asignatura == "") {
             if (asignatura != "" && db!!.Eliminar(asignatura)) {
-                showSnackbarWithCustomTextSize(view!!.context,"Se ha eliminado correctamente")
+                showSnackbarWithCustomTextSize(this,"Se ha eliminado correctamente")
+                Log.d("eliminar","se ha eliminado correctamente la asignatura")
                 arrayList!!.removeAt(position1)
                 adapter!!.notifyDataSetChanged()
                 et!!.setText("")
@@ -245,10 +243,10 @@ class ElegirAsignaturas : AppCompatActivity() {
                 dbComentarios.borrarComentariosAsignatura(asignatura)//borramos los comentarios
                 dbCalendario.deleteAsignaturaFromAllDates(asignatura) //borramos las sesiones asignadas a esa asignatura
             } else {
-                showSnackbarWithCustomTextSize(view!!.context,"Debe seleccionar una asignatura")
+                showSnackbarWithCustomTextSize(this,"Debe seleccionar una asignatura")
             }
         } else {
-            showSnackbarWithCustomTextSize(view!!.context,"La asignatura a eliminar no existe")
+            showSnackbarWithCustomTextSize(this,"La asignatura a eliminar no existe")
             et!!.setText("")
         }
     }
