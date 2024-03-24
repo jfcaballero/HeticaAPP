@@ -101,10 +101,15 @@ class MainActivity : AppCompatActivity() {
                 then = System.currentTimeMillis()
             } else if (event.action == MotionEvent.ACTION_UP) {
                 if (System.currentTimeMillis() - then > longClickDuration) {
-                    siguiente = Intent(baseContext, estadisticasDias::class.java)
-                    startActivity(siguiente)
-                    println("Long Click has happened!")
-                    return@OnTouchListener false
+                    if (countData() == 0) {
+                        showSnackbarWithCustomTextSize(this, "Introduce primero una asignatura")
+                    } else {
+                        siguiente = Intent(baseContext, estadisticasDias::class.java)
+                        startActivity(siguiente)
+                        println("Long Click has happened!")
+                        return@OnTouchListener false
+                    }
+
                 } else {
                     /* Implement short click behavior here or do nothing */
                     println("Short Click has happened...")
