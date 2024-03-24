@@ -76,7 +76,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".mayormenoractividad"
+            android:name=".Mayormenoractividad"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
@@ -90,7 +90,7 @@
             android:name=".creditos"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".GestionarAlarmas" />
+
         <activity
             android:name=".organizar_tareas6"
             android:screenOrientation="landscape"

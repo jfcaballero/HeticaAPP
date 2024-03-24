@@ -34,7 +34,7 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class mayormenoractividad : AppCompatActivity() {
+class Mayormenoractividad : AppCompatActivity() {
     /**
      * The Stats Db.
      */
@@ -295,7 +295,7 @@ class mayormenoractividad : AppCompatActivity() {
      * @param opcion Rango, histórico o mes actual
      */
     private fun obtenerGrafica(opcion:Int) {
-        val db = AdminSQLiteOpenHelperStats(this@mayormenoractividad)
+        val db = AdminSQLiteOpenHelperStats(this@Mayormenoractividad)
         val asignaturaSeleccionada = asignaturaSeleccionada ?: return
         var fechaInicial = fechaInicio?.text.toString()
         var fechaFinal = fechaFin?.text.toString()

@@ -82,7 +82,7 @@ class estadisticasDias : AppCompatActivity() {
                     true
                 }
                 R.id.action_actividad -> {
-                    val intent = Intent(this, mayormenoractividad::class.java)
+                    val intent = Intent(this, Mayormenoractividad::class.java)
                     val animationBundle = ActivityOptions.makeCustomAnimation(
                         this,
                         R.anim.slide_in,  // Enter animation

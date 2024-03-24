@@ -22,6 +22,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 
 
 /**
@@ -126,24 +127,7 @@ class ElegirAsignaturas : AppCompatActivity() {
         }
     }
 
-    fun showSnackbarWithCustomTextSize( message: String) {
-        val context=this
-        val view: View = findViewById(android.R.id.content)
-        val snackbar = Snackbar.make(view, "", Snackbar.LENGTH_LONG)
-        val layout = snackbar.view as Snackbar.SnackbarLayout
-        val textView = layout.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.text = message
 
-        // Determinar el tamaño del texto según los rangos de pantalla
-        val screenWidthDp = context.resources.configuration.screenWidthDp
-        val textSizeSp = when {
-            screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.text_size_large_720dp)
-            screenWidthDp >= 480 -> context.resources.getDimension(R.dimen.text_size_large_480dp)
-            else -> context.resources.getDimension(R.dimen.text_size_large_less_than_480dp)
-        }
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeSp)  // Establecer el tamaño del texto
-        snackbar.show()
-    }
     /**
      * Función para volver a Settings
      *
@@ -168,12 +152,12 @@ class ElegirAsignaturas : AppCompatActivity() {
 
         if (agregar == 1) {
             if (asignatura.length > 25) {
-                showSnackbarWithCustomTextSize("La asignatura es demasiado larga")
+                showSnackbarWithCustomTextSize(view!!.context,"La asignatura es demasiado larga")
             } else {
                 if (db!!.buscar(asignatura)) {
                     //if (asignatura.isNotBlank() && db!!.insertData(replaceSpacesWithUnderscore(asignatura))) {
                     if (asignatura.isNotBlank() && db!!.insertData(asignatura)) {
-                        showSnackbarWithCustomTextSize("Se ha introducido correctamente")
+                        showSnackbarWithCustomTextSize(view!!.context,"Se ha introducido correctamente")
 
                         // Actualizar la lista y notificar al adaptador
                         //arrayList!!.add(replaceSpacesWithUnderscore(asignatura))
@@ -183,16 +167,16 @@ class ElegirAsignaturas : AppCompatActivity() {
                         lv!!.adapter = adapter
                         et!!.setText("")
                     } else {
-                        showSnackbarWithCustomTextSize("Debe escribir una asignatura")
+                        showSnackbarWithCustomTextSize(view!!.context,"Debe escribir una asignatura")
                     }
                 } else {
-                    showSnackbarWithCustomTextSize("La asignatura ya existe")
+                    showSnackbarWithCustomTextSize(view!!.context,"La asignatura ya existe")
                 }
             }
         } else {
             //val asignatura = et!!.text.toString()
             if (asignatura.length > 25) {
-                showSnackbarWithCustomTextSize("La asignatura es demasiado larga")
+                showSnackbarWithCustomTextSize(view!!.context,"La asignatura es demasiado larga")
             } else {
                 if (db!!.buscar(asignatura)) {
                     if (asignatura.isNotBlank() && db!!.Modificar(asignatura, modificarAux)) {
@@ -204,7 +188,7 @@ class ElegirAsignaturas : AppCompatActivity() {
                         dbCalificaciones.updateSubjectName(modificarAux ?: "", asignatura)
                         dbCalendario.updateAsignaturaName(modificarAux ?: "", asignatura)
                         if (actualizadoEnStats) {
-                            showSnackbarWithCustomTextSize("Se ha modificado correctamente")
+                            showSnackbarWithCustomTextSize(view!!.context,"Se ha modificado correctamente")
                         }
 
                         // Actualizar la lista y notificar al adaptador
@@ -216,10 +200,10 @@ class ElegirAsignaturas : AppCompatActivity() {
                         bt!!.text = "Agregar"
                         agregar = 1
                     } else {
-                        showSnackbarWithCustomTextSize("Debe escribir una asignatura")
+                        showSnackbarWithCustomTextSize(view!!.context,"Debe escribir una asignatura")
                     }
                 } else {
-                    showSnackbarWithCustomTextSize("La asignatura ya existe")
+                    showSnackbarWithCustomTextSize(view!!.context,"La asignatura ya existe")
                 }
             }
         }
@@ -250,7 +234,7 @@ class ElegirAsignaturas : AppCompatActivity() {
 
         if (!db!!.buscar(asignatura) || asignatura == "") {
             if (asignatura != "" && db!!.Eliminar(asignatura)) {
-                showSnackbarWithCustomTextSize("Se ha eliminado correctamente")
+                showSnackbarWithCustomTextSize(view!!.context,"Se ha eliminado correctamente")
                 arrayList!!.removeAt(position1)
                 adapter!!.notifyDataSetChanged()
                 et!!.setText("")
@@ -261,10 +245,10 @@ class ElegirAsignaturas : AppCompatActivity() {
                 dbComentarios.borrarComentariosAsignatura(asignatura)//borramos los comentarios
                 dbCalendario.deleteAsignaturaFromAllDates(asignatura) //borramos las sesiones asignadas a esa asignatura
             } else {
-                showSnackbarWithCustomTextSize("Debe seleccionar una asignatura")
+                showSnackbarWithCustomTextSize(view!!.context,"Debe seleccionar una asignatura")
             }
         } else {
-            showSnackbarWithCustomTextSize("La asignatura a eliminar no existe")
+            showSnackbarWithCustomTextSize(view!!.context,"La asignatura a eliminar no existe")
             et!!.setText("")
         }
     }
@@ -276,7 +260,7 @@ class ElegirAsignaturas : AppCompatActivity() {
     private fun viewData() {
         val cursor = db!!.viewData()
         if (cursor.count == 0) {
-            showSnackbarWithCustomTextSize("No hay ninguna asignatura")
+            showSnackbarWithCustomTextSize(this,"No hay ninguna asignatura")
         } else {
             while (cursor.moveToNext()) {
                 arrayList!!.add(cursor.getString(1))
