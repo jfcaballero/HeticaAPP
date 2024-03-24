@@ -37,7 +37,7 @@
         android:scrollbars="vertical"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/asignaturaDeHoyComenzar"
         app:layout_constraintHorizontal_bias="0.274"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textView71" />
@@ -61,15 +61,12 @@
         android:id="@+id/asignaturaDeHoySalir"
         android:layout_width="127dp"
         android:layout_height="57dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="144dp"
         android:text="Salir"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/editarCalendarioBoton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyComenzar" />
 
     <Button
         android:id="@+id/asignaturaDeHoyComenzar"
@@ -77,13 +74,10 @@
         android:layout_height="57dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="28dp"
         android:text="@string/String_comenzar"
-        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoySalir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/editarCalendarioBoton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editarCalendarioBoton" />
 
     <TextView
         android:id="@+id/textoNoHayTareasHoy"

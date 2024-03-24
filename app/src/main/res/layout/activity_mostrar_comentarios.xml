@@ -28,9 +28,9 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="FechaFin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textoComentariosA" />
 
     <TextView
@@ -55,8 +55,8 @@
         android:background="#361FBFB0"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textView82">
 
         <Spinner
@@ -94,7 +94,7 @@
         android:layout_marginTop="20dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -140,9 +140,9 @@
         android:ems="10"
         android:inputType="date"
         android:text="FechaInicio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textoComentariosDe" />
 
     <RelativeLayout
@@ -153,8 +153,8 @@
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout4"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView66">
 

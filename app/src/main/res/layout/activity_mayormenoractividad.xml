@@ -30,8 +30,8 @@
         android:background="#361FBFB0"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textView86">
 
         <Spinner
@@ -71,7 +71,6 @@
         android:inputType="date"
         android:text="FechaFin"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout6"
-        app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout6"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout6" />
 
@@ -113,7 +112,6 @@
         android:inputType="date"
         android:text="FechaInicio"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout5"
-        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
 
@@ -125,8 +123,8 @@
         android:layout_weight=".28"
         android:background="#361FBFB0"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView85">
 
