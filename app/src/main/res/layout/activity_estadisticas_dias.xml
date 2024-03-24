@@ -49,10 +49,8 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.681"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.844" />
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
     <FrameLayout
         android:layout_width="0dp"
@@ -124,15 +122,13 @@
         android:id="@+id/textoNoComentarios4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="206dp"
         android:text="No hay actividad disponible."
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/listViewAsignaturas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/listViewAsignaturas"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintTop_toTopOf="@+id/listViewAsignaturas" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

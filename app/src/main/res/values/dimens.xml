@@ -7,17 +7,20 @@
     <dimen name="default_coments_height">345dp</dimen>
 
 
-    <!-- Tamaños de texto para pantallas menores de 480dp -->
+    <!-- Tamaños para de >=320dp -->
     <dimen name="text_size_small_less_than_480dp">12sp</dimen>
     <dimen name="text_size_medium_less_than_480dp">18sp</dimen>
     <dimen name="text_size_large_less_than_480dp">22sp</dimen>
 
-    <!-- Tamaños de texto para pantallas de 480dp -->
+        <!-- Toolbar -->
+        <dimen name="toolbar_size_large_less_than_480dp">50dp</dimen>
+
+    <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
     <dimen name="text_size_medium_480dp">22sp</dimen>
     <dimen name="text_size_large_480dp">24sp</dimen>
 
-    <!-- Tamaños de texto para pantallas de 720dp -->
+    <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
     <dimen name="text_size_medium_720dp">30sp</dimen>
     <dimen name="text_size_large_720dp">36sp</dimen>

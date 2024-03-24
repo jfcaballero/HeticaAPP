@@ -52,20 +52,20 @@ class MainActivity : AppCompatActivity() {
         text2 = findViewById<View>(R.id.textView61) as TextView
         leerTemp()
 
-        // Nuevo código para obtener height and widht
+        /* Nuevo código para obtener height and widht
         val windowMetrics = windowManager.currentWindowMetrics
         val insets = windowMetrics.windowInsets
                 .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
         val height = windowMetrics.bounds.height() - insets.bottom - insets.top
         val weight = windowMetrics.bounds.width() - insets.right - insets.left
 
-        /*
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int height = size.y;
         int weight = size.x;
-        */if (height < 721) {
+        if (height < 721) {
             boton!!.layoutParams.width = 250
             boton!!.layoutParams.height = 250
             boton1!!.layoutParams.width = 250
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             text!!.textSize = 11f
             text1!!.textSize = 11f
             text2!!.textSize = 11f
-        }
+        }*/
 
         botonOpc!!.setOnTouchListener(OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {

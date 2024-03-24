@@ -60,7 +60,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/String_organizaMochila"
         android:textColor="#000000"
-        android:textSize="14dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/button3"
         app:layout_constraintStart_toStartOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
@@ -148,7 +148,7 @@
         android:layout_marginTop="16dp"
         android:text="ORGANIZAR EL ESTUDIO"
         android:textColor="#000000"
-        android:textSize="14dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/button" />
@@ -160,7 +160,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/String_asignaturaDeHoy"
         android:textColor="#000000"
-        android:textSize="14dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/button16"
         app:layout_constraintStart_toStartOf="@+id/button16"
         app:layout_constraintTop_toBottomOf="@+id/button16" />
@@ -172,7 +172,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/String_organizaTareas"
         android:textColor="#000000"
-        android:textSize="14dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintStart_toStartOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -182,7 +182,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.21944444" />
+        app:layout_constraintGuide_percent="0.19" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
