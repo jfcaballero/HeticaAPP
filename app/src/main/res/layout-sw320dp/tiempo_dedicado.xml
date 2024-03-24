@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:text="Rango temporal"
         android:textColor="#5A5C5E"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintHorizontal_bias="0.0"
@@ -27,7 +27,7 @@
         android:layout_marginTop="8dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -159,16 +159,26 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationViewestadisticas"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height_320dp"
+        android:background="#ACEDE7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navegacion_estadisticas_menu" />
+
     <ImageView
         android:id="@+id/botonMain4"
-        android:layout_width="55dp"
+        android:layout_width="@dimen/home_height_320dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarmayormenor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -199,31 +209,20 @@
         android:id="@+id/tiempoMinutosTotales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="8dp"
         android:text="Minutos totales"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationViewestadisticas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ACEDE7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navegacion_estadisticas_menu" />
 
     <TextView
         android:id="@+id/textoNoComentarios3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No hay actividad disponible."
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/tiempoLista"
         app:layout_constraintEnd_toEndOf="@+id/tiempoLista"
@@ -234,7 +233,6 @@
         android:id="@+id/textView70"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/tiempo_dedicado_leyenda"
         android:textColor="#009688"

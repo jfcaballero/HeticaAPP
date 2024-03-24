@@ -13,7 +13,18 @@
     <dimen name="text_size_large_less_than_480dp">22sp</dimen>
 
         <!-- Toolbar -->
-        <dimen name="toolbar_size_large_less_than_480dp">50dp</dimen>
+        <dimen name="toolbar_height_320dp">60dp</dimen>
+        <!-- Navigation Menu -->
+        <dimen name="navigation_height_320dp">55dp</dimen>
+        <!-- Spinner estadisticas -->
+        <dimen name="spinner_width_320dp">157dp</dimen>
+        <dimen name="spinner_height_320dp">55dp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_320dp">45dp</dimen>
+        <!-- Estadisticas action button -->
+        <dimen name="action_button_width_320dp">97dp</dimen>
+        <dimen name="action_button_height_320dp">46dp</dimen>
+
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>

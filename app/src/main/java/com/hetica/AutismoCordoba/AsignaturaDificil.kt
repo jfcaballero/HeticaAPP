@@ -105,7 +105,7 @@ class AsignaturaDificil : AppCompatActivity() {
     var doubleBackToExitPressedOnce = false
     var siguiente: Intent? = null
     override fun onBackPressed() {
-        super.onBackPressed()
+
         if (doubleBackToExitPressedOnce) {
             siguiente = Intent(baseContext, MainActivity::class.java)
             startActivity(siguiente)

@@ -143,6 +143,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      * @param view the view
      */
     fun Registrar(view: View?) {
+        Log.d("estoy en registrar","$view")
         val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         val dbStats = AdminSQLiteOpenHelperStats(this)
         val dbComentarios=AdminSQLiteOpenHelperComentarios(this)
@@ -223,6 +224,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      * @param view the view
      */
     fun Eliminar(view: View?) {
+        Log.d("estoy en eliminar","$view")
         val asignatura = et!!.text.toString()
         val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         val dbStats = AdminSQLiteOpenHelperStats(this)
