@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#24acc2"
+    tools:context=".EditarCalendario">
+
+
+    <ListView
+        android:id="@+id/listViewCalendarioAsignaturas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/mi_color_de_barra"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/volverCalendarioBoton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView75"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView74"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Asignaturas asignadas"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_size_large_less_than_480dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView75"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView75"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout9" />
+
+    <TextView
+        android:id="@+id/textView75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Selecciona una asignatura para eliminarla"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/listViewCalendarioAsignaturas"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/listViewCalendarioAsignaturas"
+        app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout9"
+        android:layout_width="264dp"
+        android:layout_height="@dimen/spinner_height_320dp"
+        android:layout_marginStart="24dp"
+
+        android:layout_marginTop="24dp"
+
+        android:layout_weight=".28"
+        android:background="#FEFEFE"
+        android:orientation="horizontal"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView73"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/asignaturasCalendario"
+            android:layout_width="238dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/FechaCalendario"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/spinner_height_320dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Fecha"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/calendarioMinutosAsignatura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView72" />
+
+    <TextView
+        android:id="@+id/textView73"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Asignaturas"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_size_large_less_than_480dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout9"
+        app:layout_constraintTop_toBottomOf="@+id/FechaCalendario" />
+
+    <EditText
+        android:id="@+id/calendarioMinutosAsignatura"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/spinner_height_320dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Minutos"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/FechaCalendario"
+        app:layout_constraintTop_toBottomOf="@+id/textView62" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Minutos"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_size_large_less_than_480dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/calendarioMinutosAsignatura"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/calendarioMinutosAsignatura"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView72"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Fecha"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_size_large_less_than_480dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/FechaCalendario"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/FechaCalendario"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/addAsignaturaCalendario"
+        android:layout_width="@dimen/home_height_320dp"
+        android:layout_height="@dimen/home_height_320dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout9"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout9"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <Button
+        android:id="@+id/volverCalendarioBoton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="28dp"
+        android:text="Volver"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
