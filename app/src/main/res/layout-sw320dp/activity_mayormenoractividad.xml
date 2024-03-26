@@ -4,50 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MostrarComentarios">
+    tools:context=".mayormenoractividad">
+
 
     <TextView
-        android:id="@+id/textView82"
+        android:id="@+id/textView86"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:text="Rango temporal"
         android:textColor="#5A5C5E"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout6"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
-
-    <EditText
-        android:id="@+id/comentariosHasta"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/spinner_height_320dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="FechaFin"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/textoComentariosA" />
-
-    <TextView
-        android:id="@+id/textoComentariosA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Fin"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/comentariosHasta"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/comentariosHasta"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4" />
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarmayormenor" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout4"
+        android:id="@+id/relativeLayout6"
         android:layout_width="@dimen/spinner_width_320dp"
         android:layout_height="@dimen/spinner_height_320dp"
         android:layout_marginTop="16dp"
@@ -56,12 +31,106 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textView82">
+        app:layout_constraintStart_toEndOf="@+id/relativeLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/textView86">
 
         <Spinner
-            android:id="@+id/selectorRangoHistorico"
-            android:layout_width="match_parent"
+            android:id="@+id/graficasActividadOpciones"
+            android:layout_width="145dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="33dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/abajo" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/graficasActividadFin"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spinner_height_320dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="FechaFin"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout6"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout6" />
+
+    <TextView
+        android:id="@+id/textView85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Asignatura"
+        android:textColor="#5A5C5E"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarmayormenor" />
+
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+        android:id="@+id/graficaActividad"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graficasActividadInicio"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/graficasActividadInicio"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spinner_height_320dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="FechaInicio"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout5"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="@dimen/spinner_width_320dp"
+        android:layout_height="@dimen/spinner_height_320dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight=".28"
+        android:background="#361FBFB0"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView85">
+
+        <Spinner
+            android:id="@+id/graficasActividadAsig"
+            android:layout_width="144dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
@@ -87,106 +156,8 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView66"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Asignatura"
-        android:textColor="#5A5C5E"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
-
-    <ListView
-        android:id="@+id/listViewComentarios"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:fadeScrollbars="false"
-        android:scrollbarThumbVertical="@color/mi_color_de_barra"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comentariosDesde"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <TextView
-        android:id="@+id/textoComentariosDe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Inicio"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/comentariosDesde"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/comentariosDesde"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
-
-    <EditText
-        android:id="@+id/comentariosDesde"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/spinner_height_320dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="FechaInicio"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textoComentariosDe" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="@dimen/spinner_width_320dp"
-        android:layout_height="@dimen/spinner_height_320dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight=".28"
-        android:background="#361FBFB0"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/relativeLayout4"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView66">
-
-        <Spinner
-            android:id="@+id/selectorasignaturas"
-            android:layout_width="147dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:minHeight="48dp"
-            android:spinnerMode="dropdown" />
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="33dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/abajo" />
-
-    </RelativeLayout>
-
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar3"
+        android:id="@+id/toolbarmayormenor"
         android:layout_width="0dp"
         android:layout_height="@dimen/toolbar_height_320dp"
         android:background="#009688"
@@ -195,18 +166,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/String_comentarios" />
+        app:title="@string/String_mayormenoractividad" />
 
-    <ImageView
-        android:id="@+id/botonMain2"
-        android:layout_width="@dimen/home_height_320dp"
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_home_black_24dp" />
+        tools:visibility="gone">
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewestadisticas"
@@ -226,16 +197,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navegacion_estadisticas_menu" />
 
+    <ImageView
+        android:id="@+id/botonMain"
+        android:layout_width="@dimen/home_height_320dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarmayormenor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_home_black_24dp" />
+
+
     <TextView
-        android:id="@+id/textoNoComentarios"
+        android:id="@+id/textoNoComentarios2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No hay comentarios disponibles."
+        android:text="No hay actividad disponible."
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/listViewComentarios"
-        app:layout_constraintEnd_toEndOf="@+id/listViewComentarios"
-        app:layout_constraintStart_toStartOf="@+id/listViewComentarios"
-        app:layout_constraintTop_toTopOf="@+id/listViewComentarios" />
+        app:layout_constraintBottom_toBottomOf="@+id/graficaActividad"
+        app:layout_constraintEnd_toEndOf="@+id/graficaActividad"
+        app:layout_constraintStart_toStartOf="@+id/graficaActividad"
+        app:layout_constraintTop_toTopOf="@+id/graficaActividad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

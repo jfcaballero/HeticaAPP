@@ -25,6 +25,9 @@
         <dimen name="action_button_width_320dp">97dp</dimen>
         <dimen name="action_button_height_320dp">46dp</dimen>
 
+        <dimen name="big_action_button_width_320dp">148dp</dimen>
+        <dimen name="big_action_button_height_320dp">61dp</dimen>
+
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
