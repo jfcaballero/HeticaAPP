@@ -99,13 +99,13 @@
 
     <EditText
         android:id="@+id/FechaCalendario"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/big_action_button_width_320dp"
         android:layout_height="@dimen/spinner_height_320dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Fecha"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/calendarioMinutosAsignatura"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView72" />
@@ -126,13 +126,13 @@
 
     <EditText
         android:id="@+id/calendarioMinutosAsignatura"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/big_action_button_width_320dp"
         android:layout_height="@dimen/spinner_height_320dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Minutos"
         android:inputType="number"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/FechaCalendario"
