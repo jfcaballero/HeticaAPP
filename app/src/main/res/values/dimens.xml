@@ -27,17 +27,23 @@
 
         <dimen name="big_action_button_width_320dp">148dp</dimen>
         <dimen name="big_action_button_height_320dp">61dp</dimen>
+        <!-- Spinners -->
+        <dimen name="dropdown_item_height_320">30dp</dimen>
 
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
     <dimen name="text_size_medium_480dp">22sp</dimen>
     <dimen name="text_size_large_480dp">24sp</dimen>
+        <!-- Spinners -->
+        <dimen name="dropdown_item_height_480">50dp</dimen>
 
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
     <dimen name="text_size_medium_720dp">30sp</dimen>
     <dimen name="text_size_large_720dp">36sp</dimen>
+        <!-- Spinners -->
+        <dimen name="dropdown_item_height_720">70dp</dimen>
 
 
 </resources>
