@@ -218,16 +218,12 @@
         android:id="@+id/textoNoComentarios2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="179dp"
-        android:layout_marginEnd="174dp"
-        android:layout_marginBottom="206dp"
         android:text="No hay actividad disponible."
         android:textSize="24sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/graficaActividad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/graficaActividad"
-        app:layout_constraintVertical_bias="0.79" />
+        app:layout_constraintEnd_toEndOf="@+id/graficaActividad"
+        app:layout_constraintStart_toStartOf="@+id/graficaActividad"
+        app:layout_constraintTop_toTopOf="@+id/graficaActividad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -116,10 +116,9 @@
         android:text="No hay datos disponibles."
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/aa_chart_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/aa_chart_view"
-        app:layout_constraintVertical_bias="0.49" />
+        app:layout_constraintEnd_toEndOf="@+id/aa_chart_view"
+        app:layout_constraintStart_toStartOf="@+id/aa_chart_view"
+        app:layout_constraintTop_toTopOf="@+id/aa_chart_view" />
 
 
     <androidx.appcompat.widget.Toolbar

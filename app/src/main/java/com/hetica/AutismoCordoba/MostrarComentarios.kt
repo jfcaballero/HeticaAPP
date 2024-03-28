@@ -23,6 +23,7 @@ import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import java.text.SimpleDateFormat
@@ -437,6 +438,7 @@ class MostrarComentarios : AppCompatActivity() {
         val fechaFinTexto: EditText? = findViewById(R.id.comentariosHasta)
         val textoDe: TextView? = findViewById(R.id.textoComentariosDe)
         val textoA: TextView? = findViewById(R.id.textoComentariosA)
+        val listViewLayoutParams = listViewComentarios?.layoutParams as ConstraintLayout.LayoutParams
 
         if (esOpcionHistoricoSeleccionada()) { // Si la opción es histórico, ocultar los elementos
             fechaInicioTexto?.visibility = View.INVISIBLE
@@ -444,12 +446,54 @@ class MostrarComentarios : AppCompatActivity() {
             textoDe?.visibility = View.INVISIBLE
             textoA?.visibility = View.INVISIBLE
 
+            // Obtener el ID del elemento al que deseas alinear el top del ListView
+            val nuevoTopId = R.id.textoComentariosDe
+
+            // Establecer el nuevo constraint top
+            listViewLayoutParams.topToTop = nuevoTopId
+            // Obtener la densidad de pantalla del dispositivo
+            val density = resources.displayMetrics.density
+
+            // Establecer la separación fija en dp
+            val separacionFijaDp = 20
+
+            // Convertir dp a píxeles
+            val separacionFijaPx = (separacionFijaDp * density + 0.5f).toInt()
+            listViewLayoutParams.topMargin = separacionFijaPx
+            // Aplicar los cambios
+            listViewComentarios?.layoutParams = listViewLayoutParams
+
 
         } else { // Si la opción no es histórico, mostrar los elementos
             fechaInicioTexto?.visibility = View.VISIBLE
             fechaFinTexto?.visibility = View.VISIBLE
             textoDe?.visibility = View.VISIBLE
             textoA?.visibility = View.VISIBLE
+
+            // Obtener el ID del elemento al que deseas alinear el top del ListView
+            val nuevoTopId = R.id.comentariosDesde
+
+            // Establecer el nuevo constraint top
+            listViewLayoutParams.topToTop = nuevoTopId
+            // Obtener la densidad de pantalla del dispositivo
+            val density = resources.displayMetrics.density
+
+            // Obtener el tamaño de pantalla en dp
+            val screenSize = resources.configuration.screenWidthDp
+
+            // Definir diferentes tamaños de separación según el tamaño de pantalla
+            val separacionFijaDp = when {
+                screenSize >= 720 -> 135 // Pantalla grande (más de 720dp)
+                screenSize >= 480 -> 90 // Pantalla mediana (entre 480dp y 720dp)
+                else -> 60 // Pantalla pequeña (menos de 480dp)
+            }
+
+            // Convertir dp a píxeles
+            val separacionFijaPx = (separacionFijaDp * density + 0.5f).toInt()
+            listViewLayoutParams.topMargin = separacionFijaPx
+
+            // Aplicar los cambios
+            listViewComentarios?.layoutParams = listViewLayoutParams
 
         }
     }

@@ -237,10 +237,9 @@
         android:text="No hay comentarios disponibles."
         android:textSize="34sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/listViewComentarios"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintBottom_toBottomOf="@+id/listViewComentarios"
+        app:layout_constraintEnd_toEndOf="@+id/listViewComentarios"
+        app:layout_constraintStart_toStartOf="@+id/listViewComentarios"
+        app:layout_constraintTop_toTopOf="@+id/listViewComentarios" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
