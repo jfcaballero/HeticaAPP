@@ -75,7 +75,11 @@ class tiempoEstudio : AppCompatActivity() {
         val siguiente = Intent(view!!.context, temporizadorUnico::class.java)
         if (editText!!.text.toString() == "" || editText!!.text.toString().toInt() == 0 ) {
             showSnackbarWithCustomTextSize(this, "Introduce un tiempo mayor de 0")
-        } else {
+        }
+        else if (editText!!.text.toString().toInt()>=240) {
+            showSnackbarWithCustomTextSize(this, "El tiempo es demasiado largo")
+        }
+        else {
             if (textView3!!.text.toString() == "" || textView3!!.text.toString() == "Clica una asignatura") {
                 showSnackbarWithCustomTextSize(this, "Selecciona una asignatura")
             } else {
