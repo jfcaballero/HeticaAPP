@@ -67,11 +67,14 @@ class EditarCalendario : AppCompatActivity() {
         addAsignaturaCalendario?.setOnClickListener {
             val asignaturaSeleccionada = spinner.selectedItem as String
             val minutosAsignatura = MinutosAsignatura?.text.toString().toIntOrNull()
-
-            if (validateDate(yearFinal) && minutosAsignatura != null && minutosAsignatura!=0) {
-                addAsignatura(asignaturaSeleccionada, yearFinal!!, minutosAsignatura)
-            } else {
+            if(!(validateDate(yearFinal) && minutosAsignatura!=0 &&minutosAsignatura!=null)){
                 showSnackbarWithCustomTextSize(this, "Introduce una fecha válida y minutos para la asignatura.")
+            }
+            else if(minutosAsignatura.toInt()>=240){
+                showSnackbarWithCustomTextSize(this, "El tiempo es demasiado largo")
+            }
+            else {
+                addAsignatura(asignaturaSeleccionada, yearFinal!!, minutosAsignatura)
             }
         }
         listViewAsignaturasDeUnDia?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -233,10 +236,6 @@ class EditarCalendario : AppCompatActivity() {
             e.printStackTrace()
             return false
         }
-    }
-    override fun onBackPressed() {
-        // No realizar ninguna acción al presionar el botón de retroceso del dispositivo móvil
-        // super.onBackPressed()
     }
 
 
