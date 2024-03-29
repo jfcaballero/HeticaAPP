@@ -2,6 +2,7 @@ package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperComentarios
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.AbsoluteSizeSpan
 import android.util.Log
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -98,7 +100,7 @@ class InsertarComentarios : AppCompatActivity() {
         val textoComentario = comentario.text.toString().trim()
         return textoComentario.isNotEmpty()
     }
-    private fun mostrarDialogoConfirmacion() {
+    /*private fun mostrarDialogoConfirmacion() {
         val mensaje="No ha guardado los cambios, ¿desea salir?"
         val dialogTextSize = getDialogTextSize()
         val formattedText = getFormattedText(mensaje)
@@ -112,7 +114,29 @@ class InsertarComentarios : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }*/
+    private fun mostrarDialogoConfirmacion() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val btnSalir = dialog.findViewById<Button>(R.id.btn_exit)
+        val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
+
+        btnSalir.setOnClickListener {
+            // Lógica para salir
+            volverATiempoDedicado()
+            dialog.dismiss()
+        }
+
+        btnCancelar.setOnClickListener {
+            // Lógica para cancelar
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
+
     private fun getDialogTextSize(): Int {
         val screenSize = resources.configuration.screenWidthDp
         // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
