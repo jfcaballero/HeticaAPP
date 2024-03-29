@@ -41,9 +41,11 @@
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
     <dimen name="text_size_medium_720dp">30sp</dimen>
-    <dimen name="text_size_large_720dp">36sp</dimen>
+    <dimen name="text_size_large_720dp">45sp</dimen>
         <!-- Spinners -->
-        <dimen name="dropdown_item_height_720">70dp</dimen>
+        <dimen name="dropdown_item_height_720">100dp</dimen>
+        <!-- Listas -->
+        <dimen name="list_height_720">100dp</dimen>
 
 
 </resources>
