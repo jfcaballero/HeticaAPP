@@ -28,7 +28,7 @@
         <dimen name="big_action_button_width_320dp">148dp</dimen>
         <dimen name="big_action_button_height_320dp">61dp</dimen>
         <!-- Spinners -->
-        <dimen name="dropdown_item_height_320">30dp</dimen>
+        <dimen name="dropdown_item_height_320">40dp</dimen>
 
 
     <!-- Tamaños para pantallas de >=480dp -->
