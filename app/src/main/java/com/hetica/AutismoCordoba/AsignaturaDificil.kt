@@ -128,22 +128,20 @@ class AsignaturaDificil : AppCompatActivity() {
     fun seebbarr() {
         seekBar = findViewById<View>(R.id.seekBar) as SeekBar
         textView = findViewById<View>(R.id.textView45) as TextView
-
-        //textView.setText("Covered : " + seekBar.getProgress() + " / " +seekBar.getMax());
         seekBar!!.max = 30
+        seekBar!!.progress = 0
+        textView!!.text = "30 minutos"
         seekBar!!.setOnSeekBarChangeListener(
-                object : OnSeekBarChangeListener {
-                    var progress_value = 0
-                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                        progress_value = progress + 30
-                        textView!!.text = "$progress_value minutos "
-                    }
-
-                    override fun onStartTrackingTouch(seekBar: SeekBar) {}
-                    override fun onStopTrackingTouch(seekBar: SeekBar) {
-                        textView!!.text = "$progress_value minutos "
-                    }
+            object : OnSeekBarChangeListener {
+                var progress_value = 0
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    progress_value = progress + 30
+                    textView!!.text = "$progress_value minutos "
                 }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar) {}
+            }
         )
     }
 

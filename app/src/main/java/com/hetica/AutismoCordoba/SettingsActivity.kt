@@ -336,23 +336,35 @@ class SettingsActivity : AppCompatActivity() {
      * Función que mide el valor del seekbar
      */
     fun seebbarr() {
-        //textView.setText("Covered : " + seekBar.getProgress() + " / " +seekBar.getMax());
         seekBar!!.max = 30
-        seekBar!!.setOnSeekBarChangeListener(
-                object : OnSeekBarChangeListener {
-                    var progress_value = 0
-                    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                        progress_value = progress + 30
-                        textView!!.text = "$progress_value minutos "
-                    }
+        seekBar!!.progress = 0 // Establecer el progreso inicial a 0
 
-                    override fun onStartTrackingTouch(seekBar: SeekBar) {}
-                    override fun onStopTrackingTouch(seekBar: SeekBar) {
-                        textView!!.text = "$progress_value minutos "
+        // Actualizar el texto de acuerdo al valor inicial
+        textView!!.text = "30 minutos"
+
+        seekBar!!.setOnSeekBarChangeListener(
+            object : OnSeekBarChangeListener {
+                var progressValue = 30 // Valor predeterminado de minutos
+
+                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                    // Asegurar que el valor mínimo sea siempre 30 minutos
+                    if (progress < 0) {
+                        seekBar.progress = 0
+                        progressValue = 30
+                    } else {
+                        progressValue = progress + 30
                     }
+                    textView!!.text = "$progressValue minutos"
                 }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    // No es necesario realizar ninguna acción aquí
+                }
+            }
         )
     }
+
 
     /**
      * Función que guarda las opciones relacionadas con el tiempo a trabajar
