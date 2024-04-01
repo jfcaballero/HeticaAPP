@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -60,6 +62,7 @@ class AddCalificaciones : AppCompatActivity() {
         val spinnerTipos: Spinner = binding.spinnerAddTipo
         val Nota: EditText = binding.AddNota
         val Guardar: Button = binding.buttonAddCalif
+
         val FechaEditText: EditText = binding.addCalificacionFecha
         asignaturaSeleccionada = intent.getStringExtra("asignaturaSeleccionada")
         asignaturaSeleccionadaTextView=findViewById(R.id.asignaturaCalificacionTextView)
@@ -133,16 +136,16 @@ class AddCalificaciones : AppCompatActivity() {
             }
         }
 
+
         Guardar.setOnClickListener {
             val notaString = Nota.text.toString()
             var toastMessage=""
-            if (notaString.isNotEmpty()) {
+            if (validateMark(Nota)) {
                 if(validateDate(yearFinal)){
-                    NotaFloat = notaString.toFloat()
                     if (asignaturaSeleccionada != null && tipoSeleccionado != null) {
                         val isInserted = dbCalificaciones?.insertData(
                             asignaturaSeleccionada,
-                            NotaFloat!!.toString(),
+                            notaString,
                             tipoSeleccionado,
                             yearFinal!!
                         )
@@ -172,6 +175,22 @@ class AddCalificaciones : AppCompatActivity() {
 
     }
 
+    private fun validateMark(Nota: EditText?):Boolean{
+        val notaString = Nota?.text.toString()
+        val notaFloat= Nota?.text.toString().toFloat()
+
+
+        if( !(notaString.isNullOrEmpty()) && notaFloat<=100 && notaFloat>=0
+            && notaString.length <= 5) {
+
+            return true
+        }else{
+
+        }
+        return false
+
+    }
+
     /**
      * Función para comprobar si una fecha contiene carácteres no aceptados, está vacía y cumple la longitud de 8 caracteres.
      * Después la pasa a formato MMddyyyy
@@ -179,7 +198,7 @@ class AddCalificaciones : AppCompatActivity() {
      */
     private fun validateDate(dateString: String?): Boolean {
         Log.d("Como esta la fecha","$dateString")
-        if (dateString == null || dateString.isEmpty()) {
+        if (dateString.isNullOrEmpty()) {
             return false
         }
         if (!dateString.matches(Regex("[0-9/]+"))) {
