@@ -29,7 +29,11 @@
         <dimen name="big_action_button_height_320dp">61dp</dimen>
         <!-- Spinners -->
         <dimen name="dropdown_item_height_320">40dp</dimen>
-
+        <!-- List -->
+        <dimen name="list_item_320">18sp</dimen>
+        <!-- Graficas -->
+        <dimen name="chart_title_320">7sp</dimen>
+        <dimen name="chart_subtitle_320">5sp</dimen>
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
@@ -37,6 +41,11 @@
     <dimen name="text_size_large_480dp">24sp</dimen>
         <!-- Spinners -->
         <dimen name="dropdown_item_height_480">50dp</dimen>
+        <!-- List -->
+        <dimen name="list_item_480">22sp</dimen>
+        <!-- Graficas -->
+        <dimen name="chart_title_480">15sp</dimen>
+        <dimen name="chart_subtitle_480">10sp</dimen>
 
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
@@ -44,8 +53,12 @@
     <dimen name="text_size_large_720dp">45sp</dimen>
         <!-- Spinners -->
         <dimen name="dropdown_item_height_720">100dp</dimen>
-        <!-- Listas -->
+        <!-- List -->
         <dimen name="list_height_720">100dp</dimen>
+        <dimen name="list_item_720">45dp</dimen>
+        <!-- Graficas -->
+        <dimen name="chart_title_720">20sp</dimen>
+        <dimen name="chart_subtitle_720">15sp</dimen>
 
 
 </resources>

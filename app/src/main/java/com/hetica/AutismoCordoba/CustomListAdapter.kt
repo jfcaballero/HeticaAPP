@@ -21,9 +21,9 @@ class CustomListAdapter(context: Context, resource: Int, objects: List<String>) 
 
     private fun setTextViewSize(textView: TextView) {
         val textSizeResId = when {
-            screenWidthDp >= 720 -> R.dimen.text_size_large_720dp
-            screenWidthDp >= 480 -> R.dimen.text_size_medium_480dp
-            else -> R.dimen.text_size_medium_less_than_480dp
+            screenWidthDp >= 720 -> R.dimen.list_item_720
+            screenWidthDp >= 480 -> R.dimen.list_item_480
+            else -> R.dimen.list_item_320
         }
         val textSizePx = context.resources.getDimensionPixelSize(textSizeResId)
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizePx.toFloat())

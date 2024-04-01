@@ -29,14 +29,14 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import org.w3c.dom.Text
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 
 
 /**
@@ -243,11 +243,29 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         // Generamos los datos para la gráfica
         val data = generateAreaChartData(listaCalificaciones)
-
+        val screenWidthDp = this.resources.configuration.screenWidthDp
+        val titleSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_title_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_title_480)
+            else -> this.resources.getDimension(R.dimen.chart_title_320)
+        }
+        val subtitleSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_subtitle_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_subtitle_480)
+            else -> this.resources.getDimension(R.dimen.chart_subtitle_320)
+        }
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
             .title("Calificaciones de $asignatura")
+            .titleStyle(
+                AAStyle()
+                    .color("#0D6277")
+                    .fontSize(titleSize)
+            )
             .subtitle("Tipo: $tipo")
+            .subtitleStyle(AAStyle()
+                .color("#f13e71")
+                .fontSize(subtitleSize))
             .yAxisLabelsEnabled(true)
             .yAxisTitle("Nota")
             .zoomType(AAChartZoomType.XY)
@@ -261,6 +279,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
                     .data(data.map { it.second }.toTypedArray())
             )
             )
+
 
         // Dibujamos el gráfico con el modelo configurado
         aaChartView.aa_drawChartWithChartModel(aaChartModel)

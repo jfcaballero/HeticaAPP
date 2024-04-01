@@ -21,11 +21,17 @@ import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartFontWeightType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAAxis
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAChartAxisType
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADataLabels
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
 import org.w3c.dom.Text
@@ -348,10 +354,21 @@ class Mayormenoractividad : AppCompatActivity() {
         val listaDiasFloat = listaDiasOrdenados.map { it.first to it.second.toFloat() }
 
         val dataGrafica = generateAreaChartData(listaDiasFloat)
+        val screenWidthDp = this.resources.configuration.screenWidthDp
+        val titleSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_title_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_title_480)
+            else -> this.resources.getDimension(R.dimen.chart_title_320)
+        }
 
         val aaChartModelGrafica : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
             .title("Días de actividad de $asignaturaSeleccionada")
+            .titleStyle(
+                AAStyle()
+                    .color("#0D6277")
+                    .fontSize(titleSize)
+            )
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
@@ -362,10 +379,26 @@ class Mayormenoractividad : AppCompatActivity() {
             .series(arrayOf(
                 AASeriesElement()
                     .name("Minutos")
-                    .data(dataGrafica.map { it.second }.toTypedArray())
+                    .data(dataGrafica.map { it.second }.toTypedArray()))
             )
-            )
+        // Convierte el modelo a opciones de gráfico
+        val aaOptions = aaChartModelGrafica.aa_toAAOptions()
 
+        // Personaliza el estilo de las etiquetas del eje X
+        val xAxisLabelsStyle = AAStyle()
+            .fontSize(250)  // Tamaño de la fuente
+            .color("#ff0000")  // Color de la fuente
+            .fontWeight(AAChartFontWeightType.Bold)  // Peso de la fuente
+
+        // Personaliza el estilo de las etiquetas del eje Y
+        val yAxisLabelsStyle = AAStyle()
+            .fontSize(250)  // Tamaño de la fuente
+            .color("#f13e71")  // Color de la fuente
+            .fontWeight(AAChartFontWeightType.Bold)  // Peso de la fuente
+
+        // Aplica los estilos personalizados a los ejes X e Y
+        aaOptions.xAxis?.labels?.style(xAxisLabelsStyle)
+        aaOptions.yAxis?.labels?.style(yAxisLabelsStyle)
 
         // Dibuja el gráfico con el modelo configurado
         aaChartViewGrafica.aa_drawChartWithChartModel(aaChartModelGrafica)
