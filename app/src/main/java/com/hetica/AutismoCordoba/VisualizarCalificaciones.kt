@@ -24,13 +24,21 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.androidplot.xy.*
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartLineDashStyleType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartSymbolStyleType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartSymbolType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADataLabels
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADateTimeLabelFormats
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAMarker
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AASubtitle
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AATitle
 import com.github.aachartmodel.aainfographics.aatools.AAColor
 import org.w3c.dom.Text
 import java.text.FieldPosition
@@ -287,9 +295,14 @@ class VisualizarCalificaciones : AppCompatActivity() {
             .categories(data.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
+                    .dataLabels(
+                        AADataLabels()
+                        .enabled(true)
+                        .style(AAStyle().fontSize(XaxisSize))
+                        )
                     .name("Nota del día")
                     .data(data.map { it.second }.toTypedArray())
-            )
+                    )
             )
 
         val aaOptions = aaChartModel.aa_toAAOptions()
@@ -299,6 +312,10 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
         aaOptions.yAxis?.labels
             ?.style(AAStyle.style(AAColor.Black, YaxisSize))
+
+        aaOptions.yAxis?.title?.style(AAStyle.style(AAColor.Black, subtitleSize))
+
+
         // Dibujamos el gráfico con el modelo configurado
         aaChartView.aa_drawChartWithChartOptions(aaOptions)
     }

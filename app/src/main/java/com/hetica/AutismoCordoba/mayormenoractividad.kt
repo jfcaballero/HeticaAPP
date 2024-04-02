@@ -390,6 +390,11 @@ class Mayormenoractividad : AppCompatActivity() {
             .categories(dataGrafica.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
+                    .dataLabels(
+                        AADataLabels()
+                            .enabled(true)
+                            .style(AAStyle().fontSize(XaxisSize))
+                    )
                     .name("Minutos")
                     .data(dataGrafica.map { it.second }.toTypedArray()))
             )
@@ -400,6 +405,8 @@ class Mayormenoractividad : AppCompatActivity() {
 
         aaOptions.yAxis?.labels
             ?.style(AAStyle.style(AAColor.Black, YaxisSize))
+
+        aaOptions.yAxis?.title?.style(AAStyle.style(AAColor.Black, YaxisSize))
 
 
         // Dibuja el gráfico con el modelo configurado
