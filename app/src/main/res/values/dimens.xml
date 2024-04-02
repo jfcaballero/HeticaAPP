@@ -34,6 +34,8 @@
         <!-- Graficas -->
         <dimen name="chart_title_320">7sp</dimen>
         <dimen name="chart_subtitle_320">5sp</dimen>
+        <dimen name="chart_x_320">4sp</dimen>
+        <dimen name="chart_y_320">4sp</dimen>
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
@@ -46,6 +48,8 @@
         <!-- Graficas -->
         <dimen name="chart_title_480">15sp</dimen>
         <dimen name="chart_subtitle_480">10sp</dimen>
+        <dimen name="chart_x_480">8sp</dimen>
+        <dimen name="chart_y_480">10sp</dimen>
 
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
@@ -55,10 +59,12 @@
         <dimen name="dropdown_item_height_720">100dp</dimen>
         <!-- List -->
         <dimen name="list_height_720">100dp</dimen>
-        <dimen name="list_item_720">45dp</dimen>
+        <dimen name="list_item_720">30sp</dimen>
         <!-- Graficas -->
         <dimen name="chart_title_720">20sp</dimen>
         <dimen name="chart_subtitle_720">15sp</dimen>
+        <dimen name="chart_x_720">10sp</dimen>
+        <dimen name="chart_y_720">14sp</dimen>
 
 
 </resources>

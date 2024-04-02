@@ -21,7 +21,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar5"
         android:layout_width="0dp"
-        android:layout_height="78dp"
+        android:layout_height="100dp"
         android:background="#009688"
         android:minHeight="@dimen/fab_bigger_margin"
         android:theme="@style/AppTheme"

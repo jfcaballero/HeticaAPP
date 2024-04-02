@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import CustomListAdapter
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import java.util.ArrayList
 
 /**
@@ -20,7 +22,8 @@ private var botonEliminar: Button? = null
 
 
 private var btnVolverAVisualizarCalificaciones: Button?=null
-
+private lateinit var toolbar: Toolbar
+private lateinit var customToolbarAdapter: CustomToolbarAdapter
 class EliminarCalificaciones : AppCompatActivity() {
 
     private lateinit var listaCalificaciones: ListView
@@ -38,6 +41,13 @@ class EliminarCalificaciones : AppCompatActivity() {
         listaCalificaciones = findViewById(R.id.listaCalificaciones)
         checkBoxSelectAll = findViewById(R.id.checkBoxSelectAll)
         noHayCalificacionesEliminar=findViewById(R.id.noCalificacionesEliminar)
+
+        toolbar = findViewById(R.id.toolbar6)
+        setSupportActionBar(toolbar)
+
+
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
         // Inicializar el adapter sin datos
         adapter = CustomListAdapter(this, android.R.layout.simple_list_item_multiple_choice, ArrayList())

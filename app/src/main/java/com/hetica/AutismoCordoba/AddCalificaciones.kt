@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalificaciones
+import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -19,6 +20,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
 import java.text.ParseException
@@ -45,6 +47,9 @@ private var btnVolverAVisualizarCalificaciones: Button?=null
 
 private var asignaturaSeleccionadaTextView: TextView?=null
 
+private lateinit var toolbar: Toolbar
+private lateinit var customToolbarAdapter: CustomToolbarAdapter
+
 @SuppressLint("StaticFieldLeak")
 private var _binding: ActivityAddCalificacionesBinding? = null
 private val binding get() = _binding!!
@@ -62,6 +67,13 @@ class AddCalificaciones : AppCompatActivity() {
         val spinnerTipos: Spinner = binding.spinnerAddTipo
         val Nota: EditText = binding.AddNota
         val Guardar: Button = binding.buttonAddCalif
+
+        toolbar = findViewById(R.id.toolbar5)
+        setSupportActionBar(toolbar)
+
+
+        customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
+        customToolbarAdapter.setTextSizeBasedOnScreenWidth()
 
         val FechaEditText: EditText = binding.addCalificacionFecha
         asignaturaSeleccionada = intent.getStringExtra("asignaturaSeleccionada")

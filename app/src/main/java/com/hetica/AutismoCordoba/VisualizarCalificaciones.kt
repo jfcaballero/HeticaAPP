@@ -31,6 +31,7 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
+import com.github.aachartmodel.aainfographics.aatools.AAColor
 import org.w3c.dom.Text
 import java.text.FieldPosition
 import java.text.Format
@@ -254,6 +255,17 @@ class VisualizarCalificaciones : AppCompatActivity() {
             screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_subtitle_480)
             else -> this.resources.getDimension(R.dimen.chart_subtitle_320)
         }
+        val XaxisSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_x_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_x_480)
+            else -> this.resources.getDimension(R.dimen.chart_x_320)
+        }
+        val YaxisSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_y_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_y_480)
+            else -> this.resources.getDimension(R.dimen.chart_y_320)
+        }
+
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
             .title("Calificaciones de $asignatura")
@@ -280,9 +292,15 @@ class VisualizarCalificaciones : AppCompatActivity() {
             )
             )
 
+        val aaOptions = aaChartModel.aa_toAAOptions()
 
+        aaOptions.xAxis?.labels
+            ?.style(AAStyle.style(AAColor.Black, XaxisSize))
+
+        aaOptions.yAxis?.labels
+            ?.style(AAStyle.style(AAColor.Black, YaxisSize))
         // Dibujamos el gráfico con el modelo configurado
-        aaChartView.aa_drawChartWithChartModel(aaChartModel)
+        aaChartView.aa_drawChartWithChartOptions(aaOptions)
     }
 
 

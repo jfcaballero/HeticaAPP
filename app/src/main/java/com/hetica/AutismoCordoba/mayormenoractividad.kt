@@ -32,6 +32,8 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAAxis
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAChartAxisType
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADataLabels
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AASubtitle
+import com.github.aachartmodel.aainfographics.aatools.AAColor
 import com.google.android.material.navigation.NavigationBarView
 import com.hetica.AutismoCordoba.databinding.ActivityMayormenoractividadBinding
 import org.w3c.dom.Text
@@ -360,6 +362,16 @@ class Mayormenoractividad : AppCompatActivity() {
             screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_title_480)
             else -> this.resources.getDimension(R.dimen.chart_title_320)
         }
+        val XaxisSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_x_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_x_480)
+            else -> this.resources.getDimension(R.dimen.chart_x_320)
+        }
+        val YaxisSize=when {
+            screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_y_720)
+            screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_y_480)
+            else -> this.resources.getDimension(R.dimen.chart_y_320)
+        }
 
         val aaChartModelGrafica : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
@@ -381,27 +393,17 @@ class Mayormenoractividad : AppCompatActivity() {
                     .name("Minutos")
                     .data(dataGrafica.map { it.second }.toTypedArray()))
             )
-        // Convierte el modelo a opciones de gráfico
         val aaOptions = aaChartModelGrafica.aa_toAAOptions()
 
-        // Personaliza el estilo de las etiquetas del eje X
-        val xAxisLabelsStyle = AAStyle()
-            .fontSize(250)  // Tamaño de la fuente
-            .color("#ff0000")  // Color de la fuente
-            .fontWeight(AAChartFontWeightType.Bold)  // Peso de la fuente
+        aaOptions.xAxis?.labels
+            ?.style(AAStyle.style(AAColor.Black, XaxisSize))
 
-        // Personaliza el estilo de las etiquetas del eje Y
-        val yAxisLabelsStyle = AAStyle()
-            .fontSize(250)  // Tamaño de la fuente
-            .color("#f13e71")  // Color de la fuente
-            .fontWeight(AAChartFontWeightType.Bold)  // Peso de la fuente
+        aaOptions.yAxis?.labels
+            ?.style(AAStyle.style(AAColor.Black, YaxisSize))
 
-        // Aplica los estilos personalizados a los ejes X e Y
-        aaOptions.xAxis?.labels?.style(xAxisLabelsStyle)
-        aaOptions.yAxis?.labels?.style(yAxisLabelsStyle)
 
         // Dibuja el gráfico con el modelo configurado
-        aaChartViewGrafica.aa_drawChartWithChartModel(aaChartModelGrafica)
+        aaChartViewGrafica.aa_drawChartWithChartOptions(aaOptions)
 
     }
 

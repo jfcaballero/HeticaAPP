@@ -18,7 +18,7 @@ class FuncionesComunes {
             // Determinar el tamaño del texto según los rangos de pantalla
             val screenWidthDp = context.resources.configuration.screenWidthDp
             val textSizeSp = when {
-                screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.text_size_large_720dp)
+                screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.text_size_medium_720dp)
                 screenWidthDp >= 480 -> context.resources.getDimension(R.dimen.text_size_large_480dp)
                 else -> context.resources.getDimension(R.dimen.text_size_large_less_than_480dp)
             }
