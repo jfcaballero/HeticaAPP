@@ -241,7 +241,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/tiempo_dedicado_leyenda"
         android:textColor="#009688"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="@+id/tiempoLista"
         app:layout_constraintHorizontal_bias="0.5"
