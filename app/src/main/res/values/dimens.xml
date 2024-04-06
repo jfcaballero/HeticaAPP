@@ -36,6 +36,9 @@
         <dimen name="chart_subtitle_320">5sp</dimen>
         <dimen name="chart_x_320">4sp</dimen>
         <dimen name="chart_y_320">4sp</dimen>
+        <!-- Snackbar -->
+        <dimen name="snackbar_portrait_320dp">20sp</dimen>
+        <dimen name="snackbar_landscape_320dp">25sp</dimen>
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
@@ -50,6 +53,9 @@
         <dimen name="chart_subtitle_480">10sp</dimen>
         <dimen name="chart_x_480">8sp</dimen>
         <dimen name="chart_y_480">10sp</dimen>
+        <!-- Snackbar -->
+        <dimen name="snackbar_portrait_480dp">25sp</dimen>
+        <dimen name="snackbar_landscape_480dp">30sp</dimen>
 
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
@@ -65,6 +71,9 @@
         <dimen name="chart_subtitle_720">15sp</dimen>
         <dimen name="chart_x_720">10sp</dimen>
         <dimen name="chart_y_720">14sp</dimen>
+        <!-- Snackbar -->
+        <dimen name="snackbar_portrait_720dp">30sp</dimen>
+        <dimen name="snackbar_landscape_720dp">35sp</dimen>
 
 
 </resources>
