@@ -23,6 +23,7 @@ import android.view.View.INVISIBLE
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.androidplot.xy.*
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAlignType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartLineDashStyleType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -33,8 +34,11 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartZoomType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import com.github.aachartmodel.aainfographics.aachartcreator.aa_toAAOptions
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AACredits
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADataLabels
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADateTimeLabelFormats
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAItemStyle
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AALegend
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAMarker
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AASubtitle
@@ -273,6 +277,8 @@ class VisualizarCalificaciones : AppCompatActivity() {
             screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_y_480)
             else -> this.resources.getDimension(R.dimen.chart_y_320)
         }
+        var datosEjemplo = listaBasura()
+        datosEjemplo=listaCalificaciones
 
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
@@ -292,16 +298,17 @@ class VisualizarCalificaciones : AppCompatActivity() {
             .backgroundColor("#d8fcf2")
             .colorsTheme(arrayOf("#f13e71", "#d8fcf2", "#06caf4", "#7dffc0"))
             .dataLabelsEnabled(true)
-            .categories(data.map { it.first }.toTypedArray())
+            .categories(datosEjemplo.map { it.first }.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
                     .dataLabels(
                         AADataLabels()
                         .enabled(true)
-                        .style(AAStyle().fontSize(XaxisSize))
+                        .style(AAStyle().fontSize(XaxisSize)
+                        )
                         )
                     .name("Nota del día")
-                    .data(data.map { it.second }.toTypedArray())
+                    .data(datosEjemplo.map { it.second }.toTypedArray())
                     )
             )
 
@@ -313,14 +320,197 @@ class VisualizarCalificaciones : AppCompatActivity() {
         aaOptions.yAxis?.labels
             ?.style(AAStyle.style(AAColor.Black, YaxisSize))
 
+        aaOptions.yAxis?.min(0)
+        //aaOptions.yAxis?.max(40)
         aaOptions.yAxis?.title?.style(AAStyle.style(AAColor.Black, subtitleSize))
+        aaOptions.legend(AALegend().itemStyle(AAItemStyle().fontSize(XaxisSize)))
+
 
 
         // Dibujamos el gráfico con el modelo configurado
         aaChartView.aa_drawChartWithChartOptions(aaOptions)
     }
 
+    private fun listaBasura(): List<Pair<String, Float>> {
+        val datosEjemplo = listOf(
+            "2024-01-01" to 30f,
+            "2024-01-02" to 40f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-01" to 30f,
+            "2024-01-02" to 40f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-01" to 30f,
+            "2024-01-02" to 40f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-01" to 30f,
+            "2024-01-02" to 40f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f, "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-01" to 30f,
+            "2024-01-02" to 40f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
+            "2024-01-03" to 50f,
 
+            )
+        return datosEjemplo
+
+    }
 
     /**
      * Función para generar datos para el gráfico de área
