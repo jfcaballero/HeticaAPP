@@ -107,6 +107,7 @@ class CuantasAsignaturas : AppCompatActivity() {
             }
 
             "0" -> showSnackbarWithCustomTextSize(this, "No se permiten cero asignaturas")
+            "" ->showSnackbarWithCustomTextSize(this, "Cantidad inválida")
             else -> showSnackbarWithCustomTextSize(this, "El número de asignaturas es muy grande")
         }
     }
