@@ -1,7 +1,9 @@
 import android.content.Context
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.hetica.AutismoCordoba.R
@@ -20,12 +22,32 @@ class CustomListAdapter(context: Context, resource: Int, objects: List<String>) 
    
 
     private fun setTextViewSize(textView: TextView) {
-        val textSizeResId = when {
-            screenWidthDp >= 720 -> R.dimen.list_item_720
-            screenWidthDp >= 480 -> R.dimen.list_item_480
-            else -> R.dimen.list_item_320
+        // Obtener la rotación de la pantalla según el nivel de API
+        val rotation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            context.display?.rotation ?: android.view.Surface.ROTATION_0
+        } else {
+            (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
         }
-        val textSizePx = context.resources.getDimensionPixelSize(textSizeResId)
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizePx.toFloat())
+        val isPortrait = rotation == android.view.Surface.ROTATION_0 || rotation == android.view.Surface.ROTATION_180
+
+        val textSize = when {
+            isPortrait -> {
+                when {
+                    screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.list_item_portrait_720)
+                    screenWidthDp >= 480 -> context.resources.getDimension(R.dimen.list_item_portrait_480)
+                    else -> context.resources.getDimension(R.dimen.list_item_portrait_320)
+                }
+            }else -> {
+                when {
+                    screenWidthDp >= 600 -> context.resources.getDimension(R.dimen.list_item_landscape_720)
+                    screenWidthDp >= 400 -> context.resources.getDimension(R.dimen.list_item_landscape_480)
+                    else -> context.resources.getDimension(R.dimen.list_item_landscape_320)
+                }
+
+            }
+
+        }
+
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
     }
 }

@@ -30,7 +30,8 @@
         <!-- Spinners -->
         <dimen name="dropdown_item_height_320">40dp</dimen>
         <!-- List -->
-        <dimen name="list_item_320">18sp</dimen>
+        <dimen name="list_item_portrait_320">18sp</dimen>
+        <dimen name="list_item_landscape_320">32sp</dimen>
         <!-- Graficas -->
         <dimen name="chart_title_320">7sp</dimen>
         <dimen name="chart_subtitle_320">5sp</dimen>
@@ -47,7 +48,8 @@
         <!-- Spinners -->
         <dimen name="dropdown_item_height_480">50dp</dimen>
         <!-- List -->
-        <dimen name="list_item_480">22sp</dimen>
+        <dimen name="list_item_portrait_480">22sp</dimen>
+        <dimen name="list_item_landscape_480">27sp</dimen>
         <!-- Graficas -->
         <dimen name="chart_title_480">15sp</dimen>
         <dimen name="chart_subtitle_480">10sp</dimen>
@@ -65,7 +67,9 @@
         <dimen name="dropdown_item_height_720">100dp</dimen>
         <!-- List -->
         <dimen name="list_height_720">100dp</dimen>
-        <dimen name="list_item_720">30sp</dimen>
+        <dimen name="list_item_portrait_720">30sp</dimen>
+        <dimen name="list_item_landscape_720">35sp</dimen>
+
         <!-- Graficas -->
         <dimen name="chart_title_720">20sp</dimen>
         <dimen name="chart_subtitle_720">15sp</dimen>
