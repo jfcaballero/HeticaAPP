@@ -152,7 +152,7 @@ class AddCalificaciones : AppCompatActivity() {
         Guardar.setOnClickListener {
             val notaString = Nota.text.toString()
             var toastMessage=""
-            if (validateMark(Nota)) {
+            if (validateMark(notaString)) {
                 if(validateDate(yearFinal)){
                     if (asignaturaSeleccionada != null && tipoSeleccionado != null) {
                         val isInserted = dbCalificaciones?.insertData(
@@ -187,19 +187,39 @@ class AddCalificaciones : AppCompatActivity() {
 
     }
 
-    private fun validateMark(Nota: EditText?):Boolean{
-        val notaString = Nota?.text.toString()
-        val notaFloat= Nota?.text.toString().toFloat()
+    private fun validateMark(notaString: String?):Boolean{
 
 
-        if( !(notaString.isNullOrEmpty()) && notaFloat<=100 && notaFloat>=0
-            && notaString.length <= 5) {
-
-            return true
-        }else{
-
+        if (notaString.isNullOrEmpty()) {
+            return false
         }
-        return false
+        val notaFloat= notaString?.toFloat()
+
+        // Verifica si la longitud del texto es mayor que 5
+        if (notaString.length > 5) {
+            return false
+        }
+
+        // Verifica si la nota está en el rango válido (0-100)
+        if (notaFloat != null) {
+            if (notaFloat < 0 || notaFloat > 100) {
+                return false
+            }
+        }
+        if (notaString.contains(".")) { //Si hay un punto para los decimales, verifica que la posicion sea correcta
+
+            // Verifica si hay solo un punto
+            if (notaString.count { it == '.' } != 1) {
+                return false
+            }
+
+            // Verificar si el punto no está al principio o al final
+            if (notaString.startsWith(".") || notaString.endsWith(".")) {
+                return false
+            }
+        }
+
+        return true
 
     }
 
