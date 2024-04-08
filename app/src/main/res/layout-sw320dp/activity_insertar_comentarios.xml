@@ -10,13 +10,11 @@
         android:id="@+id/volverATiempoDedicado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
         android:onClick="pasar3"
         android:text="@string/String_volver"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/insertarComentario"
+        app:layout_constraintBottom_toBottomOf="@+id/insertarComentario"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -67,17 +65,16 @@
         android:text="REGISTRAR COMENTARIO"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoDeComentario"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintEnd_toStartOf="@+id/volverATiempoDedicado"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textoDeComentario" />
 
     <EditText
         android:id="@+id/textoDeComentario"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="#469DD3DA"
@@ -88,7 +85,7 @@
         android:inputType="textMultiLine"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/volverATiempoDedicado"
+        app:layout_constraintBottom_toTopOf="@+id/insertarComentario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/asignaturaDelComentario" />

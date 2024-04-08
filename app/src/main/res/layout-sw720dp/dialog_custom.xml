@@ -11,9 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:text="No has guardado tus cambios"
+        android:gravity="center"
+        android:text="No has guardado la anotación"
         android:textColor="@android:color/black"
         android:textSize="48sp" />
 
