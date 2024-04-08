@@ -11,7 +11,7 @@ import com.hetica.AutismoCordoba.R
 class CustomListAdapter(context: Context, resource: Int, objects: List<String>) :
     ArrayAdapter<String>(context, resource, objects) {
     private val screenWidthDp = context.resources.configuration.screenWidthDp
-
+    private val screenHeightDp = context.resources.configuration.screenHeightDp
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent)
         val textView = view.findViewById<TextView>(android.R.id.text1)
@@ -39,8 +39,9 @@ class CustomListAdapter(context: Context, resource: Int, objects: List<String>) 
                 }
             }else -> {
                 when {
-                    screenWidthDp >= 600 -> context.resources.getDimension(R.dimen.list_item_landscape_720)
-                    screenWidthDp >= 400 -> context.resources.getDimension(R.dimen.list_item_landscape_480)
+                    //En el primero se hace la intersección para que no quede muy pequeño en tablets
+                    screenHeightDp >= 600 && screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.list_item_landscape_720)
+                    screenHeightDp >= 400 -> context.resources.getDimension(R.dimen.list_item_landscape_480)
                     else -> context.resources.getDimension(R.dimen.list_item_landscape_320)
                 }
 

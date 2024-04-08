@@ -9,12 +9,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.TextUtils.replace
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
@@ -26,7 +26,6 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.text.HtmlCompat
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -35,6 +34,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.Calendar
+
 
 /**
  * The type Settings activity.
@@ -229,6 +229,7 @@ class SettingsActivity : AppCompatActivity() {
         val dialogTextSize = getDialogTextSize()
         val formattedText = getFormattedText(texto)
 
+
         val builder = AlertDialog.Builder(this, dialogTextSize)
         builder.setMessage(formattedText)
             .setTitle("Ayuda de opciones") // Título del cuadro de diálogo
@@ -266,6 +267,17 @@ class SettingsActivity : AppCompatActivity() {
         for (line in lines) {
             val formattedLine = SpannableStringBuilder(line)
 
+            // Detectar y aplicar negrita a partes del texto entre ** **
+            val boldRegex = Regex("\\*\\*(.*?)\\*\\*")
+            val boldMatches = boldRegex.findAll(line)
+            for (match in boldMatches) {
+                val startIndex = match.range.start + 2 // Agregar 2 para omitir los dos asteriscos de inicio
+                val endIndex = match.range.endInclusive - 1 // Restar 1 para omitir los dos asteriscos de fin
+                formattedLine.setSpan(StyleSpan(Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                formattedLine.delete(endIndex, endIndex + 2) // Eliminar los dos asteriscos de fin
+                formattedLine.delete(startIndex - 2, startIndex) // Eliminar los dos asteriscos de inicio
+            }
+            //Adaptar el tamaño a la pantalla
             val textSize = when {
                 screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
                 screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
