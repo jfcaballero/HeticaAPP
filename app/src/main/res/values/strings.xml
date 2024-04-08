@@ -86,6 +86,8 @@
         Debe añadir al menos una asignatura desde el icono de opciones (rueda dentada negra) para que la aplicación funcione adecuadamente.</string>
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
     <string name="comentar_estudio">Comentar estudio</string>
+    <string name="tiempo_estudio_leyenda">Pulse en una asignatura para anotar un comentario. Pulse la pestaña “Anotación sobre estudio” para visualizarlos.</string>
+
     <string name="texto_ayuda">
         \u25AA **Mostrar temporizador al inicio**: Con la opción activada se permite estudiar
         directamente una asignatura desde el menú principal. Aparecerá un nuevo icono en

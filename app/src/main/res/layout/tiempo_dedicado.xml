@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <ImageView
+        android:id="@+id/imageView28"
+        android:layout_width="@dimen/home_height_320dp"
+        android:layout_height="@dimen/home_height_320dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView70"
+        app:layout_constraintStart_toStartOf="@+id/tiempoLista"
+        app:layout_constraintTop_toTopOf="@+id/textView70"
+        app:srcCompat="@drawable/notas" />
+
     <TextView
         android:id="@+id/textView65"
         android:layout_width="wrap_content"
@@ -234,15 +243,14 @@
         android:id="@+id/textView70"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="@string/tiempo_dedicado_leyenda"
         android:textColor="#009688"
         android:textSize="14sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="@+id/tiempoLista"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tiempoLista"
+        app:layout_constraintStart_toEndOf="@+id/imageView28"
         app:layout_constraintTop_toBottomOf="@+id/tiempoInicio" />
 
 
