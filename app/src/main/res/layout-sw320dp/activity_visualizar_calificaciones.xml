@@ -175,27 +175,27 @@
 
     <Button
         android:id="@+id/buttonActividadCalificacion"
-        android:layout_width="@dimen/action_button_width_320dp"
-        android:layout_height="@dimen/action_button_height_320dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Añadir"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintEnd_toStartOf="@+id/buttonActividadEliminarCalificacion"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonActividadEliminarCalificacion"
-        android:layout_width="@dimen/action_button_width_320dp"
-        android:layout_height="@dimen/action_button_height_320dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Eliminar"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonActividadCalificacion" />
 
     <ImageView
         android:id="@+id/botonMain3"
@@ -214,9 +214,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Notas obtenidas en la asignatura. Para un nuevo curso, elimine la asignatura."
+        android:text="@string/visualizar_calificaciones_leyenda"
         android:textColor="#009688"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/aa_chart_view"
         app:layout_constraintHorizontal_bias="0.0"
