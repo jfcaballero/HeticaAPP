@@ -1,12 +1,17 @@
 package com.hetica.AutismoCordoba
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.WindowInsets
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
@@ -27,7 +32,9 @@ class MainActivity : AppCompatActivity() {
     var siguiente: Intent? = null
     private val longClickDuration = 3000
     private var then: Long = 0
-
+    private val handler = Handler(Looper.getMainLooper())
+    private val delayMillis = 3000L // 3 segundos
+    private var isLongPressFired = false
     /**
      * The Db.
      */
@@ -79,62 +86,9 @@ class MainActivity : AppCompatActivity() {
             text2!!.textSize = 11f
         }*/
 
-        botonOpc!!.setOnTouchListener(OnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                then = System.currentTimeMillis()
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                if (System.currentTimeMillis() - then > longClickDuration) {
-                    siguiente = Intent(baseContext, SettingsActivity::class.java)
-                    startActivity(siguiente)
-                    println("Long Click has happened!")
-                    return@OnTouchListener false
-                } else {
-                    /* Implement short click behavior here or do nothing */
-                    println("Short Click has happened...")
-                    return@OnTouchListener false
-                }
-            }
-            true
-        })
-        botonStat!!.setOnTouchListener(OnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                then = System.currentTimeMillis()
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                if (System.currentTimeMillis() - then > longClickDuration) {
-                    if (countData() == 0) {
-                        showSnackbarWithCustomTextSize(this, "Introduce primero una asignatura")
-                    } else {
-                        siguiente = Intent(baseContext, estadisticasDias::class.java)
-                        startActivity(siguiente)
-                        println("Long Click has happened!")
-                        return@OnTouchListener false
-                    }
-
-                } else {
-                    /* Implement short click behavior here or do nothing */
-                    println("Short Click has happened...")
-                    return@OnTouchListener false
-                }
-            }
-            true
-        })
-        botonCred!!.setOnTouchListener(OnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                then = System.currentTimeMillis()
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                if (System.currentTimeMillis() - then > longClickDuration) {
-                    siguiente = Intent(baseContext, creditos::class.java)
-                    startActivity(siguiente)
-                    println("Long Click has happened!")
-                    return@OnTouchListener false
-                } else {
-                    /* Implement short click behavior here or do nothing */
-                    println("Short Click has happened...")
-                    return@OnTouchListener false
-                }
-            }
-            true
-        })
+        pasarOpciones()
+        pasarEstadisticas()
+        pasarCreditos()
         /*botonCred.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -223,6 +177,99 @@ class MainActivity : AppCompatActivity() {
         //                MainActivity.super.onBackPressed();
         //            }
         //        }).create().show();
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun pasarOpciones() {
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                if (isLongPressFired) {
+                    return
+                }
+                isLongPressFired = true
+
+                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
+                handler.postDelayed({
+
+                    val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                    startActivity(intent)
+
+
+                }, delayMillis)
+            }
+        })
+        val boton = findViewById<Button>(R.id.button4)
+        boton?.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                isLongPressFired = false
+                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
+                handler.removeCallbacksAndMessages(null)
+            }
+            true
+        }
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun pasarEstadisticas() {
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                if (isLongPressFired) {
+                    return
+                }
+                isLongPressFired = true
+
+                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
+                handler.postDelayed({
+                if(countData()!=0){
+                    val intent = Intent(this@MainActivity, estadisticasDias::class.java)
+                    startActivity(intent)
+                }else{
+                    showSnackbarWithCustomTextSize(this@MainActivity, "Introduce primero una asignatura")
+
+                }
+
+                }, delayMillis)
+            }
+        })
+        val boton = findViewById<Button>(R.id.button5)
+        boton?.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                isLongPressFired = false
+                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
+                handler.removeCallbacksAndMessages(null)
+            }
+            true
+        }
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun pasarCreditos() {
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                if (isLongPressFired) {
+                    return
+                }
+                isLongPressFired = true
+
+                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
+                handler.postDelayed({
+
+                    val intent = Intent(this@MainActivity, creditos::class.java)
+                    startActivity(intent)
+
+
+                }, delayMillis)
+            }
+        })
+        val boton = findViewById<Button>(R.id.button6)
+        boton?.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                isLongPressFired = false
+                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
+                handler.removeCallbacksAndMessages(null)
+            }
+            true
+        }
     }
     /**
      * Pasar a la pantalla de "Asignatura de hoy"

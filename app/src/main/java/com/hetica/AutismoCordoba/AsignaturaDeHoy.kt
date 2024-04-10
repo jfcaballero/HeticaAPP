@@ -3,6 +3,8 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperCalendario
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.GestureDetector
@@ -30,7 +32,8 @@ class AsignaturaDeHoy : AppCompatActivity() {
     private var SalirCalendario: Button? = null
     private lateinit var adapter: CalendarioArrayAdapter
     private var todasMarcadas=true
-
+    private val handler = Handler(Looper.getMainLooper())
+    private val delayMillis = 3000L // 3 segundos
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -187,8 +190,11 @@ class AsignaturaDeHoy : AppCompatActivity() {
                 }
                 isLongPressFired = true
 
-                val intent = Intent(this@AsignaturaDeHoy, EditarCalendario::class.java)
-                startActivity(intent)
+                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
+                handler.postDelayed({
+                    val intent = Intent(this@AsignaturaDeHoy, EditarCalendario::class.java)
+                    startActivity(intent)
+                }, delayMillis)
             }
         })
         val editarCalendario = findViewById<ImageView>(R.id.editarCalendarioBoton)
@@ -196,6 +202,8 @@ class AsignaturaDeHoy : AppCompatActivity() {
             gestureDetector.onTouchEvent(event)
             if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
                 isLongPressFired = false
+                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
+                handler.removeCallbacksAndMessages(null)
             }
             true
         }

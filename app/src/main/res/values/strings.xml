@@ -21,7 +21,7 @@
     <string name="String_revisaPregunta">REVISA CADA EJERCICIO. ¡LO QUE HAS ESCRITO TIENE QUE RESPONDER A LA PREGUNTA!</string>
     <string name="String_organizaTarde">ORGANIZAR LA TARDE DE ESTUDIO</string>
     <string name="String_organizaTareas">CONSEJOS DE ESTUDIO</string>
-    <string name="String_asignaturaDeHoy">ASIGNATURA DE HOY</string>
+    <string name="String_asignaturaDeHoy">ASIGNATURAS DE HOY</string>
 
     <string name="String_organizaMochila">ORGANIZAR LA MOCHILA</string>
     <string name="String_tocanManana">COMPRUEBA QUE ASIGNATURAS \nTOCAN MAÑANA</string>
@@ -143,7 +143,7 @@
 
 
     </string>
-    <string name="calendario_sin_asignatura_de_hoy">Pulsar lapiz durante 3s</string>
+    <string name="calendario_sin_asignatura_de_hoy">Pulsar lápiz durante 3s</string>
     <string name="tiempo_dedicado_leyenda">Pulse en una asignatura para anotar un comentario. Pestaña \"Anotación sobre estudio\" para visualizarlos.</string>
 
 
