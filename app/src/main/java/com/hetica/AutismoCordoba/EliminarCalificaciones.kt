@@ -30,11 +30,17 @@ class EliminarCalificaciones : AppCompatActivity() {
     private lateinit var adapter: CustomListAdapter
     private lateinit var checkBoxSelectAll: CheckBox
     private lateinit var noHayCalificacionesEliminar:TextView
+    private val indicesSeleccionados: MutableList<Int> = mutableListOf()
+    private var asignaturaSeleccionadaTextView: TextView?=null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_calificaciones)
+
+        asignaturaSeleccionada = intent.getStringExtra("asignaturaSeleccionada")
+        asignaturaSeleccionadaTextView=findViewById(R.id.textView87)
+        asignaturaSeleccionadaTextView?.text = asignaturaSeleccionada
 
         botonEliminar = findViewById(R.id.botonEliminarCalificacion)
         btnVolverAVisualizarCalificaciones=findViewById(R.id.volverAVisualizarCalificacionesDesdeEliminar)
@@ -72,32 +78,6 @@ class EliminarCalificaciones : AppCompatActivity() {
             selectAllItems(isChecked)
         }
 
-        val spinner: Spinner = findViewById(R.id.spinnerBorrarCalificacion)
-
-        // Obtener la lista de asignaturas desde la base de datos
-        val asignaturasList = dbAsig?.getAsignaturasList()
-        if (asignaturasList != null) {
-            val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-
-            // Establecer el listener para el evento de clic del Spinner
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                    asignaturaSeleccionada = parent.getItemAtPosition(position).toString() // Asignar valor a la variable global
-                    viewSubjectGrades()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // No se realiza ninguna acción si no se selecciona nada
-                }
-            }
-
-            // Llamar a viewData con los valores iniciales del Spinner y la fecha
-            if (asignaturaSeleccionada != null) {
-                // Realizar acciones adicionales si es necesario
-            }
-        }
         btnVolverAVisualizarCalificaciones?.setOnClickListener {
             volverAVisualizarCalificaciones()
         }
@@ -131,8 +111,6 @@ class EliminarCalificaciones : AppCompatActivity() {
      * Función para eliminar las calificaciones seleccionadas
      */
     private fun deleteSelectedItems() {
-        Log.d("deleteSelectedItems", "Entrando a deleteSelectedItems")
-
         val existentRows = dbCalificaciones?.getSubjectGradesForSubject(asignaturaSeleccionada ?: "")
         if (existentRows != null) {
             Log.d("deleteSelectedItems", "Rows before deletion: ${existentRows.size}")
@@ -141,24 +119,13 @@ class EliminarCalificaciones : AppCompatActivity() {
         // Eliminar los elementos seleccionados
         for (i in 0 until listaCalificaciones.adapter.count) {
             if (listaCalificaciones.isItemChecked(i)) {
-                val selectedItem = listaCalificaciones.adapter.getItem(i).toString()
-                val parts = selectedItem.split(" | ")
-
-                if (parts.size == 4) {
-                    //val date = parts[0]
-                    //val type = parts[1]
-                    //val grade = parts[2].toFloat()
-                    val id = parts[0]
-
-                    // Llamar a la función para eliminar el elemento seleccionado
-                    val deleted = dbCalificaciones?.deleteDataByDetails(id)
-                    if (deleted == true) {
-                        Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito: $selectedItem")
-                    } else {
-                        Log.e("deleteSelectedItems", "Error al eliminar: $selectedItem")
-                    }
+                indicesSeleccionados.add(i)
+                val deleted = dbCalificaciones?.deleteDataByIndex(indicesSeleccionados,
+                    asignaturaSeleccionada)
+                if (deleted == true) {
+                    Log.d("deleteSelectedItems", "Se eliminó el elemento con éxito ")
                 } else {
-                    Log.e("deleteSelectedItems", "El elemento seleccionado no tiene el formato esperado: $selectedItem")
+                    Log.e("deleteSelectedItems", "Error al eliminar")
                 }
             }
         }

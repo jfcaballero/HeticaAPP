@@ -156,7 +156,7 @@ class AdminSQLiteOpenHelperCalificaciones(
                 val type = cursor.getString(cursor.getColumnIndex(TYPE))
                 val grade = cursor.getFloat(cursor.getColumnIndex(GRADE))
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
-                val entry = "$id | Fecha: $date | Tipo: $type | Nota: $grade"
+                val entry = "Fecha: $date | Tipo: $type | Nota: $grade"
                 //val entry = "$id | $type | $grade | $date "
                 subjectGradesList.add(entry)
             } while (cursor.moveToNext())
@@ -205,6 +205,48 @@ class AdminSQLiteOpenHelperCalificaciones(
         val dateObj = inputFormat.parse(date)
         val outputFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
         return outputFormat.format(dateObj as Date)
+    }
+
+    @SuppressLint("Range")
+    fun deleteDataByIndex(indicesSeleccionados: MutableList<Int>, asignaturaSeleccionada: String?): Boolean {
+        val db = this.writableDatabase
+        var success = true
+
+        asignaturaSeleccionada?.let { asignatura ->
+            // Obtener la lista de calificaciones de la asignatura seleccionada ordenada por fecha
+            val query = "SELECT $ID FROM $DB_TABLE WHERE $SUBJECT = ? ORDER BY $DATE"
+            val cursor = db.rawQuery(query, arrayOf(asignatura))
+
+            if (cursor.moveToFirst()) {
+                // Recorrer el cursor hasta el índice deseado y eliminar las calificaciones correspondientes
+                for (index in indicesSeleccionados) {
+                    cursor.move(index)
+                    if (!cursor.isAfterLast) {
+                        val id = cursor.getString(cursor.getColumnIndex(ID))
+                        val whereClause = "$ID = ?"
+                        val whereArgs = arrayOf(id)
+                        val result = db.delete(DB_TABLE, whereClause, whereArgs)
+
+                        if (result <= 0) {
+                            success = false
+                            Log.e("deleteDataByIndex", "Error al eliminar la calificación con ID: $id")
+                        }
+                    } else {
+                        Log.e("deleteDataByIndex", "Índice fuera de los límites de la asignatura: $index")
+                        success = false
+                    }
+                }
+            } else {
+                Log.e("deleteDataByIndex", "No se encontraron calificaciones para la asignatura: $asignatura")
+                success = false
+            }
+            cursor.close()
+        } ?: run {
+            Log.e("deleteDataByIndex", "La asignatura seleccionada es nula.")
+            success = false
+        }
+
+        return success
     }
 
 

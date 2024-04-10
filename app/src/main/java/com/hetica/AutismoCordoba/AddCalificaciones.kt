@@ -38,10 +38,6 @@ private var asignaturaSeleccionada: String? = null
  */
 private var tipoSeleccionado: String? = null
 
-/**
- * La nota de examen que el usuario haya escrito.
- */
-private var NotaFloat: Float? = null
 
 private var btnVolverAVisualizarCalificaciones: Button?=null
 

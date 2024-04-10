@@ -136,6 +136,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
         val buttonActividadEliminarCalificaciones: Button = binding.buttonActividadEliminarCalificacion
         buttonActividadEliminarCalificaciones.setOnClickListener {
             val intent = Intent(this, EliminarCalificaciones::class.java)
+            intent.putExtra("asignaturaSeleccionada", asignaturaSeleccionada)
             startActivity(intent)
         }
 
@@ -257,7 +258,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
 
 
         // Generamos los datos para la gráfica
-        val data = generateAreaChartData(listaCalificaciones)
+        generateAreaChartData(listaCalificaciones)
         val screenWidthDp = this.resources.configuration.screenWidthDp
         val titleSize=when {
             screenWidthDp >= 720 -> this.resources.getDimension(R.dimen.chart_title_720)
