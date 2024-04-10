@@ -189,7 +189,7 @@ class AddCalificaciones : AppCompatActivity() {
         if (notaString.isNullOrEmpty()) {
             return false
         }
-        val notaFloat= notaString?.toFloat()
+        val notaFloat= notaString.toFloat()
 
         // Verifica si la longitud del texto es mayor que 5
         if (notaString.length > 5) {

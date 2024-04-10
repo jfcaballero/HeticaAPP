@@ -1,15 +1,22 @@
 package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalendario
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckedTextView
@@ -30,11 +37,13 @@ class AsignaturaDeHoy : AppCompatActivity() {
     private var isLongPressFired = false
     private var ComenzarSesion: Button? = null
     private var SalirCalendario: Button? = null
+    private var ayuda: Button? = null
     private lateinit var adapter: CalendarioArrayAdapter
     private var todasMarcadas=true
     private val handler = Handler(Looper.getMainLooper())
     private val delayMillis = 3000L // 3 segundos
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignatura_de_hoy)
@@ -43,6 +52,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         calendarioListView = findViewById(R.id.asignaturasdehoy)
         ComenzarSesion = findViewById(R.id.asignaturaDeHoyComenzar)
         SalirCalendario = findViewById(R.id.asignaturaDeHoySalir)
+        ayuda=findViewById(R.id.asignaturaDeHoyAyuda)
 
 
 
@@ -64,6 +74,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         viewData()
         pasarEditarCalendario()
         comenzarSesion()
+        ayuda()
     }
 
     /**
@@ -175,6 +186,62 @@ class AsignaturaDeHoy : AppCompatActivity() {
     }
 
 
+    private fun ayuda(){
+        ayuda?.setOnClickListener {
+            val texto=this.resources.getString(R.string.asignatura_de_hoy_texto_de_ayuda)
+
+            val dialogTextSize = getDialogTextSize()
+            val formattedText = getFormattedText(texto)
+
+            val builder = AlertDialog.Builder(this,dialogTextSize)
+            builder.setTitle("Asignaturas de hoy")
+                .setMessage(formattedText)
+                .setPositiveButton("Salir") { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
+
+    }
+    private fun getDialogTextSize(): Int {
+        val screenSize = resources.configuration.screenWidthDp
+        // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
+        val textSizeSmall = R.style.DialogTextStyleSmall
+        val textSizeMedium = R.style.DialogTextStyleMedium
+        val textSizeLarge = R.style.DialogTextStyleLarge
+
+        return when {
+            screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+            screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+            else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
+        }
+    }
+    fun getFormattedText(texto: String): CharSequence {
+        val spannableStringBuilder = SpannableStringBuilder(texto)
+        val screenSize = resources.configuration.screenWidthDp
+
+        val textSizeSmall = 19
+        val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
+        val textSizeLarge = this.resources.getDimensionPixelSize(R.dimen.text_size_medium_less_than_480dp)
+
+        val textSize = when {
+            screenSize >= 720 -> textSizeLarge
+            screenSize >= 480 -> textSizeMedium
+            else -> textSizeSmall
+        }
+
+        spannableStringBuilder.setSpan(
+            AbsoluteSizeSpan(textSize, true),
+            0,
+            spannableStringBuilder.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannableStringBuilder
+    }
+
     private fun salir() {
         SalirCalendario?.setOnClickListener {
             val intent = Intent(this@AsignaturaDeHoy, MainActivity::class.java)
@@ -182,6 +249,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun pasarEditarCalendario() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onLongPress(e: MotionEvent) {
