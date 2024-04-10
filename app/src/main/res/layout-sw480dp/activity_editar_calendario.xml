@@ -8,12 +8,24 @@
     tools:context=".EditarCalendario">
 
 
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/editar_asignaturas_hoy_leyenda1"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/listViewCalendarioAsignaturas"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout9"
+        app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
     <ListView
         android:id="@+id/listViewCalendarioAsignaturas"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:fadeScrollbars="false"
@@ -30,7 +42,7 @@
         android:id="@+id/textView74"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Asignaturas asignadas"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
@@ -42,11 +54,11 @@
 
     <TextView
         android:id="@+id/textView75"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Selecciona una asignatura para eliminarla"
-        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:text="@string/editar_asignaturas_hoy_leyenda2"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/listViewCalendarioAsignaturas"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,16 +71,13 @@
         android:layout_height="87dp"
         android:layout_marginStart="24dp"
 
-        android:layout_marginTop="24dp"
-
+        android:layout_marginTop="16dp"
         android:layout_weight=".28"
         android:background="#FEFEFE"
-        android:orientation="horizontal"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView73"
+        app:layout_constraintTop_toBottomOf="@+id/textView51"
         tools:ignore="MissingConstraints">
 
         <Spinner
@@ -118,14 +127,14 @@
         android:id="@+id/textView73"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Asignaturas"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout9"
+        app:layout_constraintEnd_toEndOf="@+id/textView51"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout9"
+        app:layout_constraintStart_toStartOf="@+id/textView51"
         app:layout_constraintTop_toBottomOf="@+id/FechaCalendario" />
 
     <EditText
