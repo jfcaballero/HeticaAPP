@@ -68,10 +68,10 @@ class EditarCalendario : AppCompatActivity() {
             val asignaturaSeleccionada = spinner.selectedItem as String
             val minutosAsignatura = MinutosAsignatura?.text.toString().toIntOrNull()
             if(!(validateDate(yearFinal) && minutosAsignatura!=0 &&minutosAsignatura!=null)){
-                showSnackbarWithCustomTextSize(this, "Introduce una fecha válida y minutos para la asignatura.")
+                showSnackbarWithCustomTextSize(this, "Introduce una fecha y minutos.")
             }
             else if(minutosAsignatura.toInt()>=240){
-                showSnackbarWithCustomTextSize(this, "El tiempo es demasiado largo")
+                showSnackbarWithCustomTextSize(this, "El tiempo es demasiado largo.")
             }
             else {
                 addAsignatura(asignaturaSeleccionada, yearFinal!!, minutosAsignatura)
@@ -169,7 +169,7 @@ class EditarCalendario : AppCompatActivity() {
             viewData(dateString)
             MinutosAsignatura?.text?.clear()
         } else {
-            showSnackbarWithCustomTextSize(this, "Ha ocurrido un error al añadir la asignatura")
+            showSnackbarWithCustomTextSize(this, "Error al añadir la asignatura.")
         }
     }
 
@@ -206,7 +206,7 @@ class EditarCalendario : AppCompatActivity() {
             viewData(dateString)
 
         } else {
-            showSnackbarWithCustomTextSize(this, "Ha ocurrido un error al eliminar la asignatura")
+            showSnackbarWithCustomTextSize(this, "Error al eliminar la asignatura.")
         }
     }
 
