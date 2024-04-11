@@ -5,6 +5,7 @@ import AdminSQLiteOpenHelperCalificaciones
 import AdminSQLiteOpenHelperComentarios
 import CustomListAdapter
 import CustomToolbarAdapter
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -13,6 +14,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -128,6 +130,36 @@ class ElegirAsignaturas : AppCompatActivity() {
     }
 
 
+    fun mostrarDialogoEliminacion(view: View? ) {
+        val asignatura = et!!.text.toString()
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val btnBorrar = dialog.findViewById<Button>(R.id.btn_exit)
+        val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
+        val tituloDialogo = dialog.findViewById<TextView>(R.id.text_message)
+
+        tituloDialogo.text = "¿Estas seguro de que quieres eliminar $asignatura?"
+        btnBorrar.text = "Eliminar"
+        btnBorrar.setOnClickListener {
+            // Lógica para eliminar
+            Eliminar()
+            showSnackbarWithCustomTextSize(this,"$asignatura eliminada con éxito.")
+            dialog.dismiss()
+            //volverAVisualizarCalificaciones()
+        }
+
+        btnCancelar.setOnClickListener {
+            // Lógica para cancelar
+            dialog.dismiss()
+
+        }
+
+        dialog.show()
+    }
+
+
     /**
      * Función para volver a Settings
      *
@@ -223,8 +255,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      *
      * @param view the view
      */
-    fun Eliminar(view: View?) {
-        Log.d("estoy en eliminar","$view")
+    private fun Eliminar() {
         val asignatura = et!!.text.toString()
         val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
         val dbStats = AdminSQLiteOpenHelperStats(this)

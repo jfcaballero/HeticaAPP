@@ -3,11 +3,13 @@ package com.hetica.AutismoCordoba
 import CustomListAdapter
 import CustomToolbarAdapter
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import java.util.ArrayList
@@ -65,7 +67,7 @@ class EliminarCalificaciones : AppCompatActivity() {
             viewSubjectGrades()
         }
         botonEliminar?.setOnClickListener {
-            deleteSelectedItems()
+            mostrarDialogoConfirmacion()
         }
 
         // Configuración del evento de clic en los elementos de la lista
@@ -81,6 +83,34 @@ class EliminarCalificaciones : AppCompatActivity() {
         btnVolverAVisualizarCalificaciones?.setOnClickListener {
             volverAVisualizarCalificaciones()
         }
+    }
+
+    private fun mostrarDialogoConfirmacion() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val btnBorrar = dialog.findViewById<Button>(R.id.btn_exit)
+        val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
+        val tituloDialogo = dialog.findViewById<TextView>(R.id.text_message)
+
+        tituloDialogo.text = "¿Estas seguro de que quieres eliminar esos elementos?"
+        btnBorrar.text = "Eliminar"
+        btnBorrar.setOnClickListener {
+            // Lógica para eliminar
+            deleteSelectedItems()
+            FuncionesComunes.showSnackbarWithCustomTextSize(this,"Calificaciones eliminadas con éxito.")
+            dialog.dismiss()
+            //volverAVisualizarCalificaciones()
+        }
+
+        btnCancelar.setOnClickListener {
+            // Lógica para cancelar
+            dialog.dismiss()
+
+        }
+
+        dialog.show()
     }
 
     /**
