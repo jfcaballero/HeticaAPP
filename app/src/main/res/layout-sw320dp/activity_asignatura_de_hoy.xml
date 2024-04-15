@@ -7,14 +7,22 @@
     tools:context=".AsignaturaDeHoy">
 
     <Button
+        android:id="@+id/asignaturaDeHoyLimpiar"
+        android:layout_width="127dp"
+        android:layout_height="57dp"
+        android:text="LIMPIAR"
+        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoySalir"
+        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyAyuda"
+        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyAyuda"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyAyuda" />
+
+    <Button
         android:id="@+id/asignaturaDeHoyAyuda"
         android:layout_width="127dp"
         android:layout_height="57dp"
-        android:layout_marginTop="16dp"
         android:text="Ayuda"
-        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoySalir"
+        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoyLimpiar"
         app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyComenzar"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyComenzar"
         app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyComenzar" />
 
@@ -67,24 +75,20 @@
         android:id="@+id/asignaturaDeHoySalir"
         android:layout_width="127dp"
         android:layout_height="57dp"
-        android:layout_marginTop="16dp"
         android:text="Salir"
         app:layout_constraintBottom_toBottomOf="@+id/asignaturasdehoy"
-        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyAyuda"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyAyuda"
-        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyAyuda" />
+        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyLimpiar"
+        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyLimpiar"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyLimpiar" />
 
     <Button
         android:id="@+id/asignaturaDeHoyComenzar"
         android:layout_width="127dp"
         android:layout_height="57dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
         android:text="@string/String_comenzar"
         app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoyAyuda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toEndOf="@+id/asignaturasdehoy"
         app:layout_constraintTop_toTopOf="@+id/asignaturasdehoy" />
 
     <TextView

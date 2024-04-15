@@ -64,6 +64,12 @@ class CalendarioArrayAdapter(
         return rowView
     }
 
+    fun uncheckAll() {
+        checkedPositions.clear()
+        notifyDataSetChanged()
+    }
+
+
     /**
      * Función para verificar si el elemento en la posición dada está marcado como estudiado
      * @param position Posición que ocupa

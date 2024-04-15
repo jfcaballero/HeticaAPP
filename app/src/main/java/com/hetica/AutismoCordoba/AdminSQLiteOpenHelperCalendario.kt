@@ -88,6 +88,23 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
         db.update(DB_TABLE, contentValues, whereClause, whereArgs)
     }
 
+    @SuppressLint("Range")
+    fun limpiarEstudiadas(dateString: String){
+        val db = this.writableDatabase
+        val query = "SELECT $ID FROM $DB_TABLE WHERE $DATE = ? AND $ESTUDIADO=1"
+        val cursor = db.rawQuery(query, arrayOf(dateString))
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getLong(cursor.getColumnIndex(ID))
+                val whereClause = "$ID = ?"
+                val whereArgs = arrayOf(id.toString())
+                db.delete(DB_TABLE, whereClause, whereArgs)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+
+    }
+
     /**
      * Función para eliminar la tabla
      */

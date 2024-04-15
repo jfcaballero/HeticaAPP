@@ -25,6 +25,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import com.hetica.AutismoCordoba.MainActivity
 import java.util.ArrayList
 import java.util.Calendar
@@ -38,6 +39,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     private var ComenzarSesion: Button? = null
     private var SalirCalendario: Button? = null
     private var ayuda: Button? = null
+    private var limpiar:Button?=null
     private lateinit var adapter: CalendarioArrayAdapter
     private var todasMarcadas=true
     private val handler = Handler(Looper.getMainLooper())
@@ -53,9 +55,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         ComenzarSesion = findViewById(R.id.asignaturaDeHoyComenzar)
         SalirCalendario = findViewById(R.id.asignaturaDeHoySalir)
         ayuda=findViewById(R.id.asignaturaDeHoyAyuda)
-
-
-
+        limpiar=findViewById(R.id.asignaturaDeHoyLimpiar)
 
         // Configurar el adaptador personalizado
         adapter = CalendarioArrayAdapter(this, R.layout.list_item_checkbox, ArrayList())
@@ -71,10 +71,12 @@ class AsignaturaDeHoy : AppCompatActivity() {
             Log.d("Num items:", checkedItemPositions?.size().toString())
         }
         salir()
+        limpiar()
         viewData()
         pasarEditarCalendario()
         comenzarSesion()
         ayuda()
+
     }
 
     /**
@@ -88,8 +90,10 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val dateString = String.format("%02d%02d%d", month, day, year)
         var nohaytareas: TextView?=findViewById(R.id.textoNoHayTareasHoy)
         val asignaturasData = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
+        var hayAsignaturasEstudiadas = false
         adapter.clear()
         ComenzarSesion?.isEnabled = true
+
 
 
         if (!asignaturasData.isNullOrEmpty()) {
@@ -97,7 +101,8 @@ class AsignaturaDeHoy : AppCompatActivity() {
             for (asignaturaData in asignaturasData) {
                 val displayText = "${asignaturaData.first} - ${asignaturaData.second} minutos - Estudiado: ${if (asignaturaData.third == 1) "Sí" else "No"}"
                 displayList.add(displayText)
-                if (asignaturaData.third == 1) { // Si la asignatura está estudiada, desactivar la interacción
+                if (asignaturaData.third == 1) {// Si la asignatura está estudiada, desactivar la interacción
+                    hayAsignaturasEstudiadas = true
                     val position = displayList.size - 1
                     adapter.checkedPositions.put(position, true)
                 }else{
@@ -113,18 +118,32 @@ class AsignaturaDeHoy : AppCompatActivity() {
 
             }
         } else {
+
             if (nohaytareas != null) {
                 nohaytareas.visibility=View.VISIBLE
                 ComenzarSesion?.isEnabled = false //para que no deje pulsar el boton tampoco cuando no haya sesiones programadas
+
             }
             calendarioListView?.adapter = null
         }
+        limpiar?.isEnabled = hayAsignaturasEstudiadas
         adapter.notifyDataSetChanged()
+        for (i in 0 until calendarioListView?.count!!) {
+            calendarioListView?.setItemChecked(i, false)
+        }
         Log.d("Asignaturas", asignaturasData.toString())
     }
 
 
 
+    private fun limpiar(){
+        limpiar?.setOnClickListener {
+            dbCalendario?.limpiarEstudiadas(getDateAsString())
+            viewData()
+            // Desmarcar todas las casillas de verificación en el adaptador
+            adapter.uncheckAll()
+        }
+    }
 
 
     private fun comenzarSesion() {
@@ -152,22 +171,22 @@ class AsignaturaDeHoy : AppCompatActivity() {
                             dbCalendario?.marcarComoEstudiado(position, getDateAsString())
                         }
                     } else {
-                        FuncionesComunes.showSnackbarWithCustomTextSize(
+                        showSnackbarWithCustomTextSize(
                             this,
-                            "Los datos de la asignatura son inválidos"
+                            "Datos de la asignatura inválidos."
                         )
                     }
                 } else {
-                    FuncionesComunes.showSnackbarWithCustomTextSize(
+                    showSnackbarWithCustomTextSize(
                         this,
-                        "Los datos de la asignatura son inválidos"
+                        "Datos de la asignatura inválidos."
                     )
                 }
             } else {
 
-                FuncionesComunes.showSnackbarWithCustomTextSize(
+                showSnackbarWithCustomTextSize(
                     this,
-                    "Selecciona un único elemento"
+                    "Selecciona un único elemento."
                 )
             }
         }
