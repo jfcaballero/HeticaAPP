@@ -6,10 +6,12 @@ import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 class FuncionesComunes {
     companion object {
+        @RequiresApi(Build.VERSION_CODES.R)
         fun showSnackbarWithCustomTextSize(context: Context, message: String) {
             val view: View = (context as Activity).findViewById(android.R.id.content)
             val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
@@ -18,11 +20,8 @@ class FuncionesComunes {
             textView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
 
             // Obtener la rotación de la pantalla según el nivel de API
-            val rotation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                context.display?.rotation ?: android.view.Surface.ROTATION_0
-            } else {
-                (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.rotation
-            }
+            val rotation = context.display?.rotation ?: android.view.Surface.ROTATION_0
+
             val isPortrait = rotation == android.view.Surface.ROTATION_0 || rotation == android.view.Surface.ROTATION_180
 
             // Determinar el tamaño del texto según los rangos de pantalla

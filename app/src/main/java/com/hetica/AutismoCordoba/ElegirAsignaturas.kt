@@ -132,7 +132,8 @@ class ElegirAsignaturas : AppCompatActivity() {
 
     fun mostrarDialogoEliminacion(view: View? ) {
         val asignatura = et!!.text.toString()
-        val dialog = Dialog(this)
+        val dialog = Dialog(view!!.context)
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_custom)
 

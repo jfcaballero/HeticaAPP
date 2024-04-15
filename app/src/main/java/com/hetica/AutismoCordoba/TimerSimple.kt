@@ -121,7 +121,7 @@ class TimerSimple : AppCompatActivity() {
             }
         })
 
-        Main?.setOnTouchListener { _, event ->
+        Main.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
             if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
                 isLongPressFired = false

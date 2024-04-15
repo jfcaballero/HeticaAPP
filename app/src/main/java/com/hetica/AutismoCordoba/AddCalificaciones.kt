@@ -199,10 +199,8 @@ class AddCalificaciones : AppCompatActivity() {
         }
 
         // Verifica si la nota está en el rango válido (0-100)
-        if (notaFloat != null) {
-            if (notaFloat < 0 || notaFloat > 100) {
-                return false
-            }
+        if (notaFloat < 0 || notaFloat > 100) {
+            return false
         }
         if (notaString.contains(".")) { //Si hay un punto para los decimales, verifica que la posicion sea correcta
 

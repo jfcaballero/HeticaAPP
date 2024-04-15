@@ -379,8 +379,7 @@ class Mayormenoractividad : AppCompatActivity() {
             screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_y_480)
             else -> this.resources.getDimension(R.dimen.chart_y_320)
         }
-        var datosEjemplo = listaBasura()
-        datosEjemplo=dataGrafica
+        var datosEjemplo =dataGrafica
         //Nota: Los ejes aquí están invertidos
         val aaChartModelGrafica : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)

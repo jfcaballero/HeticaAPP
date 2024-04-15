@@ -280,8 +280,7 @@ class VisualizarCalificaciones : AppCompatActivity() {
             screenWidthDp >= 480 -> this.resources.getDimension(R.dimen.chart_y_480)
             else -> this.resources.getDimension(R.dimen.chart_y_320)
         }
-        var datosEjemplo = listaBasura()
-        datosEjemplo=listaCalificaciones
+        var datosEjemplo =listaCalificaciones
 
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Line)
