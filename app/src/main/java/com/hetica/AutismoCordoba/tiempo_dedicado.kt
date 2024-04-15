@@ -571,6 +571,7 @@ class tiempo_dedicado: AppCompatActivity()  {
         )
 
         // Muestra el DatePickerDialog
+        datePickerDialog.datePicker.firstDayOfWeek = Calendar.MONDAY
         datePickerDialog.show()
     }
 

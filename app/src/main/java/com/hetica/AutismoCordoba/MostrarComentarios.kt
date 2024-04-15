@@ -206,7 +206,7 @@ class MostrarComentarios : AppCompatActivity() {
             month,
             day
         )
-
+        datePickerDialog.datePicker.firstDayOfWeek = Calendar.MONDAY
         datePickerDialog.show()
     }
 

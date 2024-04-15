@@ -148,6 +148,7 @@ class EditarCalendario : AppCompatActivity() {
                 viewData(yearFinal!!)
             }, year, month, day)
             mDatePicker.setTitle("Select date")
+            mDatePicker.datePicker.firstDayOfWeek = Calendar.MONDAY
             mDatePicker.show()
         }
         //val dateString = FechaCalendario?.text.toString()

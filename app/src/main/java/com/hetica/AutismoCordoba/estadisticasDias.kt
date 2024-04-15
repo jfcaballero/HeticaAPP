@@ -166,7 +166,8 @@ class estadisticasDias : AppCompatActivity() {
                 yearFinal = yearFinal + Integer.toString(selectedDay) + Integer.toString(selectedYear)
                 viewData()
             }, year, month, day)
-            mDatePicker.setTitle("Select date")
+            mDatePicker.setTitle("Seleccione una fecha")
+            mDatePicker.datePicker.firstDayOfWeek = Calendar.MONDAY
             mDatePicker.show()
         }
     }
