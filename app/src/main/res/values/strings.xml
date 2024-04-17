@@ -107,6 +107,11 @@
         Pulsa sobre la asignatura que desees para eliminarla.
     </string>
 
+    <string name="banner_gestionar_asignaturas">
+        Gestionar asignaturas
+    </string>
+
+
     <string name="texto_ayuda">
         \u25AA **Mostrar temporizador al inicio**: Con la opción activada se permite estudiar
         directamente una asignatura desde el menú principal. Aparecerá un nuevo icono en

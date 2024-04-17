@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/String_asignatura_elegir" />
+        app:title="@string/banner_gestionar_asignaturas" />
 
 
     <ListView
