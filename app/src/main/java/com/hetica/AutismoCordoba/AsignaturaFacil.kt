@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import CustomListAdapter
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,6 +18,8 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.io.BufferedReader
@@ -83,6 +86,7 @@ class AsignaturaFacil : AppCompatActivity() {
      * The Lv.
      */
     var lv: ListView? = null
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignatura_facil)
@@ -105,11 +109,15 @@ class AsignaturaFacil : AppCompatActivity() {
 
         //read();
         lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ -> textView2!!.text = arrayList!![position] }
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+
     }
 
     var doubleBackToExitPressedOnce = false
     var siguiente: Intent? = null
-    override fun onBackPressed() {
+    @RequiresApi(Build.VERSION_CODES.R)
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
         if (doubleBackToExitPressedOnce) {
             siguiente = Intent(baseContext, MainActivity::class.java)
             startActivity(siguiente)
@@ -117,13 +125,13 @@ class AsignaturaFacil : AppCompatActivity() {
         }
         doubleBackToExitPressedOnce = true
         showSnackbarWithCustomTextSize(
-            this,
+            this@AsignaturaFacil,
             "Presiona de nuevo para salir",
         )
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
-    }
+    }}
 
     /**
      * Función que mide el valor del seekbar

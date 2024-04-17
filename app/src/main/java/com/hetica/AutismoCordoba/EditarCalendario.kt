@@ -5,6 +5,7 @@ import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -45,6 +48,7 @@ var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
 
 var botonCalendario: Button?=null
 class EditarCalendario : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +67,7 @@ class EditarCalendario : AppCompatActivity() {
             val intent = Intent(this, AsignaturaDeHoy::class.java)
             startActivity(intent)
         }
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
         addAsignaturaCalendario?.setOnClickListener {
             val asignaturaSeleccionada = spinner.selectedItem as String
@@ -163,6 +168,7 @@ class EditarCalendario : AppCompatActivity() {
      * @param dateString Fecha de la asignatura
      *
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun addAsignatura(asignaturaSeleccionada: String, dateString: String, minutos: Int) {
         val success = dbCalendario?.insertData(dateString, listOf(asignaturaSeleccionada to minutos))
         if (success == true) {
@@ -200,6 +206,7 @@ class EditarCalendario : AppCompatActivity() {
      * @param dateString Fecha de la asignatura
      *
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun deleteAsignatura(position: Int, dateString: String) {
         val success = dbCalendario?.deleteAsignaturaByPosition(position, dateString)
         if (success == true) {
@@ -238,6 +245,13 @@ class EditarCalendario : AppCompatActivity() {
             return false
         }
     }
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val intent = Intent(this@EditarCalendario, AsignaturaDeHoy::class.java)
+            startActivity(intent)
+        }
+    }
+
 
 
 }

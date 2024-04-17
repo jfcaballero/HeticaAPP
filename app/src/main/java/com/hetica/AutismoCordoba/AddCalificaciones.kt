@@ -5,6 +5,7 @@ import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +21,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import com.hetica.AutismoCordoba.databinding.ActivityAddCalificacionesBinding
@@ -50,6 +52,7 @@ private lateinit var customToolbarAdapter: CustomToolbarAdapter
 private var _binding: ActivityAddCalificacionesBinding? = null
 private val binding get() = _binding!!
 class AddCalificaciones : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAddCalificacionesBinding.inflate(layoutInflater)

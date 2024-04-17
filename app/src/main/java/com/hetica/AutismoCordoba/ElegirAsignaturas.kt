@@ -9,6 +9,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -21,6 +22,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
@@ -130,6 +132,7 @@ class ElegirAsignaturas : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun mostrarDialogoEliminacion(view: View? ) {
         val asignatura = et!!.text.toString()
         val dialog = Dialog(view!!.context)
@@ -175,6 +178,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      *
      * @param view the view
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     fun Registrar(view: View?) {
         Log.d("estoy en registrar","$view")
         val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
@@ -256,6 +260,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      *
      * @param view the view
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun Eliminar() {
         val asignatura = et!!.text.toString()
         val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
@@ -289,6 +294,7 @@ class ElegirAsignaturas : AppCompatActivity() {
      * Comprobar que no hay ninguna asignatura en la BBDD
      *
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun viewData() {
         val cursor = db!!.viewData()
         if (cursor.count == 0) {

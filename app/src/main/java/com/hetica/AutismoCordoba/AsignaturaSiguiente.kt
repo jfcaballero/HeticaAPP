@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import CustomListAdapter
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,8 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -72,6 +75,7 @@ class AsignaturaSiguiente : AppCompatActivity() {
      * The Lv.
      */
     var lv: ListView? = null
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_asignatura_siguiente)
@@ -90,11 +94,15 @@ class AsignaturaSiguiente : AppCompatActivity() {
         readParams()
         read()
         lv!!.onItemClickListener = OnItemClickListener { _, _, position, _ -> textView2!!.text = arrayList!![position] }
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+
     }
 
     var doubleBackToExitPressedOnce = false
     var siguiente: Intent? = null
-    override fun onBackPressed() {
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        @RequiresApi(Build.VERSION_CODES.R)
+        override fun handleOnBackPressed() {
         if (doubleBackToExitPressedOnce) {
             siguiente = Intent(baseContext, MainActivity::class.java)
             startActivity(siguiente)
@@ -102,13 +110,13 @@ class AsignaturaSiguiente : AppCompatActivity() {
         }
         doubleBackToExitPressedOnce = true
         showSnackbarWithCustomTextSize(
-            this,
+            this@AsignaturaSiguiente,
             "Presiona de nuevo para salir",
         )
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
-    }
+    }}
     /* override fun onBackPressed() {
         onBackPressedDispatcher.onBackPressed();
         // Do Your Work Here
@@ -187,6 +195,7 @@ class AsignaturaSiguiente : AppCompatActivity() {
      *
      * @param view the view
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     fun pasar(view: View?) {
         val siguiente = Intent(view!!.context, TimerSimple::class.java)
         if (actual.equals("3", ignoreCase = true)) {
@@ -255,6 +264,7 @@ class AsignaturaSiguiente : AppCompatActivity() {
      * Función que añade las asignaturas a la pantalla
      *
      */
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun viewData() {
         val cursor = db!!.viewData()
         if (cursor.count == 0) {

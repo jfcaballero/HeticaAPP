@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -24,6 +25,7 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import com.hetica.AutismoCordoba.MainActivity
@@ -45,6 +47,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private val delayMillis = 3000L // 3 segundos
 
+    @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,6 +149,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun comenzarSesion() {
         ComenzarSesion?.setOnClickListener {
             val position = adapter.lastCheckedPosition

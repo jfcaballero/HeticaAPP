@@ -13,6 +13,7 @@ class CustomListAdapter(context: Context, resource: Int, objects: List<String>) 
     ArrayAdapter<String>(context, resource, objects) {
     private val screenWidthDp = context.resources.configuration.screenWidthDp
     private val screenHeightDp = context.resources.configuration.screenHeightDp
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent)
         val textView = view.findViewById<TextView>(android.R.id.text1)

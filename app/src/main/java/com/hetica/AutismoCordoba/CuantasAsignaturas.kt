@@ -1,6 +1,7 @@
 package com.hetica.AutismoCordoba
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 
@@ -29,18 +32,21 @@ class CuantasAsignaturas : AppCompatActivity() {
      * The Button.
      */
     var button: Button? = null
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cuantas_asignaturas)
         editText = findViewById<View>(R.id.editText) as EditText
-
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
 
         //Guardar arrays desde 1 hasta 5 asignaturas de el orden que seguirán en cada estrategia
     }
 
     var doubleBackToExitPressedOnce = false
     var siguiente: Intent? = null
-    override fun onBackPressed() {
+    @RequiresApi(Build.VERSION_CODES.R)
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
         if (doubleBackToExitPressedOnce) {
             siguiente = Intent(baseContext, MainActivity::class.java)
             startActivity(siguiente)
@@ -48,13 +54,13 @@ class CuantasAsignaturas : AppCompatActivity() {
         }
         doubleBackToExitPressedOnce = true
         showSnackbarWithCustomTextSize(
-            this,
+            this@CuantasAsignaturas,
             "Presiona de nuevo para salir",
         )
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
-    }
+    }}
 
     /**
      * Dependiendo de cuantas asignaturas se hayan elegido, se cogerá una ruta u otra

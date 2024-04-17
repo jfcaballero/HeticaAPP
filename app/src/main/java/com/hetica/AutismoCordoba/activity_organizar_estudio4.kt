@@ -1,10 +1,13 @@
 package com.hetica.AutismoCordoba
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -19,6 +22,7 @@ class activity_organizar_estudio4 : AppCompatActivity() {
             startActivity(siguiente);
         }
     }*/
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_organizar_estudio4)
@@ -45,6 +49,8 @@ class activity_organizar_estudio4 : AppCompatActivity() {
         if (height < 1300) {
             text!!.textSize = 25f
         }
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+
     }
     /*
     override fun onBackPressed(){
@@ -54,10 +60,12 @@ class activity_organizar_estudio4 : AppCompatActivity() {
      * Pasa al siguiente consejo
      *
      */
-    override fun onBackPressed() {
-        val siguiente = Intent(this, activity_organizar_estudio3::class.java)
+    @RequiresApi(Build.VERSION_CODES.R)
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+        val siguiente = Intent(this@activity_organizar_estudio4, activity_organizar_estudio3::class.java)
         startActivity(siguiente)
-    }
+    }}
 
     fun pasar5(view: View?) {
         val siguiente = Intent(view!!.context, activity_organizar_estudio5::class.java)

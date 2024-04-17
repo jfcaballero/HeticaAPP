@@ -1,23 +1,30 @@
 package com.hetica.AutismoCordoba
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 
 /**
  * The type Activity organizar estudio 7.
  */
 class activity_organizar_estudio7 : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_organizar_estudio7)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
     }
 
-    override fun onBackPressed() {
-        val siguiente = Intent(this, activity_organizar_estudio6::class.java)
+    @RequiresApi(Build.VERSION_CODES.R)
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+        val siguiente = Intent(this@activity_organizar_estudio7, activity_organizar_estudio6::class.java)
         startActivity(siguiente)
-    }
+    }}
 
     /**
      * Pasa a elegir cuantas asignaturas quieres estudiar
