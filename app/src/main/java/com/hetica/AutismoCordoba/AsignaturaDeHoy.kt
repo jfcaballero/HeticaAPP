@@ -229,29 +229,30 @@ class AsignaturaDeHoy : AppCompatActivity() {
 
     }
     private fun getDialogTextSize(): Int {
-        val screenSize = resources.configuration.screenWidthDp
+        val screenWidthDp = resources.configuration.screenWidthDp
+        val screenHeightDp = resources.configuration.screenHeightDp
         // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
         val textSizeSmall = R.style.DialogTextStyleSmall
         val textSizeMedium = R.style.DialogTextStyleMedium
         val textSizeLarge = R.style.DialogTextStyleLarge
 
         return when {
-            screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
-            screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+            screenHeightDp >= 600 && screenWidthDp >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+            screenWidthDp >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
             else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
         }
     }
     fun getFormattedText(texto: String): CharSequence {
         val spannableStringBuilder = SpannableStringBuilder(texto)
-        val screenSize = resources.configuration.screenWidthDp
+        val screenWidthDp = resources.configuration.screenWidthDp
+        val screenHeightDp = resources.configuration.screenHeightDp
 
         val textSizeSmall = 19
         val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
         val textSizeLarge = this.resources.getDimensionPixelSize(R.dimen.text_size_medium_less_than_480dp)
-
         val textSize = when {
-            screenSize >= 720 -> textSizeLarge
-            screenSize >= 480 -> textSizeMedium
+            screenHeightDp >= 600 && screenWidthDp >= 720 -> textSizeLarge
+            screenWidthDp >= 480 -> textSizeMedium
             else -> textSizeSmall
         }
 
