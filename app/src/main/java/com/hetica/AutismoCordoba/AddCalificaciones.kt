@@ -4,6 +4,7 @@ import AdminSQLiteOpenHelperCalificaciones
 import CustomToolbarAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -181,11 +183,44 @@ class AddCalificaciones : AppCompatActivity() {
             showSnackbarWithCustomTextSize(this, toastMessage)
         }
         btnVolverAVisualizarCalificaciones?.setOnClickListener {
-            VolverAVisualizarCalificaciones()
+
+            val notaString = Nota.text.toString()
+            if(!notaString.isNullOrEmpty()){ //lanzamos mensaje de que no se ha guardado
+                mostrarDialogoNoGuardado()
+            }else{
+                VolverAVisualizarCalificaciones()
+            }
+
         }
 
 
 
+    }
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun mostrarDialogoNoGuardado() {
+        val dialog = Dialog(this@AddCalificaciones)
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val btnBorrar = dialog.findViewById<Button>(R.id.btn_exit)
+        val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
+        val tituloDialogo = dialog.findViewById<TextView>(R.id.text_message)
+
+        tituloDialogo.text = "Aviso: No has guardado la calificación."
+        btnBorrar.text = "Salir"
+        btnBorrar.setOnClickListener {
+            VolverAVisualizarCalificaciones()
+            dialog.dismiss()
+        }
+
+        btnCancelar.setOnClickListener {
+            // Lógica para cancelar
+            dialog.dismiss()
+
+        }
+
+        dialog.show()
     }
 
     private fun validateMark(notaString: String?):Boolean{
