@@ -19,15 +19,6 @@
         <!-- Spinner estadisticas -->
         <dimen name="spinner_width_320dp">157dp</dimen>
         <dimen name="spinner_height_320dp">55dp</dimen>
-        <!-- Home button -->
-        <dimen name="home_height_320dp">45dp</dimen>
-        <dimen name="home_height_480dp">63dp</dimen>
-        <dimen name="home_height_720dp">68dp</dimen>
-        <!-- Anotaciones icono -->
-        <dimen name="anotaciones_height_320dp">41dp</dimen>
-        <dimen name="anotaciones_height_480dp">63dp</dimen>
-        <dimen name="anotaciones_height_720dp">68dp</dimen>
-
         <!-- Estadisticas action button -->
         <dimen name="action_button_width_320dp">97dp</dimen>
         <dimen name="action_button_height_320dp">46dp</dimen>
@@ -47,6 +38,10 @@
         <!-- Snackbar -->
         <dimen name="snackbar_portrait_320dp">20sp</dimen>
         <dimen name="snackbar_landscape_320dp">25sp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_320dp">45dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_320dp">35dp</dimen>
 
     <!-- Tamaños para pantallas de >=480dp -->
     <dimen name="text_size_small_480dp">18sp</dimen>
@@ -68,6 +63,10 @@
         <!-- Estadisticas action button -->
         <dimen name="big_action_button_width_480dp">254dp</dimen>
         <dimen name="big_action_button_height_480dp">89dp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_480dp">63dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_480dp">50dp</dimen>
 
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
@@ -79,7 +78,6 @@
         <dimen name="list_height_720">100dp</dimen>
         <dimen name="list_item_portrait_720">30sp</dimen>
         <dimen name="list_item_landscape_720">40sp</dimen>
-
         <!-- Graficas -->
         <dimen name="chart_title_720">20sp</dimen>
         <dimen name="chart_subtitle_720">15sp</dimen>
@@ -91,6 +89,10 @@
         <!-- Estadisticas action button -->
         <dimen name="big_action_button_width_720dp">397dp</dimen>
         <dimen name="big_action_button_height_720dp">115dp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_720dp">68dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_720dp">68dp</dimen>
 
 
 </resources>

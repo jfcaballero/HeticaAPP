@@ -195,7 +195,7 @@
         android:id="@+id/tiempoLista"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
