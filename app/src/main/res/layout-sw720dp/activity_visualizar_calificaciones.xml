@@ -175,7 +175,7 @@
 
     <Button
         android:id="@+id/buttonActividadCalificacion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Añadir"
@@ -183,17 +183,18 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
         app:layout_constraintEnd_toStartOf="@+id/buttonActividadEliminarCalificacion"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/aa_chart_view" />
 
     <Button
         android:id="@+id/buttonActividadEliminarCalificacion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         android:layout_marginBottom="16dp"
         android:text="Eliminar"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/aa_chart_view"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonActividadCalificacion" />
 
