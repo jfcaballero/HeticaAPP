@@ -86,7 +86,7 @@
         Debe añadir al menos una asignatura desde el icono de opciones (rueda dentada negra) para que la aplicación funcione adecuadamente.</string>
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
     <string name="comentar_estudio">Comentar estudio</string>
-    <string name="tiempo_estudio_leyenda">Pulse en una asignatura para anotar un comentario. Pulse la pestaña “Anotación sobre estudio” para visualizarlos.</string>
+    <string name="tiempo_estudio_leyenda">Seleccione una asignatura y rango, y posteriormente una fecha de estudio de las que aparezcan para poder realizar una anotación. Pulse la pestaña “Anotación sobre estudio” para visualizar anotaciones.</string>
     <string name="visualizar_calificaciones_leyenda">Notas obtenidas por asignatura. Para un nuevo curso, elimine la asignatura desde la
     opción de configuración de la pantalla principal (rueda negra dentada).</string>
     <string name="asignatura_de_hoy_texto_de_ayuda">

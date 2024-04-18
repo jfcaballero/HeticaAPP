@@ -23,6 +23,11 @@
         <dimen name="home_height_320dp">45dp</dimen>
         <dimen name="home_height_480dp">63dp</dimen>
         <dimen name="home_height_720dp">68dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_320dp">41dp</dimen>
+        <dimen name="anotaciones_height_480dp">63dp</dimen>
+        <dimen name="anotaciones_height_720dp">68dp</dimen>
+
         <!-- Estadisticas action button -->
         <dimen name="action_button_width_320dp">97dp</dimen>
         <dimen name="action_button_height_320dp">46dp</dimen>

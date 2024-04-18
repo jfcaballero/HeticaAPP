@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView27"
-        android:layout_width="@dimen/home_height_720dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/anotaciones_height_720dp"
+        android:layout_height="@dimen/anotaciones_height_720dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView70"
-        app:layout_constraintStart_toStartOf="@+id/tiempoLista"
+        app:layout_constraintEnd_toEndOf="@+id/tiempoLista"
         app:layout_constraintTop_toTopOf="@+id/textView70"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/notas" />
 
     <TextView
@@ -246,14 +247,13 @@
         android:id="@+id/textView70"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/tiempo_estudio_leyenda"
         android:textColor="#009688"
         android:textSize="29sp"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="@+id/tiempoLista"
-        app:layout_constraintStart_toEndOf="@+id/imageView27"
+        app:layout_constraintEnd_toStartOf="@+id/imageView27"
+        app:layout_constraintStart_toStartOf="@+id/tiempoLista"
         app:layout_constraintTop_toBottomOf="@+id/tiempoInicio" />
 
 
