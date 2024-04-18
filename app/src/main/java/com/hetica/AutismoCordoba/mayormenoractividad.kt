@@ -8,9 +8,13 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -610,12 +614,38 @@ class Mayormenoractividad : AppCompatActivity() {
      * Función para irnos al Main
      *
      */
+    @SuppressLint("ClickableViewAccessibility")
     fun GoToMain(){
-        imageMain?.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+        val handler = Handler(Looper.getMainLooper())
+        val delayMillis = 3000L // 3 segundos
+        var isLongPressFired = false
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                if (isLongPressFired) {
+                    return
+                }
+                isLongPressFired = true
 
+                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
+                handler.postDelayed({
+
+                    val intent = Intent(this@Mayormenoractividad, MainActivity::class.java)
+                    startActivity(intent)
+
+                }, delayMillis)
+            }
+        })
+
+        imageMain?.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                isLongPressFired = false
+                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
+                FuncionesComunes.showSnackbarWithCustomTextSize(this, "Pulsa durante 3s")
+                handler.removeCallbacksAndMessages(null)
+            }
+            true
+        }
     }
 
 

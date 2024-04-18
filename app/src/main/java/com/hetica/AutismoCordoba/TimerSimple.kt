@@ -89,7 +89,7 @@ class TimerSimple : AppCompatActivity() {
         readParams()
         mTextViewCountDown.visibility = View.VISIBLE
         startTimer()
-        main()
+        GoToMain()
 
 
         Pausa.setOnClickListener {
@@ -105,7 +105,7 @@ class TimerSimple : AppCompatActivity() {
         // Override if needed
     }
     @SuppressLint("ClickableViewAccessibility")
-    private fun main() {
+    private fun GoToMain() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onLongPress(e: MotionEvent) {
                 if (isLongPressFired) {
@@ -127,6 +127,7 @@ class TimerSimple : AppCompatActivity() {
                 isLongPressFired = false
                 // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
                 handler.removeCallbacksAndMessages(null)
+                mCountDownTimer.cancel()
             }
             true
         }

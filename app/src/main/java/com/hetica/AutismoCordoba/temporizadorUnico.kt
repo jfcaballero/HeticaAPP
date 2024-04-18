@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import android.util.Log
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
@@ -68,7 +69,8 @@ class temporizadorUnico : AppCompatActivity() {
     private var Main: Button? = null
     var siguiente: Intent? = null
     private var then: Long = 0
-    private val longClickDuration = 3000
+
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,27 +103,42 @@ class temporizadorUnico : AppCompatActivity() {
             }
         }
 
-        Main!!.setOnTouchListener(OnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                then = System.currentTimeMillis()
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                if (System.currentTimeMillis() - then > longClickDuration) {
-                    siguiente = Intent(baseContext, MainActivity::class.java)
-                    mCountDownTimer!!.cancel()
-                    mTimerRunning = false
-                    startActivity(siguiente)
-                    println("Long Click has happened!")
-                    return@OnTouchListener false
-                } else {
-                    /* Implement short click behavior here or do nothing */
-                    println("Short Click has happened...")
-                    return@OnTouchListener false
-                }
-            }
-            true
-        })
+        GoToMain()
         startTimer()
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun GoToMain() {
+        var isLongPressFired = false
+        val handler = Handler(Looper.getMainLooper())
+        val delayMillis = 3000L // 3 segundos
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                if (isLongPressFired) {
+                    return
+                }
+                isLongPressFired = true
+
+                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
+                handler.postDelayed({
+                    val intent = Intent(this@temporizadorUnico, MainActivity::class.java)
+                    startActivity(intent)
+                }, delayMillis)
+            }
+        })
+
+        Main?.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+                isLongPressFired = false
+                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
+                handler.removeCallbacksAndMessages(null)
+                mCountDownTimer?.cancel()
+            }
+            true
+        }
+    }
+
 
     override fun onBackPressed() {
         //super.onBackPressed()
