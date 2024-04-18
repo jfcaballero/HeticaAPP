@@ -94,9 +94,9 @@
         diferentes días. Pulsando durante 3 segundos el icono del lápiz se accede a un menú
         que permite seleccionar el día, las asignaturas que se quieren estudiar dicho día y la
         cantidad de minutos asignados a cada una de ellas.\n\nTodas las asignaturas que hayas programado para estudiar un día concreto y que no
-        hayas estudiado y pase dicho día, su estudio no aparecerá reflejado en la aplicación.
+        hayas estudiado y pase dicho día, su estudio no aparecerá reflejado en la aplicación.\n\n
         A lo largo del día actual puedes ir añadiendo tantas asignaturas a estudiar como
-        quieras, incluso puedes repetir el estudio de una asignatura.
+        quieras, incluso puedes repetir el estudio de una asignatura.\n\n
         Si borras una asignatura que has estudiado no te preocupes, su tiempo de estudio
         quedará registrado en la aplicación.
     </string>
@@ -164,7 +164,7 @@
 
 
     </string>
-    <string name="calendario_sin_asignatura_de_hoy">Pulsar lápiz durante 3s</string>
+    <string name="calendario_sin_asignatura_de_hoy">Pulsar lápiz durante 3 segundos</string>
     <string name="tiempo_dedicado_leyenda">Pulse en una asignatura para anotar un comentario. Pestaña \"Anotación sobre estudio\" para visualizarlos.</string>
 
 

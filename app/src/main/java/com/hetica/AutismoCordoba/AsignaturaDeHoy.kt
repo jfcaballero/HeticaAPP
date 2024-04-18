@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -79,6 +80,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         pasarEditarCalendario()
         comenzarSesion()
         ayuda()
+
 
     }
 
@@ -224,9 +226,10 @@ class AsignaturaDeHoy : AppCompatActivity() {
                 }
 
             val dialog = builder.create()
-            dialog.show()
-        }
 
+            dialog.show()
+
+        }
     }
     private fun getDialogTextSize(): Int {
         val screenWidthDp = resources.configuration.screenWidthDp
