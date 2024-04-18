@@ -8,14 +8,16 @@
 
     <Button
         android:id="@+id/volverATiempoDedicado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/big_action_button_height_320dp"
+        android:layout_marginStart="16dp"
         android:onClick="pasar3"
         android:text="@string/String_volver"
-        android:textSize="14sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/insertarComentario"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textoDeComentario"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/insertarComentario" />
 
     <TextView
         android:id="@+id/asignaturaDelComentario"
@@ -59,14 +61,14 @@
 
     <Button
         android:id="@+id/insertarComentario"
-        android:layout_width="@dimen/big_action_button_width_320dp"
+        android:layout_width="0dp"
         android:layout_height="@dimen/big_action_button_height_320dp"
         android:layout_marginBottom="16dp"
         android:text="REGISTRAR COMENTARIO"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/volverATiempoDedicado"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/textoDeComentario" />
 
     <EditText
