@@ -89,9 +89,9 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
     }
 
     @SuppressLint("Range")
-    fun limpiarEstudiadas(dateString: String){
+    fun limpiar(dateString: String){
         val db = this.writableDatabase
-        val query = "SELECT $ID FROM $DB_TABLE WHERE $DATE = ? AND $ESTUDIADO=1"
+        val query = "SELECT $ID FROM $DB_TABLE WHERE $DATE = ?"
         val cursor = db.rawQuery(query, arrayOf(dateString))
         if (cursor.moveToFirst()) {
             do {

@@ -95,7 +95,6 @@ class AsignaturaDeHoy : AppCompatActivity() {
         val dateString = String.format("%02d%02d%d", month, day, year)
         var nohaytareas: TextView?=findViewById(R.id.textoNoHayTareasHoy)
         val asignaturasData = dbCalendario?.getAsignaturasForDayWithMinutos(dateString)
-        var hayAsignaturasEstudiadas = false
         adapter.clear()
         ComenzarSesion?.isEnabled = true
 
@@ -107,7 +106,6 @@ class AsignaturaDeHoy : AppCompatActivity() {
                 val displayText = "${asignaturaData.first} - ${asignaturaData.second} minutos - Estudiado: ${if (asignaturaData.third == 1) "Sí" else "No"}"
                 displayList.add(displayText)
                 if (asignaturaData.third == 1) {// Si la asignatura está estudiada, desactivar la interacción
-                    hayAsignaturasEstudiadas = true
                     val position = displayList.size - 1
                     adapter.checkedPositions.put(position, true)
                 }else{
@@ -127,11 +125,11 @@ class AsignaturaDeHoy : AppCompatActivity() {
             if (nohaytareas != null) {
                 nohaytareas.visibility=View.VISIBLE
                 ComenzarSesion?.isEnabled = false //para que no deje pulsar el boton tampoco cuando no haya sesiones programadas
-
+                limpiar?.isEnabled =false
             }
             calendarioListView?.adapter = null
         }
-        limpiar?.isEnabled = hayAsignaturasEstudiadas
+
         adapter.notifyDataSetChanged()
         for (i in 0 until calendarioListView?.count!!) {
             calendarioListView?.setItemChecked(i, false)
@@ -143,10 +141,8 @@ class AsignaturaDeHoy : AppCompatActivity() {
 
     private fun limpiar(){
         limpiar?.setOnClickListener {
-            dbCalendario?.limpiarEstudiadas(getDateAsString())
+            dbCalendario?.limpiar(getDateAsString())
             viewData()
-            // Desmarcar todas las casillas de verificación en el adaptador
-            adapter.uncheckAll()
         }
     }
 
