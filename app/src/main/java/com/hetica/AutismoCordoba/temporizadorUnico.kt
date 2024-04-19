@@ -17,6 +17,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -69,7 +70,7 @@ class temporizadorUnico : AppCompatActivity() {
     private var Main: Button? = null
     var siguiente: Intent? = null
     private var then: Long = 0
-
+    var doubleBackToExitPressedOnce = false
 
 
     @SuppressLint("MissingInflatedId")
@@ -78,6 +79,7 @@ class temporizadorUnico : AppCompatActivity() {
         setContentView(R.layout.activity_temporizador_unico)
         bundle = intent.extras
         db = AdminSQLiteOpenHelperStats(this)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
         mTextViewCountDown = findViewById<View>(R.id.textViewCountDown2) as TextView
         textAsig = findViewById<View>(R.id.textView56) as TextView
         botonFin = findViewById<View>(R.id.button48) as Button //el ultimo en aparecer y el que corta la alarma y sale de la actividad
@@ -140,10 +142,26 @@ class temporizadorUnico : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        //super.onBackPressed()
-        mCountDownTimer?.cancel()
-        finish()
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (doubleBackToExitPressedOnce) {
+                val siguiente = Intent(baseContext, MainActivity::class.java)
+                startActivity(siguiente)
+                mCountDownTimer?.cancel()
+                finish()
+                return
+            }
+            doubleBackToExitPressedOnce = true
+            FuncionesComunes.showSnackbarWithCustomTextSize(
+                this@temporizadorUnico,
+                "Presiona de nuevo para salir.",
+            )
+            Handler(Looper.getMainLooper()).postDelayed({
+                doubleBackToExitPressedOnce = false
+            }, 2000)
+            // Override if needed
+
+        }
     }
     override fun onPause() {
         super.onPause()
