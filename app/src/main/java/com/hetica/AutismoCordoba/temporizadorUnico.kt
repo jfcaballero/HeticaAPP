@@ -142,6 +142,7 @@ class temporizadorUnico : AppCompatActivity() {
 
     override fun onBackPressed() {
         //super.onBackPressed()
+        mCountDownTimer?.cancel()
         finish()
     }
     override fun onPause() {

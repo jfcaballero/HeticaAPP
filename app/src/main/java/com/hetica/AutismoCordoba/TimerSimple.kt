@@ -20,6 +20,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -60,7 +61,7 @@ class TimerSimple : AppCompatActivity() {
     //estas dos solo las pasa AsignaturaDeHoy
     private var posicionDeLaAsignaturaCalendario: String=""
     private var fechaDelEstudioCalendario:String=""
-
+    var doubleBackToExitPressedOnce = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer_simple)
@@ -69,7 +70,7 @@ class TimerSimple : AppCompatActivity() {
         val textView: TextView = findViewById(R.id.textView49)
 
         db = AdminSQLiteOpenHelperStats(this)
-
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
         finFlag = 0
         dbCalendario = AdminSQLiteOpenHelperCalendario(this)
         timeString = bundle.getString("time")!!
@@ -78,18 +79,28 @@ class TimerSimple : AppCompatActivity() {
         cuantas = bundle.getString("numAsig")!!
 
         //estas dos siguientes SÓLO las pasa la actividad AsignaturaDeHoy para marcarlas como estudiadas aqui
-        val posicion = bundle.getString("posicion_de_la_asignatura")
-        val fechaCalendario= bundle.getString("fecha_del_estudio")!!
+        // Obtén los extras del intento
+        val extras = intent.extras
 
-        if (posicion != null) {
-            posicionDeLaAsignaturaCalendario = posicion
+        // Verifica si hay extras y si los extras específicos están presentes
+        if (extras != null && extras.containsKey("posicion_de_la_asignatura") && extras.containsKey("fecha_del_estudio")) {
+            val posicion = extras.getString("posicion_de_la_asignatura")
+            val fechaCalendario = extras.getString("fecha_del_estudio")
+
+            if (posicion != null && fechaCalendario != null) {
+                // Utiliza los valores obtenidos
+                posicionDeLaAsignaturaCalendario = posicion
+                fechaDelEstudioCalendario = fechaCalendario
+
+                Log.d("Posicion en TIMER", posicionDeLaAsignaturaCalendario)
+                Log.d("Fecha en TIMER", fechaDelEstudioCalendario)
+            }else{
+                posicionDeLaAsignaturaCalendario=""
+                fechaDelEstudioCalendario=""
+            }
         } else {
-            posicionDeLaAsignaturaCalendario=""
-        }
-        if (fechaCalendario != null) {
-            fechaDelEstudioCalendario = fechaCalendario
-        } else {
-            fechaDelEstudioCalendario=""
+            // Si los extras específicos no están presentes, simplemente no hagas nada o maneja la situación según lo necesites
+            Log.d("TimerSimple", "Los extras 'posicion_de_la_asignatura' y 'fecha_del_estudio' no están presentes en el intento.")
         }
 
         Log.d("Posicion en TIMER",posicionDeLaAsignaturaCalendario)
@@ -132,8 +143,25 @@ class TimerSimple : AppCompatActivity() {
             dbCalendario?.marcarComoEstudiado(posicionDeLaAsignaturaCalendario.toInt(), fechaDelEstudioCalendario)
         }
     }
-    override fun onBackPressed() {
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (doubleBackToExitPressedOnce) {
+                val siguiente = Intent(baseContext, AsignaturaDeHoy::class.java)
+                startActivity(siguiente)
+                mCountDownTimer.cancel()
+                return
+            }
+            doubleBackToExitPressedOnce = true
+            FuncionesComunes.showSnackbarWithCustomTextSize(
+                this@TimerSimple,
+                "Presiona de nuevo para salir",
+            )
+            Handler(Looper.getMainLooper()).postDelayed({
+                doubleBackToExitPressedOnce = false
+            }, 2000)
         // Override if needed
+
+        }
     }
     @SuppressLint("ClickableViewAccessibility")
     private fun GoToMain() {
