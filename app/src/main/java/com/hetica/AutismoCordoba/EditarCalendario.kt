@@ -4,12 +4,14 @@ import AdminSQLiteOpenHelperCalendario
 import CustomListAdapter
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -17,6 +19,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
@@ -83,8 +86,18 @@ class EditarCalendario : AppCompatActivity() {
             }
         }
         listViewAsignaturasDeUnDia?.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            deleteAsignatura(position, yearFinal!!)
+            // Obtiene el objeto Asignatura en la posición seleccionada
+            val asignaturaSeleccionada = listViewAsignaturasDeUnDia?.getItemAtPosition(position) as String
+
+            // Encuentra la última ocurrencia del guion "-"
+            val lastDashIndex = asignaturaSeleccionada.lastIndexOf("-")
+
+            // Si se encuentra el guion, dividimos la cadena desde esa posición, de lo contrario, usamos el nombre completo
+            val nombreAsignatura = asignaturaSeleccionada.substring(0, lastDashIndex).trim()
+
+            mostrarDialogoBorrar(position, nombreAsignatura)
         }
+
 
 
 
@@ -161,6 +174,31 @@ class EditarCalendario : AppCompatActivity() {
 
 
 
+    }
+    private fun mostrarDialogoBorrar(position:Int,asignatura:String) {
+        val dialog = Dialog(this@EditarCalendario)
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_custom)
+
+        val btnBorrar = dialog.findViewById<Button>(R.id.btn_exit)
+        val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
+        val tituloDialogo = dialog.findViewById<TextView>(R.id.text_message)
+
+        tituloDialogo.text = "¿Quieres eliminar la asignatura $asignatura de la sesión?"
+        btnBorrar.text = "Eliminar"
+        btnBorrar.setOnClickListener {
+            deleteAsignatura(position, yearFinal!!)
+            dialog.dismiss()
+        }
+
+        btnCancelar.setOnClickListener {
+            // Lógica para cancelar
+            dialog.dismiss()
+
+        }
+
+        dialog.show()
     }
     /**
      * Función para añadir una asignatura dado el nombre y la fecha
