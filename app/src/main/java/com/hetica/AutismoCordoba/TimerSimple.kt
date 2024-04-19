@@ -1,5 +1,6 @@
 package com.hetica.AutismoCordoba
 
+import AdminSQLiteOpenHelperCalendario
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationManager
@@ -39,7 +40,7 @@ class TimerSimple : AppCompatActivity() {
     private var booool: Int = 0
     private lateinit var r: Ringtone
     private lateinit var db: AdminSQLiteOpenHelperStats
-
+    private var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
     private lateinit var mTextViewCountDown: TextView
     private lateinit var mButtonSi: Button
     private lateinit var mButtonNo: Button
@@ -56,6 +57,10 @@ class TimerSimple : AppCompatActivity() {
     private var mTimerRunning: Boolean = false
     private var mTimeLeftInMillis: Long = 0
 
+    //estas dos solo las pasa AsignaturaDeHoy
+    private var posicionDeLaAsignaturaCalendario: String=""
+    private var fechaDelEstudioCalendario:String=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer_simple)
@@ -66,11 +71,31 @@ class TimerSimple : AppCompatActivity() {
         db = AdminSQLiteOpenHelperStats(this)
 
         finFlag = 0
-
+        dbCalendario = AdminSQLiteOpenHelperCalendario(this)
         timeString = bundle.getString("time")!!
         asig = bundle.getString("asig")!!
         actual = bundle.getString("actAsig")!!
         cuantas = bundle.getString("numAsig")!!
+
+        //estas dos siguientes SÓLO las pasa la actividad AsignaturaDeHoy para marcarlas como estudiadas aqui
+        val posicion = bundle.getString("posicion_de_la_asignatura")
+        val fechaCalendario= bundle.getString("fecha_del_estudio")!!
+
+        if (posicion != null) {
+            posicionDeLaAsignaturaCalendario = posicion
+        } else {
+            posicionDeLaAsignaturaCalendario=""
+        }
+        if (fechaCalendario != null) {
+            fechaDelEstudioCalendario = fechaCalendario
+        } else {
+            fechaDelEstudioCalendario=""
+        }
+
+        Log.d("Posicion en TIMER",posicionDeLaAsignaturaCalendario)
+        Log.d("Fecha en TIMER",fechaDelEstudioCalendario)
+
+
         textView.text = asig
 
         mStartTime = timeString.toLong() * 60000
@@ -100,7 +125,13 @@ class TimerSimple : AppCompatActivity() {
             }
         }
     }
-
+    private fun marcarComoEstudiada(){
+        if(posicionDeLaAsignaturaCalendario.isNotEmpty() && fechaDelEstudioCalendario.isNotEmpty()){
+            Log.d("Posicion en TIMER ANTES DE INSERTAR",posicionDeLaAsignaturaCalendario)
+            Log.d("Fecha en TIMER ANTES DE INSERTAR",fechaDelEstudioCalendario)
+            dbCalendario?.marcarComoEstudiado(posicionDeLaAsignaturaCalendario.toInt(), fechaDelEstudioCalendario)
+        }
+    }
     override fun onBackPressed() {
         // Override if needed
     }
@@ -152,6 +183,7 @@ class TimerSimple : AppCompatActivity() {
                     mTextViewCountDown.text = "¿Necesitas un descanso?"
                     mTextViewCountDown.textSize = (mTextViewCountDown.textSize*0.2).toFloat()
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
+                    marcarComoEstudiada()
                     db.insertData(asig, sdf.format(Date()),
                         timeString.let { Integer.valueOf(it) })
                     Pausa.visibility = View.INVISIBLE
@@ -161,6 +193,7 @@ class TimerSimple : AppCompatActivity() {
                     }
                 } else {
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
+                    marcarComoEstudiada()
                     db.insertData(asig, sdf.format(Date()),
                         timeString.let { Integer.valueOf(it) })
                     Main.visibility=View.INVISIBLE

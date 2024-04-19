@@ -171,10 +171,14 @@ class AsignaturaDeHoy : AppCompatActivity() {
                                 putExtra("asig", nombreAsignatura)
                                 putExtra("actAsig", "1")
                                 putExtra("numAsig", "1")
+                                putExtra("fecha_del_estudio",getDateAsString())
+                                putExtra("posicion_de_la_asignatura",position.toString())
+
                             }
+                            Log.d("Posicion en Calendario", position.toString())
+                            Log.d("Fecha en Calendario",getDateAsString())
 
                             startActivity(intent)
-                            dbCalendario?.marcarComoEstudiado(position, getDateAsString())
                         }
                     } else {
                         showSnackbarWithCustomTextSize(
