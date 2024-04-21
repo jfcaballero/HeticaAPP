@@ -213,21 +213,8 @@ class AsignaturaDeHoy : AppCompatActivity() {
 
     private fun ayuda(){
         ayuda?.setOnClickListener {
-            val texto=this.resources.getString(R.string.asignatura_de_hoy_texto_de_ayuda)
-
-            val dialogTextSize = getDialogTextSize()
-            val formattedText = getFormattedText(texto)
-
-            val builder = AlertDialog.Builder(this,dialogTextSize)
-            builder.setTitle("Asignaturas de hoy")
-                .setMessage(formattedText)
-                .setPositiveButton("Salir") { dialog, _ ->
-                    dialog.dismiss()
-                }
-
-            val dialog = builder.create()
-
-            dialog.show()
+            val intent = Intent(this@AsignaturaDeHoy, ayudaVertical::class.java)
+            startActivity(intent)
 
         }
     }
