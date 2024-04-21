@@ -125,7 +125,7 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
      */
     fun clearData(): Boolean {
         val db = this.writableDatabase
-        val result = db.delete(AdminSQLiteOpenHelperComentarios.DB_TABLE, null, null)
+        val result = db.delete(DB_TABLE, null, null)
         return result > 0
     }
 

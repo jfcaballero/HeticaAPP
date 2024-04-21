@@ -43,6 +43,14 @@ class AdminSQLiteOpenHelperAsig
         val query = "Select * from " + DB_TABLE
         return db.rawQuery(query, null)
     }
+    /**
+     * Función para limpiar la tabla de asignaturas
+     */
+    fun clearData(): Boolean {
+        val db = this.writableDatabase
+        val result = db.delete(DB_TABLE, null, null)
+        return result > 0
+    }
 
     /**
      * Función para agregar una asignatura a la base de datos

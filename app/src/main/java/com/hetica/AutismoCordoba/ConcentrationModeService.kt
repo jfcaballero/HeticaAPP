@@ -3,14 +3,19 @@ package com.hetica.AutismoCordoba
 import android.app.ActivityManager
 import android.app.NotificationManager
 import android.app.Service
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
 import android.os.HandlerThread
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 class ConcentrationModeService : Service() {
 
@@ -18,6 +23,7 @@ class ConcentrationModeService : Service() {
     private lateinit var handlerThread: HandlerThread
     private lateinit var handler: Handler
     private lateinit var dndModeChecker: Runnable
+
 
     override fun onCreate() {
         super.onCreate()
@@ -45,6 +51,7 @@ class ConcentrationModeService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
+
 
     private fun checkDNDMode() {
         val concentrationModeActivated = getConcentrationModeState()

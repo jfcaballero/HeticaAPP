@@ -108,10 +108,10 @@ class AdminSQLiteOpenHelperCalendario(context: Context) :
     /**
      * Función para eliminar la tabla
      */
-    fun borrarTabla() {
+    fun clearData(): Boolean {
         val db = this.writableDatabase
-        db.execSQL("DROP TABLE IF EXISTS $DB_TABLE")
-        onCreate(db)
+        val result = db.delete(DB_TABLE, null, null)
+        return result > 0
     }
 
     /**
