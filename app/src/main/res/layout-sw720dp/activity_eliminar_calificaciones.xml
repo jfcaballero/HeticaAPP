@@ -20,28 +20,28 @@
 
     <Button
         android:id="@+id/volverAVisualizarCalificacionesDesdeEliminar"
-        android:layout_width="168dp"
-        android:layout_height="74dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/big_action_button_height_720dp"
+        android:layout_marginStart="50dp"
         android:onClick="pasar3"
         android:text="@string/String_volver"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/botonEliminarCalificacion"
+        app:layout_constraintEnd_toEndOf="@+id/listaCalificaciones"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/botonEliminarCalificacion"
+        app:layout_constraintTop_toTopOf="@+id/botonEliminarCalificacion" />
 
     <TextView
         android:id="@+id/textView87"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:text="Asignatura"
         android:textColor="#5A5C5E"
         android:textSize="48sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/botonEliminarCalificacion"
+        app:layout_constraintStart_toStartOf="@+id/listaCalificaciones"
         app:layout_constraintTop_toBottomOf="@+id/toolbar6" />
 
     <androidx.appcompat.widget.Toolbar
@@ -62,9 +62,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:choiceMode="multipleChoice"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
@@ -73,11 +73,11 @@
         android:paddingBottom="5dp"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/volverAVisualizarCalificacionesDesdeEliminar"
+        app:layout_constraintBottom_toTopOf="@+id/botonEliminarCalificacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonEliminarCalificacion"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSelectAll"
         app:layout_constraintVertical_bias="0.206"
         tools:ignore="MissingConstraints" />
 
@@ -88,22 +88,20 @@
         android:minHeight="48dp"
         android:text="Seleccionar todo"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/botonEliminarCalificacion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/botonEliminarCalificacion" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView87"
+        app:layout_constraintEnd_toEndOf="@+id/listaCalificaciones"
+        app:layout_constraintTop_toTopOf="@+id/textView87" />
 
     <Button
         android:id="@+id/botonEliminarCalificacion"
-        android:layout_width="203dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/big_action_button_height_720dp"
+        android:layout_marginBottom="32dp"
         android:text="Eliminar"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toStartOf="@+id/checkBoxSelectAll"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/listaCalificaciones"
-        app:layout_constraintTop_toBottomOf="@+id/textView87" />
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/volverAVisualizarCalificacionesDesdeEliminar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/listaCalificaciones" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -96,7 +96,7 @@ class EliminarCalificaciones : AppCompatActivity() {
         val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
         val tituloDialogo = dialog.findViewById<TextView>(R.id.text_message)
 
-        tituloDialogo.text = "¿Estas seguro de que quieres eliminar esos elementos?"
+        tituloDialogo.text = "¿Seguro que quieres eliminar los elementos seleccionados?"
         btnBorrar.text = "Eliminar"
         btnBorrar.setOnClickListener {
             // Lógica para eliminar
@@ -130,7 +130,10 @@ class EliminarCalificaciones : AppCompatActivity() {
                 adapter.addAll(calificacionesBDList)
                 adapter.notifyDataSetChanged()
                 noHayCalificacionesEliminar.visibility=View.INVISIBLE
+
             } else {
+                botonEliminar?.isEnabled=false
+                checkBoxSelectAll?.isEnabled=false
                 adapter.clear()
                 adapter.notifyDataSetChanged()
                 noHayCalificacionesEliminar.visibility=View.VISIBLE
