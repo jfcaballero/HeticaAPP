@@ -217,10 +217,6 @@ class SettingsActivity : AppCompatActivity() {
         editor.apply()
     }
 
-    private fun getConcentrationModeState(): Boolean {
-        return sharedPreferences.getBoolean("concentration_mode", false)
-    }
-
     /**
      * Función para mostrar el cuadro flotante de ayuda al pulsarse
      * @param texto Texto de ayuda

@@ -194,6 +194,8 @@ class MainActivity : AppCompatActivity() {
             escribirValorCeroEnTemporizador()
             //reiniciar el modo concentracion
             resetConcentrationState()
+            //poner el resto de configuracion por defecto
+            setDefaulSettings()
 
 
         }
@@ -247,6 +249,43 @@ class MainActivity : AppCompatActivity() {
             if (lastVersionCode == -1) 0 else if (lastVersionCode == currentVersionCode) 1 else 2
         sp.edit().putInt("FIRSTTIMERUN", currentVersionCode).apply()
         return result
+    }
+
+    /**Establecer el resto de configuracion a su estado inicial
+     */
+    private fun setDefaulSettings(){
+        //PAUSA
+        var fos: FileOutputStream? = null
+        try {
+            fos = openFileOutput("pausa.txt", MODE_PRIVATE)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+        try {
+            fos!!.write(Integer.toString(0).toByteArray())
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        //FIN
+        var fos2: FileOutputStream? = null
+        try {
+            fos2 = openFileOutput("fin.txt", MODE_PRIVATE)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+        try {
+            fos2!!.write(Integer.toString(0).toByteArray())
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        //Tiempo de trabajo fijo
+        fos = openFileOutput("tiempo_trabajar.txt", MODE_PRIVATE)
+        val resul = 30
+        fos.write(Integer.toString(resul).toByteArray())
+        fos.write("\n".toByteArray())
+        fos.write("0".toByteArray())
+        fos.write("\n".toByteArray())
+
     }
 
     private fun resetConcentrationState() {
