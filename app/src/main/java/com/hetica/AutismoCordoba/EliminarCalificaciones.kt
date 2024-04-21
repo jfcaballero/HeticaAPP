@@ -14,6 +14,7 @@ import android.view.Window
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isNotEmpty
 import java.util.ArrayList
 
 /**
@@ -63,24 +64,51 @@ class EliminarCalificaciones : AppCompatActivity() {
         adapter = CustomListAdapter(this, android.R.layout.simple_list_item_multiple_choice, ArrayList())
         listaCalificaciones.adapter = adapter
         listaCalificaciones.choiceMode = ListView.CHOICE_MODE_MULTIPLE
+        botonEliminar?.isEnabled = false
+        checkBoxSelectAll.isEnabled =true
 
         // Llamar a viewSubjectGrades con el valor inicial del Spinner
         if (asignaturaSeleccionada != null) {
             viewSubjectGrades()
         }
-        botonEliminar?.setOnClickListener {
-            mostrarDialogoConfirmacion()
-        }
 
-        // Configuración del evento de clic en los elementos de la lista
-        listaCalificaciones.setOnItemClickListener { _, _, _, _ ->
-            // No es necesario gestionar manualmente los estados de las casillas de verificación
+
+        // Configurar el Listener para la lista de calificaciones
+        listaCalificaciones.setOnItemClickListener { parent, view, position, id ->
+            // Verificar si al menos un elemento está seleccionado
+            if (listaCalificaciones.checkedItemCount > 0) {
+                // Si hay elementos seleccionados, activar el botón de eliminar
+                botonEliminar?.isEnabled = true
+                checkBoxSelectAll.isEnabled =true
+
+
+            }else{
+                botonEliminar?.isEnabled = false
+                FuncionesComunes.showSnackbarWithCustomTextSize(this,"Selecciona al menos una calificación")
+            }
+        }
+        botonEliminar?.setOnClickListener {
+            if (listaCalificaciones.checkedItemCount > 0) {
+                mostrarDialogoConfirmacion()
+            }else{
+                FuncionesComunes.showSnackbarWithCustomTextSize(this,"Selecciona al menos una calificación")
+            }
+
         }
 
         // Configuración del evento de clic en "Seleccionar Todo"
         checkBoxSelectAll.setOnCheckedChangeListener { _, isChecked ->
             selectAllItems(isChecked)
+            // Verificar si al menos un elemento está seleccionado
+            if (isChecked || listaCalificaciones.checkedItemCount > 0) {
+                // Si el "Seleccionar Todo" está checkeado o si hay elementos seleccionados, activar el botón de eliminar
+                botonEliminar?.isEnabled = true
+            } else {
+                // Si el "Seleccionar Todo" está descheckeado y no hay elementos seleccionados, desactivar el botón de eliminar
+                botonEliminar?.isEnabled = false
+            }
         }
+
 
         btnVolverAVisualizarCalificaciones?.setOnClickListener {
             volverAVisualizarCalificaciones()
