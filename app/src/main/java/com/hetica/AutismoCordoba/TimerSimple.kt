@@ -146,7 +146,7 @@ class TimerSimple : AppCompatActivity() {
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (doubleBackToExitPressedOnce) {
-                val siguiente = Intent(baseContext, AsignaturaDeHoy::class.java)
+                val siguiente = Intent(baseContext, MainActivity::class.java)
                 startActivity(siguiente)
                 mCountDownTimer.cancel()
                 return
