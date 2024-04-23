@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MostrarComentarios">
 
+    <Button
+        android:id="@+id/eliminarComentariosBoton"
+        android:layout_width="@dimen/big_action_button_width_480dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="ELIMINAR"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="@+id/listViewComentarios"
+        app:layout_constraintStart_toStartOf="@+id/listViewComentarios" />
+
     <TextView
         android:id="@+id/textView82"
         android:layout_width="wrap_content"
@@ -108,11 +119,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintBottom_toTopOf="@+id/eliminarComentariosBoton"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/relativeLayout2"

@@ -112,11 +112,10 @@
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/mi_color_de_barra"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintBottom_toTopOf="@+id/eliminarComentariosBoton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comentariosDesde"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/comentariosDesde" />
 
 
     <TextView
@@ -237,5 +236,16 @@
         app:layout_constraintEnd_toEndOf="@+id/listViewComentarios"
         app:layout_constraintStart_toStartOf="@+id/listViewComentarios"
         app:layout_constraintTop_toTopOf="@+id/listViewComentarios" />
+
+    <Button
+        android:id="@+id/eliminarComentariosBoton"
+        android:layout_width="@dimen/big_action_button_width_320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="ELIMINAR"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewestadisticas"
+        app:layout_constraintEnd_toEndOf="@+id/listViewComentarios"
+        app:layout_constraintStart_toStartOf="@+id/listViewComentarios" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
