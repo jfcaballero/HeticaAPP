@@ -159,7 +159,7 @@ class TimerSimple : AppCompatActivity() {
             Handler(Looper.getMainLooper()).postDelayed({
                 doubleBackToExitPressedOnce = false
             }, 2000)
-        // Override if needed
+            // Override if needed
 
         }
     }

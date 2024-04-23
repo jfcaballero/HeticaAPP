@@ -8,16 +8,11 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
@@ -26,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
-import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
 import java.util.Calendar
 
 
@@ -178,37 +172,10 @@ class estadisticasDias : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     fun GoToMain(){
-        val handler = Handler(Looper.getMainLooper())
-        val delayMillis = 3000L // 3 segundos
-        var isLongPressFired = false
-        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onLongPress(e: MotionEvent) {
-                if (isLongPressFired) {
-                    return
-                }
-                isLongPressFired = true
-
-                // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
-                handler.postDelayed({
-
-                    val intent = Intent(this@estadisticasDias, MainActivity::class.java)
-                    startActivity(intent)
-
-                }, delayMillis)
-            }
-        })
-
-        imageMain?.setOnTouchListener { _, event ->
-            gestureDetector.onTouchEvent(event)
-            if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
-                isLongPressFired = false
-                // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
-                showSnackbarWithCustomTextSize(this,"Pulsa durante 3s")
-                handler.removeCallbacksAndMessages(null)
-            }
-            true
+        imageMain?.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
