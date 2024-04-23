@@ -59,7 +59,7 @@ class EliminarComentarios : AppCompatActivity() {
             viewSubjectComentarios()
         }
         // Configurar el Listener para la lista de calificaciones
-        listaComentarios.setOnItemClickListener { parent, view, position, id ->
+        listaComentarios.setOnItemClickListener { _, _, _, _ ->
             // Verificar si al menos un elemento está seleccionado
             if (listaComentarios.checkedItemCount > 0) {
                 // Si hay elementos seleccionados, activar el botón de eliminar

@@ -83,7 +83,7 @@ class TimerDescanso : AppCompatActivity() {
         startTimer()
     }
 
-    override fun onBackPressed() {}
+
     @SuppressLint("ClickableViewAccessibility")
     private fun main() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {

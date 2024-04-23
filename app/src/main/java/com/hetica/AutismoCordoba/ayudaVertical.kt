@@ -24,7 +24,7 @@ class ayudaVertical : AppCompatActivity() {
         val builder = AlertDialog.Builder(this,dialogTextSize)
         builder.setTitle("Asignaturas de hoy")
             .setMessage(formattedText)
-            .setPositiveButton("Salir") { dialog, _ ->
+            .setPositiveButton("Salir") { _, _ ->
                 val intent = Intent(this@ayudaVertical, AsignaturaDeHoy::class.java)
                 startActivity(intent)
             }

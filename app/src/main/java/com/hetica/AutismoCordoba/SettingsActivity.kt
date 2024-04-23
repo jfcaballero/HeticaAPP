@@ -24,6 +24,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Switch
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.hetica.AutismoCordoba.FuncionesComunes.Companion.showSnackbarWithCustomTextSize
@@ -48,6 +49,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
         toolbar = findViewById(R.id.toolbar2)
         setSupportActionBar(toolbar)
         customToolbarAdapter = CustomToolbarAdapter(this, toolbar)
@@ -333,11 +335,12 @@ class SettingsActivity : AppCompatActivity() {
         return notificationManager.isNotificationPolicyAccessGranted
     }
 
-    override fun onBackPressed() {
-        val siguiente = Intent(this, MainActivity::class.java)
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+        val siguiente = Intent(this@SettingsActivity, MainActivity::class.java)
         startActivity(siguiente)
         finish()
-    }
+    }}
 
 
     /**

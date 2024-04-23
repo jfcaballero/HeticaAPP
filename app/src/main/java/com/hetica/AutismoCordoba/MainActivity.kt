@@ -223,18 +223,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        //new AlertDialog.Builder(this)
-        //        .setTitle("Really Exit?")
-        //        .setMessage("Are you sure you want to exit?")
-        //        .setNegativeButton(android.R.string.no, null)
-        //        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-        //                   public void onClick(DialogInterface arg0, int arg1) {
-        //                MainActivity.super.onBackPressed();
-        //            }
-        //        }).create().show();
-    }
     /**
      * 0: La aplicación se instalo por primera vez
      * 1: No ha cambiado nada

@@ -74,7 +74,7 @@ class EliminarCalificaciones : AppCompatActivity() {
 
 
         // Configurar el Listener para la lista de calificaciones
-        listaCalificaciones.setOnItemClickListener { parent, view, position, id ->
+        listaCalificaciones.setOnItemClickListener { _, _, _, _ ->
             // Verificar si al menos un elemento está seleccionado
             if (listaCalificaciones.checkedItemCount > 0) {
                 // Si hay elementos seleccionados, activar el botón de eliminar
@@ -160,7 +160,7 @@ class EliminarCalificaciones : AppCompatActivity() {
 
             } else {
                 botonEliminar?.isEnabled=false
-                checkBoxSelectAll?.isEnabled=false
+                checkBoxSelectAll.isEnabled =false
                 adapter.clear()
                 adapter.notifyDataSetChanged()
                 noHayCalificacionesEliminar.visibility=View.VISIBLE

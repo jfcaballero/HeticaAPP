@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -12,12 +13,15 @@ class OrganizarEstudio1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_organizar_estudio1)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
     }
 
-    override fun onBackPressed() {
-        val siguiente = Intent(this, MainActivity::class.java)
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+
+        val siguiente = Intent(this@OrganizarEstudio1, MainActivity::class.java)
         startActivity(siguiente)
-    }
+    }}
 
     /**
      * Pasa al siguiente consejo
