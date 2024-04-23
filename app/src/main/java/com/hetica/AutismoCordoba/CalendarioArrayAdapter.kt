@@ -19,7 +19,8 @@ class CalendarioArrayAdapter(
     resource: Int,
     objects: MutableList<String>
 ) : ArrayAdapter<String>(context, resource, objects) {
-
+    private val screenWidthDp = context.resources.configuration.screenWidthDp
+    private val screenHeightDp = context.resources.configuration.screenHeightDp
     val checkedPositions = SparseBooleanArray()
     var lastCheckedPosition = -1
 
@@ -46,22 +47,36 @@ class CalendarioArrayAdapter(
                 handleItemClick(position)
             }
         }
-        val screenWidthDp = context.resources.configuration.screenWidthDp
-        // Adaptar el tamaño de texto basado en el tamaño de pantalla
-        val textSizeResId = when {
-            // Ajusta los valores de screenWidthDp según tus necesidades
-            screenWidthDp >= 720 -> R.dimen.text_size_small_720dp
-            screenWidthDp >= 480 -> R.dimen.text_size_small_480dp
-            else -> R.dimen.text_size_small_less_than_480dp
+        setTextViewSize(textView)
+        return rowView
+    }
+
+    private fun setTextViewSize(textView: TextView) {
+        // Obtener la rotación de la pantalla según el nivel de API
+        val rotation = context.display?.rotation ?: android.view.Surface.ROTATION_0
+
+        val isPortrait = rotation == android.view.Surface.ROTATION_0 || rotation == android.view.Surface.ROTATION_180
+
+        val textSize = when {
+            isPortrait -> {
+                when {
+                    screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.list_item_portrait_720)
+                    screenWidthDp >= 480 -> context.resources.getDimension(R.dimen.list_item_portrait_480)
+                    else -> context.resources.getDimension(R.dimen.list_item_portrait_320)
+                }
+            }else -> {
+                when {
+                    //En el primero se hace la intersección para que no quede muy pequeño en tablets
+                    screenHeightDp >= 600 && screenWidthDp >= 720 -> context.resources.getDimension(R.dimen.list_item_landscape_720)
+                    screenHeightDp >= 400 -> context.resources.getDimension(R.dimen.list_item_landscape_480)
+                    else -> context.resources.getDimension(R.dimen.list_item_landscape_320)
+                }
+
+            }
+
         }
 
-        // Obtener el tamaño de texto desde dimens.xml
-        val textSizePx = context.resources.getDimensionPixelSize(textSizeResId)
-
-        // Establecer el tamaño de texto en el TextView
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizePx.toFloat())
-
-        return rowView
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
     }
 
     fun uncheckAll() {

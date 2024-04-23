@@ -29,7 +29,7 @@
         <dimen name="dropdown_item_height_320">40dp</dimen>
         <!-- List -->
         <dimen name="list_item_portrait_320">18sp</dimen>
-        <dimen name="list_item_landscape_320">23sp</dimen>
+        <dimen name="list_item_landscape_320">19sp</dimen>
         <!-- Graficas -->
         <dimen name="chart_title_320">7sp</dimen>
         <dimen name="chart_subtitle_320">5sp</dimen>
