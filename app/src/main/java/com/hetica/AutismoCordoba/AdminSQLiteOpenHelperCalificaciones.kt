@@ -207,6 +207,9 @@ class AdminSQLiteOpenHelperCalificaciones(
         return outputFormat.format(dateObj as Date)
     }
 
+    /**
+     * Funcion para eliminar calificaciones dado el orden en el que ocupan y la asignatura
+     */
     @SuppressLint("Range")
     fun deleteDataByIndex(indicesSeleccionados: MutableList<Int>, asignaturaSeleccionada: String?): Boolean {
         val db = this.writableDatabase

@@ -8,6 +8,7 @@ import android.util.Log
 import com.hetica.AutismoCordoba.AdminSQLiteOpenHelperStats
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class AdminSQLiteOpenHelperComentarios(context: Context?) :
     SQLiteOpenHelper(context, DB_NAME, null, 1) {
@@ -70,21 +71,91 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
      * @return Lista de pares Fecha-comentario
      */
     @SuppressLint("Range")
-    fun getCommentsForSubject(asignatura: String): List<Pair<String, String>> {
+    fun getCommentsForSubject(asignatura: String): MutableList<String> {
         val db = this.readableDatabase
         val query = "SELECT $DATE, $COMMENTS FROM $DB_TABLE WHERE $NAME = ?"
         val cursor = db.rawQuery(query, arrayOf(asignatura))
-        val commentsList = mutableListOf<Pair<String, String>>()
+
+        val commentsList = mutableListOf<String>()
 
         if (cursor.moveToFirst()) {
             do {
-                val fecha = cursor.getString(cursor.getColumnIndex(DATE))
-                val comentario = cursor.getString(cursor.getColumnIndex(COMMENTS))
-                commentsList.add(Pair(fecha, comentario))
+                val date = cursor.getString(cursor.getColumnIndex(DATE))
+                val comment = abreviarComentario(cursor.getString(cursor.getColumnIndex(COMMENTS)))
+                val entry = "$date | $comment"
+                commentsList.add(entry)
             } while (cursor.moveToNext())
         }
         cursor.close()
         return commentsList
+    }
+    /**
+     * Función para acortar el comentario al mostrarlo en el listview
+     * @param comentario El comentario a acortar si excede la longitud máxima
+     * @return El comentario acortado si excede la longitud máxima, de lo contrario, el comentario sin cambios
+     */
+    private fun abreviarComentario(comentario: String): String {
+        val maxLength = 20
+        val comentarioSinSaltos = comentario.replace("\n", " ") // Reemplazar saltos de línea por espacios
+        return if (comentarioSinSaltos.length > maxLength) {
+            comentarioSinSaltos.substring(0, maxLength - 3) + "..."
+        } else {
+            comentarioSinSaltos
+        }
+    }
+    /**
+     * Funcion para eliminar comentarios dado el orden en el que ocupan y la asignatura
+     */
+    @SuppressLint("Range")
+    fun deleteDataByIndex(indicesSeleccionados: MutableList<Int>, asignaturaSeleccionada: String?): Boolean {
+        val db = this.writableDatabase
+        var success = true
+
+        asignaturaSeleccionada?.let { asignatura ->
+            // Obtener la lista de calificaciones de la asignatura seleccionada ordenada por fecha
+            val query = "SELECT $ID FROM $DB_TABLE WHERE $NAME = ? ORDER BY $DATE"
+            val cursor = db.rawQuery(query, arrayOf(asignatura))
+
+            if (cursor.moveToFirst()) {
+                // Recorrer el cursor hasta el índice deseado y eliminar las calificaciones correspondientes
+                for (index in indicesSeleccionados) {
+                    cursor.move(index)
+                    if (!cursor.isAfterLast) {
+                        val id = cursor.getString(cursor.getColumnIndex(ID))
+                        val whereClause = "$ID = ?"
+                        val whereArgs = arrayOf(id)
+                        val result = db.delete(DB_TABLE, whereClause, whereArgs)
+
+                        if (result <= 0) {
+                            success = false
+                            Log.e("deleteDataByIndex", "Error al eliminar el comentario con ID: $id")
+                        }
+                    } else {
+                        Log.e("deleteDataByIndex", "Índice fuera de los límites de la asignatura: $index")
+                        success = false
+                    }
+                }
+            } else {
+                Log.e("deleteDataByIndex", "No se encontraron comentarios para la asignatura: $asignatura")
+                success = false
+            }
+            cursor.close()
+        } ?: run {
+            Log.e("deleteDataByIndex", "La asignatura seleccionada es nula.")
+            success = false
+        }
+
+        return success
+    }
+    /**
+     * Función es para mostrar la fecha en formato dd/MM.
+     *@param date Fecha
+     **/
+    private fun formatDate(date: String): String {
+        val inputFormat = SimpleDateFormat("MMddyyyy", Locale.getDefault()) // Cambiar el formato de entrada a MMddyyyy
+        val dateObj = inputFormat.parse(date)
+        val outputFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
+        return outputFormat.format(dateObj as Date)
     }
     /**
      * Función para actualizar el nombre de una asignatura en la base de datos

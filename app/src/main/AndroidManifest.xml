@@ -19,10 +19,15 @@
         tools:ignore="ExtraText,GoogleAppIndexingWarning"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".ayudaVertical"
+            android:name=".EliminarComentarios"
+            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".ayudaVertical"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".InsertarComentarios"
             android:exported="false"

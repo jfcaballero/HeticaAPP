@@ -84,7 +84,6 @@ class EliminarCalificaciones : AppCompatActivity() {
 
             }else{
                 botonEliminar?.isEnabled = false
-                FuncionesComunes.showSnackbarWithCustomTextSize(this,"Selecciona al menos una calificación")
             }
         }
         botonEliminar?.setOnClickListener {

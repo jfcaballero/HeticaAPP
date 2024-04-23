@@ -17,6 +17,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListView
@@ -42,6 +43,7 @@ private var fechaInicio: EditText? = null
 private var fechaFin: EditText? = null
 private lateinit var toolbar: Toolbar
 private lateinit var customToolbarAdapter: CustomToolbarAdapter
+private var botonEliminarComentarios: Button?=null
 
 class MostrarComentarios : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -54,6 +56,7 @@ class MostrarComentarios : AppCompatActivity() {
         dbAsig = AdminSQLiteOpenHelperAsig(this)
         dbComentarios = AdminSQLiteOpenHelperComentarios(this)
         listViewComentarios = findViewById(R.id.listViewComentarios)
+        botonEliminarComentarios=findViewById(R.id.eliminarComentariosBoton)
 
         imageMain2 = findViewById(R.id.botonMain2)
         GoToMain()
@@ -81,6 +84,10 @@ class MostrarComentarios : AppCompatActivity() {
 
         fechaFin?.setOnClickListener {
             showDatePickerDialog(fechaFin!!, fechaInicio!!)
+        }
+
+        botonEliminarComentarios?.setOnClickListener {
+            pasarEliminarComentarios()
         }
 
         val spinnerOpciones: Spinner = findViewById(R.id.selectorRangoHistorico)
@@ -179,6 +186,12 @@ class MostrarComentarios : AppCompatActivity() {
                 viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
             }
         }
+    }
+
+    private fun pasarEliminarComentarios() {
+        val intent = Intent(this, EliminarComentarios::class.java)
+            .putExtra("asignaturaSeleccionadaEliminarComentarios",asignaturaSeleccionada)
+        startActivity(intent)
     }
 
     /**
@@ -280,9 +293,11 @@ class MostrarComentarios : AppCompatActivity() {
         if (comentariosList.isEmpty()) {
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.VISIBLE
+
             }
 
         }else{
+
             if (nocomentarios != null) {
                 nocomentarios.visibility=View.INVISIBLE
             }

@@ -67,6 +67,8 @@
         <dimen name="home_height_480dp">63dp</dimen>
         <!-- Anotaciones icono -->
         <dimen name="anotaciones_height_480dp">50dp</dimen>
+        <!-- Toolbar -->
+        <dimen name="toolbar_height_480dp">80dp</dimen>
 
     <!-- Tamaños para pantallas de >=720dp -->
     <dimen name="text_size_small_720dp">24sp</dimen>
@@ -93,6 +95,8 @@
         <dimen name="home_height_720dp">68dp</dimen>
         <!-- Anotaciones icono -->
         <dimen name="anotaciones_height_720dp">68dp</dimen>
+        <!-- Toolbar -->
+        <dimen name="toolbar_height_720dp">100dp</dimen>
 
 
 </resources>
