@@ -73,7 +73,7 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
     @SuppressLint("Range")
     fun getCommentsForSubject(asignatura: String): MutableList<String> {
         val db = this.readableDatabase
-        val query = "SELECT $DATE, $COMMENTS FROM $DB_TABLE WHERE $NAME = ?"
+        val query = "SELECT $DATE, $COMMENTS FROM $DB_TABLE WHERE $NAME = ? ORDER BY $DATE ASC"
         val cursor = db.rawQuery(query, arrayOf(asignatura))
 
         val commentsList = mutableListOf<String>()
