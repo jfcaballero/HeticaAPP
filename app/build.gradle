@@ -15,8 +15,8 @@ android {
         applicationId "com.hetica.AutismoCordoba"
         minSdk 30
         targetSdk 34
-        versionCode 5 //initial 5
-        versionName "1.0" //initial 1.0
+        versionCode 6 //initial 5
+        versionName "2.0" //initial 1.0
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
