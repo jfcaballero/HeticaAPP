@@ -3,17 +3,26 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperComentarios
 import CustomListAdapter
 import CustomToolbarAdapter
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import java.util.ArrayList
 
@@ -31,6 +40,10 @@ class EliminarComentarios : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var customToolbarAdapter: CustomToolbarAdapter
     private var dbComentarios: AdminSQLiteOpenHelperComentarios?=null
+    // Variables para el gestor de eventos de toques largos
+    private lateinit var gestureDetector: GestureDetector
+    private lateinit var comentariosCompletos: List<String> // Lista para almacenar los comentarios completos
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_comentarios)
@@ -55,10 +68,36 @@ class EliminarComentarios : AppCompatActivity() {
         listaComentarios.choiceMode = ListView.CHOICE_MODE_MULTIPLE
         botonEliminar?.isEnabled = false
         checkBoxSelectAllEliminarComentarios.isEnabled =true
+
         if (asignaturaSeleccionada != null) {
             viewSubjectComentarios()
         }
-        // Configurar el Listener para la lista de calificaciones
+        // Inicializar el gestor de eventos de toques largos
+        gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                // Obtener el comentario correspondiente al elemento presionado
+                val position = listaComentarios.pointToPosition(e.x.toInt(), e.y.toInt())
+                if (position != AdapterView.INVALID_POSITION) {
+                    val comentario = adapter.getItem(position)
+                    // Mostrar el cuadro flotante con el comentario
+                    if (comentario != null) {
+                        mostrarCuadroFlotante(position)
+                    }
+
+                }
+            }
+        })
+
+
+
+
+        // Configurar el Listener para el toque de los items
+        listaComentarios.setOnTouchListener { _, event ->
+            // Detectar el evento de toque en la lista y pasar al gestor de eventos
+            gestureDetector.onTouchEvent(event)
+            false
+        }
+        // Configurar el Listener para la lista de comentarios
         listaComentarios.setOnItemClickListener { _, _, _, _ ->
             // Verificar si al menos un elemento está seleccionado
             if (listaComentarios.checkedItemCount > 0) {
@@ -96,6 +135,68 @@ class EliminarComentarios : AppCompatActivity() {
         }
 
     }
+
+    /**
+     * Función para mostrar el cuadro con el comentario al completo al pulsarlo en la lista
+     *
+     */
+    private fun mostrarCuadroFlotante(posicion:Int) {
+        val partes = comentariosCompletos[posicion].split(" | ", limit = 2)
+        val fecha = if (partes.isNotEmpty()) partes[0] else ""
+        val soloComentario = partes[1]
+
+        val dialogTextSize = getDialogTextSize()
+        val formattedText = getFormattedText(soloComentario)
+
+        val builder = AlertDialog.Builder(this, dialogTextSize)
+        builder.setTitle(fecha)
+            .setMessage(formattedText)
+            .setPositiveButton("Salir") { dialog, _ ->
+                dialog.dismiss()
+                //para que no se checkee al intentar verlo
+                listaComentarios.setItemChecked(posicion, false)
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+    private fun getDialogTextSize(): Int {
+        val screenSize = resources.configuration.screenWidthDp
+        // Tamaños de titulos y boton del alertdialog para diferentes tamaños de pantalla
+        val textSizeSmall = R.style.DialogTextStyleSmall
+        val textSizeMedium = R.style.DialogTextStyleMedium
+        val textSizeLarge = R.style.DialogTextStyleLarge
+
+        return when {
+            screenSize >= 720 -> textSizeLarge // Pantalla grande (más de 720dp)
+            screenSize >= 480 -> textSizeMedium // Pantalla mediana (entre 480dp y 720dp)
+            else -> textSizeSmall // Pantalla pequeña (menos de 480dp)
+        }
+    }
+    fun getFormattedText(texto: String): CharSequence {
+        val spannableStringBuilder = SpannableStringBuilder(texto)
+        val screenSize = resources.configuration.screenWidthDp
+
+        val textSizeSmall = 19
+        val textSizeMedium = this.resources.getDimensionPixelSize(R.dimen.text_size_small_less_than_480dp)
+        val textSizeLarge = this.resources.getDimensionPixelSize(R.dimen.text_size_medium_less_than_480dp)
+
+        val textSize = when {
+            screenSize >= 720 -> textSizeLarge
+            screenSize >= 480 -> textSizeMedium
+            else -> textSizeSmall
+        }
+
+        spannableStringBuilder.setSpan(
+            AbsoluteSizeSpan(textSize, true),
+            0,
+            spannableStringBuilder.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        return spannableStringBuilder
+    }
+
     private fun mostrarDialogoConfirmacion() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -169,21 +270,36 @@ class EliminarComentarios : AppCompatActivity() {
     private fun viewSubjectComentarios() {
         Log.d("viewSubjectComentarios", "Entrando a viewSubjectComentarios")
         val comentariosBDList = dbComentarios?.getCommentsForSubject(asignaturaSeleccionada!!)
-        Log.d("viewSubjectComentarios", "despues de llamar a la getcomments")
+        Log.d("viewSubjectComentarios", "después de llamar a la getcomments")
         if (!comentariosBDList.isNullOrEmpty()) {
+            comentariosCompletos = comentariosBDList // Almacenamos los comentarios completos
             adapter.clear()
-            adapter.addAll(comentariosBDList)
+            // Mostramos solo las abreviaturas en la lista
+            val comentariosAbreviados = comentariosBDList.map { abreviarComentario(it) }
+            adapter.addAll(comentariosAbreviados)
             adapter.notifyDataSetChanged()
-            noHayComentariosEliminar.visibility=View.INVISIBLE
-
+            noHayComentariosEliminar.visibility = View.INVISIBLE
         } else {
-            botonEliminar?.isEnabled=false
-            checkBoxSelectAllEliminarComentarios.isEnabled =false
+            botonEliminar?.isEnabled = false
+            checkBoxSelectAllEliminarComentarios.isEnabled = false
             adapter.clear()
             adapter.notifyDataSetChanged()
-            noHayComentariosEliminar.visibility=View.VISIBLE
+            noHayComentariosEliminar.visibility = View.VISIBLE
         }
-
+    }
+    /**
+     * Función para acortar el comentario al mostrarlo en el listview
+     * @param comentario El comentario a acortar si excede la longitud máxima
+     * @return El comentario acortado si excede la longitud máxima, de lo contrario, el comentario sin cambios
+     */
+    private fun abreviarComentario(comentario: String): String {
+        val maxLength = 30
+        val comentarioSinSaltos = comentario.replace("\n", " ") // Reemplazar saltos de línea por espacios
+        return if (comentarioSinSaltos.length > maxLength) {
+            comentarioSinSaltos.substring(0, maxLength) + "..."
+        } else {
+            comentarioSinSaltos
+        }
     }
 
 

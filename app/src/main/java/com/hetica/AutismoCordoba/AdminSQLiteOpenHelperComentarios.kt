@@ -81,7 +81,8 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         if (cursor.moveToFirst()) {
             do {
                 val date = cursor.getString(cursor.getColumnIndex(DATE))
-                val comment = abreviarComentario(cursor.getString(cursor.getColumnIndex(COMMENTS)))
+                val comment = cursor.getString(cursor.getColumnIndex(COMMENTS))
+
                 val entry = "$date | $comment"
                 commentsList.add(entry)
             } while (cursor.moveToNext())
@@ -89,20 +90,7 @@ class AdminSQLiteOpenHelperComentarios(context: Context?) :
         cursor.close()
         return commentsList
     }
-    /**
-     * Función para acortar el comentario al mostrarlo en el listview
-     * @param comentario El comentario a acortar si excede la longitud máxima
-     * @return El comentario acortado si excede la longitud máxima, de lo contrario, el comentario sin cambios
-     */
-    private fun abreviarComentario(comentario: String): String {
-        val maxLength = 20
-        val comentarioSinSaltos = comentario.replace("\n", " ") // Reemplazar saltos de línea por espacios
-        return if (comentarioSinSaltos.length > maxLength) {
-            comentarioSinSaltos.substring(0, maxLength - 3) + "..."
-        } else {
-            comentarioSinSaltos
-        }
-    }
+
     /**
      * Funcion para eliminar comentarios dado el orden en el que ocupan y la asignatura
      */
