@@ -11,7 +11,8 @@
     <string name="String_visualizar_calificaciones">Calificaciones</string>
     <string name="String_add_calificaciones">Añadir una calificación</string>
     <string name="String_delete_calificaciones">Eliminar calificaciones</string>
-    <string name="String_delete_comentarios">Eliminar comentarios</string>
+    <string name="String_delete_comentarios">Eliminar anotaciones</string>
+    <string name="String_leyenda_delete_comentarios">Para visualizar una anotación, mantenga pulsado el dedo sobre ella durante 1 segundo</string>
     <string name="String_store">Store</string>
 
     <string name="String_despejaMesa">DESPEJA LA MESA DE ESTUDIO Y PON LA LUZ ADECUADA</string>

@@ -3,6 +3,7 @@ package com.hetica.AutismoCordoba
 import AdminSQLiteOpenHelperComentarios
 import CustomListAdapter
 import CustomToolbarAdapter
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -44,6 +45,7 @@ class EliminarComentarios : AppCompatActivity() {
     private lateinit var gestureDetector: GestureDetector
     private lateinit var comentariosCompletos: List<String> // Lista para almacenar los comentarios completos
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_comentarios)
