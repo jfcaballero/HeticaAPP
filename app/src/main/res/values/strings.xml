@@ -31,7 +31,7 @@
     <string name="String_librosEscritorio">LOS LIBROS Y CUADERNOS QUE NO TOQUEN MAÑANA, DÉJALOS EN EL ESCRITORIO</string>
     <string name="String_estucheAgenda">COMPRUEBA QUE GUARDAS \nEL ESTUCHE Y LA AGENDA</string>
 
-    <string name="String_temporizadorSimple">Mostrar temporizador al inicio</string>
+    <string name="String_temporizadorSimple">Mostrar cronómetro al inicio</string>
 
     <string name="String_tiempoEstudio">¿Cuánto tiempo vas a trabajar?</string>
 
@@ -88,7 +88,11 @@
         Debe añadir al menos una asignatura desde el icono de opciones (rueda dentada negra) para que la aplicación funcione adecuadamente.</string>
     <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
     <string name="comentar_estudio">Comentar estudio</string>
-    <string name="tiempo_estudio_leyenda">Seleccione una asignatura y rango, y posteriormente una fecha de estudio de las que aparezcan para poder realizar una anotación. Pulse la pestaña “Anotación sobre estudio” para visualizar anotaciones.</string>
+    <string name="tiempo_estudio_leyenda">
+        1 - Seleccione una asignatura y rango temporal.\n
+        2 - Para realizar una anotación pulse sobre una fecha de estudio de las que se muestren.\n
+        3 - Para visualizar las anotaciones debe ir a la pestaña “Anotación sobre estudio”.
+    </string>
     <string name="visualizar_calificaciones_leyenda">Notas obtenidas por asignatura. Para un nuevo curso, elimine la asignatura desde la
     opción de configuración de la pantalla principal (rueda negra dentada).</string>
     <string name="asignatura_de_hoy_texto_de_ayuda">
@@ -115,7 +119,7 @@
 
 
     <string name="texto_ayuda">
-        \u25AA **Mostrar temporizador al inicio**: Con la opción activada se permite estudiar
+        \u25AA **Mostrar cronómetro al inicio**: Con la opción activada se permite estudiar
         directamente una asignatura desde el menú principal. Aparecerá un nuevo icono en
         forma de cronómetro blanco.\n\n
 
@@ -126,11 +130,11 @@
         \u25AA **Gestionar asignaturas**: Mediante esta opción se permite gestionar asignaturas
         (añadir, eliminar, modificar, visualizar).\n\n
 
-        \u25AA **Pausar temporizador**: Con la opción activada se permite el poder pausar el
-        cronómetro de estudio durante una sesión de estudio.\n\n
+        \u25AA **Pausar temporizador**: Con la opción activada se permite pausar una sesión individual de estudio
+        (cronómetro o temporizador blanco).\n\n
 
-        \u25AA **Habilitar finalizar**: Con la opción activada se permite finalizar una sesión de
-        estudio sin tener que esperar a que finalice el temporizador.\n\n
+        \u25AA **Habilitar finalizar**: Con la opción activada se permite finalizar una sesión individual de estudio
+        (cronómetro o temporizador blanco) sin tener que esperar a que finalice el temporizador.\n\n
 
         \u25AA **Modo concentración**:  Con la opción activada no se recibirán notificaciones en el
         dispositivo móvil mientras se usa la aplicación Hetica. \n\n
