@@ -175,6 +175,7 @@ class TimerSimple : AppCompatActivity() {
                 // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
                 handler.postDelayed({
                     val intent = Intent(this@TimerSimple, MainActivity::class.java)
+                    mCountDownTimer.cancel()
                     startActivity(intent)
                 }, delayMillis)
             }
@@ -186,7 +187,7 @@ class TimerSimple : AppCompatActivity() {
                 isLongPressFired = false
                 // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
                 handler.removeCallbacksAndMessages(null)
-                mCountDownTimer.cancel()
+                //mCountDownTimer.cancel()
             }
             true
         }

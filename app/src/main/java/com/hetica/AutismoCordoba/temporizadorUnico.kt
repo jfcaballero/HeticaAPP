@@ -124,6 +124,7 @@ class temporizadorUnico : AppCompatActivity() {
                 // Usamos un Handler para retrasar la apertura de la actividad EditarCalendario
                 handler.postDelayed({
                     val intent = Intent(this@temporizadorUnico, MainActivity::class.java)
+                    mCountDownTimer?.cancel()
                     startActivity(intent)
                 }, delayMillis)
             }
@@ -135,7 +136,7 @@ class temporizadorUnico : AppCompatActivity() {
                 isLongPressFired = false
                 // Si se libera el botón antes del tiempo de espera, cancelamos el Handler
                 handler.removeCallbacksAndMessages(null)
-                mCountDownTimer?.cancel()
+
             }
             true
         }
@@ -149,6 +150,7 @@ class temporizadorUnico : AppCompatActivity() {
                 startActivity(siguiente)
                 mCountDownTimer?.cancel()
                 finish()
+
                 return
             }
             doubleBackToExitPressedOnce = true
