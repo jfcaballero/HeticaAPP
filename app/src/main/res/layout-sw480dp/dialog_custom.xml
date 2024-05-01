@@ -28,7 +28,7 @@
             android:layout_width="139dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="25dp"
-            android:background="@color/colorAccent"
+            android:background="@color/ic_launcher_background"
             android:text="Salir"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
