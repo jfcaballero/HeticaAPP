@@ -12,10 +12,10 @@
         android:layout_height="83dp"
         android:text="LIMPIAR"
         android:textSize="@dimen/text_size_small_480dp"
-        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoySalir"
-        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyAyuda"
-        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyAyuda"
-        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyAyuda" />
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="646dp"
+        tools:layout_editor_absoluteY="271dp"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/textView71"
@@ -75,9 +75,9 @@
         android:text="Salir"
         android:textSize="@dimen/text_size_small_480dp"
         app:layout_constraintBottom_toBottomOf="@+id/asignaturasdehoy"
-        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyLimpiar"
-        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyLimpiar"
-        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyLimpiar" />
+        app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyAyuda"
+        app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyAyuda"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyAyuda" />
 
     <Button
         android:id="@+id/asignaturaDeHoyAyuda"
@@ -85,7 +85,7 @@
         android:layout_height="83dp"
         android:text="Ayuda"
         android:textSize="@dimen/text_size_small_480dp"
-        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoyLimpiar"
+        app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoySalir"
         app:layout_constraintEnd_toEndOf="@+id/asignaturaDeHoyComenzar"
         app:layout_constraintStart_toStartOf="@+id/asignaturaDeHoyComenzar"
         app:layout_constraintTop_toBottomOf="@+id/asignaturaDeHoyComenzar" />
@@ -94,7 +94,7 @@
         android:id="@+id/asignaturaDeHoyComenzar"
         android:layout_width="175dp"
         android:layout_height="83dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:text="@string/String_comenzar"
         android:textSize="@dimen/text_size_small_480dp"
         app:layout_constraintBottom_toTopOf="@+id/asignaturaDeHoyAyuda"
@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="614dp" />
+        app:layout_constraintGuide_percent="0.63958335" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
