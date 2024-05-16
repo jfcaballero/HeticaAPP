@@ -111,8 +111,8 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="@dimen/big_icon_height_480dp"
+        android:layout_height="@dimen/big_icon_height_480dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_stats"
         android:textSize="8sp"
@@ -123,8 +123,8 @@
 
     <Button
         android:id="@+id/button45"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="@dimen/big_icon_height_480dp"
+        android:layout_height="@dimen/big_icon_height_480dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_timer_black_24dp"
         android:onClick="pasarTemporizador"
@@ -134,8 +134,8 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="@dimen/big_icon_height_480dp"
+        android:layout_height="@dimen/big_icon_height_480dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_settings_black_24dp"
         android:textSize="8sp"
@@ -146,8 +146,8 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
+        android:layout_width="@dimen/big_icon_height_480dp"
+        android:layout_height="@dimen/big_icon_height_480dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_menu_black_24dp"
         android:textSize="8sp"

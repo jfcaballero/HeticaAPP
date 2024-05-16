@@ -82,8 +82,8 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/big_icon_height_320dp"
+        android:layout_height="@dimen/big_icon_height_320dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_stats"
@@ -96,8 +96,8 @@
 
     <Button
         android:id="@+id/button45"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/big_icon_height_320dp"
+        android:layout_height="@dimen/big_icon_height_320dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_timer_black_24dp"
@@ -109,8 +109,8 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/big_icon_height_320dp"
+        android:layout_height="@dimen/big_icon_height_320dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_settings_black_24dp"
@@ -123,8 +123,8 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
+        android:layout_width="@dimen/big_icon_height_320dp"
+        android:layout_height="@dimen/big_icon_height_320dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/ic_menu_black_24dp"
