@@ -92,9 +92,13 @@ class Bienvenida : AppCompatActivity() {
         val result: Int
         val currentVersionCode = BuildConfig.VERSION_CODE
         val lastVersionCode = sp.getInt("FIRSTTIMERUN", -1)
+        Log.d("currentVersionCode=","$currentVersionCode")
+        Log.d("lastVersionCode=","$lastVersionCode")
         result =
             if (lastVersionCode == -1) 0 else if (lastVersionCode == currentVersionCode) 1 else 2
+        Log.d("resultcode=","$result")
         sp.edit().putInt("FIRSTTIMERUN", currentVersionCode).apply()
+
         return result
     }
 
@@ -103,7 +107,7 @@ class Bienvenida : AppCompatActivity() {
      * cuando se instale una nueva version o se instale por primera vez.
      */
     fun eliminarDatosVersionAnterior() {
-        if (getFirstTimeRun()==2 || getFirstTimeRun()==0) {
+        if (getFirstTimeRun()!=1) { //si no estamos en la misma version, ponemos a default la configuracion
             val dbAsignaturas = AdminSQLiteOpenHelperAsig(this)
             val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
             val dbStats = AdminSQLiteOpenHelperStats(this)

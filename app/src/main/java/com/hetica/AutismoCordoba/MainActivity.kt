@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
      * Función para eliminar los archivos de la versión anterior de la aplicación.
      */
     fun eliminarDatosVersionAnterior() {
-        if (getFirstTimeRun()==2 || getFirstTimeRun()==0) {
+        if (getFirstTimeRun()!=1) { //si no estamos en la misma version, ponemos a default la configuracion
 
             val dbAsignaturas = AdminSQLiteOpenHelperAsig(this)
             val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
