@@ -202,7 +202,7 @@ class EditarCalendario : AppCompatActivity() {
         val fecha = formatoOriginal.parse(fechaOriginal)
 
         val formatoNuevo = SimpleDateFormat("dd/MM/yyyy")
-        val dia = formatoNuevo.format(fecha)
+        val dia = fecha?.let { formatoNuevo.format(it) }
         if(position==-1){
 
             tituloDialogo.text = "¿Quieres eliminar todas las asignaturas del día $dia?"
