@@ -50,8 +50,12 @@ var MinutosAsignatura: EditText?=null
 var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
 
 var botonCalendario: Button?=null
+
 class EditarCalendario : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
+    @SuppressLint("MissingInflatedId")
+    private var limpiarCalendario:Button?=null
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,9 +103,6 @@ class EditarCalendario : AppCompatActivity() {
         }
 
 
-
-
-
         // Obtener la lista de asignaturas desde la base de datos
         val asignaturasList = dbAsig?.getAsignaturasList()
         if (asignaturasList != null) {
@@ -109,6 +110,7 @@ class EditarCalendario : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
             }
+
 
         //gestionar el EditText de la fecha:
         val mcurrentDate = Calendar.getInstance()
@@ -169,12 +171,21 @@ class EditarCalendario : AppCompatActivity() {
             mDatePicker.datePicker.firstDayOfWeek = Calendar.MONDAY
             mDatePicker.show()
         }
+        limpiarCalendario=findViewById(R.id.limpiarCalendario)
+        limpiar()
         //val dateString = FechaCalendario?.text.toString()
         viewData(yearFinal!!)
 
 
 
     }
+    private fun limpiar(){
+        limpiarCalendario?.setOnClickListener {
+            mostrarDialogoBorrar(-1,"-1")
+
+        }
+    }
+
     private fun mostrarDialogoBorrar(position:Int,asignatura:String) {
         val dialog = Dialog(this@EditarCalendario)
 
@@ -185,11 +196,27 @@ class EditarCalendario : AppCompatActivity() {
         val btnCancelar = dialog.findViewById<Button>(R.id.btn_cancel)
         val tituloDialogo = dialog.findViewById<TextView>(R.id.text_message)
 
-        tituloDialogo.text = "¿Quieres eliminar la asignatura $asignatura de la sesión?"
         btnBorrar.text = "Eliminar"
-        btnBorrar.setOnClickListener {
-            deleteAsignatura(position, yearFinal!!)
-            dialog.dismiss()
+        val fechaOriginal = yearFinal!!
+        val formatoOriginal = SimpleDateFormat("MMddyyyy")
+        val fecha = formatoOriginal.parse(fechaOriginal)
+
+        val formatoNuevo = SimpleDateFormat("dd/MM/yyyy")
+        val dia = formatoNuevo.format(fecha)
+        if(position==-1){
+
+            tituloDialogo.text = "¿Quieres eliminar todas las asignaturas del día $dia?"
+            btnBorrar.setOnClickListener {
+                dbCalendario?.limpiar(yearFinal!!)
+                viewData(yearFinal!!)
+                dialog.dismiss()
+            }
+        }else{
+            tituloDialogo.text = "¿Quieres eliminar la asignatura $asignatura de la planificación del día $dia?"
+            btnBorrar.setOnClickListener {
+                deleteAsignatura(position, yearFinal!!)
+                dialog.dismiss()
+            }
         }
 
         btnCancelar.setOnClickListener {
@@ -231,8 +258,11 @@ class EditarCalendario : AppCompatActivity() {
             listViewAsignaturasDeUnDia?.adapter = adapter
             adapterEditarCalendario = adapter
             adapter.notifyDataSetChanged()
+            limpiarCalendario?.isEnabled=true
         } else {
             listViewAsignaturasDeUnDia?.adapter = CustomListAdapter(this, android.R.layout.simple_list_item_1, emptyList<String>())
+            limpiarCalendario?.isEnabled=false
+
         }
     }
 

@@ -110,12 +110,15 @@
         Introduce una fecha y los minutos de estudio para la asignatura seleccionada. Después pulsa sobre el símbolo + para añadirla a la fecha introducida.
     </string>
     <string name="editar_asignaturas_hoy_leyenda2">
-        Pulsa sobre la asignatura que desees para eliminarla.
+        Pulsa sobre la asignatura que desees para eliminarla o sobre el botón LIMPIAR para eliminar todas.
+
     </string>
 
     <string name="banner_gestionar_asignaturas">
         Gestionar asignaturas
     </string>
+
+
 
 
     <string name="texto_ayuda">

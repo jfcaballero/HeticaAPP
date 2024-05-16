@@ -8,6 +8,30 @@
     tools:context=".EditarCalendario">
 
 
+    <Button
+        android:id="@+id/limpiarCalendario"
+        android:layout_width="@dimen/big_action_button_width_720dp"
+        android:layout_height="@dimen/big_action_button_height_720dp"
+        android:text="Limpiar"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/volverCalendarioBoton"
+        app:layout_constraintEnd_toStartOf="@+id/volverCalendarioBoton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/listViewCalendarioAsignaturas" />
+
+    <Button
+        android:id="@+id/volverCalendarioBoton"
+        android:layout_width="@dimen/big_action_button_width_720dp"
+        android:layout_height="@dimen/big_action_button_height_720dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="28dp"
+        android:text="Volver"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/listViewCalendarioAsignaturas"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/limpiarCalendario" />
+
     <TextView
         android:id="@+id/textView77"
         android:layout_width="0dp"
@@ -35,8 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView75"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView75" />
 
     <TextView
         android:id="@+id/textView74"
@@ -193,16 +216,5 @@
         app:layout_constraintTop_toTopOf="@+id/relativeLayout9"
         app:layout_constraintVertical_bias="0.583"
         app:srcCompat="@android:drawable/ic_menu_add" />
-
-    <Button
-        android:id="@+id/volverCalendarioBoton"
-        android:layout_width="168dp"
-        android:layout_height="74dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="28dp"
-        android:text="Volver"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
