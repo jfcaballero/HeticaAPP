@@ -34,12 +34,9 @@ class Recompensa : AppCompatActivity() {
      */
     @SuppressLint("StaticFieldLeak")
     private var recompensa: ImageView? = null
-    /**
-     * Botón de comentarios
-     */
-    private var Comentarios: Button? = null
 
-    private var r: Ringtone? = null
+
+    private lateinit var bundle: Bundle
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +68,12 @@ class Recompensa : AppCompatActivity() {
 
 
         salir?.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val vengoDeAsignaturasDeHoy = intent.getBooleanExtra("vengo_de_asignaturas_de_hoy", false)
+            var intent = Intent(this, MainActivity::class.java)
+            if(vengoDeAsignaturasDeHoy){
+                intent = Intent(this, AsignaturaDeHoy::class.java)
+            }
+
             startActivity(intent)
             finish()
         }

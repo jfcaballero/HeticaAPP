@@ -38,7 +38,7 @@ class TimerSimple : AppCompatActivity() {
     private lateinit var cuantas: String
     private lateinit var bundle: Bundle
     private lateinit var asig: String
-    private var booool: Int = 0
+    private var vengo_de_asignaturas_de_hoy: Boolean = false
     private lateinit var r: Ringtone
     private lateinit var db: AdminSQLiteOpenHelperStats
     private var dbCalendario: AdminSQLiteOpenHelperCalendario? = null
@@ -84,6 +84,7 @@ class TimerSimple : AppCompatActivity() {
 
         // Verifica si hay extras y si los extras específicos están presentes
         if (extras != null && extras.containsKey("posicion_de_la_asignatura") && extras.containsKey("fecha_del_estudio")) {
+            vengo_de_asignaturas_de_hoy=true
             val posicion = extras.getString("posicion_de_la_asignatura")
             val fechaCalendario = extras.getString("fecha_del_estudio")
 
@@ -245,10 +246,19 @@ class TimerSimple : AppCompatActivity() {
     }
 
     fun finEstudio(view: View?) {
+        // Detener el tono de notificación
         r.stop()
+
+        // Crear el intent para la próxima actividad
         val siguiente1 = Intent(view!!.context, Recompensa::class.java)
+
+        // Pasar la bandera "vengo_de_asignaturas_de_hoy"
+        siguiente1.putExtra("vengo_de_asignaturas_de_hoy", vengo_de_asignaturas_de_hoy)
+
+        // Iniciar la próxima actividad
         startActivity(siguiente1)
     }
+
 
     fun finTimer(view: View?) {
         Fin.isEnabled = false
