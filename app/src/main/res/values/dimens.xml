@@ -40,6 +40,8 @@
         <dimen name="snackbar_landscape_320dp">25sp</dimen>
         <!-- Home button -->
         <dimen name="home_height_320dp">45dp</dimen>
+        <!-- Lapiz button -->
+        <dimen name="lapiz_height_320dp">63dp</dimen>
         <!-- Anotaciones icono -->
         <dimen name="anotaciones_height_320dp">35dp</dimen>
 
@@ -65,6 +67,8 @@
         <dimen name="big_action_button_height_480dp">89dp</dimen>
         <!-- Home button -->
         <dimen name="home_height_480dp">63dp</dimen>
+        <!-- Lapiz button -->
+        <dimen name="lapiz_height_480dp">83dp</dimen>
         <!-- Anotaciones icono -->
         <dimen name="anotaciones_height_480dp">50dp</dimen>
         <!-- Toolbar -->
@@ -93,6 +97,8 @@
         <dimen name="big_action_button_height_720dp">115dp</dimen>
         <!-- Home button -->
         <dimen name="home_height_720dp">68dp</dimen>
+        <!-- Lapiz button -->
+        <dimen name="lapiz_height_720dp">123dp</dimen>
         <!-- Anotaciones icono -->
         <dimen name="anotaciones_height_720dp">68dp</dimen>
         <!-- Toolbar -->
