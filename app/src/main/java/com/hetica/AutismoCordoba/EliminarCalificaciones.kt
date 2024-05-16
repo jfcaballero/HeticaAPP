@@ -211,6 +211,8 @@ class EliminarCalificaciones : AppCompatActivity() {
 
     private fun volverAVisualizarCalificaciones(){
         val intent = Intent(this, VisualizarCalificaciones::class.java)
+        intent.putExtra("vengo_de_eliminar_calificaciones_flag",true)
+        intent.putExtra("vengo_de_eliminar_calificaciones_asignatura",asignaturaSeleccionadaTextView?.text.toString())
         startActivity(intent)
     }
 }

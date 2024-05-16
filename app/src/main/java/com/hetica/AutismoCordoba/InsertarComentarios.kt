@@ -91,8 +91,11 @@ class InsertarComentarios : AppCompatActivity() {
     private fun volverATiempoDedicado(){
         val intent = Intent(this, tiempo_dedicado::class.java)
         val handler = Handler(Looper.getMainLooper())
-
+        val asignatura = AsignaturaTextView!!.text.toString()
+        intent.putExtra("asignatura_que_acabo_de_registrar", asignatura)
+        intent.putExtra("asignatura_que_acabo_de_registrar_flag", true)
         handler.postDelayed({
+            Log.d("Enviando asignatura","$asignatura")
             startActivity(intent)
         }, 500)
     }

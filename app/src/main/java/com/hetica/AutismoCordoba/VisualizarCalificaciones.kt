@@ -19,6 +19,7 @@ import com.hetica.AutismoCordoba.databinding.ActivityVisualizarCalificacionesBin
 
 
 import android.graphics.Color
+import android.util.Log
 import android.view.View.INVISIBLE
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -153,6 +154,16 @@ class VisualizarCalificaciones : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerAsignaturas.adapter = adapter
 
+            val posicionEliminar= setSpinnerPositionEliminar(asignaturasList)
+            val posicionAdd= setSpinnerPositionAdd(asignaturasList)
+            if (posicionEliminar != -1) {
+                spinnerAsignaturas.setSelection(posicionEliminar)
+            }
+
+            if (posicionAdd != -1) {
+                spinnerAsignaturas.setSelection(posicionAdd)
+            }
+
             // Establecer el listener para el evento de clic del Spinner
             spinnerAsignaturas.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -235,6 +246,36 @@ class VisualizarCalificaciones : AppCompatActivity() {
             }
         }
 
+    }
+    private fun setSpinnerPositionEliminar(asignaturasList:  List<String>):Int{
+        var posicion=-1
+        val acaboDe = intent.getBooleanExtra("vengo_de_eliminar_calificaciones_flag", false)
+        val acaboDeAsignatura = intent.getStringExtra("vengo_de_eliminar_calificaciones_asignatura")
+        // Verificamos si la bandera es verdadera
+        if (acaboDe) {
+            // Buscamos la posición de la asignatura que acabo de registrar
+            posicion = asignaturasList.indexOf(acaboDeAsignatura)
+            Log.d("posicion de la asignatura","$posicion")
+            Log.d("asignatura","$acaboDeAsignatura")
+            // Si se encuentra la asignatura, la seleccionamos en el spinner
+
+        }
+        return posicion
+    }
+    private fun setSpinnerPositionAdd(asignaturasList:  List<String>):Int{
+        var posicion=-1
+        val acaboDe = intent.getBooleanExtra("vengo_de_add_calificaciones_flag", false)
+        val acaboDeAsignatura = intent.getStringExtra("vengo_de_add_calificaciones_asignatura")
+        // Verificamos si la bandera es verdadera
+        if (acaboDe) {
+            // Buscamos la posición de la asignatura que acabo de registrar
+            posicion = asignaturasList.indexOf(acaboDeAsignatura)
+            Log.d("posicion de la asignatura","$posicion")
+            Log.d("asignatura","$acaboDeAsignatura")
+            // Si se encuentra la asignatura, la seleccionamos en el spinner
+
+        }
+        return posicion
     }
 
     /**

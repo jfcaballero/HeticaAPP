@@ -172,6 +172,12 @@ class MostrarComentarios : AppCompatActivity() {
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter2
 
+            val posicion= setSpinnerPosition(asignaturasList)
+
+            if (posicion != -1) {
+                spinner.setSelection(posicion)
+            }
+
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                     asignaturaSeleccionada = parent.getItemAtPosition(position).toString()
@@ -186,6 +192,22 @@ class MostrarComentarios : AppCompatActivity() {
                 viewData(asignaturaSeleccionada, fechaInicio?.text.toString(), fechaFin?.text.toString())
             }
         }
+    }
+
+    private fun setSpinnerPosition(asignaturasList:  List<String>):Int{
+        var posicion=-1
+        val acaboDeRegistrar = intent.getBooleanExtra("vengo_de_eliminar_flag", false)
+        val acaboDeRegistrarAsignatura = intent.getStringExtra("vengo_de_eliminar_asignatura")
+        // Verificamos si la bandera es verdadera
+        if (acaboDeRegistrar) {
+            // Buscamos la posición de la asignatura que acabo de registrar
+            posicion = asignaturasList.indexOf(acaboDeRegistrarAsignatura)
+            Log.d("posicion de la asignatura","$posicion")
+            Log.d("asignatura","$acaboDeRegistrarAsignatura")
+            // Si se encuentra la asignatura, la seleccionamos en el spinner
+
+        }
+        return posicion
     }
 
     private fun pasarEliminarComentarios() {

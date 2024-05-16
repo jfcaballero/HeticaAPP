@@ -291,6 +291,8 @@ class AddCalificaciones : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
 
         handler.postDelayed({
+            intent.putExtra("vengo_de_add_calificaciones_flag",true)
+            intent.putExtra("vengo_de_add_calificaciones_asignatura",asignaturaSeleccionadaTextView?.text.toString())
             startActivity(intent)
         }, 500)
 

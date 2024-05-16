@@ -123,15 +123,15 @@ class EliminarComentarios : AppCompatActivity() {
         }
 
 
-        // Configuración del evento de clic en "Seleccionar Todo"
+        // Configuración del evento de clic en "Seleccionar to do"
         checkBoxSelectAllEliminarComentarios.setOnCheckedChangeListener { _, isChecked ->
             selectAllItems(isChecked)
             // Verificar si al menos un elemento está seleccionado
             if (isChecked || listaComentarios.checkedItemCount > 0) {
-                // Si el "Seleccionar Todo" está checkeado o si hay elementos seleccionados, activar el botón de eliminar
+                // Si el "Seleccionar tod o" está checkeado o si hay elementos seleccionados, activar el botón de eliminar
                 botonEliminar?.isEnabled = true
             } else {
-                // Si el "Seleccionar Todo" está descheckeado y no hay elementos seleccionados, desactivar el botón de eliminar
+                // Si el "Seleccionar tod o" está descheckeado y no hay elementos seleccionados, desactivar el botón de eliminar
                 botonEliminar?.isEnabled = false
             }
         }
@@ -307,6 +307,8 @@ class EliminarComentarios : AppCompatActivity() {
 
     fun volverAMostrarComentarios(view: View?){
         val intent = Intent(view!!.context, MostrarComentarios::class.java)
+        intent.putExtra("vengo_de_eliminar_flag",true)
+        intent.putExtra("vengo_de_eliminar_asignatura",asignaturaTextView?.text.toString())
         startActivity(intent)
     }
 }

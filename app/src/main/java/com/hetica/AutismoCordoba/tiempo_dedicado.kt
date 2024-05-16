@@ -475,6 +475,11 @@ class tiempo_dedicado: AppCompatActivity()  {
             val adapter = CustomSpinnerAdapter(this, android.R.layout.simple_spinner_item, asignaturasList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
+            val posicion= setSpinnerPosition(asignaturasList)
+
+            if (posicion != -1) {
+                spinner.setSelection(posicion)
+            }
 
             // Establecemos el listener para el evento de clic del Spinner
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -493,10 +498,24 @@ class tiempo_dedicado: AppCompatActivity()  {
                     // No se realiza ninguna acción si no se selecciona nada
                 }
             }
-
         }
     }
 
+    private fun setSpinnerPosition(asignaturasList:  List<String>):Int{
+        var posicion=-1
+        val acaboDeRegistrar = intent.getBooleanExtra("asignatura_que_acabo_de_registrar_flag", false)
+        val acaboDeRegistrarAsignatura = intent.getStringExtra("asignatura_que_acabo_de_registrar")
+        // Verificamos si la bandera es verdadera
+                if (acaboDeRegistrar) {
+                    // Buscamos la posición de la asignatura que acabo de registrar
+                    posicion = asignaturasList.indexOf(acaboDeRegistrarAsignatura)
+                    Log.d("posicion de la asignatura","$posicion")
+                    Log.d("asignatura","$acaboDeRegistrarAsignatura")
+                    // Si se encuentra la asignatura, la seleccionamos en el spinner
+
+                }
+        return posicion
+    }
 
     /**
      * Función para irnos al Main
