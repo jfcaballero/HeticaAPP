@@ -8,11 +8,13 @@
 
     <Button
         android:id="@+id/volverAVisualizarCalificaciones"
-        android:layout_width="@dimen/big_action_button_width_480dp"
-        android:layout_height="@dimen/big_action_button_height_480dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:onClick="pasar3"
         android:text="@string/String_volver"
-        android:textSize="30sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/buttonAddCalif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,8 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar5"
-        app:layout_constraintVertical_bias="0.423" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar5" />
 
 
     <TextView
@@ -158,10 +159,11 @@
 
     <Button
         android:id="@+id/buttonAddCalif"
-        android:layout_width="@dimen/big_action_button_width_480dp"
-        android:layout_height="@dimen/big_action_button_height_480dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:text="Guardar"
-        android:textSize="30sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/volverAVisualizarCalificaciones"
         app:layout_constraintHorizontal_bias="0.5"

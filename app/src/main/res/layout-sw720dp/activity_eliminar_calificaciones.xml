@@ -21,16 +21,16 @@
     <Button
         android:id="@+id/volverAVisualizarCalificacionesDesdeEliminar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/big_action_button_height_720dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:layout_marginEnd="40dp"
         android:onClick="pasar3"
         android:text="@string/String_volver"
-        android:textSize="40sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/botonEliminarCalificacion"
-        app:layout_constraintEnd_toEndOf="@+id/listaCalificaciones"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/botonEliminarCalificacion"
-        app:layout_constraintTop_toTopOf="@+id/botonEliminarCalificacion" />
+        app:layout_constraintStart_toEndOf="@+id/botonEliminarCalificacion" />
 
     <TextView
         android:id="@+id/textView87"
@@ -95,13 +95,14 @@
     <Button
         android:id="@+id/botonEliminarCalificacion"
         android:layout_width="0dp"
-        android:layout_height="@dimen/big_action_button_height_720dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginBottom="32dp"
         android:text="Eliminar"
-        android:textSize="40sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/volverAVisualizarCalificacionesDesdeEliminar"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/listaCalificaciones" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
