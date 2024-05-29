@@ -42,7 +42,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
     private var ComenzarSesion: Button? = null
     private var SalirCalendario: Button? = null
     private var ayuda: Button? = null
-    private var limpiar:Button?=null
+    //private var limpiar:Button?=null
     private lateinit var adapter: CalendarioArrayAdapter
     private var todasMarcadas=true
     private val handler = Handler(Looper.getMainLooper())
@@ -59,7 +59,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
         ComenzarSesion = findViewById(R.id.asignaturaDeHoyComenzar)
         SalirCalendario = findViewById(R.id.asignaturaDeHoySalir)
         ayuda=findViewById(R.id.asignaturaDeHoyAyuda)
-        limpiar=findViewById(R.id.asignaturaDeHoyLimpiar)
+        //limpiar=findViewById(R.id.asignaturaDeHoyLimpiar)
 
         // Configurar el adaptador personalizado
         adapter = CalendarioArrayAdapter(this, R.layout.list_item_checkbox, ArrayList())
@@ -75,7 +75,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
             Log.d("Num items:", checkedItemPositions?.size().toString())
         }
         salir()
-        limpiar()
+        //limpiar()
         viewData()
         pasarEditarCalendario()
         comenzarSesion()
@@ -125,7 +125,7 @@ class AsignaturaDeHoy : AppCompatActivity() {
             if (nohaytareas != null) {
                 nohaytareas.visibility=View.VISIBLE
                 ComenzarSesion?.isEnabled = false //para que no deje pulsar el boton tampoco cuando no haya sesiones programadas
-                limpiar?.isEnabled =false
+                //limpiar?.isEnabled =false
             }
             calendarioListView?.adapter = null
         }
@@ -138,13 +138,13 @@ class AsignaturaDeHoy : AppCompatActivity() {
     }
 
 
-
+/*
     private fun limpiar(){
         limpiar?.setOnClickListener {
             dbCalendario?.limpiar(getDateAsString())
             viewData()
         }
-    }
+    }*/
 
 
     @RequiresApi(Build.VERSION_CODES.R)

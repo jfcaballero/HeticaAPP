@@ -417,7 +417,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Pasar org tar.
+     * Pasar a la pantalla de "Consejos de estudio"
      *
      * @param view the view
      */
