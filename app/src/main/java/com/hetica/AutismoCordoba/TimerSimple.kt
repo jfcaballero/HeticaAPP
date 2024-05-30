@@ -230,7 +230,7 @@ class TimerSimple : AppCompatActivity() {
                     Pausa.visibility = View.INVISIBLE
                     Fin.visibility = View.INVISIBLE
                     Fin2.visibility = View.VISIBLE
-                    showNotification()
+                    //showNotification()
                 }
             }
         }.start()
@@ -275,7 +275,11 @@ class TimerSimple : AppCompatActivity() {
         finFlag = 1
         mTimeLeftInMillis = 1000
         startTimer()
+
+        // Llamar a la función para mostrar la notificación
+        showNotification()
     }
+
     /**
      *
      * Función que controla el temporizador
@@ -296,6 +300,7 @@ class TimerSimple : AppCompatActivity() {
      * @param view the view
      */
     fun pasarNo(view: View?) {
+        r.stop()
         val bundle2 = Bundle()
         when {
             cuantas.equals("2", ignoreCase = true) && actual.equals("1", ignoreCase = true) -> {
@@ -373,6 +378,7 @@ class TimerSimple : AppCompatActivity() {
      * @param view the view
      */
     fun pasarSi(view: View?) {
+        r.stop()
         val bundle2 = Bundle()
         when {
             (cuantas.equals("2", ignoreCase = true) || cuantas.equals("3", ignoreCase = true) || cuantas.equals("4", ignoreCase = true) || cuantas.equals("5", ignoreCase = true)) && actual.equals("1", ignoreCase = true) -> {
