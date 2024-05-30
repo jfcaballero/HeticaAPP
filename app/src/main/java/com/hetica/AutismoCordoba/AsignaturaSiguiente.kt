@@ -143,14 +143,14 @@ class AsignaturaSiguiente : AppCompatActivity() {
     fun seebbarr() {
         seekBar = findViewById<View>(R.id.seekBar) as SeekBar
         textView = findViewById<View>(R.id.textView45) as TextView
-        seekBar!!.max = 1
+        seekBar!!.max = 15
         seekBar!!.progress = 0
         textView!!.text = "15 minutos"
         seekBar!!.setOnSeekBarChangeListener(
             object : OnSeekBarChangeListener {
                 var progress_value = 0
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    progress_value = progress + 1
+                    progress_value = progress + 15
                     textView!!.text = "$progress_value minutos "
                 }
 
@@ -216,7 +216,7 @@ class AsignaturaSiguiente : AppCompatActivity() {
         bundle!!.putString("numAsig", cuantas)
         bundle!!.putString("asig", textView2!!.text.toString())
         if (tiempoConstante.equals("0", ignoreCase = true)) {
-            bundle!!.putString("time", Integer.toString(seekBar!!.progress + 1))
+            bundle!!.putString("time", Integer.toString(seekBar!!.progress + 15))
             //bundle.putString("time", Integer.toString(1));
         } else {
             bundle!!.putString("time", tiempo)

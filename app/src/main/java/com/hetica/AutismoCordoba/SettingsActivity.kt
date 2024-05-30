@@ -351,19 +351,19 @@ class SettingsActivity : AppCompatActivity() {
         seekBar!!.progress = 0 // Establecer el progreso inicial a 0
 
         // Actualizar el texto de acuerdo al valor inicial
-        textView!!.text = "1 minutos"
+        textView!!.text = "15 minutos"
 
         seekBar!!.setOnSeekBarChangeListener(
             object : OnSeekBarChangeListener {
-                var progressValue = 1 // Valor predeterminado de minutos
+                var progressValue = 15 // Valor predeterminado de minutos
 
                 override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                     // Asegurar que el valor mínimo sea siempre 15 minutos
                     if (progress < 0) {
                         seekBar.progress = 0
-                        progressValue = 1
+                        progressValue = 15
                     } else {
-                        progressValue = progress + 1
+                        progressValue = progress + 15
                     }
                     textView!!.text = "$progressValue minutos"
                 }
@@ -388,7 +388,7 @@ class SettingsActivity : AppCompatActivity() {
         var fos: FileOutputStream? = null
         try {
             fos = openFileOutput("tiempo_trabajar.txt", MODE_PRIVATE)
-            val resul = seekBar!!.progress + 1
+            val resul = seekBar!!.progress + 15
             fos.write(Integer.toString(resul).toByteArray())
             fos.write("\n".toByteArray())
             if (Switch!!.isChecked) {
@@ -470,7 +470,7 @@ class SettingsActivity : AppCompatActivity() {
             StringBuilder()
             var text: String
             text = br.readLine()
-            seekBar!!.progress = Integer.valueOf(text) - 1
+            seekBar!!.progress = Integer.valueOf(text) - 15
             text = br.readLine()
             if (text.equals("1", ignoreCase = true)) {
                 Switch!!.isChecked = true
