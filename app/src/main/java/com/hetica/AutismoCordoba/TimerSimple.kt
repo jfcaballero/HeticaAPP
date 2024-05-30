@@ -230,7 +230,7 @@ class TimerSimple : AppCompatActivity() {
                     Pausa.visibility = View.INVISIBLE
                     Fin.visibility = View.INVISIBLE
                     Fin2.visibility = View.VISIBLE
-                    //showNotification()
+                    showNotification()
                 }
             }
         }.start()
@@ -261,6 +261,8 @@ class TimerSimple : AppCompatActivity() {
 
 
     fun finTimer(view: View?) {
+
+
         Fin.isEnabled = false
         Pausa.isEnabled=false
 
@@ -276,8 +278,10 @@ class TimerSimple : AppCompatActivity() {
         mTimeLeftInMillis = 1000
         startTimer()
 
-        // Llamar a la función para mostrar la notificación
-        showNotification()
+        // Que suene la alarma cuando haya más de una asignatura y no sea la última
+        if (!cuantas.equals(actual, ignoreCase = true)) {
+            showNotification()
+        }
     }
 
     /**
@@ -485,10 +489,17 @@ class TimerSimple : AppCompatActivity() {
 
     fun showNotification() {
         try {
+            // Detener cualquier instancia de Ringtone que se esté reproduciendo actualmente
+            if (::r.isInitialized && r.isPlaying) {
+                r.stop()
+            }
+
+            // Reproducir el tono de notificación
             val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             r = RingtoneManager.getRingtone(applicationContext, notification)
             r.play()
 
+            // Detener el tono después de un minuto
             val handlerThread = HandlerThread("StopRingtoneThread")
             handlerThread.start()
 
@@ -501,4 +512,5 @@ class TimerSimple : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
 }

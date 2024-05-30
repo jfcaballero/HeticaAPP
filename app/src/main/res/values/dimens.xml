@@ -83,7 +83,7 @@
         <!-- List -->
         <dimen name="list_height_720">100dp</dimen>
         <dimen name="list_item_portrait_720">35sp</dimen>
-        <dimen name="list_item_landscape_720">50sp</dimen>
+        <dimen name="list_item_landscape_720">45sp</dimen>
         <!-- Graficas -->
         <dimen name="chart_title_720">20sp</dimen>
         <dimen name="chart_subtitle_720">15sp</dimen>
