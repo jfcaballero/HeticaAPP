@@ -425,8 +425,8 @@ class Mayormenoractividad : AppCompatActivity() {
             .formatter(
                 """
         function () {
-            var date = new Date(this.x);
-            var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+            
+            var formattedDate = this.x;
             return '<b>Fecha:</b> ' + formattedDate + '<br/>' +
                 '<b>Minutos:</b> ' + this.y;
         }
