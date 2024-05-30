@@ -1,14 +1,19 @@
 package com.hetica.AutismoCordoba
 
 
+import TimerService
 import android.annotation.SuppressLint
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import android.view.GestureDetector
@@ -72,6 +77,23 @@ class temporizadorUnico : AppCompatActivity() {
     private var then: Long = 0
     var doubleBackToExitPressedOnce = false
 
+    // Variables para el TimerService
+    private var timerService: TimerService? = null
+    private var isBound = false
+
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            val binder = service as TimerService.TimerBinder
+            timerService = binder.getService()
+            isBound = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            timerService = null
+            isBound = false
+        }
+    }
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,8 +127,29 @@ class temporizadorUnico : AppCompatActivity() {
             }
         }
 
+        // Conectar al servicio
+        Intent(this, TimerService::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+
         GoToMain()
         startTimer()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isBound) {
+            unbindService(connection)
+            isBound = false
+        }
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        if (timerService != null && !timerService!!.isTimerRunning) {
+            timerService!!.resumeTimer()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -169,6 +212,7 @@ class temporizadorUnico : AppCompatActivity() {
         super.onPause()
         // Detener la alarma si está sonando
         r?.stop()
+        timerService?.pauseTimer()
     }
     /**
      * Función que maneja el temporizador

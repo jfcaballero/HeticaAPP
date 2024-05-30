@@ -1,10 +1,14 @@
 package com.hetica.AutismoCordoba
 
 import AdminSQLiteOpenHelperCalendario
+import TimerService
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationManager
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
@@ -12,6 +16,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.IBinder
 import android.os.Looper
 import android.util.Log
 import android.view.GestureDetector
@@ -29,6 +34,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class TimerSimple : AppCompatActivity() {
 
@@ -62,6 +68,26 @@ class TimerSimple : AppCompatActivity() {
     private var posicionDeLaAsignaturaCalendario: String=""
     private var fechaDelEstudioCalendario:String=""
     var doubleBackToExitPressedOnce = false
+    private var timerService: TimerService? = null
+    private var isBound = false
+
+
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as TimerService.TimerBinder
+            timerService = binder.getService()
+            isBound = true
+            // Iniciar el temporizador si no está en marcha
+            if (!timerService!!.isTimerRunning) {
+                timerService!!.startTimer(mTimeLeftInMillis)
+            }
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            isBound = false
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer_simple)
@@ -77,6 +103,13 @@ class TimerSimple : AppCompatActivity() {
         asig = bundle.getString("asig")!!
         actual = bundle.getString("actAsig")!!
         cuantas = bundle.getString("numAsig")!!
+
+        mTimeLeftInMillis = timeString.toLong() * 60000
+
+        // Conectar al servicio
+        Intent(this, TimerService::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
 
         //estas dos siguientes SÓLO las pasa la actividad AsignaturaDeHoy para marcarlas como estudiadas aqui
         // Obtén los extras del intento
@@ -135,6 +168,25 @@ class TimerSimple : AppCompatActivity() {
             } else {
                 startTimer()
             }
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isBound) {
+            unbindService(connection)
+            isBound = false
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timerService?.pauseTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (timerService != null && !timerService!!.isTimerRunning) {
+            timerService!!.resumeTimer()
         }
     }
     private fun marcarComoEstudiada(){
@@ -243,6 +295,7 @@ class TimerSimple : AppCompatActivity() {
         mCountDownTimer.cancel()
         mTimerRunning = false
         Pausa.text = "Seguir"
+
     }
 
     fun finEstudio(view: View?) {
