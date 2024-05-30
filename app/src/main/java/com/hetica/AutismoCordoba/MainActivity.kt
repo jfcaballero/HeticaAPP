@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
      * Función para eliminar los archivos de la versión anterior de la aplicación.
      */
     fun eliminarDatosVersionAnterior() {
-        if (getFirstTimeRun()!=1) { //si no estamos en la misma version, ponemos a default la configuracion
+        if (getFirstTimeRun()==2 || getFirstTimeRun()==0 || isFirstRun()) { //si no estamos en la misma version, ponemos a default la configuracion
 
             val dbAsignaturas = AdminSQLiteOpenHelperAsig(this)
             val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
@@ -239,6 +239,15 @@ class MainActivity : AppCompatActivity() {
         sp.edit().putInt("FIRSTTIMERUN", currentVersionCode).apply()
         return result
     }
+    private fun isFirstRun(): Boolean {
+        val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
+        if (isFirstRun) {
+            sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
+        }
+        return isFirstRun
+    }
+
 
     /**Establecer el resto de configuracion a su estado inicial
      */

@@ -101,13 +101,21 @@ class Bienvenida : AppCompatActivity() {
 
         return result
     }
+    private fun isFirstRun(): Boolean {
+        val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
+        if (isFirstRun) {
+            sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
+        }
+        return isFirstRun
+    }
 
     /**
      * Función para eliminar los archivos de la versión anterior de la aplicación
      * cuando se instale una nueva version o se instale por primera vez.
      */
     fun eliminarDatosVersionAnterior() {
-        if (getFirstTimeRun()!=1) { //si no estamos en la misma version, ponemos a default la configuracion
+        if (getFirstTimeRun()==2 || getFirstTimeRun()==0 || isFirstRun()) { //si no estamos en la misma version, ponemos a default la configuracion
             val dbAsignaturas = AdminSQLiteOpenHelperAsig(this)
             val dbCalificaciones = AdminSQLiteOpenHelperCalificaciones(this, null, 3)
             val dbStats = AdminSQLiteOpenHelperStats(this)
