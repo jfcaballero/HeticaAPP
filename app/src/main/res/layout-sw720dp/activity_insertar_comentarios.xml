@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InsertarComentarios">
+
+    <Button
+        android:id="@+id/volverATiempoDedicado"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:onClick="pasar3"
+        android:text="@string/String_volver"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/insertarComentario"
+        app:layout_constraintEnd_toEndOf="@+id/textoDeComentario"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/insertarComentario"
+        app:layout_constraintTop_toTopOf="@+id/insertarComentario" />
+
+    <TextView
+        android:id="@+id/asignaturaDelComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="Asignatura"
+        android:textColor="#5A5C5E"
+        android:textSize="37sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar7" />
+
+    <TextView
+        android:id="@+id/fechaDelComentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="44dp"
+        android:text="Fecha"
+        android:textColor="#5A5C5E"
+        android:textSize="37sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/asignaturaDelComentario"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar7" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar7"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:background="#009688"
+        android:minHeight="@dimen/fab_bigger_margin"
+        android:theme="@style/AppTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Insertar una anotación" />
+
+    <Button
+        android:id="@+id/insertarComentario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="REGISTRAR"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/volverATiempoDedicado"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textoDeComentario" />
+
+    <EditText
+        android:id="@+id/textoDeComentario"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="#469DD3DA"
+        android:ems="10"
+        android:fadeScrollbars="false"
+        android:gravity="start|top"
+        android:hint="Escriba aquí su anotación"
+        android:inputType="textMultiLine"
+        android:scrollbarThumbVertical="@color/mi_color_de_barra"
+        android:scrollbars="vertical"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/insertarComentario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asignaturaDelComentario" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

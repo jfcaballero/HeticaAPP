@@ -9,86 +9,86 @@
 
     <TextView
         android:id="@+id/textView43"
-        android:layout_width="268dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:text="@string/String_asignatura_dificil"
         android:textColor="#FFFFFF"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView47"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"-->
 
     <ListView
         android:id="@+id/listViewDificil"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/button37"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView43"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/mi_color_de_barra"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        app:layout_constraintStart_toStartOf="@+id/textView43"
+        app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
     <SeekBar
         android:id="@+id/seekBar"
-        android:layout_width="202dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="257dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
         android:colorControlActivated="@color/design_default_color_background"
         android:progressTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listViewDificil"
-        app:layout_constraintStart_toStartOf="parent" />
-        <!--    app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"-->
+        app:layout_constraintBottom_toTopOf="@+id/button37"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
         android:layout_marginEnd="187dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/String_30_minutos"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintEnd_toStartOf="@+id/listViewDificil"
-        app:layout_constraintStart_toStartOf="parent" />
-        <!--    app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"-->
+        app:layout_constraintEnd_toEndOf="@+id/seekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/seekBar" />
+    <!--    app:layout_constraintEnd_toStartOf="@+id/listViewSiguiente"-->
 
     <TextView
         android:id="@+id/textView47"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/String_click_asignatura"
-        android:textColor="#FFFFFF"
-        android:textSize="27dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView45"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="#15635C"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView43"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView43"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <Button
         android:id="@+id/button37"
-        android:layout_width="226dp"
+        android:layout_width="257dp"
         android:layout_height="48dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:onClick="pasar"
         android:text="@string/String_hecho"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewDificil" />
-        <!--    app:layout_constraintTop_toBottomOf="@+id/listViewSiguiente"-->
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!--    app:layout_constraintTop_toBottomOf="@+id/listViewSiguiente"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

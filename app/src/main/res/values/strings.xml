@@ -4,7 +4,15 @@
     <string name="String_Estudio2">Organizar las tareas</string>
     <string name="String_Mochila">Organizar la mochila</string>
     <string name="String_opciones">Opciones</string>
-    <string name="String_estadisticas">Estadisticas</string>
+    <string name="String_estadisticas">Tiempo de estudio diario</string>
+    <string name="String_tiempodedicado">Tiempo dedicado por asignatura</string>
+    <string name="String_mayormenoractividad">Gráficas de actividad</string>
+    <string name="String_comentarios">Anotación sobre estudio</string>
+    <string name="String_visualizar_calificaciones">Calificaciones</string>
+    <string name="String_add_calificaciones">Añadir una calificación</string>
+    <string name="String_delete_calificaciones">Eliminar calificaciones</string>
+    <string name="String_delete_comentarios">Eliminar anotaciones</string>
+    <string name="String_leyenda_delete_comentarios">Para visualizar una anotación, mantenga pulsado el dedo sobre ella durante 1 segundo</string>
     <string name="String_store">Store</string>
 
     <string name="String_despejaMesa">DESPEJA LA MESA DE ESTUDIO Y PON LA LUZ ADECUADA</string>
@@ -15,6 +23,7 @@
     <string name="String_revisaPregunta">REVISA CADA EJERCICIO. ¡LO QUE HAS ESCRITO TIENE QUE RESPONDER A LA PREGUNTA!</string>
     <string name="String_organizaTarde">ORGANIZAR LA TARDE DE ESTUDIO</string>
     <string name="String_organizaTareas">CONSEJOS DE ESTUDIO</string>
+    <string name="String_asignaturaDeHoy">ASIGNATURAS DE HOY</string>
 
     <string name="String_organizaMochila">ORGANIZAR LA MOCHILA</string>
     <string name="String_tocanManana">COMPRUEBA QUE ASIGNATURAS \nTOCAN MAÑANA</string>
@@ -22,7 +31,7 @@
     <string name="String_librosEscritorio">LOS LIBROS Y CUADERNOS QUE NO TOQUEN MAÑANA, DÉJALOS EN EL ESCRITORIO</string>
     <string name="String_estucheAgenda">COMPRUEBA QUE GUARDAS \nEL ESTUCHE Y LA AGENDA</string>
 
-    <string name="String_temporizadorSimple">Mostrar temporizador al inicio</string>
+    <string name="String_temporizadorSimple">Mostrar cronómetro al inicio</string>
 
     <string name="String_tiempoEstudio">¿Cuánto tiempo vas a trabajar?</string>
 
@@ -70,4 +79,102 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_tiempo_dedicado">tiempo_dedicado</string>
+    <string name="entendido">ENTENDIDO</string>
+    <string name="bienvenid_a_hetica">Bienvenid@ a Hetica</string>
+    <string name="para_acceder_a_las_opciones_en_negro_mantenga_pulsado_el_bot_n_durante_3s">Para acceder a las opciones en azul oscuro, mantenga pulsado el botón durante 3s.</string>
+    <string name="mensaje_de_bienvenida">Para poder acceder a las funcionalidades de la aplicación mantenga pulsado durante 3
+        segundos uno de los iconos en negro y suelte (parte inferior de la pantalla). \n\n
+        Debe añadir al menos una asignatura desde el icono de opciones (rueda dentada negra) para que la aplicación funcione adecuadamente.</string>
+    <string name="asignaturas_de_hoy">Asignaturas de hoy</string>
+    <string name="comentar_estudio">Comentar estudio</string>
+    <string name="tiempo_estudio_leyenda">
+        1 - Seleccione una asignatura y rango temporal.\n
+        2 - Para realizar una anotación pulse sobre una fecha de estudio de las que se muestren.\n
+        3 - Para visualizar las anotaciones debe ir a la pestaña “Anotación sobre estudio”.
+    </string>
+    <string name="visualizar_calificaciones_leyenda">Notas obtenidas por asignatura. Para un nuevo curso, elimine la asignatura desde la
+    opción de configuración de la pantalla principal (rueda negra dentada).</string>
+    <string name="asignatura_de_hoy_texto_de_ayuda">
+        Con este módulo de la aplicación puedes organizar el estudio de asignaturas para
+        diferentes días. Pulsando durante 3 segundos el icono del lápiz se accede a un menú
+        que permite seleccionar el día, las asignaturas que se quieren estudiar dicho día y la
+        cantidad de minutos asignados a cada una de ellas.\n\nTodas las asignaturas que hayas programado para estudiar un día concreto y que no
+        hayas estudiado y pase dicho día, su estudio no aparecerá reflejado en la aplicación.\n\n
+        A lo largo del día actual puedes ir añadiendo tantas asignaturas a estudiar como
+        quieras, incluso puedes repetir el estudio de una asignatura.\n\n
+        Si borras una asignatura que has estudiado no te preocupes, su tiempo de estudio
+        quedará registrado en la aplicación.
+    </string>
+    <string name="editar_asignaturas_hoy_leyenda1">
+        Introduce una fecha y los minutos de estudio para la asignatura seleccionada. Después pulsa sobre el símbolo + para añadirla a la fecha introducida.
+    </string>
+    <string name="editar_asignaturas_hoy_leyenda2">
+        Pulsa sobre la asignatura que desees para eliminarla o sobre el botón LIMPIAR para eliminar todas.
+
+    </string>
+
+    <string name="banner_gestionar_asignaturas">
+        Gestionar asignaturas
+    </string>
+
+
+
+
+    <string name="texto_ayuda">
+        \u25AA **Mostrar cronómetro al inicio**: Con la opción activada se permite estudiar
+        directamente una asignatura desde el menú principal. Aparecerá un nuevo icono en
+        forma de cronómetro blanco.\n\n
+
+        \u25AA **Tiempo de trabajo fijo**: Con la opción activada se permite establecer un tiempo
+        fijo para estudiar las asignaturas. Si está desactivada puede establecer el tiempo en el
+        momento del estudio (como mínimo 30 minutos). Pulse GUARDAR para poder establecer los cambios.\n\n
+
+        \u25AA **Gestionar asignaturas**: Mediante esta opción se permite gestionar asignaturas
+        (añadir, eliminar, modificar, visualizar).\n\n
+
+        \u25AA **Pausar temporizador**: Con la opción activada se permite pausar una sesión individual de estudio
+        (cronómetro o temporizador blanco).\n\n
+
+        \u25AA **Habilitar finalizar**: Con la opción activada se permite finalizar una sesión individual de estudio
+        (cronómetro o temporizador blanco) sin tener que esperar a que finalice el temporizador.\n\n
+
+        \u25AA **Modo concentración**:  Con la opción activada no se recibirán notificaciones en el
+        dispositivo móvil mientras se usa la aplicación Hetica. \n\n
+    </string>
+    <string name="creditos_texto">
+        <b>HETICA</b>: Una Herramienta TIC para la organización de tareas escolares en personas con síndrome de Asperger.\n\n
+
+        Este proyecto fue inicialmente desarrollado (periodo 2019-2020) en el marco del V Plan
+        Propio Galileo de Innovación y Transferencia de la Universidad de Córdoba, Modalidad
+        IV, proyectos UCO-SOCIAL-INNOVA, con colaboración de la Obra Social “La Caixa” y la Asociación Autismo Córdoba. \n\n
+
+        <b>Coordinador principal</b>:\n
+            \u2022 Juan Carlos Fernández Caballero, jfcaballero@uco.es. Universidad de Córdoba.\n\n
+
+        <b>Equipo de investigación</b>: \n
+            \u2022 César Hervás Martínez, chervas@uco.es. Universidad de Córdoba.\n
+            \u2022 Pedro Antonio Gutiérrez Peña, pagutierrez@uco.es. Universidad de Córdoba. \n\n
+
+        <b>Equipo de trabajo</b>: \n
+            \u2022 Miguel Ángel Borreguero Aparicio, i52boapm@uco.es. Universidad de Córdoba. Desarrollador principal.  \n
+            \u2022 María Muñoz Reyes, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).  \n
+            \u2022 Carmen Moscoso Galisteo, direccion@autismocordoba.org. Asociación Autismo Córdoba (Córdoba).  \n
+            \u2022 Julio Camacho Cañamón, julio.camacho@uco.es. Universidad de Córdoba. \n
+            \u2022 Antonio Manuel Gómez Orellana, am.gomez@uco.es. Universidad de Córdoba.  \n
+            \u2022 David Guijo Rubio, dguijo@uco.es. Universidad de Córdoba.\n\n
+
+        <b>Desarrollos y mejoras posteriores</b>: \n
+             \u00A0\u00A0\u25AA <b>Año 2024</b>:\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 Juan Carlos Fernández Caballero, Universidad de Córdoba, jfcaballero@uco.es: Dirección y coordinación.\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 Álvaro Berjillos Roldán, lvaro.berjillos@gmail.com: Desarrollador principal.\n
+             \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u2022 María Muñoz Reyes, Asociación Autismo Córdoba, direccion@autismocordoba.org: Asesoramiento.\n
+
+
+
+    </string>
+    <string name="calendario_sin_asignatura_de_hoy">Pulsar lápiz durante 3 segundos</string>
+    <string name="tiempo_dedicado_leyenda">Pulse en una asignatura para anotar un comentario. Pestaña \"Anotación sobre estudio\" para visualizarlos.</string>
+
+
 </resources>

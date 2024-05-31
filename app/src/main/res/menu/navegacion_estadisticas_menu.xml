@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_estadisticas"
+        android:icon="@drawable/lista2"
+        android:title=" " />
+    <item
+        android:id="@+id/action_tiempo_dedicado"
+        android:icon="@drawable/listporasignatura"
+        android:title=" " />
+
+    <item
+        android:id="@+id/action_comentarios"
+        android:icon="@drawable/notas"
+        android:title=" " />
+
+    <item
+        android:id="@+id/action_calificaciones"
+        android:icon="@drawable/calificaciones"
+        android:title=" " />
+
+
+
+    <item
+        android:id="@+id/action_actividad"
+        android:icon="@drawable/graficasdeactividad"
+        android:title=" " />
+
+
+</menu>

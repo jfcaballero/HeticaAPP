@@ -6,8 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:scrollbarThumbVertical">@color/mi_color_de_barra</item>
+
 
     </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar" />
 
@@ -21,6 +24,24 @@
     <style name="toolbarbig" parent="@style/Base.TextAppearance.AppCompat.Title">
         <item name="android:textSize">36dp</item>
     </style>
+    <!-- Estilos de Dialog Picker -->
+        <!-- Estilo para texto pequeño (menor a 480dp) -->
+        <style name="DialogTextStyleSmall">
+            <item name="android:textSize">18sp</item>
+        </style>
+        <!-- Estilo para texto mediano (480dp a 720dp) -->
+        <style name="DialogTextStyleMedium">
+            <item name="android:textSize">24sp</item>
+        </style>
+        <!-- Estilo para texto grande (mayor a 720dp) -->
+        <style name="DialogTextStyleLarge">
+            <item name="android:textSize">40sp</item>
+        </style>
+
+
+
+
+
 
 
 </resources>

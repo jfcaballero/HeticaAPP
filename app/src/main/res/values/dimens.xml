@@ -1,4 +1,108 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_bigger_margin">64dp</dimen>
+    <dimen name="default_chart_height">391dp</dimen>
+    <dimen name="expanded_chart_height">450dp</dimen>
+    <dimen name="expanded_coments_height">450dp</dimen>
+    <dimen name="default_coments_height">345dp</dimen>
+
+
+    <!-- Tamaños para de >=320dp -->
+    <dimen name="text_size_small_less_than_480dp">12sp</dimen>
+    <dimen name="text_size_medium_less_than_480dp">18sp</dimen>
+    <dimen name="text_size_large_less_than_480dp">22sp</dimen>
+
+        <!-- Toolbar -->
+        <dimen name="toolbar_height_320dp">60dp</dimen>
+        <!-- Navigation Menu -->
+        <dimen name="navigation_height_320dp">55dp</dimen>
+        <!-- Spinner estadisticas -->
+        <dimen name="spinner_width_320dp">157dp</dimen>
+        <dimen name="spinner_height_320dp">55dp</dimen>
+        <!-- Estadisticas action button -->
+        <dimen name="action_button_width_320dp">97dp</dimen>
+        <dimen name="action_button_height_320dp">46dp</dimen>
+
+        <dimen name="big_action_button_width_320dp">148dp</dimen>
+        <dimen name="big_action_button_height_320dp">61dp</dimen>
+        <!-- Spinners -->
+        <dimen name="dropdown_item_height_320">40dp</dimen>
+        <!-- List -->
+        <dimen name="list_item_portrait_320">18sp</dimen>
+        <dimen name="list_item_landscape_320">19sp</dimen>
+        <!-- Graficas -->
+        <dimen name="chart_title_320">7sp</dimen>
+        <dimen name="chart_subtitle_320">5sp</dimen>
+        <dimen name="chart_x_320">4sp</dimen>
+        <dimen name="chart_y_320">4sp</dimen>
+        <!-- Snackbar -->
+        <dimen name="snackbar_portrait_320dp">20sp</dimen>
+        <dimen name="snackbar_landscape_320dp">25sp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_320dp">45dp</dimen>
+        <!-- Lapiz button -->
+        <dimen name="big_icon_height_320dp">63dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_320dp">35dp</dimen>
+
+    <!-- Tamaños para pantallas de >=480dp -->
+    <dimen name="text_size_small_480dp">18sp</dimen>
+    <dimen name="text_size_medium_480dp">22sp</dimen>
+    <dimen name="text_size_large_480dp">24sp</dimen>
+        <!-- Spinners -->
+        <dimen name="dropdown_item_height_480">50dp</dimen>
+        <!-- Graficas -->
+        <dimen name="chart_title_480">15sp</dimen>
+        <dimen name="chart_subtitle_480">10sp</dimen>
+        <dimen name="chart_x_480">8sp</dimen>
+        <dimen name="chart_y_480">10sp</dimen>
+        <!-- Snackbar -->
+        <dimen name="snackbar_portrait_480dp">25sp</dimen>
+        <dimen name="snackbar_landscape_480dp">30sp</dimen>
+        <!-- List -->
+        <dimen name="list_item_portrait_480">22sp</dimen>
+        <dimen name="list_item_landscape_480">27sp</dimen>
+        <!-- Estadisticas action button -->
+        <dimen name="big_action_button_width_480dp">254dp</dimen>
+        <dimen name="big_action_button_height_480dp">89dp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_480dp">63dp</dimen>
+        <!-- Iconos grandes -->
+        <dimen name="big_icon_height_480dp">103dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_480dp">50dp</dimen>
+        <!-- Toolbar -->
+        <dimen name="toolbar_height_480dp">80dp</dimen>
+
+    <!-- Tamaños para pantallas de >=720dp -->
+    <dimen name="text_size_small_720dp">24sp</dimen>
+    <dimen name="text_size_medium_720dp">30sp</dimen>
+    <dimen name="text_size_large_720dp">45sp</dimen>
+        <!-- Spinners -->
+        <dimen name="dropdown_item_height_720">100dp</dimen>
+        <!-- List -->
+        <dimen name="list_height_720">100dp</dimen>
+        <dimen name="list_item_portrait_720">35sp</dimen>
+        <dimen name="list_item_landscape_720">45sp</dimen>
+        <!-- Graficas -->
+        <dimen name="chart_title_720">20sp</dimen>
+        <dimen name="chart_subtitle_720">15sp</dimen>
+        <dimen name="chart_x_720">10sp</dimen>
+        <dimen name="chart_y_720">14sp</dimen>
+        <!-- Snackbar -->
+        <dimen name="snackbar_portrait_720dp">30sp</dimen>
+        <dimen name="snackbar_landscape_720dp">35sp</dimen>
+        <!-- Estadisticas action button -->
+        <dimen name="big_action_button_width_720dp">397dp</dimen>
+        <dimen name="big_action_button_height_720dp">115dp</dimen>
+        <!-- Home button -->
+        <dimen name="home_height_720dp">68dp</dimen>
+        <!-- Lapiz button -->
+        <dimen name="big_icon_height_720dp">123dp</dimen>
+        <!-- Anotaciones icono -->
+        <dimen name="anotaciones_height_720dp">68dp</dimen>
+        <!-- Toolbar -->
+        <dimen name="toolbar_height_720dp">100dp</dimen>
+
+
 </resources>

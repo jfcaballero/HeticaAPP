@@ -4,64 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tiempoEstudio"
-    android:background="#24acc2">
+    android:background="#24acc2"
+    tools:context=".tiempoEstudio">
 
     <TextView
         android:id="@+id/textView52"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/String_tiempoEstudio"
         android:textColor="#FFFFFF"
-        android:textSize="45dp"
+        android:textSize="38sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/listView1"
+        app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="107dp"
         android:layout_height="57dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="208dp"
         android:ems="10"
         android:inputType="number"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/button47"
-        app:layout_constraintEnd_toStartOf="@+id/textView53" />
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView53"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="minutos"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/button47"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editText4"
+        app:layout_constraintTop_toTopOf="@+id/editText4"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button47"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="57dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:onClick="pasarOrgEst"
         android:text="@string/String_comenzar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <TextView
         android:id="@+id/textView54"
@@ -82,24 +84,35 @@
         android:layout_height="0dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/mi_color_de_barra"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editText4"
-        app:layout_constraintHorizontal_bias="0.247"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView52"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView55" />
 
     <TextView
         android:id="@+id/textView55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/String_click_asignatura"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView53"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/listView1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/listView1"
+        app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.64" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
